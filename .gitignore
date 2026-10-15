@@ -17,6 +17,7 @@
 # MLflow Tracking
 mlruns/
 mlartifacts/
+mlflow.db
 
 # Environment variables and credentials
 .env
