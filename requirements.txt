@@ -1,15 +1,19 @@
+
 ipython
+ipykernel==7.4.0
 jupyterlab
-loguru
-matplotlib
+loguru==0.7.3
+matplotlib==3.11.2
+mlflow==3.16.1
 notebook
-numpy
-pandas
+numpy==2.5.3
+pandas==3.0.6
 pip
+pyarrow==25.0.1
 pytest
 python-dotenv
 ruff
-scikit-learn
+scikit-learn==1.9.1
 tqdm
 typer
 -e .

@@ -228,3 +228,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# MLflow - SQLite y artefactos locales
+/mlflow.db
+/mlflow.db-*
+/mlruns/
+/mlartifacts/
+
+# Bases SQLite temporales del EDA
+*.sqlite
+*.sqlite3
