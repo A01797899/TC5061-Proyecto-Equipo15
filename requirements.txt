@@ -1,19 +1,17 @@
-
-ipython
+ipython==9.17.1
 ipykernel==7.4.0
-jupyterlab
+jupyterlab==4.6.4
 loguru==0.7.3
 matplotlib==3.11.2
 mlflow==3.16.1
-notebook
+notebook==7.6.3
 numpy==2.5.3
 pandas==3.0.6
-pip
 pyarrow==25.0.1
-pytest
-python-dotenv
-ruff
+pytest==9.1.1
+python-dotenv==1.2.4
+ruff==0.17.1
 scikit-learn==1.9.1
-tqdm
-typer
+tqdm==4.70.1
+typer==0.27.3
 -e .
