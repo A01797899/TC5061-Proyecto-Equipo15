@@ -6,6 +6,8 @@
 
 Proyecto MiBici - MLOps - Semana 5
 
+Integrante: José Luis Mendoza Mora (A01732182)
+
 ## Project Organization
 
 ```
