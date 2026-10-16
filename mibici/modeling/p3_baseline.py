@@ -21,6 +21,8 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import davies_bouldin_score, silhouette_score
 from sklearn.preprocessing import StandardScaler
 
+from mibici.features import hourly_usage_profiles
+
 
 def parse_args():
     p = argparse.ArgumentParser(description="Baseline P3: agrupamiento de estaciones MiBici")
@@ -76,10 +78,62 @@ def build_profiles(files: list[Path], chunk_size: int) -> tuple[pd.DataFrame, li
     expected = sum(x["viajes"] - x["fechas_invalidas"] - x["origen_vacio"] for x in months)
     if int(agg["salidas"].sum()) != expected:
         raise AssertionError("La suma de salidas agregadas no corresponde a los viajes válidos")
-    by_hour = agg.groupby(["estacion", "fin_de_semana", "hora"], observed=True)["salidas"].sum().unstack(["fin_de_semana", "hora"], fill_value=0)
-    cols = pd.MultiIndex.from_product([[False, True], range(24)], names=["fin_de_semana", "hora"])
-    by_hour = by_hour.reindex(columns=cols, fill_value=0)
-    by_hour.columns = [f"{'fs' if fs else 'lv'}_{hour:02d}" for fs, hour in by_hour.columns]
+    # Reutilizar la función común de feature engineering
+    aggregated_trips = agg.rename(
+        columns={
+            "estacion": "origen_id",
+            "fecha": "inicio_viaje",
+        }
+    ).copy()
+
+    aggregated_trips["inicio_viaje"] = (
+        pd.to_datetime(aggregated_trips["inicio_viaje"])
+        + pd.to_timedelta(aggregated_trips["hora"], unit="h")
+    )
+
+    hourly_profiles = hourly_usage_profiles(
+        aggregated_trips,
+        count_column="salidas",
+    )
+
+    hourly_profiles["tipo_dia"] = hourly_profiles[
+        "tipo_dia"
+    ].map({
+        "laboral": "lv",
+        "fin_semana": "fs",
+    })
+
+    hourly_profiles["columna"] = (
+        hourly_profiles["tipo_dia"]
+        + "_"
+        + hourly_profiles["hora_dia"].astype(str).str.zfill(2)
+    )
+
+    by_hour = hourly_profiles.pivot_table(
+        index="estacion_id",
+        columns="columna",
+        values="salidas",
+        aggfunc="sum",
+        fill_value=0,
+    )
+
+    columnas = [
+        f"{tipo}_{hora:02d}"
+        for tipo in ("lv", "fs")
+        for hora in range(24)
+    ]
+
+    by_hour = by_hour.reindex(columns=columnas, fill_value=0)
+
+    # Conservar nombres e índice esperados por P3
+    by_hour = by_hour.rename(
+        columns={
+            f"lv_{hora:02d}": f"lv_{hora:02d}"
+            for hora in range(24)
+        }
+    )
+
+    by_hour.index.name = "estacion"
     profiles = by_hour.join(agg.groupby("estacion")["salidas"].sum().rename("salidas_2024"))
     profiles = profiles.join(agg.groupby("estacion")["fecha"].nunique().rename("dias_con_salidas"))
     profiles["media_diaria_calendario"] = profiles["salidas_2024"] / 366

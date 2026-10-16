@@ -23,6 +23,12 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, average_precision_score
 
+from mibici.features import (
+    hourly_flow_balance,
+    proxy_risk_labels,
+    calendar_features,
+)
+
 EXPERIMENT = 'mibici-equipo15'
 COLS = ['viaje_id','usuario_id','genero','anio_nacimiento','inicio','fin','origen','destino']
 SPLITS = {'train':('2024-01-01','2024-09-01'), 'val':('2024-09-01','2024-11-01'), 'test':('2024-11-01','2025-01-01')}
@@ -85,18 +91,74 @@ def aggregate_flows(raw,chunk_size):
     counts[['salidas','llegadas']]=counts[['salidas','llegadas']].astype('int32')
     return counts, {'files':manifest,'invalid_dates':bad_dates,'missing_stations':missing_stations}
 
-def full_panel(observed,stations,start,end,capacity):
-    hours=pd.date_range(start,pd.Timestamp(end)-pd.Timedelta(hours=1),freq='h')
-    ix=pd.MultiIndex.from_product([stations,hours],names=['station','hour'])
-    observed_idx=observed.set_index(['station','hour'])[['salidas','llegadas']]
-    f=observed_idx.reindex(ix,fill_value=0).reset_index()
-    f[['salidas','llegadas']]=f[['salidas','llegadas']].astype('int32')
-    f['capacity']=f['station'].map(capacity).astype('int32')
-    f['balance']=f['llegadas']-f['salidas']
-    f['pressure']=f['balance'].abs()/f['capacity']
-    f['weekday']=f['hour'].dt.dayofweek.astype('int8')
-    f['hour_of_day']=f['hour'].dt.hour.astype('int8')
-    return f
+def full_panel(observed, stations, start, end, capacity):
+    """
+    Construye el panel horario completo de P2 reutilizando features.py.
+
+    Conserva las estaciones, intervalos temporales y columnas
+    utilizados originalmente por el baseline.
+    """
+    hours = pd.date_range(
+        start,
+        pd.Timestamp(end) - pd.Timedelta(hours=1),
+        freq="h",
+    )
+
+    grid = pd.MultiIndex.from_product(
+        [stations, hours],
+        names=["station", "hour"],
+    )
+
+    frame = (
+        observed.set_index(["station", "hour"])[
+            ["salidas", "llegadas"]
+        ]
+        .reindex(grid, fill_value=0)
+        .reset_index()
+    )
+
+    frame = frame.rename(
+        columns={
+            "station": "estacion_id",
+            "hour": "hora",
+        }
+    )
+
+    # Reutilizar cálculo de flujos
+    frame = hourly_flow_balance(
+        frame[["estacion_id", "hora", "salidas"]],
+        frame[["estacion_id", "hora", "llegadas"]],
+    )
+
+    # Relacionar capacidades
+    capacities = pd.DataFrame({
+        "estacion_id": capacity.index.astype(str),
+        "capacidad": capacity.to_numpy(),
+    })
+
+    # Reutilizar el cálculo de presión
+    # La etiqueta definitiva sigue asignándose en assign_label().
+    frame = proxy_risk_labels(
+        frame,
+        capacities,
+        threshold=0.25,
+    )
+
+    # Reutilizar características temporales
+    frame = calendar_features(frame)
+
+    return frame.rename(
+        columns={
+            "estacion_id": "station",
+            "hora": "hour",
+            "capacidad": "capacity",
+            "presion": "pressure",
+            "dia_semana": "weekday",
+            "hora_dia": "hour_of_day",
+        }
+    ).drop(
+        columns=["riesgo_proxy", "fin_semana"]
+    )
 
 def assign_label(frame,threshold):
     # El balance de la hora futura se utiliza SOLO para definir la etiqueta.
