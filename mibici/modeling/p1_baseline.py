@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import tempfile
 from pathlib import Path
@@ -20,6 +21,7 @@ import matplotlib.pyplot as plt
 import mlflow
 import numpy as np
 import pandas as pd
+from mibici.features import complete_hourly_panel
 
 TEAM_EXPERIMENT = "mibici-equipo15"
 COLS = ["viaje_id", "usuario_id", "genero", "anio_nacimiento", "inicio", "fin", "origen", "destino"]
@@ -81,15 +83,43 @@ def aggregate_monthly(raw: Path, chunk_size: int) -> tuple[pd.DataFrame, dict]:
     return observed, manifest
 
 
-def panel(observed: pd.DataFrame, stations: pd.Index, start: str, end: str) -> pd.DataFrame:
-    hours = pd.date_range(start, pd.Timestamp(end) - pd.Timedelta(hours=1), freq="h")
-    grid = pd.MultiIndex.from_product([stations, hours], names=["station", "hour"])
-    sparse = observed.set_index(["station", "hour"])["trips"]
-    frame = sparse.reindex(grid, fill_value=0).rename("y").reset_index()
-    frame["y"] = frame["y"].astype("int32")
-    frame["weekday"] = frame["hour"].dt.dayofweek.astype("int8")
-    frame["hour_of_day"] = frame["hour"].dt.hour.astype("int8")
-    return frame
+def panel(
+    observed: pd.DataFrame,
+    stations: pd.Index,
+    start: str,
+    end: str,
+) -> pd.DataFrame:
+    """
+    Construye el panel horario completo reutilizando
+    el módulo de feature engineering.
+
+    Conserva la interfaz y las columnas del baseline P1.
+    """
+
+    departures = observed.rename(
+        columns={
+            "station": "estacion_id",
+            "hour": "hora",
+            "trips": "salidas",
+        }
+    )
+
+    result = complete_hourly_panel(
+        departures=departures,
+        stations=stations,
+        start=start,
+        end=end,
+    )
+
+    return result.rename(
+        columns={
+            "estacion_id": "station",
+            "hora": "hour",
+            "salidas": "y",
+            "dia_semana": "weekday",
+            "hora_dia": "hour_of_day",
+        }
+    ).drop(columns=["fin_semana"])
 
 
 def metrics(y: np.ndarray, pred: np.ndarray) -> dict:
