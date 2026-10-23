@@ -1,0 +1,163 @@
+"""Búsqueda de hiperparámetros con nested runs, reutilizable por P1, P2 y P3.
+
+Arma una corrida padre por búsqueda y una corrida hija por combinación, con las
+etiquetas que el equipo usa para filtrar y comparar en la interfaz de MLflow.
+"""
+
+from __future__ import annotations
+
+import itertools
+import os
+import subprocess
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from typing import Any
+
+import mlflow
+
+from mibici.config import MLFLOW_EXPERIMENT, MLFLOW_TRACKING_URI, RANDOM_SEED
+
+EQUIPO = "15"
+ETAPA_BUSQUEDA = "search"
+
+
+def commit_actual() -> str:
+    proceso = subprocess.run(
+        ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False
+    )
+    return proceso.stdout.strip() if proceso.returncode == 0 else "unknown"
+
+
+def resolver_tracking_uri(uri: str | None = None) -> str:
+    return uri or os.getenv("MLFLOW_TRACKING_URI") or MLFLOW_TRACKING_URI
+
+
+def rejilla_a_combinaciones(
+    rejilla: Mapping[str, Sequence[Any]],
+) -> list[dict[str, Any]]:
+    claves = list(rejilla)
+    if not claves:
+        raise ValueError("La rejilla de búsqueda está vacía")
+    return [
+        dict(zip(claves, valores))
+        for valores in itertools.product(*(rejilla[clave] for clave in claves))
+    ]
+
+
+def _etiqueta_combinacion(parametros: Mapping[str, Any]) -> str:
+    return "_".join(f"{clave}={valor}" for clave, valor in parametros.items())
+
+
+def buscar(
+    pregunta: str,
+    familia_modelo: str,
+    rejilla: Mapping[str, Sequence[Any]] | Iterable[Mapping[str, Any]],
+    entrenar: Callable[[dict[str, Any]], tuple[Any, dict[str, float]]],
+    metrica_objetivo: str,
+    maximizar: bool = True,
+    nombre_busqueda: str | None = None,
+    tracking_uri: str | None = None,
+    experimento: str | None = None,
+    semilla: int = RANDOM_SEED,
+    tags_extra: Mapping[str, str] | None = None,
+    al_terminar_hijo: (
+        Callable[[Any, dict[str, Any], dict[str, float]], None] | None
+    ) = None,
+) -> dict[str, Any]:
+    """Ejecuta la búsqueda y devuelve el mejor resultado junto con el historial completo.
+
+    entrenar recibe un diccionario de parámetros y devuelve (modelo, métricas).
+    al_terminar_hijo se invoca dentro de la corrida hija para registrar artefactos.
+    """
+    combinaciones = (
+        rejilla_a_combinaciones(rejilla)
+        if isinstance(rejilla, Mapping)
+        else [dict(c) for c in rejilla]
+    )
+    if not combinaciones:
+        raise ValueError("No hay combinaciones que evaluar")
+
+    mlflow.set_tracking_uri(resolver_tracking_uri(tracking_uri))
+    mlflow.set_experiment(experimento or MLFLOW_EXPERIMENT)
+
+    etiquetas = {
+        "team": EQUIPO,
+        "question": pregunta,
+        "model_family": familia_modelo,
+        "stage_of_work": ETAPA_BUSQUEDA,
+        "git_commit": commit_actual(),
+    }
+    etiquetas.update(tags_extra or {})
+    nombre = nombre_busqueda or f"{pregunta.upper()}_search_{familia_modelo}"
+
+    padre_anidado = mlflow.active_run() is not None
+    historial: list[dict[str, Any]] = []
+    mejor: dict[str, Any] | None = None
+
+    with mlflow.start_run(run_name=nombre, nested=padre_anidado) as padre:
+        mlflow.set_tags(etiquetas)
+        mlflow.log_params(
+            {
+                "search_space_size": len(combinaciones),
+                "target_metric": metrica_objetivo,
+                "target_direction": "max" if maximizar else "min",
+                "seed": semilla,
+            }
+        )
+
+        for indice, parametros in enumerate(combinaciones, start=1):
+            nombre_hijo = f"{nombre}__{_etiqueta_combinacion(parametros)}"
+            with mlflow.start_run(run_name=nombre_hijo, nested=True) as hijo:
+                mlflow.set_tags(etiquetas)
+                mlflow.log_params({**parametros, "seed": semilla})
+                modelo, metricas = entrenar(parametros)
+                if metrica_objetivo not in metricas:
+                    raise KeyError(
+                        f"'{metrica_objetivo}' no viene en las métricas devueltas: {sorted(metricas)}"
+                    )
+                mlflow.log_metrics(
+                    {clave: float(valor) for clave, valor in metricas.items()}
+                )
+                if al_terminar_hijo is not None:
+                    al_terminar_hijo(modelo, parametros, metricas)
+                resultado = {
+                    "parametros": parametros,
+                    "metricas": metricas,
+                    "run_id": hijo.info.run_id,
+                    "run_name": nombre_hijo,
+                }
+            historial.append(resultado)
+            objetivo = float(metricas[metrica_objetivo])
+            print(
+                f"[{indice}/{len(combinaciones)}] {nombre_hijo}: {metrica_objetivo}={objetivo:.6f}"
+            )
+            if mejor is None:
+                mejor = resultado
+            else:
+                referencia = float(mejor["metricas"][metrica_objetivo])
+                if (objetivo > referencia) if maximizar else (objetivo < referencia):
+                    mejor = resultado
+
+        # Subo el ganador al padre para poder ordenar las búsquedas entre sí desde la tabla.
+        mlflow.log_params(
+            {f"best_{clave}": valor for clave, valor in mejor["parametros"].items()}
+        )
+        mlflow.log_metrics(
+            {
+                f"best_{clave}": float(valor)
+                for clave, valor in mejor["metricas"].items()
+            }
+        )
+        mlflow.set_tag("best_child_run_id", mejor["run_id"])
+        resumen = {
+            "parent_run_id": padre.info.run_id,
+            "best_run_id": mejor["run_id"],
+            "best_run_name": mejor["run_name"],
+            "best_params": mejor["parametros"],
+            "best_metrics": mejor["metricas"],
+            "history": historial,
+        }
+
+    print(
+        f"Mejor de {nombre}: {mejor['run_name']} ({metrica_objetivo}={float(mejor['metricas'][metrica_objetivo]):.6f})"
+    )
+    return resumen
