@@ -1,5 +1,7 @@
 """Configuración compartida de MiBici; no descargar/importar datos al importar."""
 
+import os
+
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -23,7 +25,10 @@ FECHA_INICIO = "2024-01-01"
 FECHA_FIN = "2024-12-31"
 FRECUENCIA_AGREGACION = "1h"
 UMBRAL_RIESGO_CAPACIDAD = 0.25  # proxy P2, no inventario real
-MLFLOW_TRACKING_URI = "sqlite:///mlflow.db"
+MLFLOW_TRACKING_URI = os.getenv(
+    "MLFLOW_TRACKING_URI",
+    "http://127.0.0.1:5000"
+)
 MLFLOW_EXPERIMENT = "mibici-equipo15"
 URL_BASE = "https://www.mibici.net/site/assets/files"
 # Referencias propuestas por Jorge (PR #1). Verificar accesibilidad/identidad de cada URL.
@@ -84,3 +89,12 @@ MANIFIESTO_DATOS = DATA_DIR / "manifiesto.json"
 DURACION_MIN_MINUTOS = 1
 DURACION_MAX_MINUTOS = 180
 EDAD_MIN, EDAD_MAX = 10, 90
+
+# Configuración para MLflow Project
+DEFAULT_N_ESTIMATORS = 300
+DEFAULT_MAX_DEPTH = None
+
+# Parámetros de P3
+P3_MIN_DEPARTURES = 100
+P3_K_MIN = 2
+P3_K_MAX = 8
