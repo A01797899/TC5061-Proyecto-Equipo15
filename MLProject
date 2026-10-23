@@ -1,0 +1,25 @@
+
+name: mibici-equipo15
+
+python_env: python_env.yaml
+
+entry_points:
+
+  ingest:
+    command: "python -m mibici.dataset"
+
+  train:
+    parameters:
+      question:
+        type: string
+      model:
+        type: string
+      n_estimators:
+        type: int
+        default: 0
+
+    command: >-
+      python -m mibici.modeling.train
+      --question {question}
+      --model {model}
+      --n-estimators {n_estimators}
