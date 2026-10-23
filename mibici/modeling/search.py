@@ -59,6 +59,7 @@ def buscar(
     experimento: str | None = None,
     semilla: int = RANDOM_SEED,
     tags_extra: Mapping[str, str] | None = None,
+    admisible: Callable[[dict[str, float]], bool] | None = None,
     al_terminar_hijo: (
         Callable[[Any, dict[str, Any], dict[str, float]], None] | None
     ) = None,
@@ -66,6 +67,8 @@ def buscar(
     """Ejecuta la búsqueda y devuelve el mejor resultado junto con el historial completo.
 
     entrenar recibe un diccionario de parámetros y devuelve (modelo, métricas).
+    admisible descarta del primer lugar las combinaciones que no cumplen una
+    restricción, sin dejar de registrarlas como evidencia.
     al_terminar_hijo se invoca dentro de la corrida hija para registrar artefactos.
     """
     combinaciones = (
@@ -92,6 +95,7 @@ def buscar(
     padre_anidado = mlflow.active_run() is not None
     historial: list[dict[str, Any]] = []
     mejor: dict[str, Any] | None = None
+    mejor_global: dict[str, Any] | None = None
 
     with mlflow.start_run(run_name=nombre, nested=padre_anidado) as padre:
         mlflow.set_tags(etiquetas)
@@ -117,6 +121,8 @@ def buscar(
                 mlflow.log_metrics(
                     {clave: float(valor) for clave, valor in metricas.items()}
                 )
+                es_admisible = admisible is None or bool(admisible(metricas))
+                mlflow.set_tag("admissible", str(es_admisible).lower())
                 if al_terminar_hijo is not None:
                     al_terminar_hijo(modelo, parametros, metricas)
                 resultado = {
@@ -124,18 +130,32 @@ def buscar(
                     "metricas": metricas,
                     "run_id": hijo.info.run_id,
                     "run_name": nombre_hijo,
+                    "admisible": es_admisible,
                 }
             historial.append(resultado)
             objetivo = float(metricas[metrica_objetivo])
+            marca = "" if es_admisible else "  (no admisible)"
             print(
-                f"[{indice}/{len(combinaciones)}] {nombre_hijo}: {metrica_objetivo}={objetivo:.6f}"
+                f"[{indice}/{len(combinaciones)}] {nombre_hijo}: {metrica_objetivo}={objetivo:.6f}{marca}"
             )
-            if mejor is None:
+
+            def _supera(actual: dict[str, Any] | None) -> bool:
+                if actual is None:
+                    return True
+                referencia = float(actual["metricas"][metrica_objetivo])
+                return (objetivo > referencia) if maximizar else (objetivo < referencia)
+
+            if _supera(mejor_global):
+                mejor_global = resultado
+            if es_admisible and _supera(mejor):
                 mejor = resultado
-            else:
-                referencia = float(mejor["metricas"][metrica_objetivo])
-                if (objetivo > referencia) if maximizar else (objetivo < referencia):
-                    mejor = resultado
+
+        admisibles = sum(1 for r in historial if r["admisible"])
+        if mejor is None:
+            print("Ninguna combinación cumplió la restricción; reporto el mejor global")
+            mejor = mejor_global
+        mlflow.log_params({"admissible_runs": admisibles})
+        mlflow.set_tag("admissible_winner", str(bool(mejor["admisible"])).lower())
 
         # Subo el ganador al padre para poder ordenar las búsquedas entre sí desde la tabla.
         mlflow.log_params(
@@ -154,6 +174,8 @@ def buscar(
             "best_run_name": mejor["run_name"],
             "best_params": mejor["parametros"],
             "best_metrics": mejor["metricas"],
+            "best_admissible": bool(mejor["admisible"]),
+            "admissible_runs": admisibles,
             "history": historial,
         }
 

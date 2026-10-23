@@ -23,6 +23,9 @@ from sklearn.preprocessing import StandardScaler
 from mibici.config import (
     INTERIM_DATA_DIR,
     MANIFIESTO_DATOS,
+    P3_K_MAX,
+    P3_K_MIN,
+    P3_MIN_DEPARTURES,
     RANDOM_SEED,
     RAW_DATA_DIR,
 )
@@ -41,10 +44,11 @@ def parse_args():
     p.add_argument("--tracking-uri", default=None)
     p.add_argument("--experiment", default=None)
     p.add_argument("--familias", nargs="+", choices=FAMILIAS, default=list(FAMILIAS))
-    p.add_argument("--min-departures", type=int, default=100)
+    p.add_argument("--min-departures", type=int, default=P3_MIN_DEPARTURES)
     p.add_argument("--chunk-size", type=int, default=100_000)
-    p.add_argument("--k-min", type=int, default=2)
-    p.add_argument("--k-max", type=int, default=8)
+    p.add_argument("--k-min", type=int, default=P3_K_MIN)
+    p.add_argument("--k-max", type=int, default=P3_K_MAX)
+    p.add_argument("--min-cluster-share", type=float, default=0.05)
     p.add_argument("--seed", type=int, default=RANDOM_SEED)
     p.add_argument("--recalcular", action="store_true")
     return p.parse_args()
@@ -175,6 +179,10 @@ def main():
     espacios = rejillas(args)
     resumenes = {}
 
+    def grupos_usables(metricas: dict[str, float]) -> bool:
+        """Descarto particiones que aíslan estaciones sueltas: no sirven para operar."""
+        return metricas["min_cluster_share"] >= args.min_cluster_share
+
     for familia in args.familias:
         print(f"\n=== Búsqueda {familia} ===")
         resumenes[familia] = buscar(
@@ -188,9 +196,18 @@ def main():
             experimento=args.experiment,
             semilla=args.seed,
             tags_extra=etiquetas_comunes,
+            admisible=grupos_usables,
         )
 
-    print("\n=== Mejor de cada familia ===")
+    descartadas = sum(
+        1 for r in resumenes.values() for h in r["history"] if not h["admisible"]
+    )
+    evaluadas = sum(len(r["history"]) for r in resumenes.values())
+    print(
+        f"\nCombinaciones evaluadas: {evaluadas}; descartadas por grupos menores "
+        f"al {args.min_cluster_share:.0%}: {descartadas}"
+    )
+    print("\n=== Mejor admisible de cada familia ===")
     filas = [
         {
             "familia": familia,
