@@ -161,6 +161,21 @@ def constructores(semilla: int) -> dict[str, Callable[[dict[str, Any]], Any]]:
     }
 
 
+def constructores_completos(semilla: int) -> dict[str, Callable[[dict[str, Any]], Pipeline]]:
+    """Meto el escalador dentro del modelo guardado para que sirva con features sin escalar."""
+    base = constructores(semilla)
+
+    def envolver(familia: str) -> Callable[[dict[str, Any]], Pipeline]:
+        def construir(parametros: dict[str, Any]) -> Pipeline:
+            modelo = base[familia](parametros)
+            pasos = list(modelo.steps) if isinstance(modelo, Pipeline) else [(familia, modelo)]
+            return Pipeline([("scaler", StandardScaler()), *pasos])
+
+        return construir
+
+    return {familia: envolver(familia) for familia in base}
+
+
 def rejillas(args) -> dict[str, dict[str, list]]:
     ks = list(range(args.k_min, args.k_max + 1))
     return {
@@ -260,7 +275,7 @@ def registrar_candidato(
     etiquetas_comunes: dict[str, str],
 ) -> dict[str, Any]:
     modelo = construir(parametros)
-    grupos = modelo.fit_predict(X)
+    grupos = modelo.fit_predict(features)
     metricas = evaluar(X, grupos)
 
     carpeta = (args.candidatos_dir / familia).resolve()
@@ -339,6 +354,7 @@ def main():
         "metric_space": "standardized_49d",
     }
     construir = constructores(args.seed)
+    completos = constructores_completos(args.seed)
     espacios = rejillas(args)
     resumenes = {}
 
@@ -392,7 +408,7 @@ def main():
         registrar_candidato(
             familia,
             resumen["best_params"],
-            construir[familia],
+            completos[familia],
             X,
             features,
             incluidas,
