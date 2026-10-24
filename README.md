@@ -546,6 +546,47 @@ Resultados en prueba (noviembre–diciembre 2024, versión de datos `7e1470ac063
 | `hgb` | `max_iter=300`, `learning_rate=0.1` | 0.22 | 0.3977 | 0.3053 | 0.4590 | 0.3667 | 0.3425 | 4.49 % | 12.22 % |
 | `logreg` | `C=1.0` | 0.82 | 0.3934 | 0.2945 | 0.4853 | 0.3666 | 0.3399 | 4.46 % | 11.36 % |
 
+### 9.3. Modelos candidatos P3 y búsqueda con corridas anidadas
+
+`mibici/modeling/search.py` implementa un mecanismo de búsqueda de hiperparámetros reutilizable por P1, P2 y P3: crea una corrida padre por búsqueda y una corrida hija por combinación, con las etiquetas `team`, `question`, `model_family`, `stage_of_work` y `git_commit`. `mibici/modeling/p3_search.py` lo usa para evaluar tres familias de agrupamiento sobre los mismos perfiles horarios del baseline.
+
+```bash
+.venv/bin/mlflow run . -e train \
+  -P question=p3 \
+  -P model=search \
+  --env-manager local
+```
+
+| Familia | `model_family` | Rejilla |
+|---|---|---|
+| Particional | `kmeans_pca` | K=2..8 × PCA de 5, 10 y 20 componentes |
+| Jerárquica | `jerarquico` | K=2..8 × `linkage` ward, average y complete |
+| Probabilística | `gmm_pca` | K=2..8 × PCA de 10 componentes × covarianza full, diag y tied |
+
+Los valores por defecto de `K` y del mínimo de salidas salen de `P3_K_MIN`, `P3_K_MAX` y `P3_MIN_DEPARTURES` en `config.py`. Las métricas se calculan **siempre sobre la misma matriz estandarizada de 49 dimensiones**, aunque el modelo agrupe en espacio PCA, para que la comparación contra el baseline sea válida (etiqueta `metric_space=standardized_49d`).
+
+**Criterio de admisibilidad.** El máximo global de Silhouette de toda la rejilla fue 0.526037, pero corresponde a aislar una sola estación —(GDL-279) Belen / Av. de los Maestros, con 100 salidas en todo 2024— en un grupo propio: un grupo de un punto tiene dispersión cero e infla la métrica. De las 63 combinaciones evaluadas, **34 producen grupos menores al 5 % de las estaciones**. Esas corridas se registran como evidencia con la etiqueta `admissible=false` y quedan excluidas del primer lugar; el parámetro `min_cluster_share` controla el umbral.
+
+Resultados (368 estaciones, 49 características, versión de datos `7e1470ac0632`):
+
+| Modelo | Hiperparámetros | Silhouette | Davies–Bouldin | Grupo más chico | Δ Silhouette |
+|---|---|---:|---:|---:|---:|
+| Baseline K-Means | K=2, 49 dimensiones | 0.127636 | 2.369866 | 177 (48.1 %) | — |
+| `kmeans_pca` | K=2, PCA 5 componentes | 0.127636 | 2.369866 | 177 (48.1 %) | 0.00 % |
+| `jerarquico` | K=2, `linkage=ward` | 0.106341 | 2.613176 | 173 (47.0 %) | −16.68 % |
+| `gmm_pca` | K=2, PCA 10, covarianza full | 0.132514 | 3.646119 | 114 (31.0 %) | +3.82 % |
+
+**Modelo seleccionado: `kmeans_pca`.** La ventaja aparente de `gmm_pca` no es reproducible: evaluado con cinco semillas promedia 0.126419 ± 0.012190 —por debajo del baseline— y su partición varía hasta ARI 0.51 respecto de sí misma. `kmeans_pca` tiene desviación estándar cero entre semillas, reproduce exactamente la partición del baseline (ARI 1.0000, grupos de 177 y 191) con 5 componentes en lugar de 49 dimensiones, y conserva la separación más nítida entre estaciones de salida matutina y vespertina, que es la que permite priorizar el rebalanceo por franja horaria.
+
+Cada corrida candidata (`stage_of_work=candidate`) registra:
+
+- Modelo con `log_model`, firma e `input_example`. El pipeline incluye el escalador (`scaler → pca → modelo`), por lo que recibe las características sin escalar.
+- `data/manifiesto.json`, la asignación de estaciones a grupos en CSV y `mlflow.log_input` del conjunto de entrenamiento.
+- `plots/`: mapa de estaciones por grupo, perfiles horarios por grupo y tamaño de cada grupo.
+- `config/`: parámetros exactos de la corrida, semilla, umbrales y commit.
+
+`AgglomerativeClustering` es transductivo y no expone `predict`, por lo que la candidata `jerarquico` se registra con firma pero sin `input_example` y lleva la etiqueta `supports_predict=false`.
+
 ## 10. Ingeniería de características y control de fuga temporal
 
 `mibici/features.py` centraliza funciones reutilizables:
