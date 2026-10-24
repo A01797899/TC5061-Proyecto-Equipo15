@@ -15,6 +15,7 @@ from mibici.config import (
     P3_MIN_DEPARTURES,
     P3_K_MIN,
     P3_K_MAX,
+    CANDIDATOS,
 )
 
 
@@ -49,6 +50,27 @@ def parse_args():
 
     parser.add_argument(
         "--n-estimators",
+        type=int,
+        default=0,
+        help="0 utiliza el valor predeterminado de config.py",
+    )
+
+    parser.add_argument(
+        "--max-depth",
+        type=int,
+        default=0,
+        help="0 utiliza el valor predeterminado de config.py",
+    )
+
+    parser.add_argument(
+        "--learning-rate",
+        type=float,
+        default=0.0,
+        help="0 utiliza el valor predeterminado de config.py",
+    )
+
+    parser.add_argument(
+        "--max-iter",
         type=int,
         default=0,
         help="0 utiliza el valor predeterminado de config.py",
@@ -172,6 +194,20 @@ def main():
 
     if args.model == "baseline":
         run_baseline(args.question, tracking_uri)
+        return
+
+    if args.model in CANDIDATOS.get(args.question, ()):
+        from mibici.modeling.p1_p2_candidates import run_candidate
+
+        run_candidate(
+            question=args.question,
+            model=args.model,
+            tracking_uri=tracking_uri,
+            n_estimators=args.n_estimators,
+            max_depth=args.max_depth,
+            learning_rate=args.learning_rate,
+            max_iter=args.max_iter,
+        )
         return
 
     if args.model == "search":

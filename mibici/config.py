@@ -98,3 +98,27 @@ DEFAULT_MAX_DEPTH = None
 P3_MIN_DEPARTURES = 100
 P3_K_MIN = 2
 P3_K_MAX = 8
+
+# Candidatos P1/P2
+CANDIDATOS = {
+    "p1": ("rf", "hgb"),
+    "p2": ("logreg", "rf", "hgb"),
+}
+HIPERPARAMETROS_CANDIDATOS = {
+    "rf": {
+        "n_estimators": DEFAULT_N_ESTIMATORS,
+        "max_depth": 12,
+        "min_samples_leaf": 20,
+        "max_samples": 0.25,
+    },
+    "hgb": {
+        "max_iter": 300,
+        "learning_rate": 0.1,
+        "max_depth": None,
+    },
+    "logreg": {
+        "C": 1.0,
+        "max_iter": 1000,
+    },
+}
+REZAGOS_CANDIDATOS = (1, 24, 168)

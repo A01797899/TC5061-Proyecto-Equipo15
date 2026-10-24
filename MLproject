@@ -17,9 +17,21 @@ entry_points:
       n_estimators:
         type: int
         default: 0
+      max_depth:
+        type: int
+        default: 0
+      learning_rate:
+        type: float
+        default: 0.0
+      max_iter:
+        type: int
+        default: 0
 
     command: >-
       python -m mibici.modeling.train
       --question {question}
       --model {model}
       --n-estimators {n_estimators}
+      --max-depth {max_depth}
+      --learning-rate {learning_rate}
+      --max-iter {max_iter}
