@@ -485,6 +485,67 @@ Además de las pruebas locales, se validó **P1** mediante:
 
 **Resultado observado:** `Run (...) succeeded`, MAE/RMSE idénticos a la tabla de P1. P2 y P3 **no se han documentado como validados bajo `--env-manager virtualenv`**; se validaron bajo `local`.
 
+### 9.2. Modelos candidatos P1 y P2
+
+`mibici/modeling/p1_p2_candidates.py` entrena los candidatos supervisados con la misma partición temporal, las mismas estaciones y las mismas métricas de los baselines. `train` acepta los siguientes modelos:
+
+| Pregunta | `model` | Algoritmo |
+|---|---|---|
+| P1 | `rf` | `RandomForestRegressor` |
+| P1 | `hgb` | `HistGradientBoostingRegressor` |
+| P2 | `logreg` | `StandardScaler` + `LogisticRegression(class_weight="balanced")` |
+| P2 | `rf` | `RandomForestClassifier` |
+| P2 | `hgb` | `HistGradientBoostingClassifier` |
+
+Los hiperparámetros por defecto están en `HIPERPARAMETROS_CANDIDATOS` de `config.py`. Los parámetros `n_estimators`, `max_depth`, `learning_rate` y `max_iter` del MLproject los reemplazan cuando son distintos de 0.
+
+Características (solo información anterior a la hora objetivo):
+
+- P1: `hour_of_day`, `weekday`, `fin_semana`, rezagos de salidas a 1, 24 y 168 horas, y promedios de train por estación y por estación-día-hora.
+- P2: las de calendario, `capacity`, rezagos de salidas, llegadas y presión a 1, 24 y 168 horas, y probabilidad histórica de train por estación y por estación-día-hora.
+- Las primeras 168 horas de train se excluyen por falta de historia para los rezagos.
+- En P2, el umbral de probabilidad se elige con el mejor F1 en validación, igual que en el baseline.
+
+Comandos ejecutados (servidor activo y `MLFLOW_TRACKING_URI` exportada):
+
+```bash
+.venv/bin/mlflow run . -e train -P question=p1 -P model=hgb --env-manager local
+.venv/bin/mlflow run . -e train -P question=p1 -P model=rf --env-manager local
+.venv/bin/mlflow run . -e train -P question=p1 -P model=rf -P n_estimators=150 -P max_depth=8 --env-manager local
+.venv/bin/mlflow run . -e train -P question=p2 -P model=logreg --env-manager local
+.venv/bin/mlflow run . -e train -P question=p2 -P model=hgb --env-manager local
+.venv/bin/mlflow run . -e train -P question=p2 -P model=rf --env-manager local
+```
+
+Cada corrida candidata registra:
+
+- Modelo con `log_model`, firma e `input_example`.
+- `data/manifiesto.json`, `data/csv_manifest.json` y `mlflow.log_input` de train, validación y prueba con la versión de datos en el nombre.
+- `plots/`: real contra predicho y residuales (P1); matriz de confusión y curva precisión-recall (P2).
+- `config/`: `MLproject`, `python_env.yaml`, `config.py` y `run_params.json`.
+- `metrics/metrics.json` y las métricas `baseline_test_*` y `test_*_mejora_pct`, calculadas sobre el mismo conjunto de prueba.
+- Etiquetas `team`, `question`, `model_family`, `stage_of_work=candidate`, `git_commit`, `data_version` y `dataset`.
+
+Resultados en prueba (noviembre–diciembre 2024, versión de datos `7e1470ac0632`):
+
+**P1 — Regresión**
+
+| Modelo | Hiperparámetros | MAE val | MAE test | RMSE test | Mejora MAE | Mejora RMSE |
+|---|---|---|---|---|---|---|
+| Baseline estación-día-hora | — | 0.8544 | 0.8556 | 1.4635 | — | — |
+| `hgb` | `max_iter=300`, `learning_rate=0.1` | 0.8396 | **0.8279** | **1.3930** | 3.23 % | 4.82 % |
+| `rf` | `n_estimators=300`, `max_depth=12` | 0.8405 | 0.8297 | 1.4003 | 3.02 % | 4.32 % |
+| `rf` | `n_estimators=150`, `max_depth=8` | 0.8450 | 0.8376 | 1.4142 | 2.10 % | 3.37 % |
+
+**P2 — Clasificación de riesgo proxy**
+
+| Modelo | Hiperparámetros | Umbral | F1 val | Precision test | Recall test | F1 test | AP test | Mejora F1 | Mejora AP |
+|---|---|---|---|---|---|---|---|---|---|
+| Baseline histórico | — | 0.21 | 0.3861 | 0.2851 | 0.4563 | 0.3509 | 0.3052 | — | — |
+| `rf` | `n_estimators=300`, `max_depth=12` | 0.21 | 0.3977 | 0.3013 | 0.4801 | **0.3702** | **0.3510** | 5.49 % | 14.99 % |
+| `hgb` | `max_iter=300`, `learning_rate=0.1` | 0.22 | 0.3977 | 0.3053 | 0.4590 | 0.3667 | 0.3425 | 4.49 % | 12.22 % |
+| `logreg` | `C=1.0` | 0.82 | 0.3934 | 0.2945 | 0.4853 | 0.3666 | 0.3399 | 4.46 % | 11.36 % |
+
 ## 10. Ingeniería de características y control de fuga temporal
 
 `mibici/features.py` centraliza funciones reutilizables:
