@@ -291,8 +291,9 @@ def run_candidate(
     os.environ.pop("MLFLOW_RUN_ID", None)
     mlflow.set_tracking_uri(tracking_uri)
     mlflow.set_experiment(MLFLOW_EXPERIMENT)
-    titulo = f"{model} {json.dumps(hp)}"
-    run_name = f"{question.upper()}_candidate_{model}"
+    titulo = model
+    clave_hp = "_".join(f"{k}={v}" for k, v in hp.items() if k in ("n_estimators", "max_depth", "max_iter", "learning_rate", "C"))
+    run_name = f"{question.upper()}_candidate_{model}_{clave_hp}"
 
     with tempfile.TemporaryDirectory(prefix=f"mibici_{question}_") as tmp, mlflow.start_run(run_name=run_name) as run:
         carpeta = Path(tmp)
