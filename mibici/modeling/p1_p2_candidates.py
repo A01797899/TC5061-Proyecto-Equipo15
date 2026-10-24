@@ -64,7 +64,7 @@ FAMILIAS = {
 CALENDARIO = ["hour_of_day", "weekday", "fin_semana"]
 UMBRALES_BASELINE = np.round(np.linspace(0.01, 0.50, 50), 4)
 UMBRALES_CANDIDATO = np.round(np.linspace(0.01, 0.99, 99), 4)
-ARCHIVOS_CONFIG = ["MLProject", "python_env.yaml", "mibici/config.py"]
+ARCHIVOS_CONFIG = ["MLproject", "python_env.yaml", "mibici/config.py"]
 
 
 def resolver_hiperparametros(model: str, **valores) -> dict:

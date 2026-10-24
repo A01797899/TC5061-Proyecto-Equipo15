@@ -522,7 +522,7 @@ Cada corrida candidata registra:
 - Modelo con `log_model`, firma e `input_example`.
 - `data/manifiesto.json`, `data/csv_manifest.json` y `mlflow.log_input` de train, validación y prueba con la versión de datos en el nombre.
 - `plots/`: real contra predicho y residuales (P1); matriz de confusión y curva precisión-recall (P2).
-- `config/`: `MLProject`, `python_env.yaml`, `config.py` y `run_params.json`.
+- `config/`: `MLproject`, `python_env.yaml`, `config.py` y `run_params.json`.
 - `metrics/metrics.json` y las métricas `baseline_test_*` y `test_*_mejora_pct`, calculadas sobre el mismo conjunto de prueba.
 - Etiquetas `team`, `question`, `model_family`, `stage_of_work=candidate`, `git_commit`, `data_version` y `dataset`.
 
