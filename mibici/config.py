@@ -122,3 +122,20 @@ HIPERPARAMETROS_CANDIDATOS = {
     },
 }
 REZAGOS_CANDIDATOS = (1, 24, 168)
+
+# ============================================================
+# MLflow Model Registry - Semana 6
+# ============================================================
+
+# Nombres oficiales de los modelos registrados del Equipo 15.
+REGISTERED_MODELS = {
+    "p1": "mibici-equipo15-p1-demanda",
+    "p2": "mibici-equipo15-p2-riesgo",
+    "p3": "mibici-equipo15-p3-grupos",
+}
+
+# Alias del modelo seleccionado para producción.
+MODEL_PRODUCTION_ALIAS = "champion"
+
+# Alias opcional para versiones candidatas.
+MODEL_CHALLENGER_ALIAS = "challenger"

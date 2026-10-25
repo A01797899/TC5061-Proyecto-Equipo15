@@ -209,49 +209,49 @@ def test_register_does_not_assign_champion(
     client.set_registered_model_alias.assert_not_called()
 
 
-# ============================================================
-# 6. Verificación del URI por alias
-# ============================================================
+def test_load_champion_p1(monkeypatch):
+    """Valida la carga de champion sin descargar modelos reales."""
 
-@patch(
-    "mibici.modeling.validate_registry.mlflow.pyfunc.load_model"
-)
-@patch(
-    "mibici.modeling.validate_registry.MlflowClient"
-)
-@patch(
-    "mibici.modeling.validate_registry.mlflow.set_registry_uri"
-)
-@patch(
-    "mibici.modeling.validate_registry.mlflow.set_tracking_uri"
-)
-def test_load_champion_p1(
-    mock_tracking,
-    mock_registry_uri,
-    mock_client_class,
-    mock_load,
-):
-    """Verifica la carga de un champion mediante su URI."""
+    from unittest.mock import MagicMock
+    from mibici.modeling import validate_registry as validator
 
-    from mibici.modeling.validate_registry import (
-        validate_registered_model,
+    mock_client = MagicMock()
+
+    mock_client.get_model_version_by_alias.return_value.version = "1"
+    mock_client.get_model_version_by_alias.return_value.run_id = "run-001"
+
+    monkeypatch.setattr(
+        validator,
+        "MlflowClient",
+        lambda: mock_client,
     )
 
-    client = mock_client_class.return_value
-    client.get_model_version_by_alias.return_value.version = "1"
-    client.get_model_version_by_alias.return_value.run_id = "run-001"
+    monkeypatch.setattr(
+        validator.mlflow,
+        "set_tracking_uri",
+        lambda uri: None,
+    )
+
+    monkeypatch.setattr(
+        validator.mlflow,
+        "set_registry_uri",
+        lambda uri: None,
+    )
 
     expected_model = MagicMock()
-    mock_load.return_value = expected_model
+    mock_loader = MagicMock(return_value=expected_model)
 
-    result = validate_registered_model("p1")
+    result = validator.validate_registered_model(
+        "p1",
+        model_loader=mock_loader,
+    )
 
-    client.get_model_version_by_alias.assert_called_once_with(
+    mock_client.get_model_version_by_alias.assert_called_once_with(
         name="mibici-equipo15-p1-demanda",
         alias="champion",
     )
 
-    mock_load.assert_called_once_with(
+    mock_loader.assert_called_once_with(
         "models:/mibici-equipo15-p1-demanda@champion"
     )
 
