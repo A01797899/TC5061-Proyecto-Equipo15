@@ -42,18 +42,6 @@ cd TC5061-Proyecto-Equipo15
 git status
 ```
 
-Para desarrollar la Parte A desde un clon ya existente (realizar esto solamente si no se ha creado la rama):
-
-```bash
-git status --short            # Comprobar que no hay cambios pendientes
-git checkout main
-git pull origin main
-git checkout -b feature/A01797899-mlflow-project
-git push -u origin feature/A01797899-mlflow-project
-```
-
-Si la rama ya existe, utilizar `git switch feature/A01797899-mlflow-project`; no repetir `git checkout -b`.
-
 > En un clon limpio de `main` anterior a la integración del PR de Semana 6, los archivos `MLproject` y `python_env.yaml` todavía no estarán disponibles. Para reproducir la Parte A, utilizar la rama que contenga esos cambios o `main` una vez fusionado el PR.
 
 ## 4. Preparación de Python y virtualenv local en macOS
