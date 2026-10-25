@@ -8,7 +8,7 @@
 **Datos:** viajes de MiBici, enero–diciembre de 2024
 **Versiones utilizadas en la prueba:** Python 3.12.15 y MLflow 3.16.1.
 
-> Este README integra la base de la Semana 5 con la implementación **Parte A — MLflow Project y reproducibilidad** de la Semana 6. Los pasos de ingesta y los tres baselines se validaron con `--env-manager local`; además, la ingesta y P1 se validaron con `--env-manager virtualenv`. La integración de modelos candidatos, búsquedas avanzadas y Model Registry corresponde a otras actividades y **no debe darse por finalizada** con esta guía.
+>Esta guía documenta la ejecución reproducible del proyecto MiBici para la Semana 6, desde la preparación del entorno y la ingesta hasta las búsquedas anidadas, la selección de modelos y su registro en MLflow Model Registry. Incluye las pruebas automatizadas, la validación de firmas y la inferencia mediante el alias champion.
 
 ## 1. Descripción, objetivos y alcance
 
@@ -81,26 +81,6 @@ Verificar **directamente el Python del entorno**:
 .venv/bin/python --version
 .venv/bin/python -m pip --version
 ```
-
-### 4.1. Solucionar el alias `python=python3.13` de zsh
-
-En la sesión de desarrollo se observó que `which python` mostraba un alias a Python 3.13, aunque `.venv` estuviera activado. Revisar:
-
-```bash
-alias python
-command -v python
-.venv/bin/python --version
-```
-
-Si el alias existe, desactivarlo **solo para la terminal actual**:
-
-```bash
-unalias python
-python --version
-which python
-```
-
-La ruta de `which python` debe terminar en `.venv/bin/python` y la versión debe ser 3.12.15. También puede evitarse completamente el alias usando `.venv/bin/python`.
 
 ### 4.2. Instalar dependencias
 
@@ -268,35 +248,57 @@ Si Windows redirige `python` a Microsoft Store, revisar **Settings > Apps > Adva
 
 ```text
 TC5061-Proyecto-Equipo15/
-├── MLproject                         # NUEVO: puntos de entrada ingest/train
-├── python_env.yaml                   # NUEVO: entorno Python fijado
-├── requirements.txt
-├── pyproject.toml
-├── README.md
-├── .gitignore
+├── MLproject                       # Entradas ingest y train de MLflow
+├── python_env.yaml                 # Configuración del entorno Python
+├── requirements.txt                # Dependencias del proyecto
+├── pyproject.toml                   # Configuración y herramientas de pruebas
+├── README.md                       # Documentación y ejecución reproducible
+├── .gitignore                      # Exclusiones de Git
+│
 ├── data/
-│   ├── raw/                         # CSV de 2024, NO versionados
-│   ├── processed/                   # Parquet, NO versionados
-│   └── manifiesto.json               # Metadatos y hashes SHA-256
+│   ├── raw/                        # Archivos CSV originales de MiBici 2024
+│   ├── processed/                  # Datos procesados en formato Parquet
+│   └── manifiesto.json             # Metadatos y hashes SHA-256
+│
 ├── mibici/
-│   ├── config.py                     # Fechas, rutas, semilla y Tracking URI
-│   ├── dataset.py                    # Ingesta
-│   ├── features.py                   # Transformaciones reutilizables
+│   ├── config.py                   # Configuración, rutas y tracking URI
+│   ├── dataset.py                  # Descarga e ingesta de datos
+│   ├── features.py                 # Ingeniería de características
+│   │
 │   └── modeling/
-│       ├── train.py                  # NUEVO orquestador parametrizado
-│       ├── p1_baseline.py
-│       ├── p2_baseline.py
-│       └── p3_baseline.py
+│       ├── train.py                # Orquestador parametrizado P1/P2/P3
+│       ├── p1_baseline.py          # Baseline de predicción de demanda
+│       ├── p2_baseline.py          # Baseline de clasificación de riesgo
+│       ├── p3_baseline.py          # Baseline de agrupamiento de estaciones
+│       ├── p1_p2_candidates.py     # Entrenamiento de candidatos P1/P2
+│       ├── p1_p2_search.py         # Búsquedas anidadas P1/P2
+│       ├── p3_search.py            # Búsquedas y candidatos P3
+│       ├── search.py               # Funciones auxiliares de búsqueda
+│       ├── registry.py             # Operaciones de Model Registry
+│       └── validate_registry.py    # Validación de modelos registrados
+│
 ├── tests/
-├── notebooks/
-├── references/
-├── reports/figures/
-└── models/
+│   ├── test_dataset.py             # Pruebas de ingesta
+│   ├── test_features.py            # Pruebas de ingeniería de características
+│   ├── test_p1_p2_search.py        # Pruebas de nested runs P1/P2
+│   └── test_registry.py            # Pruebas de Model Registry
+│
+├── notebooks/                      # Análisis exploratorio
+├── references/                     # Referencias y documentación
+├── reports/
+│   ├── figures/                    # Figuras y resultados
+│   └── evidence/                   # Capturas para el reporte
+│
+└── models/                          # Artefactos locales de modelos
 ```
 
-`MLproject` declara `ingest`, que ejecuta `mibici.dataset`, y `train`, que recibe `question`, `model` y `n_estimators`. En la implementación de la Parte A, `model=baseline` está conectado a las tres implementaciones existentes; los valores nuevos de `model` (como `rf`) **no se consideran disponibles** hasta que se integren las ramas de experimentación. El valor `n_estimators=0` indica al orquestador que resuelva el valor predeterminado desde `mibici/config.py` y no se utiliza en el entrenamiento baseline.
+El archivo `MLproject` define los puntos de entrada `ingest` y `train`. El primero ejecuta la ingesta de datos mediante `mibici.dataset`, mientras que el segundo utiliza `mibici.modeling.train` como orquestador parametrizado de los experimentos.
 
-`config.py` mantiene el experimento `mibici-equipo15`, la semilla `42`, rutas de datos y las fechas de partición. Para P1/P2: entrenamiento enero–agosto 2024, validación septiembre–octubre, prueba noviembre–diciembre.
+Para P1 y P2, el proyecto permite ejecutar baselines, entrenar modelos candidatos y realizar búsquedas de hiperparámetros utilizando corridas anidadas (*nested runs*) en MLflow. Para P3 se implementan búsquedas de configuraciones de K-Means, agrupamiento jerárquico y Gaussian Mixture Model.
+
+Los módulos `registry.py` y `validate_registry.py` proporcionan funcionalidades relacionadas con el registro y la validación de modelos en MLflow Model Registry.
+
+Los resultados se registran en el experimento `mibici-equipo15`, permitiendo consultar métricas, parámetros, artefactos, corridas padre e hijas y modelos registrados.
 
 ## 7. Tracking Server SQLite: respaldar, iniciar y validar
 
@@ -319,339 +321,666 @@ sqlite3 ../mlflow-backup/mlflow-semana5.db 'PRAGMA integrity_check;'
 
 ### 7.2. Arrancar MLflow Server (terminal A)
 
-Abrir una terminal en la raíz del proyecto:
+Abrir una terminal desde la raíz del proyecto y activar el entorno virtual:
 
 ```bash
 source .venv/bin/activate
+```
+
+Iniciar el servidor de MLflow:
+
+```bash
 .venv/bin/mlflow server \
   --backend-store-uri sqlite:///mlflow.db \
+  --serve-artifacts \
+  --artifacts-destination ./mlflow-artifacts \
   --host 127.0.0.1 \
   --port 5000
 ```
 
-Mantener abierta la terminal mientras se ejecutan los experimentos. El directorio de trabajo importa para resolver `sqlite:///mlflow.db`: ejecutar siempre desde la raíz del repositorio. Si el archivo no existe, MLflow puede crear una base nueva y los baselines previos no aparecerán.
+Este comando inicia un servidor MLflow local que utiliza:
 
-Abrir http://127.0.0.1:5000 en el navegador.
+- **Backend Store:** `mlflow.db`, una base de datos SQLite para almacenar experimentos, corridas, métricas, parámetros y metadatos del Model Registry.
+- **Artifact Store:** `mlflow-artifacts/`, directorio para almacenar modelos y otros artefactos generados durante las ejecuciones.
+- **Host:** `127.0.0.1`, accesible únicamente desde la computadora local.
+- **Puerto:** `5000`, utilizado por el servidor de MLflow.
 
-### 7.3. Configurar cliente (terminal B)
+La base de datos y los artefactos se mantienen dentro del directorio del proyecto. Si no existen, MLflow los inicializará al comenzar a trabajar.
 
-En una segunda terminal, desde la misma raíz:
+**Importante:** ejecutar el servidor desde la raíz del repositorio para conservar las rutas relativas y mantener abierta esta terminal durante las ejecuciones.
+
+Acceder a la interfaz gráfica desde:
+
+http://127.0.0.1:5000
+
+### 7.3. Configurar cliente MLflow (terminal B)
+
+Abrir una segunda terminal desde la raíz del mismo proyecto.
+
+Activar el entorno virtual:
 
 ```bash
 source .venv/bin/activate
+```
+
+Configurar la dirección del servidor MLflow:
+
+```bash
 export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+```
+
+Verificar la configuración:
+
+```bash
 echo "$MLFLOW_TRACKING_URI"
-.venv/bin/python -c 'import mlflow; print(mlflow.get_tracking_uri())'
+
+.venv/bin/python -c "import mlflow; print(mlflow.get_tracking_uri())"
+
 curl -I http://127.0.0.1:5000
 ```
 
-Se verificó respuesta `HTTP/1.1 200 OK` del servidor. Mostrar la URI con Python solo confirma la configuración de cliente; la llamada `curl` comprueba la accesibilidad HTTP.
+**Resultado esperado:**
+
+```text
+http://127.0.0.1:5000
+http://127.0.0.1:5000
+HTTP/1.1 200 OK
+```
+
+Esta configuración permite que los comandos de MLflow Projects y los scripts de Python registren sus experimentos en el servidor local.
+
+Para ejecutar las actividades de Semana 6 se utilizará `--env-manager virtualenv`, de manera que MLflow gestione un entorno aislado conforme a la configuración del proyecto.
+
+Mantener la terminal A ejecutando el servidor mientras se realizan los experimentos desde la terminal B.
 
 ### 7.4. Comprobar experimento y corridas
+
+Orden de ejecución: este script se utiliza después de completar las búsquedas de modelos documentadas en el apartado 9.3. No debe ejecutarse inmediatamente después de iniciar el servidor MLflow en una instalación nueva.
+
+Después de ejecutar la ingesta, los baselines y las búsquedas de modelos, verificar que los resultados estén registrados correctamente en el servidor MLflow.
+
+Desde la terminal B, ejecutar:
 
 ```bash
 .venv/bin/python - <<'PY'
 from mlflow import MlflowClient
+
 client = MlflowClient()
-for exp in client.search_experiments():
-    print(exp.experiment_id, exp.name)
-exp = client.get_experiment_by_name('mibici-equipo15')
-if exp is None:
-    raise SystemExit('No se encontró mibici-equipo15: revisar backend SQLite del servidor')
-for run in client.search_runs([exp.experiment_id], max_results=100):
-    print(run.info.run_id, run.info.status, run.data.tags.get('mlflow.runName'))
+
+experiment = client.get_experiment_by_name("mibici-equipo15")
+
+if experiment is None:
+    raise SystemExit(
+        "No se encontró el experimento mibici-equipo15. "
+        "Ejecutar primero los entrenamientos."
+    )
+
+runs = client.search_runs(
+    experiment_ids=[experiment.experiment_id],
+    max_results=5000,
+)
+
+print("=" * 65)
+print("VALIDACION DE EXPERIMENTOS Y CORRIDAS - MIBICI")
+print("=" * 65)
+
+print("Experimento:", experiment.name)
+print("Experiment ID:", experiment.experiment_id)
+print("Total de corridas:", len(runs))
+
+for question in ("P1", "P2"):
+    parent_name = f"{question}_search_candidates"
+
+    parents = [
+        r for r in runs
+        if r.data.tags.get("mlflow.runName") == parent_name
+    ]
+
+    assert parents, f"No se encontró {parent_name}"
+
+    parent = max(parents, key=lambda r: r.info.start_time)
+
+    children = [
+        r for r in runs
+        if r.data.tags.get("mlflow.parentRunId")
+        == parent.info.run_id
+    ]
+
+    print(f"\n=== {question} ===")
+    print("Padre:", parent_name)
+    print("Estado:", parent.info.status)
+    print("Corridas hijas:", len(children))
+
+    for child in children:
+        print(
+            child.data.tags.get("mlflow.runName"),
+            "|", child.info.status,
+        )
+
+    assert parent.info.status == "FINISHED"
+    assert len(children) == 3
+    assert all(c.info.status == "FINISHED" for c in children)
+
+print("\nVALIDACION DE NESTED RUNS P1/P2 COMPLETADA")
 PY
 ```
 
-La base utilizada durante las validaciones incluyó los cinco nombres de baselines de la Semana 5 y algunas corridas repetidas de reproducción. Todos los baselines mostrados estaban en estado `FINISHED`.
+**Resultado esperado:**
+
+- Experimento `mibici-equipo15` disponible.
+- Corrida padre `P1_search_candidates` con tres corridas hijas.
+- Corrida padre `P2_search_candidates` con tres corridas hijas.
+- Todas las corridas verificadas en estado `FINISHED`.
+
+Las búsquedas de P3 también generan corridas anidadas para K-Means, agrupamiento jerárquico y GMM. Su verificación se documenta en el apartado correspondiente a la búsqueda de hiperparámetros de P3.
+
+Esta comprobación debe realizarse **después de ejecutar los entrenamientos y las búsquedas**, ya que en una instalación nueva inicialmente no existirán corridas registradas.
+
+Los resultados pueden consultarse visualmente desde la interfaz de MLflow en:
+
+http://127.0.0.1:5000
+
+### 7.5. Validar las corridas anidadas de P3
+
+Orden de ejecución: este script se utiliza después de completar las búsquedas de modelos documentadas en el apartado 9.3. No debe ejecutarse inmediatamente después de iniciar el servidor MLflow en una instalación nueva.
+
+Para P3 (agrupamiento de estaciones), MLflow registra las búsquedas de hiperparámetros de tres familias de algoritmos:
+
+- **K-Means + PCA:** 21 combinaciones.
+- **Agrupamiento jerárquico:** 21 combinaciones.
+- **Gaussian Mixture Model (GMM) + PCA:** 21 combinaciones.
+
+En total se ejecutan **63 combinaciones**, organizadas en tres corridas padre y sus respectivas corridas hijas (*nested runs*).
+
+Después de ejecutar la búsqueda de P3, verificar la estructura de las corridas mediante la API de MLflow:
+
+```bash
+.venv/bin/python - <<'PY'
+from mlflow import MlflowClient
+
+client = MlflowClient()
+
+experiment = client.get_experiment_by_name("mibici-equipo15")
+
+assert experiment is not None, (
+    "No se encontró el experimento mibici-equipo15"
+)
+
+runs = client.search_runs(
+    experiment_ids=[experiment.experiment_id],
+    max_results=5000,
+)
+
+families = {
+    "K-Means + PCA": "P3_search_kmeans_pca",
+    "Jerárquico": "P3_search_jerarquico",
+    "GMM + PCA": "P3_search_gmm_pca",
+}
+
+print("=" * 70)
+print("VALIDACION DE NESTED RUNS P3 - MIBICI EQUIPO 15")
+print("=" * 70)
+
+total_children = 0
+
+for family, parent_name in families.items():
+
+    parents = [
+        run for run in runs
+        if run.data.tags.get("mlflow.runName") == parent_name
+    ]
+
+    assert parents, (
+        f"No se encontró la corrida padre: {parent_name}"
+    )
+
+    parent = max(
+        parents,
+        key=lambda run: run.info.start_time
+    )
+
+    children = [
+        run for run in runs
+        if run.data.tags.get("mlflow.parentRunId")
+        == parent.info.run_id
+    ]
+
+    print(f"\n=== {family} ===")
+    print("Padre:", parent_name)
+    print("Run ID:", parent.info.run_id)
+    print("Estado:", parent.info.status)
+    print("Corridas hijas:", len(children))
+
+    for child in children:
+        print(
+            child.data.tags.get("mlflow.runName"),
+            "|", child.info.status,
+        )
+
+    assert parent.info.status == "FINISHED", (
+        f"{family}: corrida padre no finalizada"
+    )
+
+    assert len(children) == 21, (
+        f"{family}: se esperaban 21 corridas hijas"
+    )
+
+    assert all(
+        child.info.status == "FINISHED"
+        for child in children
+    ), f"{family}: existen corridas hijas no finalizadas"
+
+    total_children += len(children)
+
+print("\n" + "=" * 70)
+print("RESUMEN DE VALIDACION P3")
+print("=" * 70)
+
+print("Familias verificadas:", len(families))
+print("Total de corridas hijas:", total_children)
+
+assert total_children == 63, (
+    "El total de corridas hijas debe ser 63"
+)
+
+print("\nVALIDACION DE NESTED RUNS P3 COMPLETADA")
+PY
+```
+
+**Resultado esperado:**
+
+| Familia | Corridas padre | Corridas hijas | Estado esperado |
+|---|---:|---:|---|
+| K-Means + PCA | 1 | 21 | FINISHED |
+| Jerárquico | 1 | 21 | FINISHED |
+| GMM + PCA | 1 | 21 | FINISHED |
+| **Total** | **3** | **63** | **FINISHED** |
+
+Al terminar correctamente, el script mostrará:
+
+```text
+RESUMEN DE VALIDACION P3
+======================================================================
+Familias verificadas: 3
+Total de corridas hijas: 63
+
+VALIDACION DE NESTED RUNS P3 COMPLETADA
+```
+
+**Nota:** esta comprobación verifica la ejecución y la organización de las búsquedas anidadas, no la calidad de los agrupamientos. La comparación de Silhouette, Davies–Bouldin y estabilidad se documenta posteriormente en el apartado de selección del modelo P3.
+
+El script consulta únicamente el servidor MLflow; no modifica corridas, modelos ni artefactos.
+
+Las evidencias también pueden visualizarse desde http://127.0.0.1:5000, entrando al experimento `mibici-equipo15` y desplegando las tres corridas padre correspondientes a P3.
+
 
 ## 8. Ejecutar la ingesta con MLflow Project
 
-Con el servidor activo y `MLFLOW_TRACKING_URI` exportada en terminal B:
+Con el servidor MLflow activo en la terminal A y la variable
+`MLFLOW_TRACKING_URI` configurada en la terminal B, ejecutar
+la ingesta inicial desde la raíz del repositorio:
 
 ```bash
-.venv/bin/mlflow run . -e ingest --env-manager local
+.venv/bin/mlflow run . -e ingest \
+  --env-manager virtualenv
 ```
 
-Resultado validado el 23 de octubre de 2026:
+El parámetro `--env-manager virtualenv` permite que MLflow gestione
+un entorno Python aislado utilizando las dependencias declaradas
+en el proyecto.
 
-- 12 CSV mensuales reutilizados; se utiliza también `nomenclatura_2026_09.csv`.
-- 4,645,921 viajes limpios; 0 registros descartados y 0 duplicados en la reproducción.
-- Manifiesto y Parquet regenerados.
-- **Versión de datos:** `7e1470ac0632`.
-- MLflow Project finalizó con `Run (...) succeeded`.
+Durante la ejecución, el proceso:
 
-Verificar:
+1. Descarga o reutiliza los 12 archivos CSV mensuales de MiBici 2024.
+2. Utiliza el archivo de nomenclatura para identificar las estaciones.
+3. Realiza la limpieza y validación de los registros.
+4. Genera los archivos procesados en formato Parquet.
+5. Actualiza el manifiesto de datos con sus hashes SHA-256.
+6. Registra la ejecución en MLflow.
+
+### 8.1. Resultados de la ingesta
+
+En la reproducción realizada el 25 de octubre de 2026,
+se obtuvieron los siguientes resultados:
+
+| Indicador | Resultado |
+|---|---:|
+| Periodo procesado | Enero–diciembre de 2024 |
+| Archivos CSV | 12 |
+| Viajes limpios | 4,645,921 |
+| Registros descartados | 0 |
+| Duplicados | 0 |
+| Versión de datos | `7e1470ac0632` |
+| Estado MLflow Project | `FINISHED` |
+
+El resultado esperado en la terminal es:
+
+```text
+Run (...) succeeded
+```
+
+### 8.2. Verificar los archivos generados
+
+Una vez finalizada la ingesta, comprobar que se generaron
+los archivos procesados y el manifiesto de datos:
 
 ```bash
 ls -lh data/manifiesto.json
 ls -lh data/processed/
-.venv/bin/python -c 'from mibici.dataset import version_datos; print(version_datos())'
 ```
 
-La versión debe coincidir con la de la Semana 5 para poder comparar resultados. Si cambia, examinar los hashes fuente del manifiesto antes de entrenar.
+Consultar la versión de datos:
 
-### 8.1. Ingesta con entorno aislado declarado
+```bash
+.venv/bin/python -c \
+  'from mibici.dataset import version_datos; print(version_datos())'
+```
 
-Tras completar la configuración de `pyenv` de la sección 6:
+Para reproducir exactamente los resultados documentados, la
+versión obtenida debe ser:
+
+```text
+7e1470ac0632
+```
+
+Si la versión es diferente, los datos de origen pueden haber
+cambiado y las métricas posteriores podrían variar.
+
+**Importante:** la ingesta solamente necesita ejecutarse una vez
+al preparar los datos del proyecto. Los entrenamientos de P1,
+P2 y P3, las búsquedas anidadas y las operaciones de Model Registry
+utilizarán los datos procesados existentes.
+
+Después de validar la ingesta, continuar con el punto 9:
+ejecución de baselines y búsquedas de modelos.
+
+## 9. Ejecución integral desde un clon limpio
+
+**Antes de comenzar:** seguir las secciones 1–8 una sola vez, en un clon reciente de `main` (con el PR #18 ya integrado). Abrir el servidor MLflow de la sección 7 en terminal A y exportar `MLFLOW_TRACKING_URI=http://127.0.0.1:5000` en terminal B. Usar `.venv` y Python 3.12.15, siempre desde la raíz del repositorio. Los comandos de este apartado son para macOS/Linux. La explicación histórica de la Parte A en las secciones 3 y 6 queda conservada, pero para ejecutar las búsquedas es imprescindible la versión integrada de `main` que contenga `p1_p2_search.py`.
+
+### 9.1. Ingesta
+
+La sección 8 documenta la ingesta. En una nueva instalación sin datos procesados, ejecutarla una sola vez (no repetirla si ya terminó correctamente en el mismo clon):
 
 ```bash
 .venv/bin/mlflow run . -e ingest --env-manager virtualenv
 ```
 
-**Validado:** MLflow creó/utilizó un entorno propio bajo `~/.mlflow/envs/`, instaló dependencias y ejecutó `mibici.dataset`. Se confirmó nuevamente `7e1470ac0632` y `Run (...) succeeded`. La carpeta `~/.mlflow/envs/` es local; no se versiona.
+En la ejecución de referencia se procesaron los doce CSV de 2024, con 4,645,921 viajes limpios y versión de datos `7e1470ac0632`. Conservar `data/manifiesto.json` para verificar la versión en el reporte.
 
-## 9. Ejecutar los baselines P1, P2 y P3
-
-Los comandos siguientes se validaron usando `--env-manager local` desde la raíz con el servidor activo:
-
-### P1 — Regresión
+### 9.2. Entrenar los baselines
 
 ```bash
-.venv/bin/mlflow run . -e train \
-  -P question=p1 \
-  -P model=baseline \
-  --env-manager local
+.venv/bin/mlflow run . -e train -P question=p1 -P model=baseline --env-manager virtualenv
+.venv/bin/mlflow run . -e train -P question=p2 -P model=baseline --env-manager virtualenv
+.venv/bin/mlflow run . -e train -P question=p3 -P model=baseline --env-manager virtualenv
 ```
 
-Ejecuta los baselines `station_mean` y `station_weekday_hour_mean`.
+En P1 y P2 se respetan las particiones temporales: entrenamiento enero–agosto de 2024, validación septiembre–octubre y prueba noviembre–diciembre. P3 utiliza perfiles anuales de estaciones.
 
-| Modelo | MAE de test | RMSE de test |
-|---|---:|---:|
-| Media histórica por estación | 1.3621 | 2.1185 |
-| Media por estación, día y hora | **0.8556** | **1.4635** |
+| Pregunta | Baseline de referencia | Resultado |
+|---|---|---:|
+| P1 | Media por estación, día y hora | MAE test = 0.8556 |
+| P2 | Riesgo proxy con probabilidad histórica | Average Precision test = 0.3052 |
+| P3 | K-Means, K=2 | Silhouette = 0.127636 |
 
-### P2 — Clasificación de riesgo proxy
+### 9.3. Ejecutar las búsquedas de candidatos con nested runs
 
 ```bash
-.venv/bin/mlflow run . -e train \
-  -P question=p2 \
-  -P model=baseline \
-  --env-manager local
+.venv/bin/mlflow run . -e train -P question=p1 -P model=search --env-manager virtualenv
+.venv/bin/mlflow run . -e train -P question=p2 -P model=search --env-manager virtualenv
+.venv/bin/mlflow run . -e train -P question=p3 -P model=search --env-manager virtualenv
 ```
 
-| Modelo | Precision | Recall | F1 | Average Precision |
-|---|---:|---:|---:|---:|
-| Clase mayoritaria | 0.0000 | 0.0000 | 0.0000 | 0.0471 |
-| Probabilidad histórica | 0.2851 | 0.4563 | 0.3509 | 0.3052 |
+P1 y P2 generan **una corrida padre y tres hijas por pregunta**. P3 registra **tres familias con 21 corridas hijas cada una (63 combinaciones)**. En la ejecución documentada 34 combinaciones de P3 no fueron admisibles porque generaban grupos menores a 5 % de las estaciones.
 
-- Panel de entrenamiento: 2,119,872 observaciones estación-hora.
-- Validación: 529,968; prueba: 529,968.
-- Umbral de presión proxy: 0.25; umbral de probabilidad seleccionado mediante validación: 0.21.
-
-### P3 — Clustering
+### 9.4. Verificar las relaciones padre/hijo
 
 ```bash
-.venv/bin/mlflow run . -e train \
-  -P question=p3 \
-  -P model=baseline \
-  --env-manager local
+.venv/bin/python - <<'PY'
+from mlflow import MlflowClient
+
+client = MlflowClient()
+exp = client.get_experiment_by_name('mibici-equipo15')
+assert exp is not None
+runs = client.search_runs([exp.experiment_id], max_results=5000)
+for parent_name in ('P1_search_candidates', 'P2_search_candidates'):
+    parents = [r for r in runs if r.data.tags.get('mlflow.runName') == parent_name]
+    assert parents, f'No se encontró {parent_name}'
+    parent = max(parents, key=lambda r: r.info.start_time)
+    children = [r for r in runs if r.data.tags.get('mlflow.parentRunId') == parent.info.run_id]
+    assert parent.info.status == 'FINISHED'
+    assert len(children) == 3
+    assert all(r.info.status == 'FINISHED' for r in children)
+    print(parent_name, '| padre FINISHED | hijas:', len(children))
+print('Validación P1/P2 completada; verificar en la interfaz los tres padres y 63 hijos de P3.')
+PY
 ```
 
-| Indicador | Resultado de la reproducción |
-|---|---:|
-| Viajes procesados | 4,645,921 |
-| Estaciones observadas / agrupadas | 370 / 368 |
-| Características | 49 |
-| K seleccionado | 2 |
-| Silhouette Score | 0.127636 |
-| Davies–Bouldin | 2.369866 |
-| Tamaños de grupos | 177 y 191 |
+Para P3, abrir **Experiments → mibici-equipo15 → Runs**, localizar las tres búsquedas de las familias K-Means, jerárquica y GMM, desplegar sus hijas y conservar una captura. El criterio es una corrida padre por búsqueda y una hija por configuración.
 
-Se evaluaron K=2 a K=8. Los gráficos locales se generan en `reports/figures/p3/`. Las etiquetas numéricas de K-Means pueden permutarse entre ejecuciones: comparar perfiles y métricas, no el identificador arbitrario del grupo.
+## 10. Comparación de candidatos y selección justificada
 
-### 9.1. Entrenamiento reproducido con virtualenv independiente
+**Los modelos se seleccionan con métricas de validación; las métricas de test solo cuantifican el resultado una vez elegido el candidato.** La tabla siguiente reproduce los resultados obtenidos el 25 de octubre de 2026 y sirve de evidencia y criterio de contraste para una nueva corrida.
 
-Además de las pruebas locales, se validó **P1** mediante:
+### 10.1. P1 — Demanda (minimizar MAE de validación)
 
-```bash
-.venv/bin/mlflow run . -e train \
-  -P question=p1 \
-  -P model=baseline \
-  --env-manager virtualenv
-```
+| Candidato | Hiperparámetros | `val_mae` ↓ |
+|---|---|---:|
+| Random Forest | 300 árboles, profundidad 12 | 0.840485 |
+| **HistGradientBoosting** | **300 iteraciones, learning rate 0.1** | **0.839559** |
+| HistGradientBoosting | 200 iteraciones, learning rate 0.05 | 0.841175 |
 
-**Resultado observado:** `Run (...) succeeded`, MAE/RMSE idénticos a la tabla de P1. P2 y P3 **no se han documentado como validados bajo `--env-manager virtualenv`**; se validaron bajo `local`.
+Se eligió **HistGradientBoostingRegressor** por obtener el menor `val_mae`. En test alcanzó MAE ≈ **0.8279**, contra **0.8556** del baseline (≈ **3.23 %** de mejora). Nombre de la corrida: `P1_candidate_hgb_max_iter=300_learning_rate=0.1_max_depth=None`.
 
-### 9.2. Modelos candidatos P1 y P2
+### 10.2. P2 — Riesgo proxy (maximizar Average Precision de validación)
 
-`mibici/modeling/p1_p2_candidates.py` entrena los candidatos supervisados con la misma partición temporal, las mismas estaciones y las mismas métricas de los baselines. `train` acepta los siguientes modelos:
+| Candidato | Hiperparámetros | `val_average_precision` ↑ |
+|---|---|---:|
+| Logistic Regression | C=1.0, 1000 iteraciones | 0.364140 |
+| **Random Forest** | **300 árboles, profundidad 12** | **0.376480** |
+| HistGradientBoosting | 300 iteraciones, learning rate 0.1 | 0.370612 |
 
-| Pregunta | `model` | Algoritmo |
-|---|---|---|
-| P1 | `rf` | `RandomForestRegressor` |
-| P1 | `hgb` | `HistGradientBoostingRegressor` |
-| P2 | `logreg` | `StandardScaler` + `LogisticRegression(class_weight="balanced")` |
-| P2 | `rf` | `RandomForestClassifier` |
-| P2 | `hgb` | `HistGradientBoostingClassifier` |
+Se eligió **RandomForestClassifier** por lograr la mejor Average Precision de validación, pertinente en clasificación con positivos poco frecuentes. En test alcanzó Average Precision ≈ **0.3510**, contra **0.3052** del baseline (≈ **14.99 %** de mejora), y F1 ≈ **0.3702**. Corrida: `P2_candidate_rf_n_estimators=300_max_depth=12`.
 
-Los hiperparámetros por defecto están en `HIPERPARAMETROS_CANDIDATOS` de `config.py`. Los parámetros `n_estimators`, `max_depth`, `learning_rate` y `max_iter` del MLproject los reemplazan cuando son distintos de 0.
+### 10.3. P3 — Grupos de estaciones (admisibilidad y estabilidad)
 
-Características (solo información anterior a la hora objetivo):
+| Familia | Configuración | Silhouette ↑ | Davies–Bouldin ↓ |
+|---|---|---:|---:|
+| **K-Means + PCA** | **k=2, 5 componentes** | 0.127636 | **2.369866** |
+| Jerárquico | k=2, Ward | 0.106341 | 2.613176 |
+| GMM + PCA | k=2, 10 componentes, full | **0.132514** | 3.646119 |
 
-- P1: `hour_of_day`, `weekday`, `fin_semana`, rezagos de salidas a 1, 24 y 168 horas, y promedios de train por estación y por estación-día-hora.
-- P2: las de calendario, `capacity`, rezagos de salidas, llegadas y presión a 1, 24 y 168 horas, y probabilidad histórica de train por estación y por estación-día-hora.
-- Las primeras 168 horas de train se excluyen por falta de historia para los rezagos.
-- En P2, el umbral de probabilidad se elige con el mejor F1 en validación, igual que en el baseline.
+**GMM alcanzó un Silhouette puntual mayor que K-Means.** No se debe afirmar lo contrario. Se seleccionó **K-Means + PCA** considerando el menor Davies–Bouldin, solo 5 componentes y la estabilidad reportada en cinco semillas: GMM promedió Silhouette **0.126419 ± 0.012190** y modificó las agrupaciones, mientras K-Means mantuvo desviación cero y reprodujo la partición de referencia (ARI=1.0, grupos de 177 y 191 estaciones). Esto permite interpretar de modo más consistente los perfiles horarios. Corrida seleccionada: `P3_candidate_kmeans_pca`. Conservar la comparación multisemilla y perfiles como evidencia en el PDF.
 
-Comandos ejecutados (servidor activo y `MLFLOW_TRACKING_URI` exportada):
-
-```bash
-.venv/bin/mlflow run . -e train -P question=p1 -P model=hgb --env-manager local
-.venv/bin/mlflow run . -e train -P question=p1 -P model=rf --env-manager local
-.venv/bin/mlflow run . -e train -P question=p1 -P model=rf -P n_estimators=150 -P max_depth=8 --env-manager local
-.venv/bin/mlflow run . -e train -P question=p2 -P model=logreg --env-manager local
-.venv/bin/mlflow run . -e train -P question=p2 -P model=hgb --env-manager local
-.venv/bin/mlflow run . -e train -P question=p2 -P model=rf --env-manager local
-```
-
-Cada corrida candidata registra:
-
-- Modelo con `log_model`, firma e `input_example`.
-- `data/manifiesto.json`, `data/csv_manifest.json` y `mlflow.log_input` de train, validación y prueba con la versión de datos en el nombre.
-- `plots/`: real contra predicho y residuales (P1); matriz de confusión y curva precisión-recall (P2).
-- `config/`: `MLproject`, `python_env.yaml`, `config.py` y `run_params.json`.
-- `metrics/metrics.json` y las métricas `baseline_test_*` y `test_*_mejora_pct`, calculadas sobre el mismo conjunto de prueba.
-- Etiquetas `team`, `question`, `model_family`, `stage_of_work=candidate`, `git_commit`, `data_version` y `dataset`.
-
-Resultados en prueba (noviembre–diciembre 2024, versión de datos `7e1470ac0632`):
-
-**P1 — Regresión**
-
-| Modelo | Hiperparámetros | MAE val | MAE test | RMSE test | Mejora MAE | Mejora RMSE |
-|---|---|---|---|---|---|---|
-| Baseline estación-día-hora | — | 0.8544 | 0.8556 | 1.4635 | — | — |
-| `hgb` | `max_iter=300`, `learning_rate=0.1` | 0.8396 | **0.8279** | **1.3930** | 3.23 % | 4.82 % |
-| `rf` | `n_estimators=300`, `max_depth=12` | 0.8405 | 0.8297 | 1.4003 | 3.02 % | 4.32 % |
-| `rf` | `n_estimators=150`, `max_depth=8` | 0.8450 | 0.8376 | 1.4142 | 2.10 % | 3.37 % |
-
-**P2 — Clasificación de riesgo proxy**
-
-| Modelo | Hiperparámetros | Umbral | F1 val | Precision test | Recall test | F1 test | AP test | Mejora F1 | Mejora AP |
-|---|---|---|---|---|---|---|---|---|---|
-| Baseline histórico | — | 0.21 | 0.3861 | 0.2851 | 0.4563 | 0.3509 | 0.3052 | — | — |
-| `rf` | `n_estimators=300`, `max_depth=12` | 0.21 | 0.3977 | 0.3013 | 0.4801 | **0.3702** | **0.3510** | 5.49 % | 14.99 % |
-| `hgb` | `max_iter=300`, `learning_rate=0.1` | 0.22 | 0.3977 | 0.3053 | 0.4590 | 0.3667 | 0.3425 | 4.49 % | 12.22 % |
-| `logreg` | `C=1.0` | 0.82 | 0.3934 | 0.2945 | 0.4853 | 0.3666 | 0.3399 | 4.46 % | 11.36 % |
-
-### 9.3. Modelos candidatos P3 y búsqueda con corridas anidadas
-
-`mibici/modeling/search.py` implementa un mecanismo de búsqueda de hiperparámetros reutilizable por P1, P2 y P3: crea una corrida padre por búsqueda y una corrida hija por combinación, con las etiquetas `team`, `question`, `model_family`, `stage_of_work` y `git_commit`. `mibici/modeling/p3_search.py` lo usa para evaluar tres familias de agrupamiento sobre los mismos perfiles horarios del baseline.
-
-```bash
-.venv/bin/mlflow run . -e train \
-  -P question=p3 \
-  -P model=search \
-  --env-manager local
-```
-
-| Familia | `model_family` | Rejilla |
-|---|---|---|
-| Particional | `kmeans_pca` | K=2..8 × PCA de 5, 10 y 20 componentes |
-| Jerárquica | `jerarquico` | K=2..8 × `linkage` ward, average y complete |
-| Probabilística | `gmm_pca` | K=2..8 × PCA de 10 componentes × covarianza full, diag y tied |
-
-Los valores por defecto de `K` y del mínimo de salidas salen de `P3_K_MIN`, `P3_K_MAX` y `P3_MIN_DEPARTURES` en `config.py`. Las métricas se calculan **siempre sobre la misma matriz estandarizada de 49 dimensiones**, aunque el modelo agrupe en espacio PCA, para que la comparación contra el baseline sea válida (etiqueta `metric_space=standardized_49d`).
-
-**Criterio de admisibilidad.** El máximo global de Silhouette de toda la rejilla fue 0.526037, pero corresponde a aislar una sola estación —(GDL-279) Belen / Av. de los Maestros, con 100 salidas en todo 2024— en un grupo propio: un grupo de un punto tiene dispersión cero e infla la métrica. De las 63 combinaciones evaluadas, **34 producen grupos menores al 5 % de las estaciones**. Esas corridas se registran como evidencia con la etiqueta `admissible=false` y quedan excluidas del primer lugar; el parámetro `min_cluster_share` controla el umbral.
-
-Resultados (368 estaciones, 49 características, versión de datos `7e1470ac0632`):
-
-| Modelo | Hiperparámetros | Silhouette | Davies–Bouldin | Grupo más chico | Δ Silhouette |
-|---|---|---:|---:|---:|---:|
-| Baseline K-Means | K=2, 49 dimensiones | 0.127636 | 2.369866 | 177 (48.1 %) | — |
-| `kmeans_pca` | K=2, PCA 5 componentes | 0.127636 | 2.369866 | 177 (48.1 %) | 0.00 % |
-| `jerarquico` | K=2, `linkage=ward` | 0.106341 | 2.613176 | 173 (47.0 %) | −16.68 % |
-| `gmm_pca` | K=2, PCA 10, covarianza full | 0.132514 | 3.646119 | 114 (31.0 %) | +3.82 % |
-
-**Modelo seleccionado: `kmeans_pca`.** La ventaja aparente de `gmm_pca` no es reproducible: evaluado con cinco semillas promedia 0.126419 ± 0.012190 —por debajo del baseline— y su partición varía hasta ARI 0.51 respecto de sí misma. `kmeans_pca` tiene desviación estándar cero entre semillas, reproduce exactamente la partición del baseline (ARI 1.0000, grupos de 177 y 191) con 5 componentes en lugar de 49 dimensiones, y conserva la separación más nítida entre estaciones de salida matutina y vespertina, que es la que permite priorizar el rebalanceo por franja horaria.
-
-Cada corrida candidata (`stage_of_work=candidate`) registra:
-
-- Modelo con `log_model`, firma e `input_example`. El pipeline incluye el escalador (`scaler → pca → modelo`), por lo que recibe las características sin escalar.
-- `data/manifiesto.json`, la asignación de estaciones a grupos en CSV y `mlflow.log_input` del conjunto de entrenamiento.
-- `plots/`: mapa de estaciones por grupo, perfiles horarios por grupo y tamaño de cada grupo.
-- `config/`: parámetros exactos de la corrida, semilla, umbrales y commit.
-
-`AgglomerativeClustering` es transductivo y no expone `predict`, por lo que la candidata `jerarquico` se registra con firma pero sin `input_example` y lleva la etiqueta `supports_predict=false`.
-
-## 10. Ingeniería de características y control de fuga temporal
-
-`mibici/features.py` centraliza funciones reutilizables:
-
-| Función | Uso |
-|---|---|
-| `hourly_departures()` | Conteos de salida por estación/hora |
-| `complete_hourly_panel()` | Horas sin viajes incluidas como ceros |
-| `hourly_arrivals()` | Llegadas por estación/hora |
-| `hourly_flow_balance()` | Llegadas menos salidas |
-| `proxy_risk_labels()` | Etiqueta de P2 |
-| `calendar_features()` | Hora, día de semana y fin de semana |
-| `hourly_usage_profiles()` | Perfil horario de estaciones para P3 |
-| `lag_features()` | Rezagos que utilizan historia pasada |
-| `trip_quality_flags()` | Indicadores diagnósticos de calidad |
-
-P1 y P2 deben usar información disponible **antes** de la hora objetivo; no utilizar como predictoras las salidas/llegadas de esa misma hora. Se conservan las particiones cronológicas de Semana 5. P3 describe estaciones sobre 2024 y no sigue una separación supervisada convencional.
-
-## 11. Pruebas automatizadas y validación final
-
-Ejecutar desde la raíz con el entorno de desarrollo:
+## 11. Pruebas automatizadas
 
 ```bash
 .venv/bin/python -m pip check
-.venv/bin/python -m pytest tests/ -v
 .venv/bin/python -m compileall -q mibici
-.venv/bin/python -m mibici.modeling.train --help
+.venv/bin/python -m pytest tests/ -v
 ```
 
-**Referencia de Semana 5:** `21 passed`. La repetición de pytest **en la rama de Semana 6 queda pendiente de constatar con su salida**, por lo que no debe declararse completada antes de ejecutarla.
+**Resultado obtenido en la reproducción:** `40 passed` (incluye siete pruebas de las búsquedas anidadas de P1 y P2). Una nueva ejecución debe terminar satisfactoriamente antes de registrar modelos.
 
-## 12. Protección de artefactos locales y datos
+## 12. Registrar modelos y validar Model Registry
 
-**No subir a Git** los CSV/Parquet, `mlflow.db`, `mlruns/`, `mlartifacts/`, entornos virtuales, credenciales ni modelos serializados. El archivo `.gitignore` ya excluye los principales elementos; mantener esas reglas y confirmar:
+### 12.1. Registro automatizado
+
+Una vez elegidos los ganadores, registrar los modelos desde la corrida de origen. **Los Logged Model IDs son diferentes en cada backend**: el script los localiza a través de la última corrida `FINISHED` de cada ganador y evita registrar otra versión cuando ya existe la misma fuente. Si un nombre ya tiene versiones de otra fuente, requiere revisión antes de volver a registrar. También añade **la descripción exigida por la rúbrica**.
 
 ```bash
-git check-ignore -v mlflow.db
-git check-ignore -v data/raw/datos_abiertos_2024_01.csv
-git check-ignore -v models/test_model.pkl
-git status --short
-git diff --check
+.venv/bin/python - <<'PY'
+import mlflow
+from mlflow import MlflowClient
+
+assert mlflow.get_tracking_uri() == 'http://127.0.0.1:5000'
+assert mlflow.get_registry_uri() == mlflow.get_tracking_uri()
+client = MlflowClient()
+exp = client.get_experiment_by_name('mibici-equipo15')
+assert exp is not None
+runs = client.search_runs([exp.experiment_id], max_results=5000)
+chosen = {
+    'P1': ('P1_candidate_hgb_max_iter=300_learning_rate=0.1_max_depth=None',
+           'mibici-equipo15-p1-demanda',
+           'Predicción de demanda por estación y hora; elegido por MAE de validación.'),
+    'P2': ('P2_candidate_rf_n_estimators=300_max_depth=12',
+           'mibici-equipo15-p2-riesgo',
+           'Clasificación de riesgo proxy; elegido por Average Precision de validación.'),
+    'P3': ('P3_candidate_kmeans_pca',
+           'mibici-equipo15-p3-grupos',
+           'Perfiles horarios agrupados con K-Means y PCA; elección por estabilidad e interpretación.'),
+}
+for question, (run_name, name, description) in chosen.items():
+    found = [r for r in runs if r.info.status == 'FINISHED'
+             and r.data.tags.get('mlflow.runName') == run_name]
+    assert found, f'{question}: no se encontró una corrida candidata FINISHED'
+    run = max(found, key=lambda r: r.info.start_time)
+    logged = client.search_logged_models(
+        experiment_ids=[exp.experiment_id],
+        filter_string=f"source_run_id = '{run.info.run_id}'",
+    )
+    assert len(logged) == 1, f'{question}: se esperaba 1 Logged Model; hay {len(logged)}'
+    source = f'models:/{logged[0].model_id}'
+    existing = client.search_model_versions(f"name = '{name}'")
+    same = [v for v in existing if v.source == source]
+    if same:
+        version = max(same, key=lambda v: int(v.version))
+    else:
+        assert not existing, f'{name}: ya existen otras versiones; revisar antes de registrar'
+        version = mlflow.register_model(model_uri=source, name=name)
+    assert version.status == 'READY'
+    client.update_registered_model(name=name, description=description)
+    print(question, name, 'versión', version.version, '| READY |', source)
+print('REGISTRO COMPLETADO')
+PY
 ```
 
-Para comprobar archivos ya rastreados usar `git ls-files`; las reglas de `.gitignore` no eliminan archivos previamente añadidos al índice. Revisar `reports/figures/p3/` y cualquier archivo de evidencia generado antes del commit. El manifiesto `data/manifiesto.json` es una excepción documental expresamente versionada y no contiene los CSV fuente.
+En la ejecución de referencia se registraron estos tres modelos, cada uno con **versión 1 y estado `READY`**:
 
-## 13. Integración y Pull Request de Parte A
+| Pregunta | Nombre registrado | Logged Model ID de referencia |
+|---|---|---|
+| P1 | `mibici-equipo15-p1-demanda` | `m-04774b8f25ff468b933a18756c24b068` |
+| P2 | `mibici-equipo15-p2-riesgo` | `m-165c943b3eec4915aabc8e801feb9979` |
+| P3 | `mibici-equipo15-p3-grupos` | `m-041658517cae46178fa30b582bd44b22` |
 
-Con las pruebas exitosas y el README revisado:
+Estos identificadores son **solo históricos**, no deben copiarse para una nueva ejecución.
+
+### 12.2. Validación de versiones, estado y firmas
 
 ```bash
-git branch --show-current
-git status --short
-git diff --stat
-git diff --check
-
-git add MLproject python_env.yaml mibici/config.py mibici/modeling/train.py README.md
-# Incluir .gitignore solo si efectivamente cambió y se revisó.
-git diff --cached --stat
-git commit -m 'feat(mlflow): implement reproducible MLflow project'
-git push origin feature/A01797899-mlflow-project
+.venv/bin/python - <<'PY'
+from mlflow import MlflowClient
+from mlflow.models import Model
+client = MlflowClient()
+names = {'P1': 'mibici-equipo15-p1-demanda',
+         'P2': 'mibici-equipo15-p2-riesgo',
+         'P3': 'mibici-equipo15-p3-grupos'}
+for question, name in names.items():
+    versions = client.search_model_versions(f"name = '{name}'")
+    assert versions, name
+    version = max(versions, key=lambda v: int(v.version))
+    assert version.status == 'READY'
+    model = Model.load(f'models:/{name}/{version.version}')
+    assert model.signature and model.signature.inputs and model.signature.outputs
+    columns = [c.name for c in model.signature.inputs.inputs]
+    print(question, name, 'v'+version.version, 'READY', len(columns), 'columnas')
+    print('Source:', version.source, '| Firma:', model.signature)
+    print('Validación: OK')
+print('VALIDACION COMPLETADA: 3 MODELOS REGISTRADOS')
+PY
 ```
 
-Crear un Pull Request contra `main` desde https://github.com/A01797899/TC5061-Proyecto-Equipo15/pulls y solicitar revisión a otro integrante.
+Firmas observadas: **P1 = 8 entradas**, **P2 = 15 entradas**, **P3 = 49 entradas**. La revisión de firma no hace predicciones. No se utiliza `mlflow.models.load_serving_example()` (no disponible en la instalación usada).
 
-La selección y registro de modelos de P1/P2/P3, los candidatos adicionales y las nested runs deben integrarse después con los módulos de José Luis, Jorge y Óscar. Las nuevas variantes de `model`, sus hiperparámetros y los comandos finales de ganadores se añadirán al README una vez disponibles y comprobados. No etiquetar versiones `@champion` hasta que haya selección fundada y validación de carga en Model Registry.
+### 12.3. Confirmar los artefactos de los candidatos
 
-## 14. Referencias y documentación
+Desde MLflow, entrar en **Experiments → mibici-equipo15 → Runs** y comprobar para cada candidato: modelo con firma y ejemplo de entrada, manifiesto de versión de datos, artefactos `config/`, `data/` y `plots/`, etiquetas de pregunta/familia/commit y corrida fuente. Esto constituye evidencia solicitada en la rúbrica y no requiere ejecutar nuevas predicciones reales.
+
+## 13. Promoción con alias `champion` y validación final
+
+### 13.1. Asignar y verificar los alias
+
+Se utiliza `champion` en lugar de las antiguas etapas de Model Registry, pues resuelve un modelo por nombre estable y permite cambiar de versión en el futuro sin modificar el código cliente.
+
+```bash
+.venv/bin/python - <<'PY'
+from mlflow import MlflowClient
+client = MlflowClient()
+names = {'P1': 'mibici-equipo15-p1-demanda',
+         'P2': 'mibici-equipo15-p2-riesgo',
+         'P3': 'mibici-equipo15-p3-grupos'}
+for question, name in names.items():
+    versions = client.search_model_versions(f"name = '{name}'")
+    assert versions, name
+    version = max(versions, key=lambda v: int(v.version))
+    assert version.status == 'READY'
+    client.set_registered_model_alias(name=name, alias='champion', version=version.version)
+    champion = client.get_model_version_by_alias(name=name, alias='champion')
+    assert champion.version == version.version and champion.status == 'READY'
+    print(question, name, 'champion -> v'+champion.version)
+print('ASIGNACION Y VERIFICACION COMPLETADAS')
+PY
+```
+
+### 13.2. Inferencia técnica por alias (datos sintéticos)
+
+El siguiente comando **sí ejecuta** una predicción para comprobar la carga desde Model Registry; usa una fila sintética de unos y **no evalúa la calidad de una predicción con datos reales**. No se requieren nuevas pruebas con datos reales para documentar este requisito.
+
+```bash
+.venv/bin/python - <<'PY'
+import mlflow
+import numpy as np
+import pandas as pd
+from mlflow import MlflowClient
+client = MlflowClient()
+names = {'P1': 'mibici-equipo15-p1-demanda',
+         'P2': 'mibici-equipo15-p2-riesgo',
+         'P3': 'mibici-equipo15-p3-grupos'}
+for question, name in names.items():
+    version = client.get_model_version_by_alias(name=name, alias='champion')
+    assert version.status == 'READY'
+    uri = f'models:/{name}@champion'
+    model = mlflow.pyfunc.load_model(uri)
+    signature = model.metadata.signature
+    assert signature and signature.inputs
+    cols = [col.name for col in signature.inputs.inputs]
+    X = pd.DataFrame(np.ones((1, len(cols)), dtype=np.float64), columns=cols)
+    result = model.predict(X)
+    assert len(result) == 1
+    print(question, 'v'+version.version, len(cols), 'columnas', uri,
+          '| predicción sintética:', result, '| Inferencia: OK')
+print('VALIDACION CHAMPION COMPLETADA: 3 MODELOS')
+PY
+```
+
+En la ejecución del equipo: P1 → `[1.0482985]`; P2 → `[1]`; P3 → `[0]`. Son únicamente pruebas de interfaz y funcionamiento, no pronósticos o clasificaciones de situaciones reales.
+
+## 14. Evidencia para el reporte PDF y el repositorio
+
+| Evidencia | Captura o salida |
+|---|---|
+| Reproducción | Ingesta, baselines, búsquedas y `40 passed` |
+| Nested runs | Padres desplegados con hijas `FINISHED` de P1/P2/P3 |
+| Comparación | Métricas de validación y test frente al baseline para las tres preguntas |
+| Elección de P3 | Tabla entre familias + análisis de estabilidad multisemilla |
+| Artefactos | Modelo, firma, `input_example`, manifiesto, gráficos y configuración de al menos una candidata |
+| Registry | Captura de **Registered Models** con tres modelos y `@champion` |
+| Linaje | Logged Model → corrida fuente → commit → versión de datos |
+| Código de validación | Salida `VALIDACION CHAMPION COMPLETADA: 3 MODELOS` |
+| Trabajo colaborativo | Commits, Pull Requests y revisiones de los cuatro integrantes |
+
+El reporte debe incluir enlace al repositorio, comandos de reproducción, tablas de baselines/candidatos, justificación de selección, explicación de alias como esquema de ciclo de vida, capturas y referencias APA 7. **No** subir a Git `mlflow.db`, `mlruns/`, `mlartifacts/`, CSV o modelos serializados. La rúbrica exige además descripciones de los modelos registrados y ejemplos de entrada de las corridas candidatas.
+
+## 15. Referencias
 
 - [Repositorio de GitHub del Equipo 15](https://github.com/A01797899/TC5061-Proyecto-Equipo15)
 - [MiBici — Datos abiertos](https://www.mibici.net/es/datos-abiertos/)
-- [Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/)
 - [MLflow Projects](https://mlflow.org/docs/latest/ml/projects/)
 - [MLflow Tracking](https://mlflow.org/docs/latest/ml/tracking/)
 - [MLflow Model Registry](https://mlflow.org/docs/latest/ml/model-registry/)
+- [MLflow Model Registry workflows](https://mlflow.org/docs/latest/ml/model-registry/workflow/)
+- [Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/)
 - [pyenv](https://github.com/pyenv/pyenv)
-- Documentación interna en `references/`, pruebas en `tests/` y notebooks de análisis en `notebooks/`.
 
----
-
-**Última validación documentada de la Parte A:** 23 de octubre de 2026. Este README describe resultados realmente observados y señala explícitamente las validaciones e integraciones pendientes.
+**Resultados verificados, 25 de octubre de 2026:** suite de 40 tests aprobada, modelos P1/P2/P3 registrados (v1, `READY`), tres alias `champion` asignados e inferencia sintética por alias sin errores.
