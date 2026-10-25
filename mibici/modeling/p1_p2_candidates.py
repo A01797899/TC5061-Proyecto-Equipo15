@@ -265,6 +265,7 @@ def run_candidate(
     model: str,
     tracking_uri: str,
     chunk_size: int = 100_000,
+    nested: bool = False,
     **valores,
 ) -> str:
     """Entrena un candidato, registra métricas, modelo y artefactos en MLflow y devuelve el run ID."""
@@ -295,7 +296,7 @@ def run_candidate(
     clave_hp = "_".join(f"{k}={v}" for k, v in hp.items() if k in ("n_estimators", "max_depth", "max_iter", "learning_rate", "C"))
     run_name = f"{question.upper()}_candidate_{model}_{clave_hp}"
 
-    with tempfile.TemporaryDirectory(prefix=f"mibici_{question}_") as tmp, mlflow.start_run(run_name=run_name) as run:
+    with tempfile.TemporaryDirectory(prefix=f"mibici_{question}_") as tmp, mlflow.start_run(run_name=run_name, nested=nested) as run:
         carpeta = Path(tmp)
         for sub in ("plots", "data", "config", "metrics"):
             (carpeta / sub).mkdir()

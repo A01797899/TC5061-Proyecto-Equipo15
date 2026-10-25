@@ -27,6 +27,8 @@ BASELINE_MODULES = {
 
 
 SEARCH_MODULES = {
+    "p1": "mibici.modeling.p1_p2_search",
+    "p2": "mibici.modeling.p1_p2_search",
     "p3": "mibici.modeling.p3_search",
 }
 
@@ -139,13 +141,17 @@ def run_search(question, tracking_uri):
             "Coordinate integration with the model developer."
         )
 
-    command = [
-        sys.executable,
-        "-m",
-        module,
-        "--tracking-uri",
-        tracking_uri,
-        "--experiment",
+    if question in ("p1", "p2"):
+        command = [sys.executable, "-m", module, "--question", question,
+                   "--tracking-uri", tracking_uri]
+    else:
+        command = [
+            sys.executable,
+            "-m",
+            module,
+            "--tracking-uri",
+            tracking_uri,
+            "--experiment",
         MLFLOW_EXPERIMENT,
         "--seed",
         str(RANDOM_SEED),
