@@ -26,6 +26,11 @@ BASELINE_MODULES = {
 }
 
 
+SEARCH_MODULES = {
+    "p3": "mibici.modeling.p3_search",
+}
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="MiBici MLflow Project - Entrenamiento"
@@ -40,7 +45,7 @@ def parse_args():
     parser.add_argument(
         "--model",
         required=True,
-        help="Modelo solicitado: baseline, rf, etc.",
+        help="Modelo solicitado: baseline, search, rf, etc.",
     )
 
     parser.add_argument(
@@ -125,6 +130,49 @@ def run_baseline(question, tracking_uri):
 
 
 
+def run_search(question, tracking_uri):
+    module = SEARCH_MODULES.get(question)
+
+    if module is None:
+        raise NotImplementedError(
+            f"Search for {question} has not yet been integrated. "
+            "Coordinate integration with the model developer."
+        )
+
+    command = [
+        sys.executable,
+        "-m",
+        module,
+        "--tracking-uri",
+        tracking_uri,
+        "--experiment",
+        MLFLOW_EXPERIMENT,
+        "--seed",
+        str(RANDOM_SEED),
+        "--min-departures",
+        str(P3_MIN_DEPARTURES),
+        "--k-min",
+        str(P3_K_MIN),
+        "--k-max",
+        str(P3_K_MAX),
+    ]
+
+    print(f"Executing search: {question}", flush=True)
+
+    env = os.environ.copy()
+
+    # Evitar reutilizar el Run ID creado por MLflow Project.
+    env.pop("MLFLOW_RUN_ID", None)
+
+    env["MLFLOW_TRACKING_URI"] = tracking_uri
+
+    subprocess.run(
+        command,
+        check=True,
+        env=env,
+    )
+
+
 def main():
     args = parse_args()
 
@@ -160,6 +208,10 @@ def main():
             learning_rate=args.learning_rate,
             max_iter=args.max_iter,
         )
+        return
+
+    if args.model == "search":
+        run_search(args.question, tracking_uri)
         return
 
     raise NotImplementedError(
