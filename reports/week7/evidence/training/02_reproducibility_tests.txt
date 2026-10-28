@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0 -- /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week5/TC5061-Proyecto-Equipo15/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week5/TC5061-Proyecto-Equipo15
+configfile: pyproject.toml
+plugins: anyio-4.15.1, platformdirs-4.13.5
+collecting ... collected 7 items
+
+tests/test_model_reproducibility.py::test_reproducibilidad_p1[rf-parametros0] PASSED [ 14%]
+tests/test_model_reproducibility.py::test_reproducibilidad_p1[hgb-parametros1] PASSED [ 28%]
+tests/test_model_reproducibility.py::test_reproducibilidad_p2[rf-parametros0] PASSED [ 42%]
+tests/test_model_reproducibility.py::test_reproducibilidad_p2[hgb-parametros1] PASSED [ 57%]
+tests/test_model_reproducibility.py::test_reproducibilidad_p2[logreg-parametros2] PASSED [ 71%]
+tests/test_model_reproducibility.py::test_generacion_datos_misma_semilla PASSED [ 85%]
+tests/test_model_reproducibility.py::test_modelos_utilizan_semilla_configurada PASSED [100%]
+
+============================== 7 passed in 4.85s ===============================

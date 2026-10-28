@@ -1,0 +1,38 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0 -- /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week5/TC5061-Proyecto-Equipo15/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week5/TC5061-Proyecto-Equipo15
+configfile: pyproject.toml
+plugins: anyio-4.15.1, platformdirs-4.13.5
+collecting ... collected 28 items
+
+tests/test_model_training.py::test_hiperparametros_predeterminados[rf-n_estimators] PASSED [  3%]
+tests/test_model_training.py::test_hiperparametros_predeterminados[hgb-max_iter] PASSED [  7%]
+tests/test_model_training.py::test_hiperparametros_predeterminados[logreg-C] PASSED [ 10%]
+tests/test_model_training.py::test_hiperparametros_personalizados PASSED [ 14%]
+tests/test_model_training.py::test_hiperparametro_cero_conserva_default PASSED [ 17%]
+tests/test_model_training.py::test_modelo_sin_configuracion_falla PASSED [ 21%]
+tests/test_model_training.py::test_crear_modelo_tipo_correcto[p1-rf-parametros0-RandomForestRegressor] PASSED [ 25%]
+tests/test_model_training.py::test_crear_modelo_tipo_correcto[p2-rf-parametros1-RandomForestClassifier] PASSED [ 28%]
+tests/test_model_training.py::test_crear_modelo_tipo_correcto[p1-hgb-parametros2-HistGradientBoostingRegressor] PASSED [ 32%]
+tests/test_model_training.py::test_crear_modelo_tipo_correcto[p2-hgb-parametros3-HistGradientBoostingClassifier] PASSED [ 35%]
+tests/test_model_training.py::test_crear_regresion_logistica_p2 PASSED   [ 39%]
+tests/test_model_training.py::test_modelos_no_soportados[p1-logreg] PASSED [ 42%]
+tests/test_model_training.py::test_modelos_no_soportados[p1-modelo_desconocido] PASSED [ 46%]
+tests/test_model_training.py::test_modelos_no_soportados[p2-modelo_desconocido] PASSED [ 50%]
+tests/test_model_training.py::test_random_forest_entrena_y_predice[p1] PASSED [ 53%]
+tests/test_model_training.py::test_random_forest_entrena_y_predice[p2] PASSED [ 57%]
+tests/test_model_training.py::test_mejor_umbral_maximiza_f1 PASSED       [ 60%]
+tests/test_model_training.py::test_mejora_porcentual[10.0-8.0-True-20.0] PASSED [ 64%]
+tests/test_model_training.py::test_mejora_porcentual[0.5-0.6-False-20.0] PASSED [ 67%]
+tests/test_model_training.py::test_mejora_porcentual[10.0-12.0-True--20.0] PASSED [ 71%]
+tests/test_model_training.py::test_mejora_porcentual[0.0-5.0-True-0.0] PASSED [ 75%]
+tests/test_model_training.py::test_run_baseline_selecciona_modulo[p1-mibici.modeling.p1_baseline] PASSED [ 78%]
+tests/test_model_training.py::test_run_baseline_selecciona_modulo[p2-mibici.modeling.p2_baseline] PASSED [ 82%]
+tests/test_model_training.py::test_run_baseline_selecciona_modulo[p3-mibici.modeling.p3_baseline] PASSED [ 85%]
+tests/test_model_training.py::test_run_search_selecciona_modulo[p1-mibici.modeling.p1_p2_search] PASSED [ 89%]
+tests/test_model_training.py::test_run_search_selecciona_modulo[p2-mibici.modeling.p1_p2_search] PASSED [ 92%]
+tests/test_model_training.py::test_run_search_selecciona_modulo[p3-mibici.modeling.p3_search] PASSED [ 96%]
+tests/test_model_training.py::test_run_search_rechaza_pregunta_invalida PASSED [100%]
+
+============================== 28 passed in 9.07s ==============================
