@@ -890,6 +890,111 @@ Se excluyen `OutlierSampleDetection`, `TrainTestSamplesMix` y `MultivariateDrift
 | `05_pytest_data_validation.png` | `25 passed` de `tests/test_data_validation.py` |
 | `06_pytest_suite_completa.png` | `65 passed` de la suite completa |
 
+### 11.2. Pruebas de entrenamiento y reproducibilidad con PyTest — Semana 7
+
+Como parte de la actividad **Construye: Tests + Chequeos de seguridad básicos integrados al repositorio**, incorporamos 35 casos de prueba automatizados para validar el entrenamiento, la evaluación y la reproducibilidad de modelos del proyecto MiBici. Las pruebas aprovechan las funciones reales de `mibici/modeling/p1_p2_candidates.py` y `mibici/modeling/train.py` y complementan las pruebas de ingesta, características, búsqueda, registro y DeepChecks ya integradas.
+
+**Archivos de pruebas añadidos:**
+
+- `tests/test_model_training.py`: **28 pruebas aprobadas**, que incluyen hiperparámetros, construcción de estimadores, entrenamiento con datos sintéticos, predicciones, métricas y selección de módulos de ejecución.
+- `tests/test_model_reproducibility.py`: **7 pruebas aprobadas**, que comparan entrenamientos independientes de P1 y P2 con los mismos datos, parámetros y semilla fija.
+
+#### 11.2.1. Funciones y casos evaluados
+
+| Función o componente | Validación | Tipo de caso |
+|---|---|---|
+| `resolver_hiperparametros()` | Valores predeterminados, personalización y mantenimiento del valor por defecto cuando se recibe cero | Normal y límite |
+| `resolver_hiperparametros()` | Identificador sin configuración | Error esperado |
+| `crear_modelo()` | Estimadores `RandomForestRegressor`, `RandomForestClassifier`, `HistGradientBoostingRegressor`, `HistGradientBoostingClassifier` y `LogisticRegression` | Normal |
+| `crear_modelo()` | Combinaciones de pregunta/modelo no admitidas | Error esperado |
+| Entrenamiento de Random Forest | Ajuste y predicción para P1 (regresión) y P2 (clasificación), dimensiones y predicciones finitas | Normal |
+| `mejor_umbral()` | Elección del umbral que maximiza F1 | Normal |
+| `mejora_pct()` | Mejoras positivas, negativas, métricas de maximización y baseline cero | Normal y límite |
+| `run_baseline()` | Selección de los módulos baseline P1, P2 y P3, argumentos y variable `MLFLOW_TRACKING_URI` | Normal con `Mock` |
+| `run_search()` | Selección de módulos de búsqueda y rechazo de una pregunta inválida | Normal y error esperado |
+
+Las pruebas de orquestación usan `unittest.mock` y `monkeypatch` para verificar las llamadas esperadas sin ejecutar subprocesos ni requerir un servidor de MLflow.
+
+#### 11.2.2. Reproducibilidad del entrenamiento
+
+Se utilizó `RANDOM_SEED = 42`, definido en `mibici/config.py`, junto con datos sintéticos deterministas y los mismos hiperparámetros. Para cada modelo se crean **dos estimadores independientes**, se entrenan con el mismo conjunto de entrenamiento y se comparan los resultados sobre el mismo conjunto de prueba.
+
+| Problema | Modelo | Comparaciones |
+|---|---|---|
+| P1 — Demanda (regresión) | Random Forest | Predicciones, MAE y R² |
+| P1 — Demanda (regresión) | HistGradientBoosting | Predicciones, MAE y R² |
+| P2 — Riesgo proxy (clasificación) | Random Forest | Clases predichas, exactitud y probabilidades |
+| P2 — Riesgo proxy (clasificación) | HistGradientBoosting | Clases predichas, exactitud y probabilidades |
+| P2 — Riesgo proxy (clasificación) | LogisticRegression | Clases predichas, exactitud y probabilidades |
+
+Además, se comprueba que la misma semilla genera los mismos datos sintéticos y que los estimadores utilizan la semilla configurada. Para predicciones y probabilidades continuas se usa `numpy.testing.assert_allclose` con tolerancias de `1e-10`, y para etiquetas discretas se usa igualdad exacta.
+
+**Alcance:** estas pruebas verifican la reproducibilidad de los estimadores con datos pequeños y controlados; no son una ejecución integral del pipeline de ingesta, entrenamiento, seguimiento y registro de modelos en MLflow sobre todos los CSV de 2024.
+
+#### 11.2.3. Comandos para ejecutar las pruebas
+
+Ejecutar desde la raíz del repositorio, con las dependencias del proyecto instaladas:
+
+```bash
+# Pruebas de entrenamiento, parámetros, métricas y orquestación
+.venv/bin/python -m pytest tests/test_model_training.py -v
+
+# Pruebas de reproducibilidad de P1 y P2
+.venv/bin/python -m pytest tests/test_model_reproducibility.py -v
+
+# Toda la suite del repositorio, incluida la validación de datos con DeepChecks
+.venv/bin/python -m pytest tests/ -v
+```
+
+Para guardar de nuevo las salidas textuales y visualizarlas simultáneamente en macOS/Linux:
+
+```bash
+mkdir -p reports/week7/evidence/training
+set -o pipefail
+
+.venv/bin/python -m pytest tests/test_model_training.py -v \
+  | tee reports/week7/evidence/training/01_training_tests.txt
+
+.venv/bin/python -m pytest tests/test_model_reproducibility.py -v \
+  | tee reports/week7/evidence/training/02_reproducibility_tests.txt
+
+.venv/bin/python -m pytest tests/ -v \
+  | tee reports/week7/evidence/training/03_full_test_suite.txt
+```
+
+#### 11.2.4. Resultados obtenidos y evidencias
+
+| Conjunto de pruebas | Resultado | Tiempo mostrado en la captura |
+|---|---:|---:|
+| Entrenamiento y evaluación | **28 passed** | 4.83 s |
+| Reproducibilidad | **7 passed** | 5.09 s |
+| Suite previa a esta contribución (incluido DeepChecks) | **65 passed** | 17.25 s |
+| **Suite completa después de incorporar las 35 nuevas pruebas** | **100 passed** | **13.07 s** (última ejecución registrada) |
+
+La suite completa finalizó sin pruebas fallidas ni omitidas en la ejecución registrada. Los tiempos son observaciones de las ejecuciones locales y pueden variar entre equipos.
+
+Las evidencias se almacenan en `reports/week7/evidence/training/`, en formato PNG para revisión visual y TXT para consulta de la salida de PyTest:
+
+| Archivo | Evidencia |
+|---|---|
+| `01_training_tests.png` / `01_training_tests.txt` | Pruebas de entrenamiento y evaluación |
+| `02_reproducibility_tests.png` / `02_reproducibility_tests.txt` | Pruebas de reproducibilidad |
+| `03_full_test_suite.png` / `03_full_test_suite.txt` | Ejecución integral de la suite |
+
+**Evidencia 1 — Pruebas de entrenamiento (28 passed):**
+
+![Pruebas de entrenamiento de MiBici: 28 aprobadas](reports/week7/evidence/training/01_training_tests.png)
+
+**Evidencia 2 — Pruebas de reproducibilidad (7 passed):**
+
+![Reproducibilidad de modelos MiBici: 7 aprobadas](reports/week7/evidence/training/02_reproducibility_tests.png)
+
+**Evidencia 3 — Suite completa del proyecto (100 passed):**
+
+![Suite PyTest completa de MiBici: 100 aprobadas](reports/week7/evidence/training/03_full_test_suite.png)
+
+Estas pruebas aportan cobertura de funciones clave, casos normales y límite, y reproducibilidad de modelos, manteniendo compatibles las funcionalidades previamente validadas del repositorio.
+
 ## 12. Registrar modelos y validar Model Registry
 
 ### 12.1. Registro automatizado
