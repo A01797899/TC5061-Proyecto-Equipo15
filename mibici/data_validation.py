@@ -10,8 +10,10 @@ Ejecutar desde la raíz del repositorio:
 from __future__ import annotations
 
 import argparse
+import html
 import json
 from pathlib import Path
+import re
 from types import SimpleNamespace
 import warnings
 
@@ -20,6 +22,10 @@ import pandas as pd
 from mibici.config import RANDOM_SEED, RAW_DATA_DIR, REPORTS_DIR
 
 SALIDA_REPORTES = REPORTS_DIR / "week7" / "deepchecks"
+PLOTLY_CDN = "https://cdn.jsdelivr.net/npm/plotly.js-dist-min@{version}/plotly.min.js"
+PLOTLY_INCRUSTADO = re.compile(
+    r"<script[^>]*>\s*/\*\*\s*\*\s*plotly\.js v[\d.]+.*?</script>", re.DOTALL
+)
 PREGUNTAS = ("p1", "p2")
 CATEGORICAS = ["hour_of_day", "weekday", "fin_semana"]
 TIPO_ETIQUETA = {"p1": "regression", "p2": "binary"}
@@ -174,6 +180,29 @@ def dividir(
     return partes
 
 
+def guardar_html(resultado, ruta: Path) -> None:
+    """Guardo el reporte como HTML estático con una sola copia de plotly.js desde CDN.
+
+    El HTML de widgets de deepchecks 0.19.1 no dibuja las gráficas con plotly 7, y su HTML
+    estático incrusta plotly.js (~5 MB) en cada gráfica.
+    """
+    from deepchecks.core.serialization.suite_result.html import SuiteResultSerializer
+    import plotly.offline
+
+    cuerpo = SuiteResultSerializer(resultado).serialize(
+        full_html=False, include_requirejs=False, include_plotlyjs=False
+    )
+    cuerpo = PLOTLY_INCRUSTADO.sub("", cuerpo)
+    plotly_js = PLOTLY_CDN.format(version=plotly.offline.get_plotlyjs_version())
+    ruta.write_text(
+        '<!DOCTYPE html><html><head><meta charset="utf-8">'
+        f"<title>{html.escape(resultado.name)}</title>"
+        f'<script src="{plotly_js}"></script></head>'
+        f"<body>{cuerpo}</body></html>",
+        encoding="utf-8",
+    )
+
+
 def construir_dataset(df: pd.DataFrame, features: list[str], pregunta: str, dc: SimpleNamespace):
     return dc.Dataset(
         df,
@@ -309,11 +338,7 @@ def validar_pregunta(pregunta: str, args, dc: SimpleNamespace) -> dict:
         "suites": {},
     }
     for nombre, resultado in corridas.items():
-        html = args.salida / f"{pregunta}_{nombre}.html"
-        # Borro el anterior porque deepchecks no sobrescribe: crearía "nombre (1).html".
-        html.unlink(missing_ok=True)
-        # connected=True carga las gráficas desde CDN: el HTML pesa KB y no MB.
-        resultado.save_as_html(str(html), connected=True)
+        guardar_html(resultado, args.salida / f"{pregunta}_{nombre}.html")
         resumen["suites"][nombre] = clasificar(resultado, dc)
 
     (args.salida / f"{pregunta}_resumen.json").write_text(

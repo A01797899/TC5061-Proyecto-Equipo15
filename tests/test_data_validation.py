@@ -177,5 +177,10 @@ def test_validar_pregunta_genera_reportes_y_los_reemplaza(dc, tmp_path, monkeypa
         "p1_train_test.html",
     ]
     assert set(resumen["suites"]) == {"integridad_train", "integridad_test", "train_test"}
+    # Una sola copia de plotly.js desde CDN: sin ella cada gráfica incrusta ~5 MB.
+    reporte = (args.salida / "p1_train_test.html").read_text(encoding="utf-8")
+    assert "plotly.js v" not in reporte
+    assert reporte.count("cdn.jsdelivr.net/npm/plotly.js-dist-min") == 1
+    assert "Plotly.newPlot" in reporte
     estados = {f["estado"] for filas in resumen["suites"].values() for f in filas}
     assert "no_ejecutado" not in estados
