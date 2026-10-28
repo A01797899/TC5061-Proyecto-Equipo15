@@ -1,0 +1,4 @@
+-r requirements.txt
+
+deepchecks==0.19.1
+setuptools==80.10.2

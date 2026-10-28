@@ -803,6 +803,93 @@ Se eligió **RandomForestClassifier** por lograr la mejor Average Precision de v
 
 **Resultado obtenido en la reproducción:** `40 passed` (incluye siete pruebas de las búsquedas anidadas de P1 y P2). Una nueva ejecución debe terminar satisfactoriamente antes de registrar modelos.
 
+### 11.1. Validación de datos con DeepChecks
+
+`mibici/data_validation.py` valida la calidad y la integridad de los datos de P1 y P2. Construye los paneles con `datos_p1()` y `datos_p2()` de `p1_p2_candidates.py`, de modo que usa el mismo procesamiento, las mismas características y la misma partición cronológica que los modelos candidatos; no repite la limpieza de `dataset.py`.
+
+**Instalación.** DeepChecks es una dependencia de desarrollo: está en `requirements-dev.txt` y no modifica `requirements.txt` ni `python_env.yaml`, por lo que el entorno de MLflow no cambia.
+
+```bash
+.venv/bin/python -m pip install -r requirements-dev.txt
+```
+
+**Ejecución.**
+
+```bash
+# Validación de P1 y P2 con los datos reales (requiere data/raw)
+.venv/bin/python -m mibici.data_validation
+
+# Solo una pregunta o con otra muestra
+.venv/bin/python -m mibici.data_validation --preguntas p2 --muestra 100000
+
+# Pruebas del módulo (datos sintéticos, no requieren data/raw)
+.venv/bin/python -m pytest tests/test_data_validation.py -v
+```
+
+| Opción | Valor por defecto | Uso |
+|---|---|---|
+| `--preguntas` | `p1 p2` | Preguntas a validar |
+| `--muestra` | `200000` | Filas por split para DeepChecks, con `RANDOM_SEED` |
+| `--salida` | `reports/week7/deepchecks` | Carpeta de reportes |
+| `--estricto` | desactivado | Termina con código 1 si algún check queda como problema |
+
+**Qué se valida.** Antes de DeepChecks, el módulo rechaza paneles vacíos, sin columnas requeridas, sin splits `train` y `test`, o que usen como predictor una columna de la hora objetivo (`pressure`, `salidas`, `llegadas`). También cuenta sobre el panel completo lo que el muestreo no garantiza: llave estación-hora duplicada, filas repetidas, nulos por columna y rango de fechas por split.
+
+| Suite | Se ejecuta sobre | Checks |
+|---|---|---|
+| Integridad | train y test por separado | Tipos mezclados, nulos (`MixedNulls`, `PercentOfNulls` ≤ 5 %), duplicados, columnas constantes, caracteres especiales, correlación característica-etiqueta (fuga), correlación entre características; en P2 además desbalance de clases y etiquetas en conflicto |
+| Train contra test | ambos | Drift de características y de etiqueta, fuga temporal por fecha, categorías y clases nuevas, comparación de tamaños, cambio de poder predictivo |
+
+**Reportes.** En `reports/week7/deepchecks/` se generan, por pregunta, los HTML `{p}_integridad_train.html`, `{p}_integridad_test.html` y `{p}_train_test.html`, el resumen `{p}_resumen.json` y un `resumen.md` con todas las preguntas. Cada check queda clasificado como aprobado, advertencia o problema, con una recomendación para los dos últimos. Los HTML son estáticos: muestran todas las secciones sin clics y cargan una sola copia de plotly.js desde jsDelivr, por lo que pesan entre 40 y 120 KB y necesitan internet para dibujar las gráficas.
+
+**Resultados** (versión de datos `7e1470ac0632`, 200,000 filas por split, semilla 42):
+
+| Indicador | P1 | P2 |
+|---|---|---|
+| Filas train / val / test | 2,119,872 / 529,968 / 529,968 | 2,119,872 / 529,968 / 529,968 |
+| Llave estación-hora duplicada | 0 | 0 |
+| Filas de train con nulos en rezagos | 60,816 | 60,816 |
+| Nulos en test | 0 | 0 |
+| Correlación máxima entre características | 0.79 | 0.67 |
+| Drift máximo de características | 0.03 (`weekday`) | 0.03 (`weekday`) |
+| Drift de la etiqueta | 0.01 (Kolmogorov-Smirnov) | 0.01 (Cramér's V) |
+| Fechas compartidas entre train y test | ninguna | ninguna |
+| Checks aprobados / advertencias / problemas | 30 / 0 / 0 | 31 / 2 / 2 |
+
+**Hallazgos.**
+
+- **Nulos en los rezagos.** Solo están al inicio de train, donde todavía no hay historia: 362, 8,688 y 60,816 filas en los rezagos de 1, 24 y 168 h, que son 362 estaciones × 1, 24 y 168 h. Representan 2.87 % en el peor caso, por debajo del umbral de 5 %, y `run_candidate` los descarta con `dropna`. Test no tiene nulos.
+- **Filas repetidas en características.** El conteo exacto encuentra 817,067 filas (38.5 %) en P1 y 657,852 (31.0 %) en P2 con las mismas características y etiqueta. No son registros duplicados, porque la llave estación-hora no se repite: son horas distintas con los mismos valores, como horas sin viajes. DeepChecks reporta 0.03 % y 0.34 % porque compara el registro completo, incluida la fecha.
+- **Desbalance en P2 (advertencia).** La clase positiva es cerca de 5 % de la negativa. Es propio de la etiqueta proxy, y los candidatos lo manejan con `class_weight="balanced"`, F1 y Average Precision, y el umbral elegido en validación.
+- **Etiquetas en conflicto en P2 (problema).** El 0.02 % de las filas tiene las mismas características y etiqueta distinta. Es esperable: la etiqueta depende de la presión de la hora objetivo, que a propósito no se usa como predictor.
+- **Drift.** Las distribuciones casi no cambian entre train (enero–agosto) y test (noviembre–diciembre): ningún check de drift supera su umbral.
+
+**Compatibilidad.** `deepchecks==0.19.1`, la última versión publicada (diciembre de 2024), es anterior a NumPy 2.5, pandas 3 y scikit-learn 1.9 del proyecto. `cargar_deepchecks()` aplica las correcciones antes de importarla:
+
+| Problema | Corrección |
+|---|---|
+| Importa `pkg_resources`, que setuptools 81+ ya no incluye | `setuptools==80.10.2` en `requirements-dev.txt` |
+| Usa `np.Inf` y `np.NaN`, eliminados en NumPy 2 | Alias antes de importar |
+| Pide el scorer `max_error`, renombrado a `neg_max_error` | Alias en el registro de scorers |
+| Su HTML interactivo no dibuja las gráficas con plotly 7, y su HTML estático incrusta plotly.js (~5 MB) en cada gráfica | `guardar_html()` genera un HTML estático con una sola copia de plotly.js desde CDN |
+| La condición de `FeatureFeatureCorrelation` usa `stack()`, que en pandas 3 conserva NaN y marca todos los pares | Condición propia con `stack().dropna()` |
+| La condición de `ClassImbalance` avisa cuando las clases están balanceadas | Condición propia que avisa si la minoritaria es menor al 10 % |
+
+Se excluyen `OutlierSampleDetection`, `TrainTestSamplesMix` y `MultivariateDrift`, que fallan con pandas 3 y scikit-learn 1.9, e `IndexTrainTestLeakage`, que no aplica porque la misma estación aparece en train y test por diseño. Los motivos quedan registrados en cada `{p}_resumen.json`.
+
+**Pruebas.** `tests/test_data_validation.py` agrega 25 pruebas sobre datos sintéticos: casos límite del panel, rechazo de columnas de la hora objetivo, conteos exactos, muestreo reproducible, las dos condiciones corregidas, detección de drift y que una segunda corrida reemplace los reportes. Sin DeepChecks instalado, 11 se omiten y las demás pasan. Con estas pruebas la suite completa pasa de 40 a **65 passed**.
+
+**Evidencia** en `reports/week7/evidence/deepchecks/`:
+
+| Archivo | Contenido |
+|---|---|
+| `01_terminal_p1.png` | Ejecución de `mibici.data_validation`, resultados de P1 |
+| `02_terminal_p2.png` | Resultados de P2 y ubicación de los reportes |
+| `03_html_integridad.png` | Reporte de integridad de P2 (train) |
+| `04_html_train_test.png` | Reporte de drift train contra test de P1 |
+| `05_pytest_data_validation.png` | `25 passed` de `tests/test_data_validation.py` |
+| `06_pytest_suite_completa.png` | `65 passed` de la suite completa |
+
 ## 12. Registrar modelos y validar Model Registry
 
 ### 12.1. Registro automatizado

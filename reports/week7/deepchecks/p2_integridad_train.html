@@ -1,0 +1,877 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Data Integrity Suite</title><script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@4.1.1/plotly.min.js"></script></head><body>
+<h1>Data Integrity Suite</h1>
+<p>
+    The suite is composed of various checks such as: Mixed Data Types, Identifier Label Correlation, Special Characters, etc...<br>
+    Each check may contain conditions (which will result in pass <span style="color: green;display:inline-block">✓</span> /
+    fail <span style="color: red;display:inline-block">✖</span> / warning <span style="color: orange;font-weight:bold;display:inline-block">!</span> / error <span style="color: firebrick;font-weight:bold;display:inline-block">⁈</span>) as well as
+    other outputs such as plots or tables.<br>
+    Suites, checks and conditions can all be modified. Read more about
+    <a href=https://docs.deepchecks.com/stable/general/usage/customizations/auto_examples/plot_create_a_custom_suite.html?utm_source=display_output&utm_medium=referral&utm_campaign=suite_link target="_blank">custom suites</a>.
+</p>
+
+<hr style="background-color: black;border: 0 none;color: black;height: 1px;"><h2>Conditions Summary</h2><style type="text/css">
+#T_ca2c3 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ca2c3 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ca2c3 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ca2c3 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ca2c3 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_ca2c3">
+  <thead>
+    <tr>
+      <th id="T_ca2c3_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_ca2c3_level0_col1" class="col_heading level0 col1" >Check</th>
+      <th id="T_ca2c3_level0_col2" class="col_heading level0 col2" >Condition</th>
+      <th id="T_ca2c3_level0_col3" class="col_heading level0 col3" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_ca2c3_row0_col0" class="data row0 col0" ><div style="color: red;text-align: center">✖</div></td>
+      <td id="T_ca2c3_row0_col1" class="data row0 col1" >Conflicting Labels</td>
+      <td id="T_ca2c3_row0_col2" class="data row0 col2" >Ambiguous sample ratio is less or equal to 0%</td>
+      <td id="T_ca2c3_row0_col3" class="data row0 col3" >Ratio of samples with conflicting labels: 0.02%</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row1_col0" class="data row1 col0" ><div style="color: orange;text-align: center;font-weight:bold">!</div></td>
+      <td id="T_ca2c3_row1_col1" class="data row1 col1" >Class Imbalance</td>
+      <td id="T_ca2c3_row1_col2" class="data row1 col2" >La clase minoritaria es al menos 10% de la mayoritaria</td>
+      <td id="T_ca2c3_row1_col3" class="data row1 col3" >La clase minoritaria es 0.05 veces la mayoritaria</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row2_col0" class="data row2 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row2_col1" class="data row2 col1" >Single Value in Column</td>
+      <td id="T_ca2c3_row2_col2" class="data row2 col2" >Does not contain only a single value</td>
+      <td id="T_ca2c3_row2_col3" class="data row2 col3" >Passed for 17 relevant columns</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row3_col0" class="data row3 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row3_col1" class="data row3 col1" >Special Characters</td>
+      <td id="T_ca2c3_row3_col2" class="data row3 col2" >Ratio of samples containing solely special character is less or equal to 0.1%</td>
+      <td id="T_ca2c3_row3_col3" class="data row3 col3" >Passed for 17 relevant columns</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row4_col0" class="data row4 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row4_col1" class="data row4 col1" >Mixed Nulls</td>
+      <td id="T_ca2c3_row4_col2" class="data row4 col2" >Number of different null types is less or equal to 1</td>
+      <td id="T_ca2c3_row4_col3" class="data row4 col3" >Passed for 17 relevant columns</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row5_col0" class="data row5 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row5_col1" class="data row5 col1" >Mixed Data Types</td>
+      <td id="T_ca2c3_row5_col2" class="data row5 col2" >Rare data types in column are either more than 10% or less than 1% of the data</td>
+      <td id="T_ca2c3_row5_col3" class="data row5 col3" >17 columns passed: found 0 columns with negligible types mix, and 17 columns without any types mix</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row6_col0" class="data row6 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row6_col1" class="data row6 col1" >String Mismatch</td>
+      <td id="T_ca2c3_row6_col2" class="data row6 col2" >No string variants</td>
+      <td id="T_ca2c3_row6_col3" class="data row6 col3" >Passed for 1 relevant column</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row7_col0" class="data row7 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row7_col1" class="data row7 col1" >Data Duplicates</td>
+      <td id="T_ca2c3_row7_col2" class="data row7 col2" >Duplicate data ratio is less or equal to 5%</td>
+      <td id="T_ca2c3_row7_col3" class="data row7 col3" >Found 0.34% duplicate data</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row8_col0" class="data row8 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row8_col1" class="data row8 col1" >String Length Out Of Bounds</td>
+      <td id="T_ca2c3_row8_col2" class="data row8 col2" >Ratio of string length outliers is less or equal to 0%</td>
+      <td id="T_ca2c3_row8_col3" class="data row8 col3" >No relevant columns to check were found</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row9_col0" class="data row9 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row9_col1" class="data row9 col1" >Feature Label Correlation</td>
+      <td id="T_ca2c3_row9_col2" class="data row9 col2" >Features' Predictive Power Score is less than 0.8</td>
+      <td id="T_ca2c3_row9_col3" class="data row9 col3" >Passed for 15 relevant columns</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row10_col0" class="data row10 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row10_col1" class="data row10 col1" >Identifier Label Correlation</td>
+      <td id="T_ca2c3_row10_col2" class="data row10 col2" >Identifier columns PPS is less or equal to 0</td>
+      <td id="T_ca2c3_row10_col3" class="data row10 col3" >Passed for 1 relevant column</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row11_col0" class="data row11 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row11_col1" class="data row11 col1" >Feature-Feature Correlation</td>
+      <td id="T_ca2c3_row11_col2" class="data row11 col2" >Ningún par de características con correlación mayor a 0.9</td>
+      <td id="T_ca2c3_row11_col3" class="data row11 col3" >Ningún par supera 0.9; máximo 0.67</td>
+    </tr>
+    <tr>
+      <td id="T_ca2c3_row12_col0" class="data row12 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ca2c3_row12_col1" class="data row12 col1" >PercentOfNulls</td>
+      <td id="T_ca2c3_row12_col2" class="data row12 col2" >Percent of null values in each column is not greater than 5%</td>
+      <td id="T_ca2c3_row12_col3" class="data row12 col3" >Passed for 15 relevant columns. Top columns with null ratio: 
+{'salidas_lag_1h': '0.01%', 'salidas_lag_24h': '0.43%', 'salidas_lag_168h': '2.87%', 'llegadas_lag_1h': '0.01%', 'llegadas_lag_24h': '0.43%'}</td>
+    </tr>
+  </tbody>
+</table>
+<hr style="background-color: black;border: 0 none;color: black;height: 1px;"><h2>Check With Conditions Output</h2><h4><b>Conflicting Labels</b></h4><p>Find samples which have the exact same features' values but different labels. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_conflicting_labels.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_0f5b0 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0f5b0 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0f5b0 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0f5b0 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0f5b0 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_0f5b0">
+  <thead>
+    <tr>
+      <th id="T_0f5b0_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_0f5b0_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_0f5b0_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_0f5b0_row0_col0" class="data row0 col0" ><div style="color: red;text-align: center">✖</div></td>
+      <td id="T_0f5b0_row0_col1" class="data row0 col1" >Ambiguous sample ratio is less or equal to 0%</td>
+      <td id="T_0f5b0_row0_col2" class="data row0 col2" >Ratio of samples with conflicting labels: 0.02%</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div>Each row in the table shows an example of a data sample and the its observed labels as found in the dataset. Showing top 5 of 20</div><style type="text/css">
+#T_53088 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_53088 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_53088 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_53088 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_53088 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_53088">
+  <thead>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_53088_level0_col0" class="col_heading level0 col0" >hour_of_day</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Observed Labels</th>
+      <th class="index_name level1" >Instances</th>
+      <th class="blank col0" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_53088_level0_row0" class="row_heading level0 row0" rowspan="5">(0, 1)</th>
+      <th id="T_53088_level1_row0" class="row_heading level1 row0" >105579, 25048, 53807, 76852, 151327, 134...</th>
+      <td id="T_53088_row0_col0" class="data row0 col0" >(10, 2, 0, 11, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0017076502554118633, 0.05714285746216774)</td>
+    </tr>
+    <tr>
+      <th id="T_53088_level1_row1" class="row_heading level1 row1" >86682, 143768, 126691</th>
+      <td id="T_53088_row1_col0" class="data row1 col0" >(6, 0, 0, 15, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.06666667014360428, 0.05242486298084259, 0.02857142873108387)</td>
+    </tr>
+    <tr>
+      <th id="T_53088_level1_row2" class="row_heading level1 row2" >39712, 22453, 45551</th>
+      <td id="T_53088_row2_col0" class="data row2 col0" >(8, 6, 1, 15, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.024760929867625237, 0.029411764815449715)</td>
+    </tr>
+    <tr>
+      <th id="T_53088_level1_row3" class="row_heading level1 row3" >34748, 138056, 17374</th>
+      <td id="T_53088_row3_col0" class="data row3 col0" >(6, 0, 0, 31, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.003244535531848669, 0.02857142873108387)</td>
+    </tr>
+    <tr>
+      <th id="T_53088_level1_row4" class="row_heading level1 row4" >103777, 155256, 195333</th>
+      <td id="T_53088_row4_col0" class="data row4 col0" >(5, 0, 0, 11, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.1818181872367859, 0.23189890384674072, 0.20000000298023224)</td>
+    </tr>
+  </tbody>
+</table>
+<hr style="background-color: #eee;border: 0 none;color: #eee;height: 4px;"><h4><b>Class Imbalance</b></h4><p>Check if a dataset is imbalanced by looking at the target variable distribution. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_class_imbalance.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_2b536 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_2b536 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_2b536 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_2b536 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_2b536 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_2b536">
+  <thead>
+    <tr>
+      <th id="T_2b536_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_2b536_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_2b536_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_2b536_row0_col0" class="data row0 col0" ><div style="color: orange;text-align: center;font-weight:bold">!</div></td>
+      <td id="T_2b536_row0_col1" class="data row0 col1" >La clase minoritaria es al menos 10% de la mayoritaria</td>
+      <td id="T_2b536_row0_col2" class="data row0 col2" >La clase minoritaria es 0.05 veces la mayoritaria</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div style="height:400px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+                        <div id="69549d45-8c18-4e04-bd7d-8ac2ee8cec26" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("69549d45-8c18-4e04-bd7d-8ac2ee8cec26")) {                    Plotly.newPlot(                        "69549d45-8c18-4e04-bd7d-8ac2ee8cec26",                        [{"hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"text":["0.95","0.05"],"textposition":"outside","x":{"dtype":"i1","bdata":"AAE="},"xaxis":"x","y":{"dtype":"f8","bdata":"ZmZmZmZm7j+amZmZmZmpPw=="},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Class"},"type":"category","range":[-3,4]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Frequency"},"range":[0,1]},"legend":{"tracegroupgap":0},"title":{"text":"Class Label Distribution"},"barmode":"relative","height":400},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('69549d45-8c18-4e04-bd7d-8ac2ee8cec26');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div><div></div><hr style="background-color: #eee;border: 0 none;color: #eee;height: 4px;"><h4><b>Mixed Nulls</b></h4><p>Search for various types of null values, including string representations of null. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_mixed_nulls.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_0d92e table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0d92e thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0d92e tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0d92e th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0d92e td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_0d92e">
+  <thead>
+    <tr>
+      <th id="T_0d92e_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_0d92e_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_0d92e_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_0d92e_row0_col0" class="data row0 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_0d92e_row0_col1" class="data row0 col1" >Number of different null types is less or equal to 1</td>
+      <td id="T_0d92e_row0_col2" class="data row0 col2" >Passed for 17 relevant columns</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div>Showing only the top 10 columns, you can change it using n_top_columns param</div><style type="text/css">
+#T_7d50b table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7d50b thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7d50b tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7d50b th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7d50b td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_7d50b">
+  <thead>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_7d50b_level0_col0" class="col_heading level0 col0" >Count</th>
+      <th id="T_7d50b_level0_col1" class="col_heading level0 col1" >Percent of data</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Column Name</th>
+      <th class="index_name level1" >Value</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_7d50b_level0_row0" class="row_heading level0 row0" >salidas_lag_1h</th>
+      <th id="T_7d50b_level1_row0" class="row_heading level1 row0" >math.nan</th>
+      <td id="T_7d50b_row0_col0" class="data row0 col0" >30</td>
+      <td id="T_7d50b_row0_col1" class="data row0 col1" >0.01%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row1" class="row_heading level0 row1" >salidas_lag_24h</th>
+      <th id="T_7d50b_level1_row1" class="row_heading level1 row1" >math.nan</th>
+      <td id="T_7d50b_row1_col0" class="data row1 col0" >815</td>
+      <td id="T_7d50b_row1_col1" class="data row1 col1" >0.41%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row2" class="row_heading level0 row2" >salidas_lag_168h</th>
+      <th id="T_7d50b_level1_row2" class="row_heading level1 row2" >math.nan</th>
+      <td id="T_7d50b_row2_col0" class="data row2 col0" >5745</td>
+      <td id="T_7d50b_row2_col1" class="data row2 col1" >2.87%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row3" class="row_heading level0 row3" >llegadas_lag_1h</th>
+      <th id="T_7d50b_level1_row3" class="row_heading level1 row3" >math.nan</th>
+      <td id="T_7d50b_row3_col0" class="data row3 col0" >30</td>
+      <td id="T_7d50b_row3_col1" class="data row3 col1" >0.01%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row4" class="row_heading level0 row4" >llegadas_lag_24h</th>
+      <th id="T_7d50b_level1_row4" class="row_heading level1 row4" >math.nan</th>
+      <td id="T_7d50b_row4_col0" class="data row4 col0" >815</td>
+      <td id="T_7d50b_row4_col1" class="data row4 col1" >0.41%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row5" class="row_heading level0 row5" >llegadas_lag_168h</th>
+      <th id="T_7d50b_level1_row5" class="row_heading level1 row5" >math.nan</th>
+      <td id="T_7d50b_row5_col0" class="data row5 col0" >5745</td>
+      <td id="T_7d50b_row5_col1" class="data row5 col1" >2.87%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row6" class="row_heading level0 row6" >pressure_lag_1h</th>
+      <th id="T_7d50b_level1_row6" class="row_heading level1 row6" >math.nan</th>
+      <td id="T_7d50b_row6_col0" class="data row6 col0" >30</td>
+      <td id="T_7d50b_row6_col1" class="data row6 col1" >0.01%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row7" class="row_heading level0 row7" >pressure_lag_24h</th>
+      <th id="T_7d50b_level1_row7" class="row_heading level1 row7" >math.nan</th>
+      <td id="T_7d50b_row7_col0" class="data row7 col0" >815</td>
+      <td id="T_7d50b_row7_col1" class="data row7 col1" >0.41%</td>
+    </tr>
+    <tr>
+      <th id="T_7d50b_level0_row8" class="row_heading level0 row8" >pressure_lag_168h</th>
+      <th id="T_7d50b_level1_row8" class="row_heading level1 row8" >math.nan</th>
+      <td id="T_7d50b_row8_col0" class="data row8 col0" >5745</td>
+      <td id="T_7d50b_row8_col1" class="data row8 col1" >2.87%</td>
+    </tr>
+  </tbody>
+</table>
+<hr style="background-color: #eee;border: 0 none;color: #eee;height: 4px;"><h4><b>Data Duplicates</b></h4><p>Checks for duplicate samples in the dataset. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_data_duplicates.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_1a9ed table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_1a9ed thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_1a9ed tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_1a9ed th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_1a9ed td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_1a9ed">
+  <thead>
+    <tr>
+      <th id="T_1a9ed_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_1a9ed_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_1a9ed_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_1a9ed_row0_col0" class="data row0 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_1a9ed_row0_col1" class="data row0 col1" >Duplicate data ratio is less or equal to 5%</td>
+      <td id="T_1a9ed_row0_col2" class="data row0 col2" >Found 0.34% duplicate data</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div>0.34% of data samples are duplicates. </div><div>Each row in the table shows an example of duplicate data and the number of times it appears.</div><style type="text/css">
+#T_7f137 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7f137 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7f137 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7f137 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_7f137 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_7f137">
+  <thead>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_7f137_level0_col0" class="col_heading level0 col0" >hour</th>
+      <th id="T_7f137_level0_col1" class="col_heading level0 col1" >hour_of_day</th>
+      <th id="T_7f137_level0_col2" class="col_heading level0 col2" >weekday</th>
+      <th id="T_7f137_level0_col3" class="col_heading level0 col3" >fin_semana</th>
+      <th id="T_7f137_level0_col4" class="col_heading level0 col4" >capacity</th>
+      <th id="T_7f137_level0_col5" class="col_heading level0 col5" >salidas_lag_1h</th>
+      <th id="T_7f137_level0_col6" class="col_heading level0 col6" >salidas_lag_24h</th>
+      <th id="T_7f137_level0_col7" class="col_heading level0 col7" >salidas_lag_168h</th>
+      <th id="T_7f137_level0_col8" class="col_heading level0 col8" >llegadas_lag_1h</th>
+      <th id="T_7f137_level0_col9" class="col_heading level0 col9" >llegadas_lag_24h</th>
+      <th id="T_7f137_level0_col10" class="col_heading level0 col10" >llegadas_lag_168h</th>
+      <th id="T_7f137_level0_col11" class="col_heading level0 col11" >pressure_lag_1h</th>
+      <th id="T_7f137_level0_col12" class="col_heading level0 col12" >pressure_lag_24h</th>
+      <th id="T_7f137_level0_col13" class="col_heading level0 col13" >pressure_lag_168h</th>
+      <th id="T_7f137_level0_col14" class="col_heading level0 col14" >prob_estacion</th>
+      <th id="T_7f137_level0_col15" class="col_heading level0 col15" >prob_estacion_dia_hora</th>
+      <th id="T_7f137_level0_col16" class="col_heading level0 col16" >y</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Instances</th>
+      <th class="index_name level1" >Number of Duplicates</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+      <th class="blank col4" >&nbsp;</th>
+      <th class="blank col5" >&nbsp;</th>
+      <th class="blank col6" >&nbsp;</th>
+      <th class="blank col7" >&nbsp;</th>
+      <th class="blank col8" >&nbsp;</th>
+      <th class="blank col9" >&nbsp;</th>
+      <th class="blank col10" >&nbsp;</th>
+      <th class="blank col11" >&nbsp;</th>
+      <th class="blank col12" >&nbsp;</th>
+      <th class="blank col13" >&nbsp;</th>
+      <th class="blank col14" >&nbsp;</th>
+      <th class="blank col15" >&nbsp;</th>
+      <th class="blank col16" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_7f137_level0_row0" class="row_heading level0 row0" >18849, 18859, 18830</th>
+      <th id="T_7f137_level1_row0" class="row_heading level1 row0" >3</th>
+      <td id="T_7f137_row0_col0" class="data row0 col0" >2024-01-24 01:00:00</td>
+      <td id="T_7f137_row0_col1" class="data row0 col1" >1</td>
+      <td id="T_7f137_row0_col2" class="data row0 col2" >2</td>
+      <td id="T_7f137_row0_col3" class="data row0 col3" >0</td>
+      <td id="T_7f137_row0_col4" class="data row0 col4" >19</td>
+      <td id="T_7f137_row0_col5" class="data row0 col5" >0.00</td>
+      <td id="T_7f137_row0_col6" class="data row0 col6" >0.00</td>
+      <td id="T_7f137_row0_col7" class="data row0 col7" >0.00</td>
+      <td id="T_7f137_row0_col8" class="data row0 col8" >0.00</td>
+      <td id="T_7f137_row0_col9" class="data row0 col9" >0.00</td>
+      <td id="T_7f137_row0_col10" class="data row0 col10" >0.00</td>
+      <td id="T_7f137_row0_col11" class="data row0 col11" >0.00</td>
+      <td id="T_7f137_row0_col12" class="data row0 col12" >0.00</td>
+      <td id="T_7f137_row0_col13" class="data row0 col13" >0.00</td>
+      <td id="T_7f137_row0_col14" class="data row0 col14" >0.00</td>
+      <td id="T_7f137_row0_col15" class="data row0 col15" >0.00</td>
+      <td id="T_7f137_row0_col16" class="data row0 col16" >0</td>
+    </tr>
+    <tr>
+      <th id="T_7f137_level0_row1" class="row_heading level0 row1" >25631, 25655, 25657</th>
+      <th id="T_7f137_level1_row1" class="row_heading level1 row1" >3</th>
+      <td id="T_7f137_row1_col0" class="data row1 col0" >2024-02-01 03:00:00</td>
+      <td id="T_7f137_row1_col1" class="data row1 col1" >3</td>
+      <td id="T_7f137_row1_col2" class="data row1 col2" >3</td>
+      <td id="T_7f137_row1_col3" class="data row1 col3" >0</td>
+      <td id="T_7f137_row1_col4" class="data row1 col4" >19</td>
+      <td id="T_7f137_row1_col5" class="data row1 col5" >0.00</td>
+      <td id="T_7f137_row1_col6" class="data row1 col6" >0.00</td>
+      <td id="T_7f137_row1_col7" class="data row1 col7" >0.00</td>
+      <td id="T_7f137_row1_col8" class="data row1 col8" >0.00</td>
+      <td id="T_7f137_row1_col9" class="data row1 col9" >0.00</td>
+      <td id="T_7f137_row1_col10" class="data row1 col10" >0.00</td>
+      <td id="T_7f137_row1_col11" class="data row1 col11" >0.00</td>
+      <td id="T_7f137_row1_col12" class="data row1 col12" >0.00</td>
+      <td id="T_7f137_row1_col13" class="data row1 col13" >0.00</td>
+      <td id="T_7f137_row1_col14" class="data row1 col14" >0.00</td>
+      <td id="T_7f137_row1_col15" class="data row1 col15" >0.00</td>
+      <td id="T_7f137_row1_col16" class="data row1 col16" >0</td>
+    </tr>
+    <tr>
+      <th id="T_7f137_level0_row2" class="row_heading level0 row2" >42097, 42111, 42086</th>
+      <th id="T_7f137_level1_row2" class="row_heading level1 row2" >3</th>
+      <td id="T_7f137_row2_col0" class="data row2 col0" >2024-02-21 04:00:00</td>
+      <td id="T_7f137_row2_col1" class="data row2 col1" >4</td>
+      <td id="T_7f137_row2_col2" class="data row2 col2" >2</td>
+      <td id="T_7f137_row2_col3" class="data row2 col3" >0</td>
+      <td id="T_7f137_row2_col4" class="data row2 col4" >15</td>
+      <td id="T_7f137_row2_col5" class="data row2 col5" >0.00</td>
+      <td id="T_7f137_row2_col6" class="data row2 col6" >0.00</td>
+      <td id="T_7f137_row2_col7" class="data row2 col7" >0.00</td>
+      <td id="T_7f137_row2_col8" class="data row2 col8" >0.00</td>
+      <td id="T_7f137_row2_col9" class="data row2 col9" >0.00</td>
+      <td id="T_7f137_row2_col10" class="data row2 col10" >0.00</td>
+      <td id="T_7f137_row2_col11" class="data row2 col11" >0.00</td>
+      <td id="T_7f137_row2_col12" class="data row2 col12" >0.00</td>
+      <td id="T_7f137_row2_col13" class="data row2 col13" >0.00</td>
+      <td id="T_7f137_row2_col14" class="data row2 col14" >0.00</td>
+      <td id="T_7f137_row2_col15" class="data row2 col15" >0.00</td>
+      <td id="T_7f137_row2_col16" class="data row2 col16" >0</td>
+    </tr>
+    <tr>
+      <th id="T_7f137_level0_row3" class="row_heading level0 row3" >50137, 50150, 50151</th>
+      <th id="T_7f137_level1_row3" class="row_heading level1 row3" >3</th>
+      <td id="T_7f137_row3_col0" class="data row3 col0" >2024-03-02 00:00:00</td>
+      <td id="T_7f137_row3_col1" class="data row3 col1" >0</td>
+      <td id="T_7f137_row3_col2" class="data row3 col2" >5</td>
+      <td id="T_7f137_row3_col3" class="data row3 col3" >1</td>
+      <td id="T_7f137_row3_col4" class="data row3 col4" >15</td>
+      <td id="T_7f137_row3_col5" class="data row3 col5" >0.00</td>
+      <td id="T_7f137_row3_col6" class="data row3 col6" >0.00</td>
+      <td id="T_7f137_row3_col7" class="data row3 col7" >0.00</td>
+      <td id="T_7f137_row3_col8" class="data row3 col8" >0.00</td>
+      <td id="T_7f137_row3_col9" class="data row3 col9" >0.00</td>
+      <td id="T_7f137_row3_col10" class="data row3 col10" >0.00</td>
+      <td id="T_7f137_row3_col11" class="data row3 col11" >0.00</td>
+      <td id="T_7f137_row3_col12" class="data row3 col12" >0.00</td>
+      <td id="T_7f137_row3_col13" class="data row3 col13" >0.00</td>
+      <td id="T_7f137_row3_col14" class="data row3 col14" >0.00</td>
+      <td id="T_7f137_row3_col15" class="data row3 col15" >0.00</td>
+      <td id="T_7f137_row3_col16" class="data row3 col16" >0</td>
+    </tr>
+    <tr>
+      <th id="T_7f137_level0_row4" class="row_heading level0 row4" >53456, 53466, 53445</th>
+      <th id="T_7f137_level1_row4" class="row_heading level1 row4" >3</th>
+      <td id="T_7f137_row4_col0" class="data row4 col0" >2024-03-06 00:00:00</td>
+      <td id="T_7f137_row4_col1" class="data row4 col1" >0</td>
+      <td id="T_7f137_row4_col2" class="data row4 col2" >2</td>
+      <td id="T_7f137_row4_col3" class="data row4 col3" >0</td>
+      <td id="T_7f137_row4_col4" class="data row4 col4" >15</td>
+      <td id="T_7f137_row4_col5" class="data row4 col5" >0.00</td>
+      <td id="T_7f137_row4_col6" class="data row4 col6" >0.00</td>
+      <td id="T_7f137_row4_col7" class="data row4 col7" >0.00</td>
+      <td id="T_7f137_row4_col8" class="data row4 col8" >0.00</td>
+      <td id="T_7f137_row4_col9" class="data row4 col9" >0.00</td>
+      <td id="T_7f137_row4_col10" class="data row4 col10" >0.00</td>
+      <td id="T_7f137_row4_col11" class="data row4 col11" >0.00</td>
+      <td id="T_7f137_row4_col12" class="data row4 col12" >0.00</td>
+      <td id="T_7f137_row4_col13" class="data row4 col13" >0.00</td>
+      <td id="T_7f137_row4_col14" class="data row4 col14" >0.00</td>
+      <td id="T_7f137_row4_col15" class="data row4 col15" >0.00</td>
+      <td id="T_7f137_row4_col16" class="data row4 col16" >0</td>
+    </tr>
+  </tbody>
+</table>
+<hr style="background-color: #eee;border: 0 none;color: #eee;height: 4px;"><h4><b>Feature Label Correlation</b></h4><p>Return the PPS (Predictive Power Score) of all features in relation to the label. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_feature_label_correlation.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_0fceb table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0fceb thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0fceb tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0fceb th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_0fceb td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_0fceb">
+  <thead>
+    <tr>
+      <th id="T_0fceb_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_0fceb_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_0fceb_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_0fceb_row0_col0" class="data row0 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_0fceb_row0_col1" class="data row0 col1" >Features' Predictive Power Score is less than 0.8</td>
+      <td id="T_0fceb_row0_col2" class="data row0 col2" >Passed for 15 relevant columns</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div style="height:500px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+                        <div id="6d35beb8-62ec-49d7-a4a9-2bbfc9da7553" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("6d35beb8-62ec-49d7-a4a9-2bbfc9da7553")) {                    Plotly.newPlot(                        "6d35beb8-62ec-49d7-a4a9-2bbfc9da7553",                        [{"marker":{"color":"#00008b"},"name":"Train","text":["\u003cb\u003e0.12\u003c\u002fb\u003e","\u003cb\u003e0.04\u003c\u002fb\u003e","\u003cb\u003e0.02\u003c\u002fb\u003e","\u003cb\u003e0.02\u003c\u002fb\u003e","\u003cb\u003e0.02\u003c\u002fb\u003e"],"textposition":"outside","x":["prob_estacion_dia_hora","pressure_lag_168h","pressure_lag_1h","pressure_lag_24h","llegadas_lag_168h"],"y":{"dtype":"f8","bdata":"StqkzYJWvz+pKnkFRV6iP1AN3wqX35U\u002fHnlT5EQ+kD\u002fHfn0ee2yPPw=="},"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05}}},"yaxis":{"title":{"text":"Predictive Power Score (PPS)"},"range":[0,1.05]},"xaxis":{"range":[-3,7],"type":"category","title":{"text":"Column"}},"legend":{"x":1.0,"y":1.0},"barmode":"group","height":500,"title":{"text":"Predictive Power Score (PPS) - Can a feature predict the label by itself?"}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('6d35beb8-62ec-49d7-a4a9-2bbfc9da7553');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div><div>The Predictive Power Score (PPS) is used to estimate the ability of a feature to predict the label by itself (Read more about <a href=https://docs.deepchecks.com/stable/tabular/auto_checks/train_test_validation/plot_feature_label_correlation_change.html target="_blank">Predictive Power Score</a>). A high PPS (close to 1) can mean that this feature's success in predicting the label is actually due to data leakage - meaning that the feature holds information that is based on the label to begin with.</div><div><p style="font-size:0.9em;line-height:1;"><i>Note - data sampling: Data is sampled from the original dataset, running on 100000 samples out of 200000. Sample size can be controlled with the "n_samples" parameter.</i></p></div><hr style="background-color: #eee;border: 0 none;color: #eee;height: 4px;"><h4><b>Feature-Feature Correlation</b></h4><p>    Checks for pairwise correlation between the features. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_feature_feature_correlation.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_dd5a3 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_dd5a3 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_dd5a3 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_dd5a3 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_dd5a3 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_dd5a3">
+  <thead>
+    <tr>
+      <th id="T_dd5a3_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_dd5a3_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_dd5a3_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_dd5a3_row0_col0" class="data row0 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_dd5a3_row0_col1" class="data row0 col1" >Ningún par de características con correlación mayor a 0.9</td>
+      <td id="T_dd5a3_row0_col2" class="data row0 col2" >Ningún par supera 0.9; máximo 0.67</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div style="height:525px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+                        <div id="e44ddaea-b9d1-456e-acd1-8ccc4f6acf25" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e44ddaea-b9d1-456e-acd1-8ccc4f6acf25")) {                    Plotly.newPlot(                        "e44ddaea-b9d1-456e-acd1-8ccc4f6acf25",                        [{"coloraxis":"coloraxis","name":"0","x":["capacity","salidas_lag_1h","salidas_lag_24h","salidas_lag_168h","llegadas_lag_1h","llegadas_lag_24h","llegadas_lag_168h","pressure_lag_1h","pressure_lag_24h","pressure_lag_168h"],"y":["capacity","salidas_lag_1h","salidas_lag_24h","salidas_lag_168h","llegadas_lag_1h","llegadas_lag_24h","llegadas_lag_168h","pressure_lag_1h","pressure_lag_24h","pressure_lag_168h"],"z":[[1.0,0.07867044415504569,0.08362455512364864,0.09864680162996665,0.10944109426094652,0.11537150230170215,0.10748063307562111,0.03526641303040047,0.040886834065271986,0.036261569531038165],[0.07867044415504569,1.0,0.5481781227475173,0.576373034551178,0.658200450636077,0.510756966031116,0.5373143713432008,0.6016561750365782,0.39935617636191184,0.4346775290607036],[0.08362455512364864,0.5481781227475173,1.0,0.6226095950516068,0.5163320972661946,0.6658685538610202,0.555940178836444,0.42071641860066644,0.6066982316883025,0.4625824017659634],[0.09864680162996665,0.576373034551178,0.6226095950516068,1.0,0.5470211335041503,0.5540263253349414,0.6719689693144533,0.43652095176846384,0.4621744238576643,0.6037530408469024],[0.10944109426094652,0.658200450636077,0.5163320972661946,0.5470211335041503,1.0,0.5453538020280303,0.586691110211494,0.616680950507375,0.40586439401342667,0.4394693182787037],[0.11537150230170215,0.510756966031116,0.6658685538610202,0.5540263253349414,0.5453538020280303,1.0,0.6076768002172642,0.4225675865881236,0.5978248736777578,0.44996421103724604],[0.10748063307562111,0.5373143713432008,0.555940178836444,0.6719689693144533,0.586691110211494,0.6076768002172642,1.0,0.4359681986551317,0.4453882901573824,0.6069768368094656],[0.03526641303040047,0.6016561750365782,0.42071641860066644,0.43652095176846384,0.616680950507375,0.4225675865881236,0.4359681986551317,1.0,0.36398578880085586,0.3871424586228594],[0.040886834065271986,0.39935617636191184,0.6066982316883025,0.4621744238576643,0.40586439401342667,0.5978248736777578,0.4453882901573824,0.36398578880085586,1.0,0.4158628872220422],[0.036261569531038165,0.4346775290607036,0.4625824017659634,0.6037530408469024,0.4394693182787037,0.44996421103724604,0.6069768368094656,0.3871424586228594,0.4158628872220422,1.0]],"type":"heatmap","xaxis":"x","yaxis":"y","hovertemplate":"x: %{x}\u003cbr\u003ey: %{y}\u003cbr\u003ecolor: %{z}\u003cextra\u003e\u003c\u002fextra\u003e"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"scaleanchor":"y","constrain":"domain"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"autorange":"reversed","constrain":"domain"},"coloraxis":{"colorscale":[[0.0,"rgb(3, 35, 51)"],[0.09090909090909091,"rgb(13, 48, 100)"],[0.18181818181818182,"rgb(53, 50, 155)"],[0.2727272727272727,"rgb(93, 62, 153)"],[0.36363636363636365,"rgb(126, 77, 143)"],[0.45454545454545453,"rgb(158, 89, 135)"],[0.5454545454545454,"rgb(193, 100, 121)"],[0.6363636363636364,"rgb(225, 113, 97)"],[0.7272727272727273,"rgb(246, 139, 69)"],[0.8181818181818182,"rgb(251, 173, 60)"],[0.9090909090909091,"rgb(246, 211, 70)"],[1.0,"rgb(231, 250, 90)"]],"autocolorscale":false},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('e44ddaea-b9d1-456e-acd1-8ccc4f6acf25');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div><div>* Displayed as absolute values.</div><div><p style="font-size:0.9em;line-height:1;"><i>Note - data sampling: Data is sampled from the original dataset, running on 10000 samples out of 200000. Sample size can be controlled with the "n_samples" parameter.</i></p></div><hr style="background-color: #eee;border: 0 none;color: #eee;height: 4px;"><h4><b>PercentOfNulls</b></h4><p>Percent of 'Null' values in each column. <a href="https://docs.deepchecks.com/0.19/tabular/auto_checks/data_integrity/plot_percent_of_nulls.html?utm_source=display_output&utm_medium=referral&utm_campaign=check_link" target="_blank">Read More...</a></p><h5><b>Conditions Summary</b></h5><style type="text/css">
+#T_ba56d table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ba56d thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ba56d tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ba56d th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_ba56d td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_ba56d">
+  <thead>
+    <tr>
+      <th id="T_ba56d_level0_col0" class="col_heading level0 col0" >Status</th>
+      <th id="T_ba56d_level0_col1" class="col_heading level0 col1" >Condition</th>
+      <th id="T_ba56d_level0_col2" class="col_heading level0 col2" >More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_ba56d_row0_col0" class="data row0 col0" ><div style="color: green;text-align: center">✓</div></td>
+      <td id="T_ba56d_row0_col1" class="data row0 col1" >Percent of null values in each column is not greater than 5%</td>
+      <td id="T_ba56d_row0_col2" class="data row0 col2" >Passed for 15 relevant columns. Top columns with null ratio: 
+{'salidas_lag_1h': '0.01%', 'salidas_lag_24h': '0.43%', 'salidas_lag_168h': '2.87%', 'llegadas_lag_1h': '0.01%', 'llegadas_lag_24h': '0.43%'}</td>
+    </tr>
+  </tbody>
+</table>
+<h5><b>Additional Outputs</b></h5><div style="height:525px; width:100%;">                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+                        <div id="e384fdfc-04a6-41d8-86e4-41b29463a5bf" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("e384fdfc-04a6-41d8-86e4-41b29463a5bf")) {                    Plotly.newPlot(                        "e384fdfc-04a6-41d8-86e4-41b29463a5bf",                        [{"hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","orientation":"v","showlegend":false,"textposition":"auto","x":["hour_of_day","weekday","fin_semana","capacity","salidas_lag_1h","salidas_lag_24h","salidas_lag_168h","llegadas_lag_1h","llegadas_lag_24h","llegadas_lag_168h","pressure_lag_1h","pressure_lag_24h","pressure_lag_168h","prob_estacion","prob_estacion_dia_hora"],"xaxis":"x","y":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABLsDic+dUcP5zEILByaHE\u002fmz3QCgxZnT9LsDic+dUcP5zEILByaHE\u002fmz3QCgxZnT9LsDic+dUcP5zEILByaHE\u002fmz3QCgxZnT8AAAAAAAAAAAAAAAAAAAAA"},"yaxis":"y","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{},"range":[0,1]},"legend":{"tracegroupgap":0},"title":{"text":"Percent Of Nulls"},"barmode":"relative"},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('e384fdfc-04a6-41d8-86e4-41b29463a5bf');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div><div><p style="font-size:0.9em;line-height:1;"><i>Note - data sampling: Data is sampled from the original dataset, running on 100000 samples out of 200000. Sample size can be controlled with the "n_samples" parameter.</i></p></div><hr style="background-color: black;border: 0 none;color: black;height: 1px;"><h2>Check Without Conditions Output</h2><hr style="background-color: black;border: 0 none;color: black;height: 1px;"><h2>Other Checks That Weren't Displayed</h2>
+<style type="text/css">
+#T_a16b8 table {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_a16b8 thead {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_a16b8 tbody {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_a16b8 th {
+  text-align: left;
+  white-space: pre-wrap;
+}
+#T_a16b8 td {
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+<table id="T_a16b8">
+  <thead>
+    <tr>
+      <th id="T_a16b8_level0_col0" class="col_heading level0 col0" >Check</th>
+      <th id="T_a16b8_level0_col1" class="col_heading level0 col1" >Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="T_a16b8_row0_col0" class="data row0 col0" >Single Value in Column</td>
+      <td id="T_a16b8_row0_col1" class="data row0 col1" >Nothing found</td>
+    </tr>
+    <tr>
+      <td id="T_a16b8_row1_col0" class="data row1 col0" >Special Characters</td>
+      <td id="T_a16b8_row1_col1" class="data row1 col1" >Nothing found</td>
+    </tr>
+    <tr>
+      <td id="T_a16b8_row2_col0" class="data row2 col0" >Mixed Data Types</td>
+      <td id="T_a16b8_row2_col1" class="data row2 col1" >Nothing found</td>
+    </tr>
+    <tr>
+      <td id="T_a16b8_row3_col0" class="data row3 col0" >String Mismatch</td>
+      <td id="T_a16b8_row3_col1" class="data row3 col1" >Nothing found</td>
+    </tr>
+    <tr>
+      <td id="T_a16b8_row4_col0" class="data row4 col0" >String Length Out Of Bounds</td>
+      <td id="T_a16b8_row4_col1" class="data row4 col1" >Nothing found</td>
+    </tr>
+    <tr>
+      <td id="T_a16b8_row5_col0" class="data row5 col0" >Identifier Label Correlation</td>
+      <td id="T_a16b8_row5_col1" class="data row5 col1" >Nothing found</td>
+    </tr>
+  </tbody>
+</table>
+</body></html>

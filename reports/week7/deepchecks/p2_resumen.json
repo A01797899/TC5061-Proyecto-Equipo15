@@ -1,0 +1,256 @@
+{
+  "pregunta": "p2",
+  "tipo_etiqueta": "binary",
+  "caracteristicas": [
+    "hour_of_day",
+    "weekday",
+    "fin_semana",
+    "capacity",
+    "salidas_lag_1h",
+    "salidas_lag_24h",
+    "salidas_lag_168h",
+    "llegadas_lag_1h",
+    "llegadas_lag_24h",
+    "llegadas_lag_168h",
+    "pressure_lag_1h",
+    "pressure_lag_24h",
+    "pressure_lag_168h",
+    "prob_estacion",
+    "prob_estacion_dia_hora"
+  ],
+  "muestra_por_split": 200000,
+  "semilla": 42,
+  "conteos_panel_completo": {
+    "filas_por_split": {
+      "test": 529968,
+      "train": 2119872,
+      "val": 529968
+    },
+    "llave_estacion_hora_duplicada": 0,
+    "filas_duplicadas_en_caracteristicas_train": 657852,
+    "nulos_train_por_columna": {
+      "salidas_lag_1h": 362,
+      "salidas_lag_24h": 8688,
+      "salidas_lag_168h": 60816,
+      "llegadas_lag_1h": 362,
+      "llegadas_lag_24h": 8688,
+      "llegadas_lag_168h": 60816,
+      "pressure_lag_1h": 362,
+      "pressure_lag_24h": 8688,
+      "pressure_lag_168h": 60816
+    },
+    "filas_train_descartadas_por_nulos": 60816,
+    "nulos_test": 0,
+    "rango_fechas": {
+      "test": [
+        "2024-11-01 00:00:00",
+        "2024-12-31 23:00:00"
+      ],
+      "train": [
+        "2024-01-01 00:00:00",
+        "2024-08-31 23:00:00"
+      ],
+      "val": [
+        "2024-09-01 00:00:00",
+        "2024-10-31 23:00:00"
+      ]
+    }
+  },
+  "checks_excluidos": {
+    "OutlierSampleDetection": "llama quantile(interpolation=...), argumento que NumPy 2 eliminó",
+    "TrainTestSamplesMix": "usa DataFrame.applymap, que pandas 3 eliminó",
+    "MultivariateDrift": "su modelo interno no implementa __sklearn_tags__ (scikit-learn 1.6+)",
+    "IndexTrainTestLeakage": "la misma estación aparece en train y test por diseño; la fuga se mide por fecha"
+  },
+  "condiciones_propias": {
+    "FeatureFeatureCorrelation": "la condición original usa stack(), que en pandas 3 ya no descarta NaN y marca todos los pares como correlacionados; la evalúo con stack().dropna()",
+    "ClassImbalance": "la condición original avisa cuando las clases están balanceadas; la invierto para avisar cuando la clase minoritaria es menor al 10 % de la mayoritaria"
+  },
+  "suites": {
+    "integridad_train": [
+      {
+        "check": "ConflictingLabels",
+        "estado": "problema",
+        "detalle": "Ratio of samples with conflicting labels: 0.02%",
+        "recomendacion": "Revisar filas con las mismas características y etiquetas distintas."
+      },
+      {
+        "check": "ClassImbalance",
+        "estado": "advertencia",
+        "detalle": "La clase minoritaria es 0.05 veces la mayoritaria",
+        "recomendacion": "Mantener métricas robustas al desbalance (F1, AP) y el umbral elegido en validación."
+      },
+      {
+        "check": "IsSingleValue",
+        "estado": "aprobado",
+        "detalle": "Passed for 17 relevant columns"
+      },
+      {
+        "check": "SpecialCharacters",
+        "estado": "aprobado",
+        "detalle": "Passed for 17 relevant columns"
+      },
+      {
+        "check": "MixedNulls",
+        "estado": "aprobado",
+        "detalle": "Passed for 17 relevant columns"
+      },
+      {
+        "check": "MixedDataTypes",
+        "estado": "aprobado",
+        "detalle": "17 columns passed: found 0 columns with negligible types mix, and 17 columns without any types mix"
+      },
+      {
+        "check": "StringMismatch",
+        "estado": "aprobado",
+        "detalle": "Passed for 1 relevant column"
+      },
+      {
+        "check": "DataDuplicates",
+        "estado": "aprobado",
+        "detalle": "Found 0.34% duplicate data"
+      },
+      {
+        "check": "StringLengthOutOfBounds",
+        "estado": "aprobado",
+        "detalle": "No relevant columns to check were found"
+      },
+      {
+        "check": "FeatureLabelCorrelation",
+        "estado": "aprobado",
+        "detalle": "Passed for 15 relevant columns"
+      },
+      {
+        "check": "IdentifierLabelCorrelation",
+        "estado": "aprobado",
+        "detalle": "Passed for 1 relevant column"
+      },
+      {
+        "check": "FeatureFeatureCorrelation",
+        "estado": "aprobado",
+        "detalle": "Ningún par supera 0.9; máximo 0.67"
+      },
+      {
+        "check": "PercentOfNulls",
+        "estado": "aprobado",
+        "detalle": "Passed for 15 relevant columns. Top columns with null ratio: \n{'salidas_lag_1h': '0.01%', 'salidas_lag_24h': '0.43%', 'salidas_lag_168h': '2.87%', 'llegadas_lag_1h': '0.01%', 'llegadas_lag_24h': '0.43%'}"
+      }
+    ],
+    "integridad_test": [
+      {
+        "check": "ConflictingLabels",
+        "estado": "problema",
+        "detalle": "Ratio of samples with conflicting labels: 0.03%",
+        "recomendacion": "Revisar filas con las mismas características y etiquetas distintas."
+      },
+      {
+        "check": "ClassImbalance",
+        "estado": "advertencia",
+        "detalle": "La clase minoritaria es 0.05 veces la mayoritaria",
+        "recomendacion": "Mantener métricas robustas al desbalance (F1, AP) y el umbral elegido en validación."
+      },
+      {
+        "check": "IsSingleValue",
+        "estado": "aprobado",
+        "detalle": "Passed for 17 relevant columns"
+      },
+      {
+        "check": "SpecialCharacters",
+        "estado": "aprobado",
+        "detalle": "Passed for 17 relevant columns"
+      },
+      {
+        "check": "MixedNulls",
+        "estado": "aprobado",
+        "detalle": "Passed for 17 relevant columns"
+      },
+      {
+        "check": "MixedDataTypes",
+        "estado": "aprobado",
+        "detalle": "17 columns passed: found 0 columns with negligible types mix, and 17 columns without any types mix"
+      },
+      {
+        "check": "StringMismatch",
+        "estado": "aprobado",
+        "detalle": "Passed for 1 relevant column"
+      },
+      {
+        "check": "DataDuplicates",
+        "estado": "aprobado",
+        "detalle": "Found 1.2% duplicate data"
+      },
+      {
+        "check": "StringLengthOutOfBounds",
+        "estado": "aprobado",
+        "detalle": "No relevant columns to check were found"
+      },
+      {
+        "check": "FeatureLabelCorrelation",
+        "estado": "aprobado",
+        "detalle": "Passed for 15 relevant columns"
+      },
+      {
+        "check": "IdentifierLabelCorrelation",
+        "estado": "aprobado",
+        "detalle": "Passed for 1 relevant column"
+      },
+      {
+        "check": "FeatureFeatureCorrelation",
+        "estado": "aprobado",
+        "detalle": "Ningún par supera 0.9; máximo 0.67"
+      },
+      {
+        "check": "PercentOfNulls",
+        "estado": "aprobado",
+        "detalle": "Passed for 15 relevant columns"
+      }
+    ],
+    "train_test": [
+      {
+        "check": "DatasetsSizeComparison",
+        "estado": "aprobado",
+        "detalle": "Test-Train size ratio is 1"
+      },
+      {
+        "check": "NewLabelTrainTest",
+        "estado": "aprobado",
+        "detalle": "Found 0 new labels in test data: []"
+      },
+      {
+        "check": "NewCategoryTrainTest",
+        "estado": "aprobado",
+        "detalle": "Passed for 3 relevant features"
+      },
+      {
+        "check": "StringMismatchComparison",
+        "estado": "aprobado",
+        "detalle": "No relevant columns to check were found"
+      },
+      {
+        "check": "DateTrainTestLeakageDuplicates",
+        "estado": "aprobado",
+        "detalle": "No leaked dates found"
+      },
+      {
+        "check": "DateTrainTestLeakageOverlap",
+        "estado": "aprobado",
+        "detalle": "No leaked dates found"
+      },
+      {
+        "check": "FeatureLabelCorrelationChange",
+        "estado": "aprobado",
+        "detalle": "Passed for 15 relevant columns | Passed for 15 relevant columns"
+      },
+      {
+        "check": "FeatureDrift",
+        "estado": "aprobado",
+        "detalle": "Passed for 15 columns out of 15 columns.\nFound column \"weekday\" has the highest categorical drift score: 0.03\nFound column \"llegadas_lag_1h\" has the highest numerical drift score: 0.02"
+      },
+      {
+        "check": "LabelDrift",
+        "estado": "aprobado",
+        "detalle": "Label's drift score Cramer's V is 0.01"
+      }
+    ]
+  }
+}
