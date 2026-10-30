@@ -78,6 +78,13 @@ def test_version_depende_solo_de_los_hashes():
     assert calcular_version(fuentes) != calcular_version(fuentes[:1])
 
 
+def test_descarga_rechaza_esquema_no_permitido(tmp_path):
+    destino = tmp_path / "raw" / "copia.csv"
+    with pytest.raises(ValueError, match="Esquema de descarga no permitido"):
+        descargar("ftp://ejemplo/datos.csv", destino)
+    assert not destino.exists()
+
+
 def test_descarga_no_deja_temporales(tmp_path):
     origen = tmp_path / "origen.csv"
     origen.write_text("a,b\n1,2\n")

@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import itertools
 import os
-import subprocess
+# Solo listas de argumentos, sin shell.
+import subprocess  # nosec B404
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any
 
@@ -21,7 +22,8 @@ ETAPA_BUSQUEDA = "search"
 
 
 def commit_actual() -> str:
-    proceso = subprocess.run(
+    # git con argumentos fijos; el ejecutable sale de PATH y no hay shell.
+    proceso = subprocess.run(  # nosec B603 B607
         ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False
     )
     return proceso.stdout.strip() if proceso.returncode == 0 else "unknown"

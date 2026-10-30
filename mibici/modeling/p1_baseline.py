@@ -11,7 +11,8 @@ import argparse
 import hashlib
 import json
 import os
-import subprocess
+# Solo listas de argumentos, sin shell.
+import subprocess  # nosec B404
 import tempfile
 from pathlib import Path
 
@@ -41,7 +42,10 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
 
 
 def git_sha(root: Path) -> str:
-    res = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=False)
+    # git con argumentos fijos; el ejecutable sale de PATH y no hay shell.
+    res = subprocess.run(  # nosec B603 B607
+        ["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=False
+    )
     return res.stdout.strip() if res.returncode == 0 else "uncommitted"
 
 

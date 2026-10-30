@@ -995,6 +995,74 @@ Las evidencias se almacenan en `reports/week7/evidence/training/`, en formato PN
 
 Estas pruebas aportan cobertura de funciones clave, casos normales y límite, y reproducibilidad de modelos, manteniendo compatibles las funcionalidades previamente validadas del repositorio.
 
+### 11.3. Chequeos de seguridad — Semana 7
+
+Revisión de credenciales, Bandit y pip-audit. Todo se ejecutó en el entorno virtual del repositorio, `TC5061-Proyecto-Equipo15/.venv` (Python 3.12.13). Bandit 1.9.4, pip-audit 2.10.1, MLflow 3.16.1, NumPy, pandas y scikit-learn quedaron en ese mismo `site-packages`. `.venv/` no se versiona.
+
+**Pasos en la raíz del proyecto:**
+
+```bash
+# 1. Entorno del repositorio con Python 3.12 (pyproject.toml exige ~=3.12.0)
+python3.12 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements.txt
+
+# 2. Herramientas de seguridad, en el mismo .venv
+.venv/bin/python -m pip install -r requirements-security.txt
+.venv/bin/python -c 'import sys; print(sys.prefix)'
+.venv/bin/python -m bandit --version
+.venv/bin/python -m pip_audit --version
+```
+
+`sys.prefix` debe imprimir la ruta `.../TC5061-Proyecto-Equipo15/.venv`. `requirements-security.txt` fija `bandit==1.9.4` y `pip-audit==2.10.1`. Esas dos herramientas quedan fuera del entorno de MLflow (`requirements.txt` y `python_env.yaml`) y de DeepChecks (`requirements-dev.txt`).
+
+**Credenciales.** `.gitignore` ya excluía `.env`, los entornos virtuales, `mlruns/`, `mlartifacts/` y `mlflow.db`. Esta revisión añade `*.pem`, `*.key`, `*.p12` y `*.pfx`. Git no sigue ninguno de esos archivos. En el código Python no hay contraseñas, secretos, API keys ni tokens. La única variable de entorno es `MLFLOW_TRACKING_URI`: `mibici/config.py` la lee con `os.getenv` después de `load_dotenv()`, y el valor por defecto es `http://127.0.0.1:5000`. `.env.example` documenta ese valor; un `.env` real no se versiona. El diagnóstico está en `reports/week7/security/diagnostico.md`.
+
+**Bandit** revisa `mibici/` (no existe una carpeta `src/`):
+
+```bash
+mkdir -p reports/week7/security reports/week7/evidence/security
+.venv/bin/python -m bandit -r mibici/
+.venv/bin/python -m bandit -r mibici/ -f json -o reports/week7/security/bandit_report.json
+```
+
+Un código de salida distinto de cero significa que hubo hallazgos; el JSON igual se escribe. La primera corrida (2 870 líneas) reportó **19 hallazgos**: 1 de severidad media y 18 bajos, todos con confianza alta.
+
+| Id | Dónde | Decisión |
+|---|---|---|
+| B310, media | `urlopen` en `mibici/dataset.py` | La descarga acepta solo `http`, `https` y `file`. Las URL de MiBici son `https`. `file` queda para las pruebas que leen un CSV local. Un esquema distinto termina con `ValueError`. |
+| B404, B603, B607, bajas | `subprocess` en entrenamiento, búsqueda, registro y baselines | Las llamadas usan una lista de argumentos y no pasan por el shell: `git rev-parse HEAD`, o el intérprete del proyecto y un módulo ya definido. Cada caso lleva `# nosec` y un comentario con el motivo. |
+
+La corrida posterior a esas anotaciones está en `reports/week7/security/bandit_report_despues.json`: **0 hallazgos**. El informe inicial se conserva para que los 19 casos sigan visibles.
+
+**pip-audit** lee los requisitos sin modificarlos. `-e .` hace que el paquete local `mibici` 0.0.1 se omita (no está en PyPI); el resto de cada archivo sí se revisa.
+
+```bash
+.venv/bin/python -m pip_audit -r requirements.txt
+.venv/bin/python -m pip_audit -r requirements.txt -f json \
+  -o reports/week7/security/pip_audit_requirements.json
+
+.venv/bin/python -m pip_audit -r requirements-dev.txt
+.venv/bin/python -m pip_audit -r requirements-dev.txt -f json \
+  -o reports/week7/security/pip_audit_requirements_dev.json
+```
+
+| Paquete | Versión | Avisos | Corrección publicada | Decisión |
+|---|---|---|---|---|
+| mlflow | 3.16.1 | CVE-2026-53995, CVE-2026-115886, CVE-2026-116691 | 3.17.2, 3.17.0 y 3.17.0 | El pin permanece en 3.16.1, la versión de la reproducción de las semanas 6 y 7 |
+| setuptools | 80.10.2 | PYSEC-2026-3447 (CVE-2026-59890) y GHSA-xmj3-9gf7-h52w | 83.0.0 y 84.1.0 | El pin permanece: DeepChecks 0.19.1 necesita `pkg_resources`, ausente desde setuptools 81 |
+
+Los tres avisos de MLflow: recorrido de rutas en FileStore al crear una traza (`CVE-2026-53995`), instanciación sin autenticación en `scorer/invoke` si están instalados paquetes opcionales de TruLens que este proyecto no declara (`CVE-2026-115886`) y filtración de una API key de CrewAI si se usa `mlflow.crewai.autolog()`, que este código no llama (`CVE-2026-116691`). El servidor de las instrucciones escucha en `http://127.0.0.1:5000`. Los dos avisos de setuptools aplican al armado de un sdist en APFS/HFS+ y a la instalación legacy de wheels en Windows; esta corrida fue en Linux y setuptools es solo dependencia de desarrollo. El detalle, con alias GHSA, está en `reports/week7/security/hallazgos.md`.
+
+**Evidencia** en `reports/week7/evidence/security/`:
+
+| Archivo | Contenido |
+|---|---|
+| `01_bandit.txt` | Primera corrida de Bandit: 19 hallazgos |
+| `02_bandit_despues.txt` | Bandit después de las anotaciones: 0 hallazgos |
+| `03_pip_audit_requirements.txt` | Tres avisos de MLflow en `requirements.txt` |
+| `04_pip_audit_requirements_dev.txt` | Esos tres avisos más setuptools |
+
 ## 12. Registrar modelos y validar Model Registry
 
 ### 12.1. Registro automatizado
@@ -1174,5 +1242,7 @@ El reporte debe incluir enlace al repositorio, comandos de reproducción, tablas
 - [MLflow Model Registry workflows](https://mlflow.org/docs/latest/ml/model-registry/workflow/)
 - [Cookiecutter Data Science](https://cookiecutter-data-science.drivendata.org/)
 - [pyenv](https://github.com/pyenv/pyenv)
+- [Bandit](https://bandit.readthedocs.io/)
+- [pip-audit](https://pypi.org/project/pip-audit/)
 
 **Resultados verificados, 25 de octubre de 2026:** suite de 40 tests aprobada, modelos P1/P2/P3 registrados (v1, `READY`), tres alias `champion` asignados e inferencia sintética por alias sin errores.

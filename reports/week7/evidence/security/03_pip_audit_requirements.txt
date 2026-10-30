@@ -1,0 +1,10 @@
+Found 3 known vulnerabilities in 1 package
+Name   Version ID              Fix Versions
+------ ------- --------------- ------------
+mlflow 3.16.1  CVE-2026-53995  3.17.2
+mlflow 3.16.1  CVE-2026-115886 3.17.0
+mlflow 3.16.1  CVE-2026-116691 3.17.0
+
+Name   Skip Reason
+------ ---------------------------------------------------------------------
+mibici Dependency not found on PyPI and could not be audited: mibici (0.0.1)

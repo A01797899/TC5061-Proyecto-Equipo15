@@ -24,6 +24,12 @@ mlflow.db
 .env.*
 !.env.example
 
+# Private keys and certificates stay out of Git
+*.pem
+*.key
+*.p12
+*.pfx
+
 # Python virtual environments
 .venv/
 venv/

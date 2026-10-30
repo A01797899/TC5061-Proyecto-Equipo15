@@ -1,0 +1,4 @@
+# Herramientas de revisión de seguridad. No forman parte del entorno de MLflow
+# ni de requirements-dev.txt (DeepChecks).
+bandit==1.9.4
+pip-audit==2.10.1

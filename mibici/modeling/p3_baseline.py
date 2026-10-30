@@ -8,7 +8,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import subprocess
+# Solo listas de argumentos, sin shell.
+import subprocess  # nosec B404
 from pathlib import Path
 
 import matplotlib
@@ -48,7 +49,10 @@ def sha256_file(path: Path) -> str:
 
 
 def current_commit() -> str:
-    p = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False)
+    # git con argumentos fijos; el ejecutable sale de PATH y no hay shell.
+    p = subprocess.run(  # nosec B603 B607
+        ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False
+    )
     return p.stdout.strip() if p.returncode == 0 else "unknown"
 
 

@@ -18,6 +18,7 @@ import json
 from pathlib import Path
 import shutil
 import tempfile
+from urllib.parse import urlparse
 import urllib.request
 
 from loguru import logger
@@ -77,12 +78,20 @@ def descargar(url: str, destino: Path, forzar: bool = False) -> Path:
         logger.info(f"Ya existe {destino.name}, se omite la descarga")
         return destino
 
+    # https en la ingesta; file solo para los CSV locales de las pruebas.
+    esquema = urlparse(url).scheme
+    if esquema not in {"http", "https", "file"}:
+        raise ValueError(f"Esquema de descarga no permitido: {esquema or 'vacío'}")
+
     destino.parent.mkdir(parents=True, exist_ok=True)
     peticion = urllib.request.Request(url, headers={"User-Agent": "mibici-equipo15"})
     with tempfile.NamedTemporaryFile(dir=destino.parent, delete=False) as tmp:
         temporal = Path(tmp.name)
     try:
-        with urllib.request.urlopen(peticion, timeout=120) as respuesta, temporal.open("wb") as f:
+        with (
+            urllib.request.urlopen(peticion, timeout=120) as respuesta,  # nosec B310
+            temporal.open("wb") as f,
+        ):
             shutil.copyfileobj(respuesta, f)
         if temporal.stat().st_size == 0:
             raise ValueError(f"La descarga de {url} llego vacia")
