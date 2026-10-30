@@ -801,7 +801,7 @@ Se eligió **RandomForestClassifier** por lograr la mejor Average Precision de v
 .venv/bin/python -m pytest tests/ -v
 ```
 
-**Resultado obtenido en la reproducción:** `40 passed` (incluye siete pruebas de las búsquedas anidadas de P1 y P2). Una nueva ejecución debe terminar satisfactoriamente antes de registrar modelos.
+**Resultado obtenido en la reproducción:** `144 passed` con `requirements-dev.txt` instalado (detalle por actividad en las secciones 11.1 a 11.4). Una nueva ejecución debe terminar satisfactoriamente antes de registrar modelos.
 
 ### 11.1. Validación de datos con DeepChecks
 
@@ -1106,6 +1106,76 @@ Las vulnerabilidades identificadas por pip-audit continúan registradas como rie
 ![pip check: sin dependencias incompatibles detectadas](reports/week7/evidence/security/09_pip_check.png)
 
 Esta verificación confirma la continuidad funcional de las pruebas automatizadas y reproduce los resultados del análisis estático de seguridad, conservando la trazabilidad de los riesgos de dependencias identificados.
+
+### 11.4. Pruebas de ingesta y feature engineering con PyTest (Semana 7)
+
+Se ampliaron los archivos existentes `tests/test_dataset.py` y `tests/test_features.py`, sin crear archivos nuevos para las mismas funciones. Todas las pruebas usan datos sintéticos o CSV temporales en `tmp_path`: no descargan datos de MiBici ni requieren el servidor de MLflow.
+
+| Archivo | Antes | Después |
+|---|---|---|
+| `tests/test_dataset.py` | 11 pruebas | **33 pruebas** |
+| `tests/test_features.py` | 11 pruebas | **32 pruebas** |
+| Suite completa (`tests/`, con DeepChecks instalado) | 101 pruebas | **144 pruebas** |
+
+#### 11.4.1. Ingesta (`mibici/dataset.py`)
+
+| Función | Validación | Tipo de caso |
+|---|---|---|
+| `normalizar_encabezados()` | Comillas y espacios alrededor de los nombres; lista vacía | Normal y límite |
+| `parsear_fechas()` | Fecha imposible (30 de febrero) y serie vacía | Límite |
+| `detectar_encoding()` | Bytes inválidos en UTF-8 y archivo vacío | Límite |
+| `sha256_archivo()` | Igual a `hashlib` con cualquier tamaño de bloque; archivo vacío | Normal y límite |
+| `leer_viajes()` | Tipos finales de `TIPOS_VIAJES`; texto no numérico, vacíos y fecha inválida quedan como NA/NaT; CSV sin filas; columnas faltantes | Normal, límite y error esperado |
+| `leer_estaciones()` | Nombres en español, tipos de `TIPOS_ESTACIONES`, columnas extra descartadas, capacidad vacía y coordenada no numérica; columna faltante | Normal, límite y error esperado |
+| `ruta_relativa()` | Ruta dentro del proyecto; ruta fuera del proyecto | Normal y error esperado |
+| `calcular_version()` | Longitud de 12 caracteres hexadecimales y cambio ante un hash distinto | Normal |
+| `cargar_manifiesto()` / `version_datos()` | El manifiesto versionado tiene 13 fuentes y su `version_datos` coincide con la recalculada; manifiesto propio | Normal |
+| `advertir_cambios()` | Solo advierte los archivos cuyo hash cambió; sin manifiesto no advierte | Normal y límite |
+| `descargar()` | Un archivo existente no se sobrescribe sin `forzar` | Normal |
+| `main()` | Ingesta completa con CSV locales de enero y septiembre: descarta un `viaje_id` duplicado y un viaje sin origen, ordena por inicio, escribe Parquet y manifiesto; una segunda ejecución da la misma versión; falla si el formato de fecha del mes no coincide | Normal, reproducibilidad y error esperado |
+
+`main()` se prueba redirigiendo con `monkeypatch` las URL y rutas de `mibici.dataset` a `tmp_path`, por lo que no modifica `data/` ni `data/manifiesto.json`.
+
+#### 11.4.2. Feature engineering (`mibici/features.py`)
+
+| Función | Validación | Tipo de caso |
+|---|---|---|
+| `hourly_departures()` / `hourly_arrivals()` | Viajes vacíos, valores nulos en estación o fecha, ids como texto de los CSV crudos y columnas faltantes | Límite y error esperado |
+| `calendar_features()` | No modifica la entrada; acepta horas como texto; domingo 23 h y lunes 0 h | Límite |
+| `hourly_flow_balance()` | Sin viajes; hora con salidas y sin llegadas da balance negativo | Límite |
+| `proxy_risk_labels()` | Presión exactamente en el umbral cuenta como riesgo; capacidades no numéricas, vacías o negativas quedan fuera; capacidad repetida usa la primera | Límite |
+| `hourly_usage_profiles()` | Conteos agregados por tipo de día; conteos no numéricos fallan; nulos se ignoran | Normal, límite y error esperado |
+| `complete_hourly_panel()` | Estaciones sin salidas quedan en cero; intervalo vacío; estaciones no listadas se excluyen | Límite |
+| `lag_features()` | Los rezagos no se mezclan entre estaciones; rezagos de 1, 24 y 168 h sin fuga de información; otra columna; rezagos negativos o cero fallan; no modifica la entrada | Normal, límite y error esperado |
+| `trip_quality_flags()` | Umbrales inclusivos de duración (1 y 180 min) y edad (10 y 90 años); fin antes del inicio es atípico; no modifica la entrada | Límite |
+
+No fue necesario modificar `mibici/dataset.py` ni `mibici/features.py`: todas las pruebas nuevas pasan con el código existente.
+
+#### 11.4.3. Comandos
+
+```bash
+.venv/bin/python -m pytest tests/test_dataset.py -v
+.venv/bin/python -m pytest tests/test_features.py -v
+
+# Suite completa; las 11 pruebas de DeepChecks se omiten si no está instalado requirements-dev.txt
+.venv/bin/python -m pytest tests/ -v
+```
+
+#### 11.4.4. Evidencia
+
+En `reports/week7/evidence/data-tests/` se guardan las capturas de la ejecución:
+
+| Archivo | Resultado |
+|---|---|
+| `01_test_dataset.png` | `33 passed` de `tests/test_dataset.py` |
+| `02_test_features.png` | `32 passed` de `tests/test_features.py` |
+| `03_full_test_suite.png` | `144 passed` de la suite completa |
+
+![Pruebas de ingesta: 33 aprobadas](reports/week7/evidence/data-tests/01_test_dataset.png)
+
+![Pruebas de feature engineering: 32 aprobadas](reports/week7/evidence/data-tests/02_test_features.png)
+
+![Suite completa: 144 aprobadas](reports/week7/evidence/data-tests/03_full_test_suite.png)
 
 ## 12. Registrar modelos y validar Model Registry
 
