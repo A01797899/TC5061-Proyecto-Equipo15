@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 import argparse
-import subprocess
+# Solo listas de argumentos, sin shell.
+import subprocess  # nosec B404
 
 import mlflow
 from mlflow import MlflowClient
@@ -19,7 +20,8 @@ from mibici.config import (
 def get_commit() -> str:
     """Obtiene el commit actual de Git."""
 
-    result = subprocess.run(
+    # git con argumentos fijos; el ejecutable sale de PATH y no hay shell.
+    result = subprocess.run(  # nosec B603 B607
         ["git", "rev-parse", "HEAD"],
         capture_output=True,
         text=True,

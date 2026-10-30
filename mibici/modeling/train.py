@@ -3,7 +3,8 @@
 
 import argparse
 import os
-import subprocess
+# Solo listas de argumentos, sin shell.
+import subprocess  # nosec B404
 import sys
 
 from mibici.config import (
@@ -123,8 +124,8 @@ def run_baseline(question, tracking_uri):
     # Mantener la conexión al servidor central de MLflow.
     env["MLFLOW_TRACKING_URI"] = tracking_uri
 
-    # Ejecutar el baseline como un proceso independiente.
-    subprocess.run(
+    # Intérprete del proyecto y módulo conocido; la lista no pasa por el shell.
+    subprocess.run(  # nosec B603
         command,
         check=True,
         env=env,
@@ -172,7 +173,8 @@ def run_search(question, tracking_uri):
 
     env["MLFLOW_TRACKING_URI"] = tracking_uri
 
-    subprocess.run(
+    # Misma lista fija de argumentos que el baseline, sin shell.
+    subprocess.run(  # nosec B603
         command,
         check=True,
         env=env,

@@ -11,7 +11,8 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import subprocess
+# Solo listas de argumentos, sin shell.
+import subprocess  # nosec B404
 import tempfile
 from pathlib import Path
 
@@ -44,7 +45,9 @@ def sha256_file(path, chunk_bytes=1024*1024):
     return digest.hexdigest()
 
 def git_commit(root):
-    res=subprocess.run(['git','rev-parse','HEAD'],cwd=root, capture_output=True,text=True,check=False)
+    # git con argumentos fijos; el ejecutable sale de PATH y no hay shell.
+    res=subprocess.run(  # nosec B603 B607
+        ['git','rev-parse','HEAD'],cwd=root, capture_output=True,text=True,check=False)
     return res.stdout.strip() if res.returncode == 0 else 'uncommitted'
 
 def load_capacities(path):
