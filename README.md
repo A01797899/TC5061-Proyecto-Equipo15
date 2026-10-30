@@ -1063,6 +1063,50 @@ Los tres avisos de MLflow: recorrido de rutas en FileStore al crear una traza (`
 | `03_pip_audit_requirements.txt` | Tres avisos de MLflow en `requirements.txt` |
 | `04_pip_audit_requirements_dev.txt` | Esos tres avisos más setuptools |
 
+#### 11.3.1. Verificación posterior a la integración del PR #22
+
+Después de integrar los cambios de seguridad de la Semana 7 mediante el PR #22, realizamos una segunda verificación del proyecto MiBici utilizando el entorno virtual Python 3.12.15.
+
+Se ejecutaron nuevamente las herramientas Bandit y pip-audit, así como la suite completa de pruebas automatizadas con PyTest y la comprobación de dependencias instaladas mediante `pip check`.
+
+**Comandos ejecutados:**
+
+```bash
+.venv/bin/python -m bandit -r mibici/
+.venv/bin/python -m pip_audit -r requirements.txt
+.venv/bin/python -m pip_audit -r requirements-dev.txt
+.venv/bin/python -m pytest tests/ -v
+.venv/bin/python -m pip check
+```
+
+**Resultados:**
+
+| Herramienta | Resultado |
+|---|---|
+| Bandit | 0 hallazgos reportados en 2,882 líneas de código |
+| pip-audit (`requirements.txt`) | 3 avisos correspondientes a MLflow 3.16.1 |
+| pip-audit (`requirements-dev.txt`) | 6 registros de vulnerabilidades correspondientes a MLflow y setuptools |
+| PyTest | **101 pruebas aprobadas**, 0 fallidas, 17.76 segundos |
+| pip check | No broken requirements found |
+
+Los resultados de Bandit son consistentes con el análisis final de José Luis. Las anotaciones `# nosec` permanecen justificadas y documentadas en los reportes originales. Por tanto, el análisis sin hallazgos reportados no garantiza la ausencia absoluta de riesgos.
+
+Las vulnerabilidades identificadas por pip-audit continúan registradas como riesgos pendientes; no se modificaron las versiones fijadas de MLflow ni de setuptools para evitar cambios no validados en las dependencias utilizadas por el proyecto.
+
+**Evidencias de la segunda verificación:**
+
+![Bandit: verificación final sin hallazgos reportados](reports/week7/evidence/security/05_bandit_verificacion_final.png)
+
+![pip-audit: análisis de requirements.txt](reports/week7/evidence/security/06_pip_audit_requirements.png)
+
+![pip-audit: análisis de requirements-dev.txt](reports/week7/evidence/security/07_pip_audit_requirements_dev.png)
+
+![PyTest: suite completa con 101 pruebas aprobadas](reports/week7/evidence/security/08_pytest_suite_final.png)
+
+![pip check: sin dependencias incompatibles detectadas](reports/week7/evidence/security/09_pip_check.png)
+
+Esta verificación confirma la continuidad funcional de las pruebas automatizadas y reproduce los resultados del análisis estático de seguridad, conservando la trazabilidad de los riesgos de dependencias identificados.
+
 ## 12. Registrar modelos y validar Model Registry
 
 ### 12.1. Registro automatizado
