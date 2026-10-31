@@ -1177,6 +1177,53 @@ En `reports/week7/evidence/data-tests/` se guardan las capturas de la ejecución
 
 ![Suite completa: 144 aprobadas](reports/week7/evidence/data-tests/03_full_test_suite.png)
 
+### 11.5. Validación integral del equipo — Semana 7
+
+Una vez integradas en la rama `main` las contribuciones de los cuatro integrantes del Equipo 15, realizamos una ejecución conjunta para comprobar que las pruebas automatizadas de ingesta, ingeniería de características, validación de datos, entrenamiento, reproducibilidad, búsqueda y registro de modelos funcionan sin fallos. También verificamos las dependencias instaladas y repetimos el análisis estático de seguridad.
+
+#### 11.5.1. Componentes integrados
+
+| Integrante | Actividad | Pull Request |
+|---|---|---|
+| Jorge | Calidad e integridad de datos con DeepChecks | [PR #20](https://github.com/A01797899/TC5061-Proyecto-Equipo15/pull/20) |
+| José Manuel | Pruebas de entrenamiento y reproducibilidad | [PR #21](https://github.com/A01797899/TC5061-Proyecto-Equipo15/pull/21) |
+| José Luis | Revisión de credenciales, Bandit y pip-audit | [PR #22](https://github.com/A01797899/TC5061-Proyecto-Equipo15/pull/22) |
+| José Manuel | Segunda verificación y evidencias de seguridad | [PR #23](https://github.com/A01797899/TC5061-Proyecto-Equipo15/pull/23) |
+| Oscar | Ampliación de pruebas de ingesta y Feature Engineering | [PR #24](https://github.com/A01797899/TC5061-Proyecto-Equipo15/pull/24) |
+
+#### 11.5.2. Comandos de validación
+
+Desde la raíz del repositorio, con las dependencias de desarrollo y seguridad instaladas en `.venv`, ejecutamos:
+
+```bash
+.venv/bin/python -m pytest tests/ -v
+.venv/bin/python -m pip check
+.venv/bin/python -m bandit -r mibici/
+```
+
+#### 11.5.3. Resultados de la ejecución integral
+
+| Verificación | Resultado observado |
+|---|---|
+| PyTest — suite completa | **144 passed**, 0 failed, 0 skipped, en **20.60 s** |
+| `pip check` | **No broken requirements found.** |
+| Bandit sobre `mibici/` | **No issues identified.**; 0 hallazgos reportados en **2,882 líneas** |
+| Archivos omitidos por Bandit | **0** |
+
+La ejecución conjunta confirma que las 144 pruebas disponibles en esta versión del proyecto terminaron satisfactoriamente y que `pip check` no identificó incompatibilidades entre las dependencias instaladas.
+
+**Alcance de seguridad:** el resultado de Bandit corresponde al análisis con las anotaciones `# nosec` justificadas en los reportes de seguridad. No demuestra ausencia absoluta de vulnerabilidades. Además, los avisos de pip-audit asociados a **MLflow 3.16.1** y **setuptools 80.10.2** permanecen documentados como riesgos pendientes en `reports/week7/security/hallazgos.md`; `pip check` no evalúa vulnerabilidades conocidas.
+
+#### 11.5.4. Evidencia de la validación final
+
+La siguiente captura muestra, en una misma terminal, la finalización de la suite de PyTest, la comprobación de dependencias y el análisis de Bandit:
+
+![Validación integral del Equipo 15: 144 pruebas aprobadas, pip check sin incompatibilidades y Bandit sin hallazgos reportados](reports/week7/evidence/integration/01_validacion_integral_equipo.png)
+
+La evidencia corresponde a una ejecución local posterior a la integración del PR #24. Los resultados pueden variar en duración o cantidad de pruebas si se modifican el repositorio o sus dependencias.
+
+**Conclusión:** la integración de las aportaciones individuales conserva el funcionamiento de las pruebas automatizadas del proyecto MiBici. La trazabilidad de los Pull Requests, los reportes de DeepChecks y los análisis de seguridad permite documentar tanto las verificaciones exitosas como los riesgos pendientes de atención.
+
 ## 12. Registrar modelos y validar Model Registry
 
 ### 12.1. Registro automatizado
