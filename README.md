@@ -1407,3 +1407,514 @@ El reporte debe incluir enlace al repositorio, comandos de reproducción, tablas
 - [pip-audit](https://pypi.org/project/pip-audit/)
 
 **Resultados verificados, 25 de octubre de 2026:** suite de 40 tests aprobada, modelos P1/P2/P3 registrados (v1, `READY`), tres alias `champion` asignados e inferencia sintética por alias sin errores.
+
+## 16. Semana 8 — API de predicción P1 con FastAPI, MLflow y Podman (José Manuel)
+
+### 16.1. Propósito y alcance de nuestra implementación
+
+En esta actividad integramos el contrato del modelo P1 documentado por Jorge (PR #26), el servicio de inferencia MLflow desarrollado por Oscar (PR #27) y nuestra API REST implementada con FastAPI y Pydantic. Nuestro objetivo fue exponer una predicción de demanda de viajes por estación y hora a través de un servicio HTTP que también pudiera ejecutarse en un contenedor Podman. Primero comprobamos la aplicación en macOS y después repetimos la inferencia desde un contenedor Linux, utilizando **el mismo modelo registrado** en MLflow.
+
+Esta sección explica cómo reproducir nuestro procedimiento paso a paso. Se probó en **macOS con Python 3.12.15, MLflow 3.16.1 y Podman 5.8.9**. Los comandos de terminal están escritos para `zsh`/`bash`. Se requiere el repositorio actualizado con los cambios de los PR #26 y #27 y con nuestros cambios de FastAPI. **No es suficiente clonar el repositorio para obtener un modelo entrenado:** el `mlflow.db` y los artefactos registrados se conservan fuera de Git y deben estar disponibles para quien reproduce la inferencia.
+
+#### 16.1.1. Justificación de la selección del modelo P1 para el servicio de inferencia
+
+Durante el desarrollo del proyecto MiBici trabajamos con tres problemas de aprendizaje automático: P1 (predicción de demanda), P2 (clasificación de riesgo proxy) y P3 (agrupamiento de estaciones). Para la actividad de la Semana 8 decidimos utilizar **P1, correspondiente a la predicción de demanda de viajes por estación y hora**, porque consideramos que es la opción más adecuada para demostrar la implementación de un servicio de inferencia mediante FastAPI, MLflow y Podman.
+
+A continuación, presentamos una comparación de los tres problemas:
+
+| Modelo | Tipo de problema | Objetivo | Consideraciones para el servicio |
+|---|---|---|---|
+| **P1 — Demanda** | Regresión supervisada | Estimar la cantidad de viajes iniciados en una estación durante una hora. | Produce un resultado numérico que podemos consultar y validar mediante una API REST. |
+| **P2 — Riesgo proxy** | Clasificación supervisada | Identificar situaciones de posible desequilibrio mediante una medida indirecta de presión entre llegadas, salidas y capacidad. | Produce una clasificación basada en un indicador proxy que no representa directamente la disponibilidad real de bicicletas. |
+| **P3 — Perfiles de uso** | Aprendizaje no supervisado (*clustering*) | Agrupar estaciones con patrones de utilización similares. | Resulta útil para analizar perfiles de estaciones, pero su resultado es una asignación de grupo y no una estimación de demanda por hora. |
+
+**Razones por las que seleccionamos P1**
+
+1. **Aplicación práctica.** P1 permite estimar la demanda de viajes para una estación y una hora determinadas. Consideramos que este resultado tiene una interpretación sencilla y es útil para ejemplificar cómo un modelo de aprendizaje automático puede incorporarse a una aplicación.
+
+2. **Facilidad para exponer una predicción mediante REST.** El modelo recibe ocho características numéricas y devuelve un valor de predicción. Esto nos permitió definir un contrato de entrada con Pydantic y un endpoint `POST /predict` que responde mediante JSON.
+
+3. **Modelo previamente entrenado y evaluado.** Durante la Semana 6 seleccionamos un `HistGradientBoostingRegressor` para P1, utilizando el menor MAE de validación como criterio de selección. En el conjunto de prueba obtuvimos un MAE aproximado de 0.828, frente a 0.856 del modelo baseline, lo que representó una mejora aproximada del 3.2 %. Por tanto, utilizamos un modelo que ya había pasado por un proceso de experimentación y evaluación.
+
+4. **Disponibilidad en MLflow Model Registry.** El modelo P1 ya se encontraba registrado con el nombre `mibici-equipo15-p1-demanda`, versión 1 y alias `champion`. Esto nos permitió recuperarlo mediante MLflow sin repetir el entrenamiento ni incorporar directamente el archivo del modelo a la imagen del contenedor.
+
+5. **Integración y reproducibilidad.** Al contar con una firma de ocho características, pudimos validar las entradas antes de ejecutar la predicción. También comprobamos que el mismo modelo generó el resultado `3.694163560787005` tanto en nuestra ejecución local de macOS como dentro del contenedor Podman.
+
+6. **Alcance de la actividad.** Nuestro objetivo principal en esta etapa no fue comparar nuevamente los algoritmos, sino demostrar que un modelo previamente entrenado y registrado puede ponerse a disposición de otras aplicaciones mediante un servicio HTTP reproducible y contenerizado.
+
+**Conclusión de nuestra selección**
+
+Con base en estas consideraciones, seleccionamos P1 porque nos permitió desarrollar un flujo completo de inferencia que integra validación de datos, recuperación del modelo desde MLflow, ejecución mediante FastAPI y despliegue en un contenedor Podman.
+
+Esto no significa que P1 sea superior a P2 y P3 para todos los casos de uso. Cada modelo responde a un problema diferente. Sin embargo, para el alcance de esta actividad, consideramos que **P1 ofrece una implementación clara, verificable y adecuada para demostrar el funcionamiento de un servicio de inferencia de aprendizaje automático**.
+
+De esta manera, aprovechamos los resultados obtenidos en las semanas anteriores y comprobamos que un modelo registrado puede reutilizarse sin necesidad de entrenarlo nuevamente.
+
+
+### 16.2. Estructura de archivos y funcionamiento de `mibici/api/`
+
+```text
+TC5061-Proyecto-Equipo15/
+├── Containerfile                   # Receta para construir la imagen de Podman
+├── .containerignore                # Archivos que se excluyen del contexto de compilación
+├── .dockerignore                   # Exclusiones equivalentes para Docker
+├── requirements.txt                # Dependencias generales y de MLflow
+├── requirements-api.txt            # Instala requirements.txt, FastAPI, Uvicorn y HTTPX
+├── mibici/
+│   ├── config.py                   # Nombres de modelos, alias y MLFLOW_TRACKING_URI
+│   └── api/
+│       ├── __init__.py             # Marca api como paquete Python (puede estar vacío)
+│       ├── schemas.py              # Contratos Pydantic de entrada y salida
+│       ├── model_service.py        # Cliente de MLflow y ejecución de predicciones (Oscar)
+│       └── main.py                 # Aplicación FastAPI y rutas HTTP
+├── tests/
+│   ├── test_api.py                 # Validación de endpoints y escenarios de error
+│   └── test_model_service.py       # Validación del servicio MLflow (Oscar)
+└── reports/week8/evidence/container/ # Capturas; excluidas de la imagen
+```
+
+**¿Qué hace cada archivo cuando ejecutamos el contenedor?**
+
+1. **`Containerfile`** parte de `python:3.12-slim`, copia el código en `/app`, instala `requirements-api.txt`, crea un usuario `appuser` sin privilegios de root, expone el puerto interno 8000 y ejecuta Uvicorn con `mibici.api.main:app`.
+2. **`mibici/api/main.py`** define `app = create_app()` y los endpoints `/health`, `/ready` y `/predict`. En el inicio (`lifespan`) crea un `ModelService` y llama a `load_model()` para recuperar el modelo P1. Acepta un servicio simulado durante PyTest para no depender de MLflow en las pruebas unitarias de la API.
+3. **`mibici/api/schemas.py`** define los objetos Pydantic: `PredictRequest` exige las ocho variables correctas, rechaza nulos, booleanos, cadenas y nombres de características inesperados, aplica rangos y convierte entradas numéricas a `float`. `PredictResponse` devuelve `prediction` y `model`.
+4. **`mibici/api/model_service.py`** consulta el Model Registry de MLflow, convierte el alias `champion` en una versión concreta, descarga el modelo, verifica su firma y ejecuta `mlflow.pyfunc`. Ordena las ocho columnas y crea el DataFrame `float64`; también comprueba que la predicción sea numérica y no negativa. Para mayor detalle, revisar [`docs/week8/pyfunc_readme.md`](docs/week8/pyfunc_readme.md).
+5. **`mibici/config.py`** lee `MLFLOW_TRACKING_URI` del entorno y define el nombre registrado `mibici-equipo15-p1-demanda` con alias `champion`.
+
+El flujo de inferencia es: **cliente HTTP → `/predict` de FastAPI → validación de Pydantic → `ModelService.predict()` → modelo P1 cargado por MLflow → respuesta JSON**. El servidor MLflow se utiliza para **cargar el modelo al iniciar**; las predicciones posteriores se hacen con el modelo en memoria. No reconstruimos ni reentrenamos P1 al iniciar el contenedor.
+
+> **Importante:** `.containerignore` excluye `.git/`, `.venv/`, bases de MLflow, artefactos, datos grandes, `reports/` y otros recursos que no deben entrar en la imagen. Por eso, las capturas se guardan en GitHub, pero **no se copian a `/app` durante el build**. El archivo `__init__.py` puede estar vacío y eso es normal en Python.
+
+### 16.3. Qué modelo utilizamos y de dónde se obtiene
+
+Utilizamos el modelo registrado `mibici-equipo15-p1-demanda`, con **versión 1** y alias **`champion`**, según el contrato de Jorge y la interfaz de MLflow que verificamos. La dirección lógica del modelo es:
+
+```text
+models:/mibici-equipo15-p1-demanda@champion
+```
+
+Oscar implementó la resolución de ese alias a una versión concreta, por lo que en la ejecución observamos `models:/mibici-equipo15-p1-demanda/1`. MLflow guarda los metadatos del registro en **`mlflow.db`** y el modelo serializado, firma y otros artefactos en **`mlartifacts/`**. En nuestras pruebas ambos se encontraban fuera de la raíz del repositorio, en el directorio utilizado para las corridas de Semana 6:
+
+```text
+/Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week6/TC5061-MiBici-Week6-Runs/
+├── mlflow.db
+└── mlartifacts/
+```
+
+Esa ruta es **un ejemplo del equipo**, no una ruta universal. Quien reproduzca la actividad debe sustituirla por la carpeta donde conserva **su propia base de MLflow y los artefactos correspondientes**. No se deben copiar estos recursos al repositorio ni subir a Git. Si no se dispone de ellos, primero hay que obtener acceso a un Registry con el modelo registrado: una instalación nueva sin ese modelo no podrá completar `/ready` ni `/predict`.
+
+| Campo de entrada | Descripción | Rango validado |
+|---|---|---|
+| `hour_of_day` | Hora del día | 0 a 23 |
+| `weekday` | Día de la semana, lunes = 0 | 0 a 6 |
+| `fin_semana` | Indicador consistente con `weekday` | 0 o 1 |
+| `salidas_lag_1h` | Salidas hace 1 hora | ≥ 0 |
+| `salidas_lag_24h` | Salidas hace 24 horas | ≥ 0 |
+| `salidas_lag_168h` | Salidas hace 7 días | ≥ 0 |
+| `media_estacion` | Media histórica de la estación | ≥ 0 |
+| `media_estacion_dia_hora` | Media histórica por estación, día y hora | ≥ 0 |
+
+Para reproducir exactamente la firma, las unidades y el origen de esas columnas, consultar [`docs/week8/model_registry_contract.md`](docs/week8/model_registry_contract.md). **Los datos de ejemplo utilizados a continuación sirven para probar el servicio; no constituyen una medición nueva de la demanda real de MiBici.**
+
+![Inicio del servidor MLflow](reports/week8/evidence/container/09_mlflow_server_start.png)
+
+![Modelo P1 registrado como champion](reports/week8/evidence/container/10_mlflow_registry_champion.png)
+
+![Configuración del Tracking URI, nombre y alias](reports/week8/evidence/container/11_mlflow_tracking_config.png)
+
+![Descarga y firma del modelo P1 desde el Registry](reports/week8/evidence/container/12_mlflow_model_load_signature.png)
+
+### 16.4. Preparación inicial (una vez por equipo)
+
+**Paso 1. Abrir una terminal en la raíz del repositorio y confirmar la carpeta.**
+
+```bash
+cd TC5061-Proyecto-Equipo15
+pwd
+ls -l Containerfile requirements-api.txt
+ls -l mibici/api/main.py mibici/api/schemas.py mibici/api/model_service.py
+```
+
+Si todavía no existe `.venv`, crear un entorno con Python 3.12 y preparar las dependencias. En el equipo donde hicimos las pruebas ya existía `.venv`:
+
+```bash
+python3.12 -m venv .venv              # Solo si no existe todavía
+source .venv/bin/activate
+.venv/bin/python --version
+.venv/bin/python -m pip install -r requirements-api.txt
+.venv/bin/python -m pip check
+```
+
+El archivo `requirements-api.txt` incorpora `requirements.txt` y agrega FastAPI, Uvicorn y HTTPX. `requirements.txt` también incluye MLflow, sus dependencias de ejecución y las librerías necesarias para cargar el modelo. **No es necesario instalar DeepChecks para utilizar la API**; DeepChecks se encuentra en las dependencias de desarrollo.
+
+**Paso 2. Comprobar Podman Desktop y su máquina virtual.** En nuestra práctica usamos Podman Desktop en macOS. Podman ejecuta los contenedores Linux dentro de una máquina virtual:
+
+```bash
+podman --version
+podman machine list
+podman info
+```
+
+La máquina debe estar en estado `Currently running`. Si está detenida, iniciarla con `podman machine start`. No es necesario crear otra máquina si ya existe una. La verificación de conectividad hacia MLflow desde un contenedor se realiza más adelante.
+
+### 16.5. Iniciar MLflow con el Registry original (terminal A)
+
+**Paso 3. Localizar el directorio de Semana 6 y comprobar los archivos.** Este paso se realiza en el Mac, no dentro de Podman. Definir una variable para no repetir la ruta:
+
+```bash
+export MIBICI_MLFLOW_HOME="$HOME/Documents/Maestria-MNA/MLOps/week6/TC5061-MiBici-Week6-Runs"
+ls -lh "$MIBICI_MLFLOW_HOME/mlflow.db"
+ls -ld "$MIBICI_MLFLOW_HOME/mlartifacts"
+```
+
+Si cualquiera de los dos archivos o carpetas falta, **detenerse y localizar el Registry original**; un servidor apuntando a una base vacía no encontrará el alias `champion`.
+
+**Paso 4. Iniciar MLflow en una terminal dedicada y dejarla abierta.** Para permitir el acceso desde la máquina virtual de Podman, usamos `--host 0.0.0.0` y la lista de hosts admitidos. El parámetro `--artifacts-destination` señala la carpeta original de Semana 6 y `--serve-artifacts` permite servir los artefactos que usa el modelo.
+
+```bash
+.venv/bin/python -m mlflow server \
+  --backend-store-uri "sqlite:////${MIBICI_MLFLOW_HOME#/}/mlflow.db" \
+  --serve-artifacts \
+  --artifacts-destination "$MIBICI_MLFLOW_HOME/mlartifacts" \
+  --host 0.0.0.0 \
+  --port 5000 \
+  --allowed-hosts "localhost:*,127.0.0.1:*,host.containers.internal:*"
+```
+
+> **Seguridad:** `0.0.0.0` escucha en todas las interfaces; limitar el acceso al puerto 5000 con el firewall y utilizar solamente una red local de confianza. La lista `--allowed-hosts` no es autenticación ni reemplaza al firewall. No publicar este puerto en Internet. Para uso exclusivamente local, sin Podman, MLflow puede escuchar en `127.0.0.1`.
+
+Esperamos el mensaje `Uvicorn running on http://0.0.0.0:5000`. Es posible observar advertencias de deprecación de Starlette; no impidieron nuestra prueba. Abrir la interfaz en `http://127.0.0.1:5000` y verificar **Registered Models → mibici-equipo15-p1-demanda → champion → Version 1**. No registrar una versión nueva ni cambiar el alias en este procedimiento.
+
+### 16.6. Verificar acceso a MLflow desde macOS y desde Podman
+
+**Paso 5. Abrir la terminal B en el repositorio.** En esta terminal establecer la URI local y consultar el modelo:
+
+```bash
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+.venv/bin/python - <<'PY'
+from mlflow import MlflowClient
+from mibici.config import REGISTERED_MODELS, MODEL_PRODUCTION_ALIAS, MLFLOW_TRACKING_URI
+client = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
+name = REGISTERED_MODELS['p1']
+version = client.get_model_version_by_alias(name, MODEL_PRODUCTION_ALIAS)
+print('Tracking URI:', MLFLOW_TRACKING_URI)
+print('Modelo:', name)
+print('Alias:', MODEL_PRODUCTION_ALIAS)
+print('Version:', version.version)
+print('Estado:', version.status)
+PY
+```
+
+En nuestra ejecución encontramos el modelo P1 versión `1` y estado `READY`.
+
+**Paso 6. Comprobar la conectividad desde Linux/Podman sin modificar la imagen de la API.** `127.0.0.1` dentro de un contenedor se refiere al propio contenedor, **no al Mac**. Podman proporciona `host.containers.internal` para contactar al host:
+
+```bash
+podman run --rm \
+  --entrypoint python \
+  docker.io/library/python:3.12-slim \
+  -c "import urllib.request; u='http://host.containers.internal:5000/version'; r=urllib.request.urlopen(u, timeout=10); print('HTTP:', r.status); print('Version:', r.read().decode())"
+```
+
+Obtuvimos `HTTP: 200` y `Version: 3.16.1`. Si aparece un error de conexión, comprobar que MLflow siga activo y escuche en `0.0.0.0`; si aparece HTTP 403, verificar el argumento `--allowed-hosts` y el encabezado `Host`.
+
+### 16.7. Validar la inferencia real en Python antes de crear el contenedor
+
+**Paso 7. Ejecutar una predicción con `ModelService`, sin usar HTTP.** Esta prueba separa los problemas del Registry de los problemas del servidor FastAPI:
+
+```bash
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+.venv/bin/python - <<'PY'
+from mibici.api.model_service import ModelService
+from mibici.config import MLFLOW_TRACKING_URI
+service = ModelService(tracking_uri=MLFLOW_TRACKING_URI)
+service.load_model()
+features = {
+    'hour_of_day': 8.0,
+    'weekday': 2.0,
+    'fin_semana': 0.0,
+    'salidas_lag_1h': 3.0,
+    'salidas_lag_24h': 4.0,
+    'salidas_lag_168h': 5.0,
+    'media_estacion': 2.1,
+    'media_estacion_dia_hora': 3.4,
+}
+print('Modelo:', service.model_name)
+print('Version:', service.model_version)
+print('Ready:', service.is_ready())
+print('Columnas:', service.input_columns)
+print('Prediccion:', service.predict([features])[0])
+PY
+```
+
+Nuestra evidencia muestra `Ready: True`, las ocho columnas de entrada y **`3.694163560787005`** como valor de prueba. Este número es un resultado observado de nuestra ejecución con la versión 1, no una garantía para otros modelos o versiones.
+
+![ModelService: carga del modelo real y predicción](reports/week8/evidence/container/13_model_service_real_prediction.png)
+
+### 16.8. Probar la API HTTP en macOS antes de containerizar
+
+**Paso 8. Abrir una terminal C y levantar Uvicorn.** Mantener MLflow activo en la terminal A:
+
+```bash
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+.venv/bin/python -m uvicorn mibici.api.main:app \
+  --host 127.0.0.1 --port 8000
+```
+
+El arranque muestra la descarga del modelo y `Uvicorn running on http://127.0.0.1:8000`. La documentación interactiva se encuentra en `http://127.0.0.1:8000/docs`.
+
+![Inicio de Uvicorn y carga del modelo champion](reports/week8/evidence/container/14_fastapi_uvicorn_start.png)
+
+**Paso 9. En una terminal D, comprobar `/health` y `/ready`.**
+
+```bash
+curl -i http://127.0.0.1:8000/health
+curl -i http://127.0.0.1:8000/ready
+```
+
+En nuestras pruebas, `/health` respondió **HTTP 200** con `{"status":"ok"}`, lo cual confirma que responde el proceso HTTP. `/ready` respondió **HTTP 200** con `{"ready":true}`, lo cual comprueba que el modelo está cargado en memoria. Si `/ready` devuelve **503**, el servidor puede estar vivo pero el modelo no está disponible.
+
+![Respuestas HTTP 200 de health y ready](reports/week8/evidence/container/15_fastapi_health_ready.png)
+
+**Paso 10. Enviar una predicción JSON.** Utilizamos estas mismas ocho variables en toda la demostración, para poder comparar resultados entre macOS y Podman:
+
+```bash
+curl -i -X POST http://127.0.0.1:8000/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "features": {
+      "hour_of_day": 8,
+      "weekday": 2,
+      "fin_semana": 0,
+      "salidas_lag_1h": 3,
+      "salidas_lag_24h": 4,
+      "salidas_lag_168h": 5,
+      "media_estacion": 2.1,
+      "media_estacion_dia_hora": 3.4
+    }
+  }'
+```
+
+La salida comprobada fue **HTTP 200** con este JSON:
+
+```json
+{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}
+```
+
+![Predicción real desde FastAPI en macOS](reports/week8/evidence/container/16_fastapi_real_prediction.png)
+
+### 16.9. Crear la imagen de Podman (contenedor de inferencia)
+
+**Paso 11. Verificar que estamos en la raíz y que los archivos necesarios existen.** No creamos un `Dockerfile` adicional: usamos el `Containerfile` que ya está en la raíz del proyecto.
+
+```bash
+pwd
+ls -l Containerfile .containerignore requirements-api.txt
+podman machine list
+```
+
+El `Containerfile` utilizado contiene esencialmente esta secuencia:
+
+```dockerfile
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+WORKDIR /app
+COPY . /app
+RUN python -m pip install --no-cache-dir -r requirements-api.txt
+RUN useradd --create-home --shell /usr/sbin/nologin appuser \
+    && chown -R appuser:appuser /app
+USER appuser
+EXPOSE 8000
+CMD ["python", "-m", "uvicorn", "mibici.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+**Interpretación para quien no conoce contenedores:** `FROM` obtiene la base Linux con Python; `WORKDIR` crea el directorio de trabajo `/app`; `COPY` incluye el código del repositorio (excepto lo ignorado); `RUN ... pip install` instala lo necesario para FastAPI, MLflow y el modelo; `USER appuser` evita ejecutar nuestra API como root; `EXPOSE 8000` documenta el puerto interno; y `CMD` es el comando que inicia el servicio al arrancar el contenedor. **`EXPOSE` no publica por sí solo el puerto**: eso se hará con `podman run -p`.
+
+**Paso 12. Construir la imagen con los cambios integrados.** Esta es la ejecución realizada para incorporar las actualizaciones de `main.py`, `schemas.py` y la dependencia del servicio de Oscar:
+
+```bash
+podman build --no-cache \
+  -t mibici-equipo15-api:week8 \
+  -f Containerfile .
+```
+
+`--no-cache` vuelve a ejecutar las capas en lugar de reutilizar compilaciones previas; `-t` asigna nombre y etiqueta; `-f` indica el archivo de construcción; y el punto final `.` indica que el contexto de compilación es la carpeta actual. **Después de cambiar código o dependencias, es necesario reconstruir la imagen** para incorporar esos cambios.
+
+**Paso 13. Verificar que la imagen existe.**
+
+```bash
+podman images mibici-equipo15-api
+```
+
+Observamos la etiqueta `week8`, compilación exitosa y tamaño aproximado de **2.81 GB** en nuestro equipo. El tamaño puede variar según la versión de las dependencias y de Podman.
+
+![Construcción completa de la imagen Podman](reports/week8/evidence/container/17_podman_integrated_build.png)
+
+### 16.10. Crear y ejecutar el contenedor
+
+**Paso 14. Revisar si ya existe un contenedor con el nombre elegido.**
+
+```bash
+podman ps -a --filter name=mibici-week8-api
+```
+
+Si existe **un contenedor de pruebas anterior que ya no necesitemos**, retirarlo antes de crear otro con el mismo nombre (el comando siguiente lo detiene y lo elimina):
+
+```bash
+podman rm -f mibici-week8-api
+```
+
+**Paso 15. Iniciar la imagen y establecer la dirección de MLflow desde el contenedor.**
+
+```bash
+podman run -d \
+  --name mibici-week8-api \
+  -p 127.0.0.1:8001:8000 \
+  -e MLFLOW_TRACKING_URI=http://host.containers.internal:5000 \
+  mibici-equipo15-api:week8
+```
+
+Aquí `-d` ejecuta en segundo plano; `--name` identifica el contenedor; `-p 127.0.0.1:8001:8000` publica **solo en el Mac**, mediante el puerto externo **8001**, el puerto **8000** de FastAPI dentro del contenedor; y `-e` transmite la URI del servidor MLflow. Utilizamos 8001 porque en macOS ya habíamos probado FastAPI en el puerto 8000. El contenedor **no utiliza `127.0.0.1:5000` para MLflow**, ya que esa dirección apuntaría al interior del propio contenedor.
+
+**Paso 16. Verificar que el contenedor está ejecutándose y revisar sus logs.**
+
+```bash
+podman ps
+podman logs mibici-week8-api
+```
+
+En nuestra ejecución, `podman ps` mostró `Up` y el mapeo `127.0.0.1:8001->8000/tcp`. Los logs confirmaron descarga de **7/7 artefactos**, inicialización de la aplicación y Uvicorn escuchando en `0.0.0.0:8000` **dentro del contenedor**. Si se necesita ver el arranque en tiempo real, usar `podman logs -f mibici-week8-api` y detener el seguimiento con `Ctrl+C` (el contenedor permanece ejecutándose).
+
+![Contenedor activo y logs de carga del modelo](reports/week8/evidence/container/18_podman_running.png)
+
+### 16.11. Probar el contenedor desde macOS: health, ready y predict
+
+**Paso 17. Comprobar que el proceso HTTP contesta.**
+
+```bash
+curl -i http://127.0.0.1:8001/health
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"status":"ok"}`. **`/health` no garantiza por sí solo que se pueda predecir**: solamente muestra que responde el servicio HTTP.
+
+**Paso 18. Comprobar que el modelo está disponible.**
+
+```bash
+curl -i http://127.0.0.1:8001/ready
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"ready":true}`. Si aquí se obtiene **HTTP 503**, consultar `podman logs mibici-week8-api` y confirmar que MLflow es accesible desde `host.containers.internal:5000` y que el Registry tiene el alias `champion`.
+
+**Paso 19. Enviar una solicitud de predicción real al contenedor.**
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "features": {
+      "hour_of_day": 8,
+      "weekday": 2,
+      "fin_semana": 0,
+      "salidas_lag_1h": 3,
+      "salidas_lag_24h": 4,
+      "salidas_lag_168h": 5,
+      "media_estacion": 2.1,
+      "media_estacion_dia_hora": 3.4
+    }
+  }'
+```
+
+Obtuvimos **HTTP 200** y la misma predicción de la prueba local:
+
+```json
+{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}
+```
+
+Esto comprueba la ejecución **extremo a extremo** de la API dentro de Podman, con recuperación real del modelo desde MLflow. El valor depende del modelo registrado, por lo que puede variar si el alias `champion` cambia de versión.
+
+![Health, ready y predicción real HTTP 200 desde Podman](reports/week8/evidence/container/19_podman_real_prediction.png)
+
+### 16.12. Pruebas automatizadas y evidencias obtenidas
+
+**Paso 20. Ejecutar la suite completa en el entorno de desarrollo local.**
+
+```bash
+.venv/bin/python -m pytest tests/ -v
+.venv/bin/python -m pip check
+```
+
+Después de incorporar nuestras validaciones de contrato y de manejo de errores, obtuvimos **247 pruebas aprobadas, 0 fallidas y 2 advertencias**. Dentro de ese total, `tests/test_api.py` tuvo **72 pruebas aprobadas** y `tests/test_model_service.py` de Oscar tuvo **26 pruebas aprobadas**. Los 5 casos adicionales de FastAPI verifican respuestas HTTP 422 para `ModelInputError`, 503 para `ModelNotReadyError`, 500 para `ModelPredictionError` y el comportamiento de `/health` y `/ready` cuando falla la carga del modelo.
+
+![Pruebas de las excepciones HTTP de FastAPI](reports/week8/evidence/container/07_fastapi_error_handling_tests.png)
+
+![Suite local integrada: 247 pruebas aprobadas](reports/week8/evidence/container/08_integrated_test_suite.png)
+
+Para mostrar la evolución después de los PR de Jorge y Oscar, también conservamos las evidencias históricas **05** (`192 passed`) y **06** (las 26 pruebas individuales del servicio de Oscar). No deben confundirse con el resultado final de 247 pruebas.
+
+![Validación inicial de integración: 192 pruebas aprobadas](reports/week8/evidence/container/05_integrated_test_suite.png)
+
+![Pruebas independientes de ModelService: 26 aprobadas](reports/week8/evidence/container/06_model_service_tests.png)
+
+**Paso 21. Ejecutar las pruebas dentro de la imagen Linux sin detener el contenedor de servicio.**
+
+```bash
+podman run --rm \
+  --entrypoint python \
+  mibici-equipo15-api:week8 \
+  -m pytest tests/ -v -rs
+```
+
+El comando lanza un **contenedor temporal**, utiliza el intérprete Python de la imagen para ejecutar PyTest y elimina ese contenedor al terminar. El servidor principal `mibici-week8-api` que creamos con `-d` no se modifica. En nuestra ejecución obtuvimos **236 passed, 11 skipped, 2 warnings** y **0 fallidas**. Las omisiones se concentran en `tests/test_data_validation.py` porque **DeepChecks no está instalado en la imagen**: está declarado en `requirements-dev.txt` para desarrollo, pero no forma parte de las dependencias de la API. El comando `-rs` imprime el motivo exacto de cada omisión. Esta diferencia está documentada y no equivale a 247 pruebas ejecutadas en Podman.
+
+No instalamos DeepChecks dentro de la imagen de servicio solamente para eliminar los `skipped`, ya que la finalidad de esta imagen es atender predicciones. Si se requiere que **las 247 pruebas** se ejecuten en Linux sin omisiones, sería conveniente preparar **una imagen de pruebas separada** con `requirements-dev.txt`.
+
+![Suite dentro del contenedor: 236 aprobadas y 11 omitidas](reports/week8/evidence/container/20_final_integration_tests.png)
+
+![Detalle de por qué se omitieron 11 pruebas de DeepChecks](reports/week8/evidence/container/21_podman_deepchecks_skipped_reason.png)
+
+**Resumen de evidencias de nuestra actividad:**
+
+| Archivos | Qué comprueban |
+|---|---|
+| `01`–`04` | Pruebas iniciales de FastAPI, compilación e imports de contenedor |
+| `05`–`06` | Integración inicial del equipo y pruebas de `ModelService` |
+| `07`–`08` | Pruebas de manejo de excepciones y suite local final |
+| `09`–`12` | Servidor MLflow, Registry, configuración y firma del modelo |
+| `13`–`16` | Inferencia de `ModelService` y HTTP local con FastAPI |
+| `17`–`19` | Compilación Podman, contenedor activo y predicción real HTTP |
+| `20`–`21` | Suite de pruebas dentro del contenedor y causa documentada de omisiones |
+
+Todos los PNG referenciados pertenecen a `reports/week8/evidence/container/`, por lo que deben agregarse a Git **junto con el README** para que GitHub pueda mostrarlos. La numeración histórica contiene dos evidencias con prefijo `02` (`02_full_test_suite.png` y `02_podman_build.png`); conservamos ambos nombres existentes para no cambiar capturas previas.
+
+### 16.13. Errores comunes, interpretación y cierre
+
+| Síntoma | Qué revisar |
+|---|---|
+| MLflow no abre en el puerto 5000 | Comprobar que está ejecutándose y que otra instancia no ocupa ese puerto |
+| No aparece el alias `champion` | Comprobar que `--backend-store-uri` apunta al `mlflow.db` correcto de Semana 6 |
+| El Registry existe, pero el modelo no carga | Revisar `--serve-artifacts`, la ruta original `mlartifacts/` y la disponibilidad de sus archivos |
+| Podman obtiene `403 Invalid Host header` | Verificar `--allowed-hosts`, `--host 0.0.0.0` y la URI `host.containers.internal:5000` |
+| `/health` responde 200, pero `/ready` 503 | La API está viva, pero el modelo no está cargado: inspeccionar logs y conexión al Registry |
+| `/predict` responde 422 | Revisar los ocho nombres exactos, rangos, tipos numéricos y consistencia de `weekday`/`fin_semana` |
+| `/predict` responde 500 | Revisar los logs del contenedor y el servicio de inferencia sin exponer trazas al cliente |
+| `podman run` indica que el nombre ya existe | Revisar `podman ps -a` y eliminar solamente el contenedor anterior de pruebas si corresponde |
+| La imagen no incluye nuevos cambios | Volver a ejecutar `podman build --no-cache ...` y crear un contenedor nuevo |
+| PyTest informa 11 `skipped` en Podman | Revisar `pytest -rs`: son las pruebas de DeepChecks declaradas en dependencias de desarrollo |
+
+Para detener únicamente el contenedor de demostración:
+
+```bash
+podman stop mibici-week8-api
+```
+
+Si no vamos a reutilizarlo:
+
+```bash
+podman rm mibici-week8-api
+```
+
+Para detener MLflow y el Uvicorn local, utilizar `Ctrl+C` en sus terminales respectivas. No borrar `mlflow.db` ni `mlartifacts/`.
+
+**Reflexión del equipo.** Con esta actividad logramos pasar de un modelo registrado durante las semanas anteriores a un servicio de inferencia accesible mediante HTTP. Aprendimos a separar las responsabilidades de validación de datos, consulta del Model Registry y publicación de endpoints, y comprobamos que podemos reproducir la misma predicción en macOS y dentro de un contenedor Linux. Las pruebas automatizadas nos permitieron detectar entradas inválidas y distinguir entre un servicio que responde (`/health`) y un modelo disponible (`/ready`). Como resultado, dejamos documentados los comandos, las dependencias y las evidencias para que otra persona pueda reproducir el procedimiento y comprender también las limitaciones de la imagen de ejecución.
