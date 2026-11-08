@@ -1832,7 +1832,21 @@ Obtuvimos **HTTP 200** y la misma predicción de la prueba local:
 {"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}
 ```
 
-Esto comprueba la ejecución **extremo a extremo** de la API dentro de Podman, con recuperación real del modelo desde MLflow. El valor depende del modelo registrado, por lo que puede variar si el alias `champion` cambia de versión.
+La misma solicitud puede enviarse desde el archivo [postman/examples/p1-valid.json](postman/examples/p1-valid.json), que guarda esas ocho características. Así el cuerpo no se reescribe en la terminal:
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary @postman/examples/p1-valid.json
+```
+
+Ese comando se ejecuta desde la raíz del repositorio, porque la ruta del archivo es relativa. En nuestra llamada al contenedor volvimos a obtener **HTTP 200** y el mismo JSON:
+
+```json
+{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}
+```
+
+Esto comprueba la ejecución **extremo a extremo** de la API dentro de Podman, con recuperación real del modelo desde MLflow. El valor depende del modelo registrado, por lo que puede variar si el alias `champion` cambia de versión. El catálogo de las nueve llamadas del cliente HTTP, incluidos los casos que la API debe rechazar, está en la sección 16.14.
 
 ![Health, ready y predicción real HTTP 200 desde Podman](reports/week8/evidence/container/19_podman_real_prediction.png)
 
@@ -1918,3 +1932,219 @@ podman rm mibici-week8-api
 Para detener MLflow y el Uvicorn local, utilizar `Ctrl+C` en sus terminales respectivas. No borrar `mlflow.db` ni `mlartifacts/`.
 
 **Reflexión del equipo.** Con esta actividad logramos pasar de un modelo registrado durante las semanas anteriores a un servicio de inferencia accesible mediante HTTP. Aprendimos a separar las responsabilidades de validación de datos, consulta del Model Registry y publicación de endpoints, y comprobamos que podemos reproducir la misma predicción en macOS y dentro de un contenedor Linux. Las pruebas automatizadas nos permitieron detectar entradas inválidas y distinguir entre un servicio que responde (`/health`) y un modelo disponible (`/ready`). Como resultado, dejamos documentados los comandos, las dependencias y las evidencias para que otra persona pueda reproducir el procedimiento y comprender también las limitaciones de la imagen de ejecución.
+
+### 16.14. Llamadas HTTP al contenedor desde un cliente
+
+Esta sección describe cómo consultar, desde el equipo anfitrión, las operaciones de MiBici que atiende la imagen Podman. El cliente es `curl`. La API sigue dentro del contenedor `mibici-week8-api`: Uvicorn escucha en el puerto **8000** de ese contenedor, y `podman run -p 127.0.0.1:8001:8000` publica ese puerto en el anfitrión como **8001**. Por eso todas las URLs de esta sección usan `http://127.0.0.1:8001`.
+
+Antes de llamar, el contenedor debe estar en ejecución y MLflow debe seguir disponible en el puerto **5000** del anfitrión. El contenedor llega a ese servidor por `host.containers.internal:5000`, que es el valor de `MLFLOW_TRACKING_URI` con el que se inició. Si `/ready` responde **503**, el proceso HTTP está vivo y el modelo P1 todavía no está cargado.
+
+Los comandos `POST` se lanzan desde la raíz del repositorio cuando usan `postman/examples/p1-valid.json`. Ninguna de estas llamadas envía la cabecera `Authorization`: en la colección de Postman cada caso está definido como **No Auth**. Los `POST` sí envían `Content-Type: application/json`. El script *After response* de Postman comprueba el código HTTP, que el cuerpo sea JSON y la condición propia de cada caso; en varios casos también exige que la respuesta tarde menos de 5 segundos. `curl -i` muestra el código y el cuerpo. El tiempo lo registra Postman.
+
+Las capturas están en `reports/week8/evidence/http/`. TC01 reutiliza la evidencia de `/health`, TC02 la de `POST /predict` con `p1-valid.json` y TC09 la de `/ready`. TC03 a TC08 tienen su propia captura, tomada al ejecutar ese comando contra el contenedor. La predicción con el JSON escrito en la línea es la misma operación válida de TC02 y conserva su captura aparte.
+
+#### Cuatro llamadas de evidencia
+
+**Health.** Comprueba que el proceso HTTP contesta. El script de TC01 espera **200**, JSON y `status` igual a `ok`.
+
+```bash
+curl -i http://127.0.0.1:8001/health
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"status":"ok"}`.
+
+![GET /health contra el contenedor: HTTP 200 y status ok](reports/week8/evidence/http/01_evidence_health.png)
+
+**Ready.** Comprueba que el modelo P1 está cargado. El script de TC09 espera **200**, JSON y `ready` igual a `true`.
+
+```bash
+curl -i http://127.0.0.1:8001/ready
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"ready":true}`.
+
+![GET /ready contra el contenedor: HTTP 200 y ready true](reports/week8/evidence/http/02_evidence_ready.png)
+
+**Predict con el cuerpo en la línea.** Envía las ocho características de `p1-valid.json` escritas en el propio comando.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "features": {
+      "hour_of_day": 8,
+      "weekday": 2,
+      "fin_semana": 0,
+      "salidas_lag_1h": 3,
+      "salidas_lag_24h": 4,
+      "salidas_lag_168h": 5,
+      "media_estacion": 2.1,
+      "media_estacion_dia_hora": 3.4
+    }
+  }'
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y la predicción del modelo champion.
+
+```json
+{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}
+```
+
+![POST /predict con el JSON en línea: HTTP 200](reports/week8/evidence/http/03_evidence_predict.png)
+
+**Predict con el archivo de ejemplo.** Es el caso TC02. El script espera **200**, un campo `prediction` numérico, finito y mayor o igual a 0, y `model` igual a `mibici-equipo15-p1-demanda`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary @postman/examples/p1-valid.json
+```
+
+Resultado registrado: el mismo **HTTP 200** y el mismo JSON de la llamada anterior.
+
+![POST /predict con p1-valid.json: HTTP 200 y predicción del modelo P1](reports/week8/evidence/http/04_evidence_predict_p1_valid.png)
+
+Con estas cuatro respuestas queda comprobado que un cliente HTTP del anfitrión ya consulta el modelo P1 desplegado en la imagen Podman.
+
+#### Catálogo curl de TC01 a TC09
+
+La base es `http://127.0.0.1:8001`. TC01, TC02 y TC09 son las llamadas de evidencia de arriba; aquí se repite el comando para poder copiarlo junto con lo que comprueba su script.
+
+**TC01 — Health Check.** `GET /health`. Sin cuerpo. El script espera **200**, JSON, `status` igual a `ok` y una respuesta menor a 5 segundos.
+
+```bash
+curl -i http://127.0.0.1:8001/health
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"status":"ok"}`. La captura es la misma de la llamada de health.
+
+![TC01 Health Check: HTTP 200 y status ok](reports/week8/evidence/http/01_evidence_health.png)
+
+**TC02 — Valid Prediction.** `POST /predict`, `Content-Type: application/json` y el cuerpo de `postman/examples/p1-valid.json`. El script espera **200**, JSON, `prediction` numérica y finita, `prediction` mayor o igual a 0, `model` igual a `mibici-equipo15-p1-demanda` y una respuesta menor a 5 segundos. Resultado registrado: `{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary @postman/examples/p1-valid.json
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}`. La captura es la del predict con archivo.
+
+![TC02 Valid Prediction: HTTP 200 con p1-valid.json](reports/week8/evidence/http/04_evidence_predict_p1_valid.png)
+
+**TC03 — Missing Required Field.** Mismo `POST` y el mismo `Content-Type`. El cuerpo tiene siete características: se omite `media_estacion`. El script espera **422**, JSON, un arreglo `detail` con al menos un error y un `loc` que incluye `features`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary '{
+    "features": {
+      "hour_of_day": 8,
+      "weekday": 2,
+      "fin_semana": 0,
+      "salidas_lag_1h": 3,
+      "salidas_lag_24h": 4,
+      "salidas_lag_168h": 5,
+      "media_estacion_dia_hora": 3.4
+    }
+  }'
+```
+
+Resultado registrado: `HTTP/1.1 422 Unprocessable Entity`. El cuerpo indica `type` `too_short`, `loc` `["body","features"]` y el mensaje `Dictionary should have at least 8 items after validation, not 7`.
+
+![TC03 campo obligatorio ausente: HTTP 422](reports/week8/evidence/http/05_evidence_tc03.png)
+
+**TC04 — Invalid Data Type.** Ocho características, con `hour_of_day` igual a `"texto_invalido"`. El script espera **422**, JSON, un arreglo `detail` y un `loc` que incluye `hour_of_day`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary '{
+    "features": {
+      "hour_of_day": "texto_invalido",
+      "weekday": 2,
+      "fin_semana": 0,
+      "salidas_lag_1h": 3,
+      "salidas_lag_24h": 4,
+      "salidas_lag_168h": 5,
+      "media_estacion": 2.1,
+      "media_estacion_dia_hora": 3.4
+    }
+  }'
+```
+
+Resultado registrado: `HTTP/1.1 422 Unprocessable Entity`. El cuerpo indica `type` `value_error`, `loc` con `hour_of_day` y el mensaje `La característica debe ser un número entero o decimal.`
+
+![TC04 tipo inválido en hour_of_day: HTTP 422](reports/week8/evidence/http/06_evidence_tc04.png)
+
+**TC05 — Out of Range Value.** El JSON válido, con `hour_of_day` igual a `25`. El rango aceptado es 0–23. El script espera **422**, JSON, un arreglo `detail` y un mensaje que contiene `hour_of_day debe estar entre 0 y 23`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary '{
+    "features": {
+      "hour_of_day": 25,
+      "weekday": 2,
+      "fin_semana": 0,
+      "salidas_lag_1h": 3,
+      "salidas_lag_24h": 4,
+      "salidas_lag_168h": 5,
+      "media_estacion": 2.1,
+      "media_estacion_dia_hora": 3.4
+    }
+  }'
+```
+
+Resultado registrado: `HTTP/1.1 422 Unprocessable Entity`. El mensaje es `hour_of_day debe estar entre 0 y 23.`
+
+![TC05 hour_of_day fuera de rango: HTTP 422](reports/week8/evidence/http/07_evidence_tc05.png)
+
+**TC06 — Malformed JSON.** `Content-Type: application/json` y un cuerpo con una coma final, que deja el JSON sintácticamente inválido. `--data-binary` envía ese texto tal cual. El script espera **422**, JSON, un arreglo `detail` y un error de tipo `json_invalid`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json' \
+  --data-binary '{
+    "features": {
+      "hour_of_day": 8,
+    }
+  }'
+```
+
+Resultado registrado: `HTTP/1.1 422 Unprocessable Entity`. El cuerpo indica `type` `json_invalid` y el mensaje `JSON decode error`.
+
+![TC06 JSON mal formado: HTTP 422](reports/week8/evidence/http/08_evidence_tc06.png)
+
+**TC07 — Empty Body.** `POST /predict` con `Content-Type: application/json` y sin cuerpo. El script espera **422**, JSON, un arreglo `detail` y un `loc` que incluye `body`.
+
+```bash
+curl -i -X POST http://127.0.0.1:8001/predict \
+  -H 'Content-Type: application/json'
+```
+
+Resultado registrado: `HTTP/1.1 422 Unprocessable Entity`. El cuerpo indica `type` `missing`, `loc` `["body"]` y el mensaje `Field required`.
+
+![TC07 cuerpo vacío: HTTP 422](reports/week8/evidence/http/09_evidence_tc07.png)
+
+**TC08 — Unknown Endpoint.** `GET /endpoint-inexistente`, sin cuerpo. El script espera **404**, JSON, `detail` igual a `Not Found` y una respuesta menor a 5 segundos.
+
+```bash
+curl -i http://127.0.0.1:8001/endpoint-inexistente
+```
+
+Resultado registrado: `HTTP/1.1 404 Not Found` y `{"detail":"Not Found"}`.
+
+![TC08 ruta inexistente: HTTP 404](reports/week8/evidence/http/10_evidence_tc08.png)
+
+**TC09 — Model Readiness.** `GET /ready`, sin cuerpo. El script espera **200**, JSON, `ready` igual a `true` y una respuesta menor a 5 segundos.
+
+```bash
+curl -i http://127.0.0.1:8001/ready
+```
+
+Resultado registrado: `HTTP/1.1 200 OK` y `{"ready":true}`. La captura es la misma de la llamada de ready.
+
+![TC09 Model Readiness: HTTP 200 y ready true](reports/week8/evidence/http/02_evidence_ready.png)
+
+Estas llamadas salen del anfitrión hacia el puerto publicado del contenedor. TC01, TC02 y TC09 muestran que ese cliente ya alcanza el modelo P1 servido por la imagen Podman. Los códigos **422** y **404** de TC03 a TC08 son la respuesta prevista de la validación: confirman el contrato de entrada y una ruta que la API no expone.

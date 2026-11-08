@@ -1,0 +1,12 @@
+{
+  "features": {
+    "hour_of_day": 8,
+    "weekday": 2,
+    "fin_semana": 0,
+    "salidas_lag_1h": 3,
+    "salidas_lag_24h": 4,
+    "salidas_lag_168h": 5,
+    "media_estacion": 2.1,
+    "media_estacion_dia_hora": 3.4
+  }
+}
