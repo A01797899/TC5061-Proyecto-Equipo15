@@ -2148,3 +2148,35 @@ Resultado registrado: `HTTP/1.1 200 OK` y `{"ready":true}`. La captura es la mis
 ![TC09 Model Readiness: HTTP 200 y ready true](reports/week8/evidence/http/02_evidence_ready.png)
 
 Estas llamadas salen del anfitrión hacia el puerto publicado del contenedor. TC01, TC02 y TC09 muestran que ese cliente ya alcanza el modelo P1 servido por la imagen Podman. Los códigos **422** y **404** de TC03 a TC08 son la respuesta prevista de la validación: confirman el contrato de entrada y una ruta que la API no expone.
+
+## 17. Semana 9 — Datos de referencia y actuales para monitoreo de drift (Jorge)
+
+Prepara los datos que usan el monitoreo con Evidently, el Challenger y el A/B testing: la referencia es el entrenamiento del Champion P1 (enero a agosto de 2024) y el periodo actual es enero a marzo de 2025. Las 8 variables se construyen con las mismas funciones del entrenamiento y reproducen exactamente las métricas registradas del Champion. El procedimiento completo está en [`docs/week9/data_preparation.md`](docs/week9/data_preparation.md) y el contrato en [`docs/week9/data_contract.md`](docs/week9/data_contract.md).
+
+**Requisitos.** El `.venv` con `requirements.txt`, la ingesta de 2024 (`python -m mibici.dataset`) y los 3 CSV de 2025 en `data/external/week9_2025/`. Los comandos de descarga y los hashes esperados están en la sección 11 del procedimiento.
+
+**Generar los datasets.**
+
+```bash
+python -m mibici.monitoring.prepare_data
+python -m mibici.monitoring.data_quality
+```
+
+| Archivo en `data/processed/week9/` | Periodo | Filas | Uso |
+|---|---|---|---|
+| `reference_p1.parquet` | 8 ene - 31 ago 2024 | 2,059,056 | Referencia de drift |
+| `current_p1.parquet` | 1 ene - 31 mar 2025 | 781,920 | Datos actuales de drift |
+| `train_alternative.parquet` | 1 ene - 28 feb 2025 | 512,592 | Entrenar el Challenger |
+| `evaluation.parquet` | 1 - 31 mar 2025 | 269,328 | Comparar Champion y Challenger |
+
+Todos traen `station`, `hour`, `y` y las 8 variables de P1 en `float64`, sin nulos, para las 362 estaciones del Champion. Los parquets no se versionan; los resultados quedan en `reports/week9/data_quality.json` y `reports/week9/data_manifest.json`.
+
+**Pruebas.**
+
+```bash
+python -m pytest tests/test_week9_data.py -v
+python -m pytest -v
+ruff check mibici/monitoring/ tests/test_week9_data.py
+```
+
+**Evidencias.** En `reports/week9/evidence/data/`, de `01_entorno_pruebas_iniciales.png` a `10_pruebas_week9.png`; la lista completa está en la sección 12 del procedimiento.
