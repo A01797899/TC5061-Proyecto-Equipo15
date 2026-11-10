@@ -1,0 +1,178 @@
+{
+  "proyecto": {
+    "nombre": "mibici",
+    "version": "0.0.1"
+  },
+  "commit": "654b71ab573ad4ed65714fa2839529aee37ee956",
+  "fecha_ejecucion": "2026-11-10T13:23:53",
+  "champion": {
+    "modelo": "mibici-equipo15-p1-demanda",
+    "alias": "champion",
+    "version": "1",
+    "run_id": "6e3429f222a0407aa159dd9f46699365",
+    "uri": "models:/mibici-equipo15-p1-demanda@champion"
+  },
+  "referencia": {
+    "periodo": {
+      "inicio": "2024-01-01",
+      "fin_exclusivo": "2024-09-01"
+    },
+    "viajes": "data/processed/viajes_2024.parquet",
+    "manifiesto_2024": "data/manifiesto.json",
+    "version_datos": "7e1470ac0632"
+  },
+  "actual": {
+    "periodo": {
+      "inicio": "2025-01-01",
+      "fin_exclusivo": "2025-04-01"
+    },
+    "registros": 1157823,
+    "archivos": [
+      {
+        "archivo": "data/external/week9_2025/datos_abiertos_2025_01.csv",
+        "url": "https://mibici.net/site/assets/files/97653/datos_abiertos_2025_01.csv",
+        "bytes": 32959338,
+        "sha256": "90ee75701a69374926af0400d204f3280baed0e3c1a1f97d9e6c0b283757125a",
+        "encoding": "latin1",
+        "formato_fecha": "%Y-%m-%d %H:%M:%S",
+        "columnas_originales": [
+          "Viaje_Id",
+          "Usuario_Id",
+          "Genero",
+          "Año_de_nacimiento",
+          "Inicio_del_viaje",
+          "Fin_del_viaje",
+          "Origen_Id",
+          "Destino_Id"
+        ],
+        "coincide_esquema_2024": true,
+        "registros": 380184,
+        "fechas_invalidas": 0,
+        "inicios_fuera_del_mes": 0
+      },
+      {
+        "archivo": "data/external/week9_2025/datos_abiertos_2025_02.csv",
+        "url": "https://mibici.net/site/assets/files/99879/datos_abiertos_2025_02.csv",
+        "bytes": 32304810,
+        "sha256": "f52f13f59eb2f1517e05c72f0a3d3d70c5b0fa6b86626c7325e8ca3b15ff74f8",
+        "encoding": "latin1",
+        "formato_fecha": "%Y-%m-%d %H:%M:%S",
+        "columnas_originales": [
+          "Viaje_Id",
+          "Usuario_Id",
+          "Genero",
+          "Año_de_nacimiento",
+          "Inicio_del_viaje",
+          "Fin_del_viaje",
+          "Origen_Id",
+          "Destino_Id"
+        ],
+        "coincide_esquema_2024": true,
+        "registros": 372529,
+        "fechas_invalidas": 0,
+        "inicios_fuera_del_mes": 0
+      },
+      {
+        "archivo": "data/external/week9_2025/datos_abiertos_2025_03.csv",
+        "url": "https://mibici.net/site/assets/files/101986/datos_abiertos_2025_03.csv",
+        "bytes": 35131572,
+        "sha256": "e5aa1b5d197f294022d3f0ff1b55bf553fcbdb697b50d43deaddf8dca36fed64",
+        "encoding": "utf-8",
+        "formato_fecha": "%Y-%m-%d %H:%M:%S",
+        "columnas_originales": [
+          "Viaje_Id",
+          "Usuario_Id",
+          "Genero",
+          "Año_de_nacimiento",
+          "Inicio_del_viaje",
+          "Fin_del_viaje",
+          "Origen_Id",
+          "Destino_Id"
+        ],
+        "coincide_esquema_2024": true,
+        "registros": 405110,
+        "fechas_invalidas": 0,
+        "inicios_fuera_del_mes": 0
+      }
+    ]
+  },
+  "estaciones": {
+    "modelo": 362,
+    "con_viajes_2025": 368,
+    "nuevas_2025": [
+      391,
+      392,
+      393,
+      394,
+      395,
+      396,
+      397,
+      398
+    ],
+    "del_modelo_sin_viajes_2025": [
+      104,
+      310
+    ]
+  },
+  "columnas_entrada_p1": [
+    "hour_of_day",
+    "weekday",
+    "fin_semana",
+    "salidas_lag_1h",
+    "salidas_lag_24h",
+    "salidas_lag_168h",
+    "media_estacion",
+    "media_estacion_dia_hora"
+  ],
+  "columnas_datasets": [
+    "station",
+    "hour",
+    "y",
+    "hour_of_day",
+    "weekday",
+    "fin_semana",
+    "salidas_lag_1h",
+    "salidas_lag_24h",
+    "salidas_lag_168h",
+    "media_estacion",
+    "media_estacion_dia_hora"
+  ],
+  "datasets": {
+    "reference_p1.parquet": {
+      "ruta": "data/processed/week9/reference_p1.parquet",
+      "filas": 2059056,
+      "estaciones": 362,
+      "hora_inicio": "2024-01-08 00:00:00",
+      "hora_fin": "2024-08-31 23:00:00"
+    },
+    "current_p1.parquet": {
+      "ruta": "data/processed/week9/current_p1.parquet",
+      "filas": 781920,
+      "estaciones": 362,
+      "hora_inicio": "2025-01-01 00:00:00",
+      "hora_fin": "2025-03-31 23:00:00"
+    },
+    "train_alternative.parquet": {
+      "ruta": "data/processed/week9/train_alternative.parquet",
+      "filas": 512592,
+      "estaciones": 362,
+      "hora_inicio": "2025-01-01 00:00:00",
+      "hora_fin": "2025-02-28 23:00:00"
+    },
+    "evaluation.parquet": {
+      "ruta": "data/processed/week9/evaluation.parquet",
+      "filas": 269328,
+      "estaciones": 362,
+      "hora_inicio": "2025-03-01 00:00:00",
+      "hora_fin": "2025-03-31 23:00:00"
+    }
+  },
+  "reglas": [
+    "Se descartan los viajes sin inicio u origen y los que empiezan fuera de su mes; las demás anomalías se reportan en data_quality.json y se conservan.",
+    "El panel usa las estaciones con viajes en el entrenamiento del Champion; las nuevas de 2025 se reportan aparte y las horas sin viajes valen 0.",
+    "Los rezagos de 1, 24 y 168 horas salen de un panel continuo desde 2024, así que enero de 2025 usa diciembre de 2024.",
+    "media_estacion y media_estacion_dia_hora se calculan solo con el entrenamiento de 2024.",
+    "La referencia descarta las primeras 168 horas sin rezagos completos, igual que el Champion.",
+    "Las particiones de 2025 son por fecha: enero-febrero para entrenar y marzo para evaluar."
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "reglas": {
+    "descartados": "Viajes sin fecha de inicio u origen, o con inicio fuera del periodo; es la misma regla con la que la ingesta de P1 cuenta salidas.",
+    "anomalias_conservadas": "Género o año de nacimiento vacíos, fin antes del inicio, duración fuera de [1, 180] min, edad fuera de [10, 90] y viajes de estaciones nuevas se reportan y se conservan.",
+    "estaciones": "El panel de P1 usa las estaciones con viajes en el entrenamiento del Champion; las nuevas se reportan aparte y las que no tienen viajes quedan con salidas en 0."
+  },
+  "estaciones_modelo": 362,
+  "esquema_2025": [
+    {
+      "archivo": "data/external/week9_2025/datos_abiertos_2025_01.csv",
+      "url": "https://mibici.net/site/assets/files/97653/datos_abiertos_2025_01.csv",
+      "bytes": 32959338,
+      "sha256": "90ee75701a69374926af0400d204f3280baed0e3c1a1f97d9e6c0b283757125a",
+      "encoding": "latin1",
+      "formato_fecha": "%Y-%m-%d %H:%M:%S",
+      "columnas_originales": [
+        "Viaje_Id",
+        "Usuario_Id",
+        "Genero",
+        "Año_de_nacimiento",
+        "Inicio_del_viaje",
+        "Fin_del_viaje",
+        "Origen_Id",
+        "Destino_Id"
+      ],
+      "coincide_esquema_2024": true,
+      "registros": 380184,
+      "fechas_invalidas": 0,
+      "inicios_fuera_del_mes": 0
+    },
+    {
+      "archivo": "data/external/week9_2025/datos_abiertos_2025_02.csv",
+      "url": "https://mibici.net/site/assets/files/99879/datos_abiertos_2025_02.csv",
+      "bytes": 32304810,
+      "sha256": "f52f13f59eb2f1517e05c72f0a3d3d70c5b0fa6b86626c7325e8ca3b15ff74f8",
+      "encoding": "latin1",
+      "formato_fecha": "%Y-%m-%d %H:%M:%S",
+      "columnas_originales": [
+        "Viaje_Id",
+        "Usuario_Id",
+        "Genero",
+        "Año_de_nacimiento",
+        "Inicio_del_viaje",
+        "Fin_del_viaje",
+        "Origen_Id",
+        "Destino_Id"
+      ],
+      "coincide_esquema_2024": true,
+      "registros": 372529,
+      "fechas_invalidas": 0,
+      "inicios_fuera_del_mes": 0
+    },
+    {
+      "archivo": "data/external/week9_2025/datos_abiertos_2025_03.csv",
+      "url": "https://mibici.net/site/assets/files/101986/datos_abiertos_2025_03.csv",
+      "bytes": 35131572,
+      "sha256": "e5aa1b5d197f294022d3f0ff1b55bf553fcbdb697b50d43deaddf8dca36fed64",
+      "encoding": "utf-8",
+      "formato_fecha": "%Y-%m-%d %H:%M:%S",
+      "columnas_originales": [
+        "Viaje_Id",
+        "Usuario_Id",
+        "Genero",
+        "Año_de_nacimiento",
+        "Inicio_del_viaje",
+        "Fin_del_viaje",
+        "Origen_Id",
+        "Destino_Id"
+      ],
+      "coincide_esquema_2024": true,
+      "registros": 405110,
+      "fechas_invalidas": 0,
+      "inicios_fuera_del_mes": 0
+    }
+  ],
+  "referencia": {
+    "periodo": {
+      "inicio": "2024-01-01",
+      "fin_exclusivo": "2024-09-01"
+    },
+    "registros": 3106021,
+    "columnas": [
+      "viaje_id",
+      "usuario_id",
+      "genero",
+      "anio_nacimiento",
+      "inicio_viaje",
+      "fin_viaje",
+      "origen_id",
+      "destino_id"
+    ],
+    "nulos": {
+      "viaje_id": 0,
+      "usuario_id": 0,
+      "genero": 17664,
+      "anio_nacimiento": 2046,
+      "inicio_viaje": 0,
+      "fin_viaje": 0,
+      "origen_id": 0,
+      "destino_id": 0
+    },
+    "nulos_pct": {
+      "viaje_id": 0.0,
+      "usuario_id": 0.0,
+      "genero": 0.569,
+      "anio_nacimiento": 0.066,
+      "inicio_viaje": 0.0,
+      "fin_viaje": 0.0,
+      "origen_id": 0.0,
+      "destino_id": 0.0
+    },
+    "duplicados": {
+      "viaje_id": 0,
+      "filas_completas": 0
+    },
+    "inicio_min": "2024-01-01 00:05:25",
+    "inicio_max": "2024-08-31 23:59:16",
+    "descartados": {
+      "sin_inicio_u_origen": 0,
+      "fuera_del_periodo": 0,
+      "total": 0
+    },
+    "registros_validos": 3106021,
+    "anomalias_conservadas": {
+      "genero_vacio": 17664,
+      "anio_nacimiento_vacio": 2046,
+      "fin_antes_de_inicio": 0,
+      "duracion_atipica": 110101,
+      "edad_atipica": 742,
+      "viajes_de_estaciones_nuevas": 0
+    },
+    "duracion_min": {
+      "p50": 9.45,
+      "p99": 32.83,
+      "max": 2857.6
+    },
+    "estaciones": {
+      "con_viajes": 362,
+      "del_modelo_con_viajes": 362,
+      "nuevas": [],
+      "del_modelo_sin_viajes": []
+    }
+  },
+  "actual": {
+    "periodo": {
+      "inicio": "2025-01-01",
+      "fin_exclusivo": "2025-04-01"
+    },
+    "registros": 1157823,
+    "columnas": [
+      "viaje_id",
+      "usuario_id",
+      "genero",
+      "anio_nacimiento",
+      "inicio_viaje",
+      "fin_viaje",
+      "origen_id",
+      "destino_id"
+    ],
+    "nulos": {
+      "viaje_id": 0,
+      "usuario_id": 0,
+      "genero": 8897,
+      "anio_nacimiento": 456,
+      "inicio_viaje": 0,
+      "fin_viaje": 0,
+      "origen_id": 0,
+      "destino_id": 0
+    },
+    "nulos_pct": {
+      "viaje_id": 0.0,
+      "usuario_id": 0.0,
+      "genero": 0.768,
+      "anio_nacimiento": 0.039,
+      "inicio_viaje": 0.0,
+      "fin_viaje": 0.0,
+      "origen_id": 0.0,
+      "destino_id": 0.0
+    },
+    "duplicados": {
+      "viaje_id": 0,
+      "filas_completas": 0
+    },
+    "inicio_min": "2025-01-01 00:00:44",
+    "inicio_max": "2025-03-31 23:58:09",
+    "descartados": {
+      "sin_inicio_u_origen": 0,
+      "fuera_del_periodo": 0,
+      "total": 0
+    },
+    "registros_validos": 1157823,
+    "anomalias_conservadas": {
+      "genero_vacio": 8897,
+      "anio_nacimiento_vacio": 456,
+      "fin_antes_de_inicio": 0,
+      "duracion_atipica": 28790,
+      "edad_atipica": 173,
+      "viajes_de_estaciones_nuevas": 11957
+    },
+    "duracion_min": {
+      "p50": 9.62,
+      "p99": 33.28,
+      "max": 1774.88
+    },
+    "estaciones": {
+      "con_viajes": 368,
+      "del_modelo_con_viajes": 360,
+      "nuevas": [
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398
+      ],
+      "del_modelo_sin_viajes": [
+        104,
+        310
+      ]
+    }
+  }
+}
