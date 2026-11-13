@@ -1,0 +1,146 @@
+{
+  "fecha_ejecucion": "2026-11-13T16:11:55",
+  "commit": "d774ca0bd508af1c7a0db5b51d08db3a84d99094",
+  "evidently": "0.7.23",
+  "champion": {
+    "modelo": "mibici-equipo15-p1-demanda",
+    "alias": "champion",
+    "version": "1",
+    "run_id": "6e3429f222a0407aa159dd9f46699365",
+    "uri": "models:/mibici-equipo15-p1-demanda@champion"
+  },
+  "configuracion": {
+    "columnas": [
+      "hour_of_day",
+      "weekday",
+      "fin_semana",
+      "salidas_lag_1h",
+      "salidas_lag_24h",
+      "salidas_lag_168h",
+      "media_estacion",
+      "media_estacion_dia_hora",
+      "y"
+    ],
+    "categoricas": [
+      "hour_of_day",
+      "weekday",
+      "fin_semana"
+    ],
+    "numericas": [
+      "salidas_lag_1h",
+      "salidas_lag_24h",
+      "salidas_lag_168h",
+      "media_estacion",
+      "media_estacion_dia_hora",
+      "y"
+    ],
+    "metodo_numerico": "wasserstein",
+    "metodo_categorico": "jensenshannon",
+    "umbral": 0.1,
+    "drift_share": 0.5
+  },
+  "escenarios": {
+    "principal": {
+      "descripcion": "Entrenamiento del Champion (ene-ago 2024) contra ene-mar 2025",
+      "filas_referencia": 2059056,
+      "filas_actual": 781920,
+      "variables_con_drift": [],
+      "proporcion_drift": 0.0,
+      "drift_del_conjunto": false,
+      "pruebas_evidently": {
+        "conteo": {
+          "SUCCESS": 74,
+          "FAIL": 5
+        },
+        "no_pasaron": [
+          "FAIL: Row count in dataset: Equal 2059056.000 ± 205905.600",
+          "FAIL: Maximum value of 'salidas_lag_1h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_24h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_168h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'y': Equal 86.000 ± 8.600"
+        ]
+      }
+    },
+    "estacional": {
+      "descripcion": "Mismos meses un año antes (ene-mar 2024) contra ene-mar 2025",
+      "filas_referencia": 729792,
+      "filas_actual": 781920,
+      "variables_con_drift": [],
+      "proporcion_drift": 0.0,
+      "drift_del_conjunto": false,
+      "pruebas_evidently": {
+        "conteo": {
+          "SUCCESS": 75,
+          "FAIL": 4
+        },
+        "no_pasaron": [
+          "FAIL: Maximum value of 'salidas_lag_1h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_24h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_168h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'y': Equal 86.000 ± 8.600"
+        ]
+      }
+    }
+  },
+  "calidad": {
+    "referencia": {
+      "filas": 2059056,
+      "estaciones": 362,
+      "desde": "2024-01-08 00:00:00",
+      "hasta": "2024-08-31 23:00:00",
+      "nulos": 0,
+      "duplicados_estacion_hora": 0,
+      "fuera_de_rango": {
+        "hour_of_day": 0,
+        "weekday": 0,
+        "fin_semana": 0
+      },
+      "negativos": {
+        "salidas_lag_1h": 0,
+        "salidas_lag_24h": 0,
+        "salidas_lag_168h": 0,
+        "media_estacion": 0,
+        "media_estacion_dia_hora": 0,
+        "y": 0
+      },
+      "tipos_float64": true,
+      "estaciones_sin_salidas": []
+    },
+    "actual": {
+      "filas": 781920,
+      "estaciones": 362,
+      "desde": "2025-01-01 00:00:00",
+      "hasta": "2025-03-31 23:00:00",
+      "nulos": 0,
+      "duplicados_estacion_hora": 0,
+      "fuera_de_rango": {
+        "hour_of_day": 0,
+        "weekday": 0,
+        "fin_semana": 0
+      },
+      "negativos": {
+        "salidas_lag_1h": 0,
+        "salidas_lag_24h": 0,
+        "salidas_lag_168h": 0,
+        "media_estacion": 0,
+        "media_estacion_dia_hora": 0,
+        "y": 0
+      },
+      "tipos_float64": true,
+      "estaciones_sin_salidas": [
+        104,
+        310
+      ]
+    }
+  },
+  "estaciones": {
+    "brecha_media_abs_congelada": 0.12267248854986333,
+    "con_caida_mayor_50pct": 3,
+    "con_alza_mayor_50pct": 8
+  },
+  "por_mes": {
+    "2025-01": [],
+    "2025-02": [],
+    "2025-03": []
+  }
+}

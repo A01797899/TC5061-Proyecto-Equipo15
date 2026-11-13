@@ -2180,3 +2180,32 @@ ruff check mibici/monitoring/ tests/test_week9_data.py
 ```
 
 **Evidencias.** En `reports/week9/evidence/data/`, de `01_entorno_pruebas_iniciales.png` a `10_pruebas_week9.png`; la lista completa está en la sección 12 del procedimiento.
+
+## 18. Semana 9 — Monitoreo de drift con Evidently (Óscar)
+
+Compara con Evidently los datos de entrenamiento del Champion P1 (enero a agosto de 2024) contra el periodo actual (enero a marzo de 2025) y reporta el drift por variable y la calidad de datos. Agrega un control estacional (enero a marzo de 2024 contra 2025) para separar el cambio real de la estacionalidad, el drift mes a mes y una revisión por estación de las medias congeladas. La metodología, la configuración y la interpretación están en [`docs/week9/drift_monitoring.md`](docs/week9/drift_monitoring.md).
+
+**Requisitos.** `requirements.txt` (incluye `evidently==0.7.23`) y los parquets de `data/processed/week9/` de la sección 17.
+
+**Ejecutar.**
+
+```bash
+python -m mibici.monitoring.drift_report
+python -m mibici.monitoring.drift_report --muestra 200000 --sin-html   # corrida rápida
+```
+
+| Configuración | Valor |
+|---|---|
+| Presets | `DataDriftPreset` + `DataSummaryPreset` |
+| Categóricas (Jensen-Shannon) | `hour_of_day`, `weekday`, `fin_semana` |
+| Numéricas (Wasserstein normalizada) | rezagos, medias históricas y `y` |
+| Umbral de drift | 0.1 por variable |
+
+**Resultados.** En `reports/week9/drift/`: los reportes HTML de Evidently (`evidently_drift_principal.html`, `evidently_drift_estacional.html`), los resultados por variable y por mes en CSV, `drift_resumen.json` y las gráficas para el PDF en `figures/`.
+
+**Pruebas.**
+
+```bash
+python -m pytest tests/test_week9_drift.py -v
+ruff check mibici/monitoring/ tests/test_week9_drift.py
+```
