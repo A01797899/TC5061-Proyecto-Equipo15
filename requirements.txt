@@ -1,3 +1,4 @@
+evidently==0.7.23
 ipython==9.17.1
 ipykernel==7.4.0
 jupyterlab==4.6.4
