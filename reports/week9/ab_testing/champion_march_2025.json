@@ -1,0 +1,11 @@
+{
+  "model": "mibici-equipo15-p1-demanda",
+  "model_version": "1",
+  "run_id": "6e3429f222a0407aa159dd9f46699365",
+  "model_uri": "models:/mibici-equipo15-p1-demanda/1",
+  "evaluation_period": "2025-03-01/2025-03-31",
+  "observations": 269328,
+  "stations": 362,
+  "mae": 0.8406793191283037,
+  "rmse": 1.4369529768005689
+}
