@@ -1,0 +1,26 @@
+Actividad 3.6. Nueva versión del mismo modelo
+Fecha: 2026-11-15
+Rama: feature/week9-challenger-JLMM
+
+La URI runs:/987a98c61f484b66ab101a308bf3757c/model dejó colgado al servidor.
+El Champion versión 1 también está guardado como logged model (models:/m-04774b8f25ff468b933a18756c24b068).
+Se registró el Challenger con la URI equivalente:
+
+python -m mibici.modeling.registry \
+  --question p1 \
+  --model-uri models:/m-39a601c2342543d0b89515b379ce29c9 \
+  --description "Challenger P1 semana 9. train_alternative 1 ene-28 feb 2025, 512592 filas. Marzo reservado." \
+  --data-version 7e1470ac0632
+
+Registered model: mibici-equipo15-p1-demanda
+Version: 2
+Source run: 987a98c61f484b66ab101a308bf3757c
+Estado: READY
+
+Versiones actuales:
+  1 READY run 6e3429f222a0407aa159dd9f46699365
+  2 READY run 987a98c61f484b66ab101a308bf3757c
+Alias champion: versión 1
+
+Validacion: la versión 2 es distinta de la 1 y pertenece al mismo nombre.
+El servidor MLflow se reinició con la misma base y la misma carpeta de artefactos.

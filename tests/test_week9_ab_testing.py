@@ -1,6 +1,8 @@
 
 """Pruebas de Semana 9 para evaluación A/B P1."""
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -11,6 +13,10 @@ from scripts.week9.compare_models import (
     load_evaluation,
     predict_in_batches,
     save_champion_predictions,
+)
+from scripts.week9.train_challenger import (
+    crear_challenger,
+    rechazar_conjunto_reservado,
 )
 
 
@@ -535,3 +541,24 @@ def test_exportacion_rechaza_predicciones_incompletas(tmp_path):
             np.array([1.0]),
             tmp_path,
         )
+
+
+def test_challenger_rechaza_ruta_de_evaluacion():
+    """El ajuste no acepta el Parquet reservado de marzo."""
+
+    with pytest.raises(ValueError, match="marzo"):
+        rechazar_conjunto_reservado(
+            Path("data/processed/week9/evaluation.parquet")
+        )
+
+
+def test_challenger_hiperparametros_del_champion():
+    """El Challenger usa los hiperparámetros de la versión 1."""
+
+    modelo = crear_challenger()
+
+    assert modelo.max_iter == 300
+    assert modelo.learning_rate == 0.1
+    assert modelo.max_depth is None
+    assert modelo.early_stopping is False
+    assert modelo.random_state == 42

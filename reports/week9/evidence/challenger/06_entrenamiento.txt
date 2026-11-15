@@ -1,0 +1,12 @@
+🏃 View run P1_challenger_2025_01_02 at: http://127.0.0.1:5000/#/experiments/1/runs/987a98c61f484b66ab101a308bf3757c
+🧪 View experiment at: http://127.0.0.1:5000/#/experiments/1
+filas 512592
+hora_maxima 2025-02-28 23:00:00
+max_iter 300
+learning_rate 0.1
+max_depth None
+early_stopping False
+random_state 42
+train_mae 0.7943356785109916
+train_rmse 1.3130923736059918
+run_id 987a98c61f484b66ab101a308bf3757c

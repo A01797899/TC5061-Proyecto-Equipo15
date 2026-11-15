@@ -1,0 +1,11 @@
+Actividad 3.8. Carga e inferencia de la versión 2
+Fecha: 2026-11-15
+Rama: feature/week9-challenger-JLMM
+
+URI: models:/mibici-equipo15-p1-demanda/2
+Fila tomada de data/processed/week9/train_alternative.parquet
+No se abrió evaluation.parquet.
+
+columnas ['hour_of_day', 'weekday', 'fin_semana', 'salidas_lag_1h', 'salidas_lag_24h', 'salidas_lag_168h', 'media_estacion', 'media_estacion_dia_hora']
+prediccion 0.16187306600400853
+Validacion: la version 2 cargo y predijo un número finito.

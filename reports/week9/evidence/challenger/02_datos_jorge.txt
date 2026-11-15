@@ -1,0 +1,36 @@
+Paso B. Separacion de datos de Jorge
+Fecha: 2026-11-15
+Rama: feature/week9-challenger-JLMM
+
+2024
+  python -m mibici.dataset
+  version_datos: 7e1470ac0632
+  viajes limpios: 4,645,921
+  data/processed/viajes_2024.parquet escrito
+  La URL vigente nomenclatura_2026_09.csv respondio HTTP 404.
+  El archivo se recupero del archivo web del 2025-10-25.
+  bytes: 40841
+  sha256: 206e45fe633922b634d858142fa21e6fd9f4c421b6435c02980ef290cc2df90d
+  Coincide con data/manifiesto.json. La segunda corrida omitio la descarga y cerro la ingesta.
+
+2025
+  datos_abiertos_2025_01.csv 90ee75701a69374926af0400d204f3280baed0e3c1a1f97d9e6c0b283757125a
+  datos_abiertos_2025_02.csv f52f13f59eb2f1517e05c72f0a3d3d70c5b0fa6b86626c7325e8ca3b15ff74f8
+  datos_abiertos_2025_03.csv e5aa1b5d197f294022d3f0ff1b55bf553fcbdb697b50d43deaddf8dca36fed64
+  Los tres hashes coinciden con docs/week9/data_preparation.md seccion 5.
+
+Particiones
+  python -m mibici.monitoring.prepare_data
+  python -m mibici.monitoring.data_quality
+  train_alternative.parquet: 512,592 filas | 2025-01-01 00:00:00 a 2025-02-28 23:00:00 | anterior a 2025-03-01: True
+  evaluation.parquet: 269,328 filas | 362 estaciones | 2025-03-01 00:00:00 a 2025-03-31 23:00:00
+  reference_p1.parquet: 2,059,056 filas
+  current_p1.parquet: 781,920 filas
+
+Pruebas
+  python -m pytest tests/test_week9_data.py -v
+  16 passed in 1.69s
+
+Manifiesto versionado
+  prepare_data reescribio reports/week9/data_manifest.json solo en commit y fecha_ejecucion.
+  Se restauro el archivo publicado por Jorge. Los conteos no cambiaron.

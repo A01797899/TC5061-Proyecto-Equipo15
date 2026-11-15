@@ -1,0 +1,27 @@
+run_id 987a98c61f484b66ab101a308bf3757c
+status FINISHED
+params ['early_stopping', 'features', 'learning_rate', 'max_depth', 'max_iter', 'random_state', 'train_period', 'train_rows']
+metrics ['train_mae', 'train_rmse']
+max_iter 300
+learning_rate 0.1
+max_depth None
+train_mae 0.7943356785109916
+train_rmse 1.3130923736059918
+logged_model_name model
+logged_model_id m-39a601c2342543d0b89515b379ce29c9
+logged_model_status READY
+logged_model_uri models:/m-39a601c2342543d0b89515b379ce29c9
+logged_model_files ['MLmodel', 'conda.yaml', 'input_example.json', 'model.skops', 'python_env.yaml', 'requirements.txt', 'serving_input_example.json']
+Validacion: parametros, metricas y modelo model READY
+01a308bf3757c
+
+Archivos en mlartifacts/1/models/m-39a601c2342543d0b89515b379ce29c9/artifacts:
+  MLmodel
+  model.skops
+  conda.yaml
+  python_env.yaml
+  requirements.txt
+  input_example.json
+  serving_input_example.json
+
+Validacion: parametros, metricas y modelo model READY. Aun no hay version en el Model Registry.
