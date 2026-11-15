@@ -607,6 +607,52 @@ def run_evaluation(
         observations=("y", "size"),
     ).reset_index()
 
+
+
+    # Comparación A/B por estación sobre marzo completo.
+    result["squared_error_champion"] = (
+        result["y"] - result["pred_champion"]
+    ) ** 2
+
+    result["squared_error_challenger"] = (
+        result["y"] - result["pred_challenger"]
+    ) ** 2
+
+    station_metrics = result.groupby("station").agg(
+        observations=("y", "size"),
+        champion_mae=("error_champion", "mean"),
+        challenger_mae=("error_challenger", "mean"),
+        champion_mse=("squared_error_champion", "mean"),
+        challenger_mse=("squared_error_challenger", "mean"),
+    ).reset_index()
+
+    station_metrics["champion_rmse"] = np.sqrt(
+        station_metrics.pop("champion_mse")
+    )
+
+    station_metrics["challenger_rmse"] = np.sqrt(
+        station_metrics.pop("challenger_mse")
+    )
+
+    station_metrics["mae_improvement_pct"] = np.where(
+        station_metrics["champion_mae"] > 0,
+        (
+            station_metrics["champion_mae"]
+            - station_metrics["challenger_mae"]
+        ) / station_metrics["champion_mae"].replace(0, np.nan) * 100,
+        np.nan,
+    )
+
+    station_metrics["rmse_improvement_pct"] = np.where(
+        station_metrics["champion_rmse"] > 0,
+        (
+            station_metrics["champion_rmse"]
+            - station_metrics["challenger_rmse"]
+        ) / station_metrics["champion_rmse"].replace(0, np.nan) * 100,
+        np.nan,
+    )
+
+
     output_dir.mkdir(
         parents=True,
         exist_ok=True,
@@ -619,6 +665,11 @@ def run_evaluation(
 
     daily.to_csv(
         output_dir / "daily_metrics.csv",
+        index=False,
+    )
+
+    station_metrics.to_csv(
+        output_dir / "station_comparison_metrics.csv",
         index=False,
     )
 

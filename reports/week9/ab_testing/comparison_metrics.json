@@ -1,0 +1,29 @@
+{
+  "model_name": "mibici-equipo15-p1-demanda",
+  "evaluation_period": "2025-03-01/2025-03-31",
+  "evaluation_rows": 269328,
+  "stations": 362,
+  "dataset_sha256": "408b12069f5bbff8eb5c86f547071bf75c8400484be09a75810a8c08e77803f5",
+  "batch_size": 10000,
+  "prediction_postprocessing": "clip_negative_to_zero",
+  "champion": {
+    "alias": "champion",
+    "version": "1",
+    "run_id": "6e3429f222a0407aa159dd9f46699365",
+    "model_uri": "models:/mibici-equipo15-p1-demanda/1",
+    "mae": 0.8406793191283037,
+    "rmse": 1.4369529768005689
+  },
+  "challenger": {
+    "alias": "challenger",
+    "version": "2",
+    "run_id": "7074129578d045418cbed0691330d1a7",
+    "model_uri": "models:/mibici-equipo15-p1-demanda/2",
+    "mae": 0.8243329534031973,
+    "rmse": 1.4046436575723846
+  },
+  "improvement_pct": {
+    "mae": 1.9444234386609935,
+    "rmse": 2.248460440238079
+  }
+}

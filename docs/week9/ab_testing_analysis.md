@@ -1,31 +1,31 @@
 # Semana 9 — Análisis A/B del modelo P1 de MiBici
 
 **Proyecto:** TC5061 — Equipo 15
-**Estado del documento:** Análisis del Champion y monitoreo de drift integrados; comparación final con Challenger pendiente
-**Rama de trabajo:** `feature/week9-ab-testing-A01797899`
+**Estado del documento:** Evaluación offline Champion–Challenger y análisis integrado con drift completados
 **Modelo registrado:** `mibici-equipo15-p1-demanda`
 **Periodo de evaluación:** 1 al 31 de marzo de 2025
+**Tipo de evaluación:** Comparación A/B *offline* y pareada (sin asignación aleatoria de tráfico)
 
-> **Alcance actual.** Este documento integra la evaluación reproducible del Champion P1 en marzo de 2025 con el monitoreo de drift sobre datos de referencia de 2024 y datos actuales de enero a marzo de 2025. También incorpora el análisis conjunto de demanda, errores y medias históricas por estación. La comparación offline con el Challenger y la recomendación definitiva de promoción permanecen pendientes. Los resultados de drift y de desempeño son análisis diferentes y no implican causalidad.
+> **Alcance.** Evaluamos el Champion P1 (versión 1) frente al Challenger (versión 2) sobre las mismas 269,328 observaciones de marzo de 2025. Integramos resultados globales, diarios y por estación con el monitoreo de drift realizado mediante Evidently. El Challenger presentó menores errores agregados, pero la evidencia es *offline*, limitada a marzo de 2025, y no implica una promoción automática ni un cambio del alias `champion`.
 
 ## 1. Objetivo
 
-En esta actividad buscamos evaluar si un modelo Challenger P1, reentrenado con información más reciente de MiBici, mejora el desempeño del Champion original. Como primera fase, establecimos una línea base reproducible del Champion sobre un conjunto de datos reservado de marzo de 2025. Posteriormente utilizaremos exactamente las mismas observaciones para comparar ambos modelos y contextualizar los resultados con el reporte de drift.
+En esta actividad buscamos determinar si el reentrenamiento de P1 con datos recientes de MiBici aporta mejoras de desempeño frente al modelo Champion previamente registrado. Primero construimos una línea base reproducible del Champion y, después, registramos el Challenger y realizamos una evaluación pareada sobre el conjunto reservado de marzo de 2025. Complementamos la comparación con los cambios de demanda y las señales de drift observados en el monitoreo de la Semana 9.
 
-La comparación prevista es una **evaluación A/B offline y pareada**: los modelos producen predicciones sobre las mismas observaciones históricas. No se trata de un experimento online con asignación aleatoria de tráfico.
+La comparación es **offline y pareada**: los dos modelos generan predicciones sobre las mismas observaciones históricas. Aunque se denomine A/B Testing en la actividad, **no es un experimento online con usuarios, tráfico aleatorizado ni evidencia de impacto en producción**.
 
 ## 2. Datos y contrato de evaluación
 
-Reutilizamos la preparación de datos de la Semana 9, incorporada mediante el PR #30. El proceso generó los siguientes conjuntos:
+Reutilizamos los conjuntos preparados en la Semana 9 (PR #30):
 
 | Archivo | Periodo | Registros | Estaciones | Uso |
 |---|---|---:|---:|---|
-| `reference_p1.parquet` | 8 de enero–31 de agosto de 2024 | 2,059,056 | 362 | Referencia histórica |
-| `current_p1.parquet` | Enero–marzo de 2025 | 781,920 | 362 | Monitoreo de drift |
-| `train_alternative.parquet` | Enero–febrero de 2025 | 512,592 | 362 | Entrenamiento del Challenger |
-| `evaluation.parquet` | 1–31 de marzo de 2025 | **269,328** | **362** | Evaluación común |
+| `reference_p1.parquet` | 8 ene.–31 ago. de 2024 | 2,059,056 | 362 | Referencia histórica del Champion |
+| `current_p1.parquet` | Ene.–mar. de 2025 | 781,920 | 362 | Monitoreo de drift |
+| `train_alternative.parquet` | Ene.–feb. de 2025 | 512,592 | 362 | Entrenamiento del Challenger |
+| `evaluation.parquet` | 1–31 mar. de 2025 | **269,328** | **362** | Evaluación pareada de ambos modelos |
 
-La evaluación contiene 744 registros horarios por estación (31 días × 24 horas) y utiliza estas ocho características P1, con tipo `float64`:
+El conjunto reservado tiene **744 registros horarios por estación** (31 días × 24 horas). El contrato P1 contiene ocho características numéricas `float64`:
 
 1. `hour_of_day`
 2. `weekday`
@@ -36,25 +36,27 @@ La evaluación contiene 744 registros horarios por estación (31 días × 24 hor
 7. `media_estacion`
 8. `media_estacion_dia_hora`
 
-La variable objetivo es `y`, correspondiente al número real de salidas por estación-hora. Se conservan `station` y `hour` para las comparaciones por segmento. El proceso de preparación informó ausencia de nulos en las características y particiones temporales sin superposición. La suite de datos confirmó el contrato con **16 pruebas satisfactorias**.
+La variable objetivo es `y` (salidas por estación-hora). Utilizamos `station` y `hour` para evaluar segmentos y series temporales. Comprobamos la ausencia de superposición entre el entrenamiento del Challenger, cuyo último registro es el **28 de febrero de 2025 a las 23:00**, y el periodo reservado, que inicia el **1 de marzo de 2025 a las 00:00**. Los datos de marzo no se incorporaron al entrenamiento.
 
-**Reproducibilidad:** el conjunto de evaluación se genera localmente en `data/processed/week9/evaluation.parquet`; los CSV descargados y el Parquet de 2024 no se agregan al repositorio. El manifiesto de preparación local se encuentra en `data/processed/week9/manifiesto_local.json`. El comparador también escribe el SHA-256 del archivo evaluado en `champion_baseline.json`.
+El conjunto de evaluación se genera localmente en `data/processed/week9/evaluation.parquet`; los CSV de origen y algunos artefactos voluminosos no forman parte del repositorio. El manifiesto de preparación local es `data/processed/week9/manifiesto_local.json`. Para trazabilidad, `comparison_metrics.json` almacena la huella SHA-256 del Parquet evaluado. La preparación original se respaldó además con **16 pruebas satisfactorias** de calidad y contrato de datos.
 
-## 3. Modelo Champion y procedimiento de inferencia
+## 3. Modelos registrados y procedimiento de inferencia
 
-Recuperamos el Champion desde MLflow Model Registry, usando la base y los artefactos locales de la Semana 8:
+### 3.1. Champion P1
+
+Recuperamos el Champion mediante MLflow Model Registry, usando la base y artefactos locales de Semana 8:
 
 | Propiedad | Valor comprobado |
 |---|---|
-| Nombre registrado | `mibici-equipo15-p1-demanda` |
+| Modelo | `mibici-equipo15-p1-demanda` |
 | Alias | `champion` |
 | Versión | **1** |
 | Run ID | `6e3429f222a0407aa159dd9f46699365` |
-| URI de evaluación | `models:/mibici-equipo15-p1-demanda/1` |
-| Firma de entrada | Ocho variables `double` requeridas |
-| Estado registrado | `READY` |
+| URI | `models:/mibici-equipo15-p1-demanda/1` |
+| Firma | Ocho características P1 requeridas |
+| Estado | `READY` |
 
-El módulo `scripts/week9/compare_models.py` carga una versión explícita, ordena las entradas por estación y hora, predice por lotes de 10,000 filas y aplica `np.clip(predicciones, 0, None)` al resultado, de acuerdo con el tratamiento utilizado por el servicio de inferencia existente.
+La línea base se calculó con el siguiente comando:
 
 ```bash
 python -m scripts.week9.compare_models \
@@ -65,42 +67,86 @@ python -m scripts.week9.compare_models \
   --batch-size 10000
 ```
 
-## 4. Métricas globales del Champion
+### 3.2. Challenger P1 y reproducibilidad del reentrenamiento
 
-Medimos el **error absoluto medio (MAE)** y la **raíz del error cuadrático medio (RMSE)** sobre las 269,328 observaciones de marzo:
+El Challenger se entrenó con las **512,592 observaciones de enero–febrero de 2025**, utilizando el mismo contrato de ocho características y el algoritmo `HistGradientBoostingRegressor`, con `max_iter=300`, `learning_rate=0.1`, `max_depth=None`, `early_stopping=False` y `random_state=42`. Este entrenamiento se ejecutó con `scripts/week9/train_challenger.py`, integrado mediante el PR #33.
 
-| Métrica | Resultado |
-|---|---:|
-| **MAE** | **0.8406793191283037** |
-| **RMSE** | **1.4369529768005689** |
-| Observaciones | 269,328 |
-| Estaciones | 362 |
-| Periodo | 2025-03-01 a 2025-03-31 |
+```bash
+python -m scripts.week9.train_challenger \
+  --data data/processed/week9/train_alternative.parquet \
+  --tracking-uri http://127.0.0.1:5000
+```
 
-Ambas métricas están expresadas en salidas por estación-hora. El RMSE penaliza más los errores grandes; su valor superior al MAE es consistente con la existencia de observaciones con desviaciones elevadas. Estos valores constituyen **la línea base**, no la comparación A/B final.
+Las métricas de **entrenamiento** reproducidas coincidieron numéricamente con las documentadas en el PR #33: **MAE = 0.7943356785109916** y **RMSE = 1.3130923736059918**. Estas métricas son distintas de las métricas del conjunto de evaluación y **no se utilizan para decidir qué modelo supera al otro**.
 
-### 4.1. Verificación independiente de reproducibilidad
+El modelo reentrenado se guardó en la ejecución local con Run ID `7074129578d045418cbed0691330d1a7` y Model ID `m-ea1a3789403948d08f509f0a562419e5`. Verificamos su estado `READY`, su firma de entrada y su capacidad para realizar inferencia. Posteriormente lo registramos como una nueva versión del mismo modelo P1.
 
-Ejecutamos dos implementaciones: `scripts/week9/evaluate_champion.py` y `scripts/week9/compare_models.py`. Obtuvimos exactamente las mismas métricas:
+| Propiedad | Champion | Challenger |
+|---|---|---|
+| Versión de Model Registry | **1** | **2** |
+| Alias | `champion` | `challenger` |
+| Run ID | `6e3429f222a0407aa159dd9f46699365` | `7074129578d045418cbed0691330d1a7` |
+| URI de evaluación | `models:/mibici-equipo15-p1-demanda/1` | `models:/mibici-equipo15-p1-demanda/2` |
+| Estado | `READY` | `READY` |
 
-| Métrica | Evaluación inicial | Comparador | Diferencia |
+Corroboramos tanto por la API como por la interfaz de MLflow 3.16.1 que **`@champion` continúa apuntando a la versión 1** y **`@challenger` a la versión 2**. No promovimos el Challenger ni modificamos el alias de producción.
+
+El comparador carga ambas versiones explícitas, realiza la inferencia por lotes de **10,000** observaciones y recorta predicciones negativas a cero mediante `np.clip(values, 0.0, None)` para aplicar el mismo posprocesamiento a ambos modelos.
+
+### 3.3. Ejecución de la comparación pareada
+
+```bash
+python -m scripts.week9.compare_models \
+  --data data/processed/week9/evaluation.parquet \
+  --output reports/week9/ab_testing \
+  --tracking-uri http://127.0.0.1:5000 \
+  --mode both \
+  --batch-size 10000
+```
+
+La evaluación se ejecutó y reprodujo sus métricas globales después de ampliar el comparador con la exportación de resultados por estación. `comparison_metrics.json` conserva las versiones, los Run IDs, las métricas, el periodo, el tamaño de lote, el tratamiento de negativos y la huella del conjunto evaluado.
+
+## 4. Métricas globales del Champion y comparación definitiva
+
+### 4.1. Línea base y verificación independiente del Champion
+
+Sobre **269,328 observaciones**, el Champion obtuvo **MAE = 0.8406793191283037** y **RMSE = 1.4369529768005689**. Reprodujimos ambas métricas sin diferencias entre `scripts/week9/evaluate_champion.py` y `scripts/week9/compare_models.py` (diferencia absoluta: **0.0** en MAE y RMSE). Se conservaron `champion_march_2025.json` y `champion_baseline.json`.
+
+### 4.2. Resultados A/B sobre marzo de 2025
+
+| Métrica | Champion v1 | Challenger v2 | Mejora Challenger |
 |---|---:|---:|---:|
-| MAE | 0.8406793191283037 | 0.8406793191283037 | **0.0** |
-| RMSE | 1.4369529768005689 | 1.4369529768005689 | **0.0** |
+| **MAE** | **0.8406793191** | **0.8243329534** | **+1.9444 %** |
+| **RMSE** | **1.4369529768** | **1.4046436576** | **+2.2485 %** |
+| Observaciones | 269,328 | 269,328 | Mismas observaciones |
+| Estaciones | 362 | 362 | Mismas estaciones |
+| Periodo | Marzo de 2025 | Marzo de 2025 | Mismo periodo |
 
-El chequeo automatizado concluyó con el mensaje `VALIDACIÓN: métricas reproducidas correctamente`. Los archivos asociados son `champion_march_2025.json` y `champion_baseline.json`.
+Definimos la mejora porcentual de cada métrica de error como:
+
+\[
+\operatorname{Mejora}(\%)=\frac{\operatorname{Error}_{Champion}-\operatorname{Error}_{Challenger}}{\operatorname{Error}_{Champion}}\times100.
+\]
+
+Las reducciones absolutas aproximadas fueron **0.01635 salidas por estación-hora en MAE** y **0.03231 en RMSE**. Ambas métricas agregadas favorecen al Challenger; sin embargo, la magnitud de la mejora es moderada y requiere interpretación por día y por estación.
+
+![Comparación global de MAE y RMSE del Champion v1 y Challenger v2](../../reports/week9/ab_testing/ab_final_global_mae_rmse.png)
+
+**Interpretación.** La gráfica reproduce los valores calculados sobre el conjunto reservado. El Challenger presenta barras más bajas tanto en MAE como en RMSE, pero esto no implica que mejore todas las estaciones ni todos los días.
 
 ## 5. Análisis de demanda y error por día
 
-Generamos dos visualizaciones a partir de las predicciones reales: `champion_actual_vs_predicted.png` y `champion_daily_mae.png`. La primera muestra que el Champion sigue el patrón general semanal de utilización, aunque presenta diferencias en algunos días. La segunda permite observar la variación del MAE a lo largo del mes y la referencia global de 0.8407.
+### 5.1. Comportamiento del Champion original
+
+Conservamos las visualizaciones originales de demanda diaria y MAE del Champion:
 
 ![Demanda diaria real frente a Champion P1](../../reports/week9/ab_testing/champion_actual_vs_predicted.png)
 
 ![MAE diario del Champion P1](../../reports/week9/ab_testing/champion_daily_mae.png)
 
-Los cinco días con mayor MAE fueron:
+Los cinco días con mayor MAE del Champion fueron:
 
-| Fecha | Salidas reales | Predicción total del Champion | MAE diario | RMSE diario |
+| Fecha | Salidas reales | Predicción total Champion | MAE diario | RMSE diario |
 |---|---:|---:|---:|---:|
 | **2025-03-17** | **7,968** | **13,077.54** | **1.0363** | **1.7685** |
 | 2025-03-03 | 15,026 | 13,947.51 | 0.9152 | 1.5388 |
@@ -108,17 +154,43 @@ Los cinco días con mayor MAE fueron:
 | 2025-03-05 | 15,100 | 14,660.98 | 0.9091 | 1.5498 |
 | 2025-03-11 | 15,481 | 15,015.92 | 0.9087 | 1.5550 |
 
-**Hallazgo del 17 de marzo.** En esa fecha, el modelo predijo aproximadamente 5,110 salidas más que las observadas al sumar las predicciones por estación-hora. El MAE diario de 1.0363 fue el más alto del mes. La diferencia de totales diarios no debe confundirse con el MAE: la primera permite compensaciones entre errores positivos y negativos, mientras que el MAE promedia sus magnitudes absolutas.
+El **17 de marzo** presentó el mayor MAE diario del Champion y una diferencia de aproximadamente 5,110 salidas entre el total predicho y el total real. La diferencia de totales no es igual al MAE, que calcula el promedio de errores absolutos por estación-hora. No atribuimos esa anomalía a festividades, operación ni drift sin evidencia adicional.
 
-Como hipótesis de análisis, conviene revisar las particularidades del calendario y de la operación del sistema en esa fecha. No podemos atribuir el desajuste a una festividad o al drift sin evidencia adicional.
+### 5.2. Comparación diaria Champion vs. Challenger
+
+El archivo `daily_metrics.csv` contiene las métricas diarias de ambos modelos para los **31 días** evaluados. Obtuvimos **28 días con menor MAE del Challenger (90.32 %)**, **3 con mayor MAE (9.68 %)** y ningún empate.
+
+![MAE diario comparado durante marzo de 2025](../../reports/week9/ab_testing/ab_final_mae_diario.png)
+
+**Cinco mayores reducciones absolutas del MAE diario:**
+
+| Fecha | MAE Champion | MAE Challenger | Reducción absoluta |
+|---|---:|---:|---:|
+| **2025-03-17** | 1.036268 | 0.983484 | **0.052784** |
+| 2025-03-06 | 0.889616 | 0.853213 | 0.036403 |
+| 2025-03-26 | 0.897143 | 0.862550 | 0.034593 |
+| 2025-03-19 | 0.887399 | 0.857027 | 0.030372 |
+| 2025-03-12 | 0.906044 | 0.876401 | 0.029643 |
+
+**Días de deterioro del Challenger:**
+
+| Fecha | MAE Champion | MAE Challenger | Cambio absoluto (Champion − Challenger) |
+|---|---:|---:|---:|
+| 2025-03-02 | 0.686773 | 0.694294 | **−0.007521** |
+| 2025-03-30 | 0.702265 | 0.708728 | **−0.006463** |
+| 2025-03-24 | 0.907828 | 0.912063 | **−0.004234** |
+
+La reducción del MAE del **17 de marzo**, precisamente la fecha de mayor error del Champion, fortalece la evidencia a favor del Challenger. Sin embargo, los tres días con deterioro muestran que la ganancia no es uniforme y deben mantenerse dentro de los resultados del reporte.
 
 ## 6. Análisis por estación
 
-Calculamos el error de las 362 estaciones con 744 horas de evaluación por estación. La distribución presenta una cola hacia valores altos, lo que indica heterogeneidad entre estaciones.
+### 6.1. Heterogeneidad del Champion
 
-![Distribución del MAE por estación](../../reports/week9/ab_testing/champion_station_mae.png)
+La evaluación original cubrió 362 estaciones, con 744 horas cada una. El Champion presentó una distribución sesgada hacia errores altos en algunas estaciones.
 
-Las diez estaciones con mayor MAE fueron:
+![Distribución original de MAE del Champion por estación](../../reports/week9/ab_testing/champion_station_mae.png)
+
+Las diez estaciones con mayor MAE del Champion fueron:
 
 | Estación | Observaciones | MAE | RMSE |
 |---:|---:|---:|---:|
@@ -133,93 +205,145 @@ Las diez estaciones con mayor MAE fueron:
 | 260 | 744 | 1.7718 | 2.6678 |
 | 34 | 744 | 1.7086 | 2.6932 |
 
-Resumen del MAE por estación:
+El MAE por estación del Champion tuvo **media 0.8407**, desviación estándar **0.4143**, mediana **0.7684**, cuartiles **0.5397 y 1.0721**, mínimo **0.0734** y máximo **3.0654**. Un MAE elevado puede asociarse con mayor volumen de viajes, sin implicar necesariamente peor desempeño relativo.
 
-| Estadístico | MAE |
-|---|---:|
-| Media | 0.8407 |
-| Desviación estándar | 0.4143 |
-| Mínimo | 0.0734 |
-| Cuartil 25 % | 0.5397 |
-| Mediana | 0.7684 |
-| Cuartil 75 % | 1.0721 |
-| Máximo | 3.0654 |
+### 6.2. Comparación A/B de las 362 estaciones
 
-La media supera la mediana, lo que es consistente con estaciones que concentran errores mayores. Sin embargo, un MAE alto puede estar asociado a mayor volumen de viajes, no necesariamente a una degradación relativa. Antes de recomendar acciones específicas, compararemos también la demanda observada y el error del Challenger en esas estaciones.
+Ampliamos `scripts/week9/compare_models.py` para calcular, **sobre todas las observaciones de marzo**, MAE, RMSE, cantidad de registros y mejoras porcentuales por estación. El resultado es `station_comparison_metrics.csv`: **362 estaciones distintas, 269,328 observaciones y 744 registros por estación**.
+
+| Resultado según MAE | Estaciones | Proporción |
+|---|---:|---:|
+| **Mejora con Challenger** | **269** | **74.31 %** |
+| Deterioro con Challenger | 93 | 25.69 % |
+| Sin diferencia | 0 | 0.00 % |
+
+![Distribución de la mejora porcentual del MAE por estación](../../reports/week9/ab_testing/ab_final_mejora_por_estacion.png)
+
+La figura muestra una **ventana ampliada de −15 % a +20 %** para facilitar la interpretación de la distribución principal. Se visualizan **361 de 362 estaciones**; la estación **180 (+74.24 %)** permanece **incluida en los datos, el análisis y los conteos**, aunque se indica fuera de los límites del histograma.
+
+**Mayores mejoras porcentuales del Challenger:**
+
+| Estación | MAE Champion | MAE Challenger | Mejora MAE |
+|---:|---:|---:|---:|
+| **180** | 1.534008 | 0.395127 | **+74.24 %** |
+| 333 | 1.532301 | 1.263443 | +17.55 % |
+| 310 | 0.133802 | 0.113286 | +15.33 % |
+| 390 | 0.636690 | 0.563922 | +11.43 % |
+| 348 | 0.340368 | 0.301891 | +11.38 % |
+
+**Mayores deterioros porcentuales del Challenger:**
+
+| Estación | MAE Champion | MAE Challenger | Mejora MAE |
+|---:|---:|---:|---:|
+| **146** | 0.249944 | 0.284436 | **−13.80 %** |
+| 136 | 0.257848 | 0.291993 | −13.24 % |
+| 220 | 0.315826 | 0.354228 | −12.16 % |
+| 101 | 0.247838 | 0.272801 | −10.07 % |
+| 365 | 0.291346 | 0.319811 | −9.77 % |
+
+**Interpretación.** La mejora es frecuente, pero no universal. El deterioro en **93 estaciones** obliga a considerar medidas de monitoreo segmentado antes de una eventual promoción. Los porcentajes elevados también deben interpretarse junto con los errores absolutos y la demanda base.
 
 ## 7. Exportaciones y verificación de integridad
 
-La ejecución del comparador generó los siguientes resultados:
+Los resultados se encuentran en `reports/week9/ab_testing/`:
 
 | Archivo | Contenido |
 |---|---|
-| `champion_baseline.json` | Modelo, versión, periodo, MAE, RMSE, hash y metadatos |
-| `champion_predictions.parquet` | 269,328 predicciones por estación-hora y errores |
-| `champion_daily_metrics.csv` | Resultados correspondientes a los 31 días |
-| `champion_station_metrics.csv` | Resultados de 362 estaciones |
-| `champion_actual_vs_predicted.png` | Serie diaria de demanda real y predicha |
-| `champion_daily_mae.png` | MAE diario y referencia global |
-| `champion_station_mae.png` | Distribución de MAE por estación |
+| `champion_baseline.json`, `champion_march_2025.json` | Línea base del Champion y comprobación independiente |
+| `champion_predictions.parquet` | Predicciones completas del Champion (artefacto local reproducible; no necesariamente versionado) |
+| `champion_daily_metrics.csv`, `champion_station_metrics.csv` | Métricas originales por fecha y estación |
+| `champion_actual_vs_predicted.png`, `champion_daily_mae.png`, `champion_station_mae.png` | Gráficas originales del Champion |
+| `comparison_metrics.json` | Métricas globales A/B, versiones, Run IDs, periodo y SHA-256 |
+| `daily_metrics.csv` | Comparación A/B durante 31 días |
+| `predictions_sample.csv` | Muestra de 1,000 predicciones pareadas para inspección, **no para la inferencia de métricas por estación** |
+| `station_comparison_metrics.csv` | MAE, RMSE y mejora del Challenger para las 362 estaciones, con todas sus observaciones |
+| `station_drift_vs_mae.csv` | Integración histórica drift–error del Champion |
+| `station_ab_drift_analysis.csv` | Unión A/B–demanda–drift para las 362 estaciones |
+| `ab_final_global_mae_rmse.png` | Comparación global de MAE/RMSE |
+| `ab_final_mae_diario.png` | MAE diario de ambos modelos |
+| `ab_final_mejora_por_estacion.png` | Distribución ampliada de mejoras por estación |
+| `ab_final_drift_vs_mejora_mae.png` | Cambio de demanda vs. mejora del Challenger |
 
-La validación de exportaciones concluyó con **269,328 predicciones, 31 días, 362 estaciones** y el mensaje `VALIDACIÓN DE EXPORTACIONES CORRECTA`.
+Verificamos los conteos de **269,328 observaciones**, **31 días** y **362 estaciones**, las claves únicas por estación, la coincidencia de métricas del Champion en los archivos integrados y la ausencia de valores no finitos en los MAE y RMSE por estación. Las exportaciones adicionales se generan sin modificar las métricas globales de la comparación original.
 
 ## 8. Pruebas automatizadas
 
-Implementamos pruebas unitarias para métricas, porcentajes de mejora, predicciones por lotes, manejo de errores, validación de fechas, simulaciones del Model Registry y exportaciones CSV/Parquet.
+Conservamos las pruebas unitarias existentes de métricas, cálculo de mejora, validación de fechas, inferencia por lotes, posprocesamiento de negativos, contratos del Registry y exportaciones de Champion. El PR #33 añadió dos pruebas sobre el entrenamiento del Challenger; posteriormente incorporamos cuatro pruebas específicas de las exportaciones A/B definitivas en `tests/test_week9_ab_final.py`.
 
-Las pruebas que simulan MLflow (*mocks*) se conservarán como parte permanente de la suite, ya que comprueban errores y contratos sin depender de un servidor activo. Las pruebas de integración reales con el Challenger se añadirán por separado cuando su versión esté disponible.
-
-| Suite | Resultado validado |
+| Componente | Resultado validado |
 |---|---|
-| `python -m pytest tests/test_week9_data.py -v` | 16 passed (validación de preparación de datos) |
-| `python -m pytest tests/test_week9_drift.py -v` | **21 passed, 22 warnings**, en 31.29 s |
-| `python -m pytest tests/test_week9_ab_testing.py -v` | **21 passed**, en 10.55 s |
-| `python -m pytest -v` | **305 passed, 24 warnings**, en 50.97 s |
+| Preparación de datos (`tests/test_week9_data.py`) | 16 passed en validación previa |
+| Drift (`tests/test_week9_drift.py`) | **21 passed**, 22 warnings en validación previa |
+| A/B original (`tests/test_week9_ab_testing.py`) | **23 passed** después del PR #33 |
+| Nuevas pruebas (`tests/test_week9_ab_final.py`) | **4 passed**, en 5.11 s |
+| Ambas suites A/B | **27 passed**, en 8.69 s |
+| Suite general (`python -m pytest -v`) | **311 passed, 24 warnings**, en 53.21 s |
 
-Las 305 pruebas de la suite completa pasaron después de incorporar el monitoreo de drift, sin fallos ni pruebas omitidas. Las advertencias proceden de bibliotecas de terceros, incluidas Evidently, Litestar, NumPy, pandas, Starlette y MLflow; deben registrarse como avisos de compatibilidad, sin confundirlas con pruebas fallidas. Las pruebas con mocks del Registry siguen siendo parte de la validación unitaria y no sustituyen futuras pruebas de integración con el Challenger.
+Las cuatro pruebas nuevas verifican: (1) cálculos de MAE/RMSE y mejoras porcentuales por estación; (2) el caso en que el Champion tiene error cero y el porcentaje no está definido; (3) la utilización de **todo el conjunto**, en lugar de basarse únicamente en la muestra de 1,000 filas; y (4) la conservación de exportaciones y métricas globales originales.
 
-## 9. Evidencias disponibles
+Las advertencias proceden de bibliotecas externas, incluidas Evidently, Litestar, NumPy, pandas, Starlette y MLflow/SQLAlchemy. **No equivalen a fallos de prueba**. Las pruebas simuladas con *mocks* no sustituyen las verificaciones reales del Registry, de carga del Challenger y de inferencia, que documentamos por separado.
 
-Las capturas se organizan en `reports/week9/evidence/ab_testing/` y se conservarán junto con los archivos originales de los resultados:
+```bash
+python -m pytest tests/test_week9_ab_final.py -v
+python -m pytest tests/test_week9_ab_testing.py tests/test_week9_ab_final.py -v
+python -m pytest -v
+```
 
-| Evidencia | Archivo propuesto | Contenido |
-|---|---|---|
-| 01 | `01_champion_march_2025.png` | Primera evaluación del Champion |
-| 02 | `02_champion_json_validation.png` | Validación del JSON de métricas |
-| 03 | `03_ab_testing_unit_tests.png` | 13 primeras pruebas del comparador |
-| 04 | `04_ab_testing_full_test_suite.png` | Suite previa de 276 pruebas |
-| 05 | `05_champion_baseline_reproducibility.png` | Diferencias MAE/RMSE iguales a cero |
-| 06 | `06_ab_comparator_champion_execution.png` | Ejecución del comparador |
-| 07 | `07_mlflow_registry_mock_tests.png` | 18 pruebas del módulo A/B |
-| 08 | `08_full_suite_registry_tests.png` | Suite de 281 pruebas |
-| 09 | `09_champion_prediction_exports.png` | Exportación de predicciones |
-| 09b | `09b_champion_exports_validation.png` | Validación de filas, días y estaciones |
-| 10 | `10_champion_daily_visualizations.png` | Curvas diarias y MAE |
-| 11 | `11_champion_station_mae.png` | Histograma por estación |
-| 12 | `12_champion_exports_tests.png` | 21 pruebas A/B |
-| 13 | `13_full_suite_after_exports.png` | Suite de 284 pruebas |
+## 9. Evidencias de ejecución
 
-**Nota:** estas evidencias corresponden a la evaluación del Champion. El monitoreo de drift dispone adicionalmente de tres capturas en `reports/week9/evidence/drift/` y de cinco gráficas en `reports/week9/drift/figures/`. Los archivos de evidencia del módulo A/B se han verificado visualmente durante el desarrollo local, pero su publicación en Git queda pendiente. No se incluye evidencia de Ruff.
+Se conservan las evidencias originales `01` a `13` del PR #32 en `reports/week9/evidence/ab_testing/`: evaluación del Champion, reproducción del baseline, pruebas previas, métricas, gráficas y exportaciones. Se preservan sus nombres sin renumerarlas y sin incluir evidencia de Ruff. El análisis de drift cuenta con evidencias propias en `reports/week9/evidence/drift/`.
+
+Las nuevas evidencias corresponden a la carpeta **`reports/week9/evidence/ab_testing/final/`**. La siguiente tabla refleja los archivos previstos/compartidos durante la validación local. **Su incorporación al repositorio debe verificarse antes del commit final**:
+
+| Archivo | Evidencia |
+|---|---|
+| `14_rama_final_desde_main.png` | Preparación de rama a partir de `main` |
+| `15_pr32_pr33_integrados.png` | Comprobación de integración de PR #32 y PR #33 |
+| `16_pruebas_ab_23_passed.png` | Pruebas A/B tras integrar el Challenger |
+| `17_pruebas_drift_21_passed.png` | Pruebas Evidently |
+| `18_suite_completa_307_passed.png` | Suite previa a cambios A/B finales |
+| `19_mlflow_registry_champion_v1.png` | Champion original |
+| `20_backup_mlflow_validado.png` | Respaldo de base y artefactos de MLflow |
+| `21_datasets_train_evaluation_validados.png` | Separación temporal de datos |
+| `22_entrenamiento_challenger_reproducible.png` | MAE/RMSE del reentrenamiento |
+| `23_challenger_model_id_ready.png` | Modelo del Challenger en estado READY |
+| `24_challenger_inferencia_y_firma.png` | Carga, firma e inferencia del Challenger |
+| `25_challenger_registry_version2.png` | Registro de Challenger v2 |
+| `26_champion_challenger_registry_validation.png` | Validación de ambas versiones y Run IDs |
+| `27_champion_challenger_aliases.png` | Asignación de alias sin cambiar `champion` |
+| `28_mlflow_registry_champion_challenger.png` | Captura de MLflow UI con `@champion` v1 y `@challenger` v2 |
+| `29_champion_vs_challenger_comparison.png` | Primera comparación A/B global |
+| `30_ab_comparison_files_validation.png` | Archivos generados |
+| `31_ab_daily_comparison_analysis.png` | Comparación diaria y días de deterioro |
+| `32_ab_station_comparison_analysis.png` | Análisis por estación, cuando esté disponible |
+| `33_ab_station_tests_23_passed.png` | Pruebas antes de ampliar la suite |
+| `34_ab_comparison_after_station_export.png` | Reproducción global tras exportar estaciones |
+| `35_ab_station_comparison_validation.png` | Validación de 362 estaciones |
+| `36_ab_station_comparison_file.png` | Existencia del CSV de estaciones |
+| `37_ab_drift_integrated_analysis.png` | Integración A/B con cambios de demanda |
+| `38_ab_final_unit_tests_4_passed.png` | Cuatro pruebas nuevas |
+| `39_ab_all_tests_27_passed.png` | 27 pruebas del módulo A/B |
+| `40_full_suite_311_passed.png` | 311 pruebas del repositorio |
+
+Las cuatro figuras definitivas son artefactos reproducibles de `reports/week9/ab_testing/` y no requieren duplicarse como capturas. No se incluye evidencia de Ruff.
 
 ## 10. Monitoreo de drift y calidad de datos
 
 ### 10.1. Alcance y metodología
 
-El monitoreo de drift se implementó con **Evidently 0.7.23**, mediante `DataDriftPreset` y `DataSummaryPreset`, y está documentado en `docs/week9/drift_monitoring.md`. Se compararon las **ocho características del modelo P1 y la variable objetivo `y`**, excluyendo los identificadores `station` y `hour` del cálculo de drift por variable. Se consideraron tres perspectivas:
+El monitoreo se implementó con **Evidently 0.7.23** mediante `DataDriftPreset` y `DataSummaryPreset`, según `docs/week9/drift_monitoring.md`. Se compararon las **ocho características P1 y la variable `y`**; las columnas identificadoras `station` y `hour` no se utilizaron como variables de drift.
 
-| Escenario | Referencia | Conjunto actual | Finalidad |
+| Escenario | Referencia | Conjunto actual | Propósito |
 |---|---|---|---|
-| Principal | 8 ene.–31 ago. 2024; 2,059,056 registros | 1 ene.–31 mar. 2025; 781,920 registros | Comparar el entrenamiento del Champion con un periodo posterior |
-| Control estacional | 8 ene.–31 mar. 2024; 729,792 registros | 1 ene.–31 mar. 2025; 781,920 registros | Disminuir el efecto de comparar estaciones distintas del año |
-| Análisis mensual | Entrenamiento de 2024 | Enero, febrero y marzo de 2025 por separado | Identificar concentraciones temporales del cambio |
+| Principal | 8 ene.–31 ago. 2024 (2,059,056) | Ene.–mar. 2025 (781,920) | Comparación histórica |
+| Control estacional | 8 ene.–31 mar. 2024 (729,792) | Ene.–mar. 2025 (781,920) | Reducir diferencias estacionales |
+| Mensual | Entrenamiento 2024 | Meses de enero, febrero y marzo de 2025 | Detectar cambios temporales |
 
-Para `hour_of_day`, `weekday` y `fin_semana` se utilizó **distancia de Jensen–Shannon**; para las variables de rezagos, medias históricas y `y`, **distancia de Wasserstein normalizada**. Se estableció un **umbral de 0.1** para declarar drift por columna y una proporción de **0.5** para declarar drift del conjunto.
-
-La decisión metodológica de utilizar distancias, en lugar de interpretar exclusivamente valores *p*, permite valorar la magnitud de los cambios en conjuntos de gran tamaño. Los resultados dependen de estas métricas y de sus umbrales: no detectar drift no equivale a demostrar que las distribuciones son idénticas.
+Se utilizaron **distancia de Jensen–Shannon** para `hour_of_day`, `weekday` y `fin_semana`, y **distancia de Wasserstein normalizada** para rezagos, medias históricas y `y`. El umbral por columna fue **0.1** y la proporción para declarar drift del conjunto **0.5**. Estas decisiones permiten interpretar magnitudes de cambio, pero dependen de las distancias y umbrales elegidos.
 
 ### 10.2. Resultados por variable
 
-| Variable | Escenario principal | Control estacional | Máximo mensual identificado |
+| Variable | Principal | Control estacional | Máximo mensual |
 |---|---:|---:|---:|
 | `hour_of_day` | 0.000 | 0.000 | 0.000 |
 | `weekday` | 0.011 | 0.010 | 0.041 (marzo) |
@@ -229,143 +353,145 @@ La decisión metodológica de utilizar distancias, en lugar de interpretar exclu
 | `salidas_lag_168h` | **0.020** | **0.034** | **0.084 (enero)** |
 | `media_estacion` | 0.000 | 0.000 | 0.000 |
 | `media_estacion_dia_hora` | 0.002 | 0.001 | 0.012 (marzo) |
-| `y` (demanda real) | 0.006 | 0.015 | 0.030 (enero) |
+| `y` | 0.006 | 0.015 | 0.030 (enero) |
 
-**Hallazgo: no se detectó drift global bajo la configuración establecida.** Ninguna de las nueve variables superó el umbral de 0.1 en el escenario principal, el control estacional o las evaluaciones mensuales. El mayor puntaje (0.084) apareció en enero para `salidas_lag_168h`; fue menor que el umbral y disminuyó a 0.020 en febrero y 0.010 en marzo. Esta evolución no muestra una tendencia de aumento sostenido durante el trimestre.
-
-La demanda promedio pasó de **1.476 a 1.465 salidas por estación-hora** (aproximadamente **−0.7 %**) entre la referencia y el periodo actual. La proporción de horas sin salidas pasó de 52.1 % a 52.4 %. Las distribuciones agregadas se mantuvieron próximas, aunque esta similitud no descarta cambios importantes en estaciones particulares.
+**No se detectó drift global bajo la configuración definida.** Ninguna de las nueve variables superó 0.1, ni en el escenario principal, ni en el estacional, ni en el análisis mensual. El máximo fue **0.084** para `salidas_lag_168h` en enero; disminuyó a 0.020 en febrero y 0.010 en marzo. La media agregada de demanda pasó de **1.476 a 1.465 salidas por estación-hora** (aproximadamente −0.7 %) y las horas sin salidas de **52.1 % a 52.4 %**.
 
 ![Puntajes de drift por variable](../../reports/week9/drift/figures/01_drift_por_variable.png)
 
 ![Evolución mensual del drift](../../reports/week9/drift/figures/04_drift_por_mes.png)
 
-### 10.3. Calidad, controles y limitaciones del monitoreo
+### 10.3. Calidad, controles y limitaciones
 
-Los conjuntos reportan **cero nulos, cero duplicados de la llave estación-hora, cero valores fuera de los rangos examinados y tipos `float64`** en las ocho características P1. Asimismo, se conservaron las 362 estaciones del contrato de evaluación.
+Los conjuntos reportaron **cero nulos, cero duplicados de estación-hora y cero valores fuera de los rangos examinados** en las ocho características. `DataSummaryPreset` señaló cinco pruebas auxiliares como `FAIL` en el escenario principal y cuatro en el control estacional, principalmente por las distintas longitudes de periodos y máximos puntuales (`86` frente a `71`). **No son fallos de Pytest y no contradicen el resultado de drift por umbral**, pero se deben interpretar como hallazgos auxiliares, no ocultarlos.
 
-El resumen de Evidently incluye algunas pruebas auxiliares de `DataSummaryPreset` marcadas como `FAIL`: cinco en el escenario principal y cuatro en el estacional. Esos resultados se relacionan principalmente con el distinto número de registros por periodo y con diferencias entre valores máximos puntuales (`86` en la referencia frente a `71` en 2025). **No son fallos de Pytest ni contradicen la ausencia de drift estadístico con el umbral seleccionado.** Requieren interpretación contextual; no deben ocultarse ni calificarse automáticamente como errores de datos.
-
-Además, el cambio próximo a cero de `media_estacion` y `media_estacion_dia_hora` merece una advertencia metodológica: **son medias históricas congeladas del entrenamiento**, por lo que su distribución puede permanecer estable aun cuando la demanda observada de estaciones individuales haya cambiado. Por ello se realizó un análisis complementario por estación.
+Las medias `media_estacion` y `media_estacion_dia_hora` están congeladas desde el entrenamiento; pueden permanecer estables aunque la demanda reciente cambie. Por ello se realizó el análisis complementario a nivel de estación.
 
 ### 10.4. Cambios locales de demanda y medias congeladas
 
-El análisis por estación detectó **44 de 362 estaciones con cambios superiores al 20 % en magnitud**, y **11 con variaciones superiores al 50 %**. Las estaciones 104 y 310 no registraron salidas en enero–marzo de 2025.
+Identificamos **44 estaciones con cambios de demanda mayores al 20 % en magnitud** y **11 con cambios mayores al 50 %**. Las estaciones **104** y **310** no presentaron salidas en el periodo enero–marzo de 2025.
 
-| Estación | Cambio de demanda 2024 → ene.–mar. 2025 | MAE Champion en marzo | Brecha absoluta respecto a media congelada |
+| Estación | Cambio de demanda | MAE Champion (marzo) | Brecha absoluta de media congelada |
 |---:|---:|---:|---:|
-| 180 | **−73.48 %** | 1.5340 | **1.5029** |
-| 333 | **+98.69 %** | 1.5323 | **1.1998** |
+| **180** | **−73.48 %** | 1.5340 | **1.5029** |
+| 333 | +98.69 % | 1.5323 | 1.1998 |
 | 389 | +265.43 % | 0.5730 | 0.4222 |
 | 390 | +261.23 % | 0.6367 | 0.4634 |
 | 104 | −100.00 % | 0.0734 | 0.0879 |
 | 310 | −100.00 % | 0.1338 | 0.1663 |
 
-La brecha absoluta promedio de la media histórica congelada respecto a la demanda observada fue aproximadamente **0.123 salidas por estación-hora**. Estos resultados muestran que una distribución agregada relativamente estable puede ocultar diferencias operativas relevantes por estación.
+La brecha absoluta promedio de la media histórica congelada respecto de la demanda observada fue aproximadamente **0.123 salidas por estación-hora**. Los porcentajes extremos requieren interpretación según el volumen base, porque una variación relativa elevada no siempre produce un error absoluto grande.
 
-Los porcentajes extremos de algunas estaciones deben interpretarse junto con sus niveles absolutos de demanda, porque incrementos grandes respecto de bases pequeñas no necesariamente generan errores absolutos grandes. El MAE reducido de las estaciones sin salidas también es compatible con predicciones positivas pequeñas, sin implicar que el modelo se haya adaptado a la ausencia de actividad.
+![Medias congeladas frente a demanda observada](../../reports/week9/drift/figures/05_estaciones_media_congelada.png)
 
-![Medias históricas congeladas frente a demanda observada](../../reports/week9/drift/figures/05_estaciones_media_congelada.png)
+## 11. Análisis conjunto de drift y desempeño
 
-## 11. Análisis conjunto de drift y desempeño del Champion
+### 11.1. Integración original: drift frente a desempeño del Champion
 
-### 11.1. Integración reproducible de resultados
+El análisis inicial unió `champion_station_metrics.csv` con `reports/week9/drift/demanda_por_estacion.csv` mediante `station`, obteniendo **362 coincidencias sin pérdidas**. El resultado fue `station_drift_vs_mae.csv`. El MAE corresponde a **marzo de 2025**, pero las medidas de cambios de demanda corresponden al contraste entre **2024 y enero–marzo de 2025**.
 
-Se integraron por la clave `station` los archivos:
-
-- `reports/week9/ab_testing/champion_station_metrics.csv`: MAE y RMSE calculados con **marzo de 2025**.
-- `reports/week9/drift/demanda_por_estacion.csv`: demanda y diferencias por estación entre **la referencia de 2024 y enero–marzo de 2025**.
-
-La unión uno-a-uno produjo **362 estaciones coincidentes de 362 esperadas**, sin pérdida de estaciones. El resultado quedó guardado en `reports/week9/ab_testing/station_drift_vs_mae.csv`.
-
-**Precisión temporal:** las métricas de error corresponden únicamente a marzo, mientras que las medidas de cambio de demanda abarcan enero–marzo. Por lo tanto, el análisis de asociaciones es exploratorio y no debe describirse como una comparación de periodos perfectamente equivalentes.
-
-### 11.2. Correlaciones entre MAE y variables de demanda
-
-Calculamos correlaciones de Pearson a nivel de estación para analizar qué variables se asocian con el error absoluto del Champion:
-
-| Asociación con el MAE | Coeficiente de Pearson | Lectura descriptiva |
+| Asociación con MAE Champion | Pearson | Interpretación descriptiva |
 |---|---:|---|
-| Demanda media actual (`demanda_act`) | **+0.9485** | Asociación positiva muy fuerte |
-| Brecha absoluta de media congelada (`abs(brecha_congelada)`) | **+0.4321** | Asociación positiva moderada |
-| Cambio porcentual absoluto (`abs(cambio_pct)`) | **−0.1963** | Asociación negativa débil |
-| Brecha congelada con signo (`brecha_congelada`) | **−0.0148** | Asociación lineal prácticamente nula |
+| Demanda actual (`demanda_act`) | **+0.9485** | Asociación positiva muy fuerte, influida por la escala |
+| Brecha absoluta de media congelada | **+0.4321** | Asociación positiva moderada |
+| Cambio porcentual absoluto | **−0.1963** | Asociación negativa débil |
+| Brecha congelada con signo | **−0.0148** | Asociación prácticamente nula |
 
-**Hallazgo central: el MAE absoluto está fuertemente asociado con el volumen de demanda.** Las estaciones con mayor utilización suelen concentrar mayores errores absolutos, aunque esto no demuestra que sus predicciones sean peores en términos relativos. La estación 51, por ejemplo, tuvo el mayor MAE (**3.0654**) y una variación de demanda de solo **−5.00 %**. Entre las cinco estaciones con mayor MAE, los cambios de demanda fueron relativamente moderados.
+La relación fuerte entre volumen y MAE implica que las estaciones más utilizadas pueden concentrar mayores errores absolutos. No equivale a una medida de deterioro relativo. Las cinco estaciones con mayor MAE del Champion (51, 11, 35, 194 y 50) presentaron cambios de demanda relativamente moderados, mientras que estaciones con grandes cambios porcentuales pueden conservar MAE bajos.
 
-La **brecha absoluta de la media congelada** presenta una asociación moderada con el error (**0.4321**), mientras que la brecha con signo prácticamente no tiene correlación lineal (**−0.0148**). La diferencia indica que la *magnitud* de las desviaciones es más informativa que su dirección, pero **no demuestra un efecto causal independiente** del volumen de demanda. Las correlaciones bivariadas no controlan simultáneamente por la escala de actividad, otros factores ni dependencia temporal.
+Las diez mayores brechas absolutas correspondieron a las estaciones **180, 333, 291, 179, 199, 196, 86, 20, 2 y 43**. Esta integración se conserva como antecedente del análisis completo A/B.
 
-La relación débilmente negativa del MAE con el **cambio porcentual absoluto** (**−0.1963**) confirma que una estación puede experimentar variaciones relativas grandes sin presentar necesariamente un MAE absoluto elevado. Este comportamiento hace inadecuado usar el porcentaje de cambio como único indicador de desempeño.
+### 11.2. Integración definitiva del Challenger con los cambios de demanda
 
-### 11.3. Estaciones relevantes para el seguimiento
+Unimos `station_comparison_metrics.csv` con `station_drift_vs_mae.csv` usando `station`. Verificamos que **MAE, RMSE y observaciones del Champion coinciden** en ambos archivos y seleccionamos las columnas de drift sin duplicar métricas. El resultado `station_ab_drift_analysis.csv` contiene **362 estaciones**, clasificadas por mejoría o deterioro del Challenger.
 
-Las cinco estaciones con mayor MAE fueron:
+| Indicador | Estaciones |
+|---|---:|
+| Mejoran con Challenger | **269** |
+| Empeoran con Challenger | **93** |
+| Cambian demanda más de 20 % | **44** |
+| Cambian demanda más de 50 % | **11** |
 
-| Estación | MAE | RMSE | Cambio porcentual de demanda |
-|---:|---:|---:|---:|
-| 51 | **3.0654** | 4.8427 | −5.0031 % |
-| 11 | 2.2875 | 3.2717 | −0.4887 % |
-| 35 | 2.2553 | 3.5635 | +1.8539 % |
-| 194 | 2.2469 | 4.4079 | −5.3021 % |
-| 50 | 2.2156 | 3.3068 | +3.9468 % |
+**Estaciones representativas:**
 
-En cambio, las estaciones **180 y 333** destacan por el envejecimiento de las medias históricas: registraron las mayores brechas absolutas (**1.5029 y 1.1998**) y cambios pronunciados de demanda (**−73.48 % y +98.69 %**, respectivamente). Ambas presentaron un MAE cercano a **1.53** en marzo.
+| Estación | Cambio demanda ref. vs. actual | MAE Champion | MAE Challenger | Mejora MAE | Resultado |
+|---:|---:|---:|---:|---:|---|
+| **180** | **−73.48 %** | 1.534008 | 0.395127 | **+74.24 %** | Mejora |
+| 333 | +98.69 % | 1.532301 | 1.263443 | +17.55 % | Mejora |
+| 390 | +261.23 % | 0.636690 | 0.563922 | +11.43 % | Mejora |
+| 310 | −100.00 % | 0.133802 | 0.113286 | +15.33 % | Mejora |
+| **136** | **+30.25 %** | 0.257848 | 0.291993 | **−13.24 %** | Deterioro |
+| **146** | **+13.46 %** | 0.249944 | 0.284436 | **−13.80 %** | Deterioro |
 
-También identificamos que las estaciones **389 y 390** experimentaron aumentos porcentuales superiores al 260 %, pero mantuvieron MAE de **0.5730 y 0.6367**, inferiores al promedio global. Por el contrario, las estaciones de mayor MAE no fueron las de mayor cambio porcentual. Estos contrastes muestran la necesidad de separar el análisis por **volumen**, **cambio relativo** y **error absoluto**.
+La estación **180** combina una caída pronunciada de demanda con una mejora muy importante del Challenger. La estación **333** muestra una mejora pese a un incremento considerable de demanda. Por otro lado, **136 y 146** registran deterioros, aun cuando sus cambios de demanda difieren; estos casos requieren monitoreo localizado.
 
-Las diez estaciones con mayor brecha absoluta fueron 180, 333, 291, 179, 199, 196, 86, 20, 2 y 43. El archivo combinado permite reproducir estos ordenamientos y ampliar el análisis cuando se disponga del Challenger.
+### 11.3. Asociaciones descriptivas entre demanda y mejora del Challenger
 
-### 11.4. Implicaciones para monitoreo y Continuous Training
+Calculamos correlaciones de Pearson entre el **porcentaje de mejora del MAE por estación** y las variables descriptivas de demanda:
 
-Los resultados obtenidos permiten formular orientaciones preliminares, **no una decisión definitiva de promoción**:
+| Variable frente a mejora porcentual del MAE | Pearson |
+|---|---:|
+| Demanda actual (`demanda_act`) | **−0.0174** |
+| Cambio porcentual con signo (`cambio_pct`) | **−0.1942** |
+| Magnitud del cambio porcentual (`cambio_abs_pct`) | **+0.2342** |
+| Brecha de media congelada con signo (`brecha_congelada`) | **−0.3375** |
 
-1. Mantener el monitoreo agregado de Evidently, pero complementarlo con indicadores de demanda, errores y brechas por estación.
-2. Evaluar periódicamente si las medias históricas congeladas siguen representando la operación reciente; considerar su recalibración o el reentrenamiento sin utilizar observaciones del periodo reservado para evaluación.
-3. Vigilar segmentos especiales como estaciones sin salidas, estaciones con cambios pronunciados y jornadas con errores inusuales, en particular el 17 de marzo.
-4. Complementar el MAE con métricas relativas o normalizadas por volumen —por ejemplo WAPE por estación o por grupos de demanda, siempre definiendo cómo tratar demandas nulas— antes de comparar estaciones de distinta escala.
-5. Condicionar cualquier recomendación de promoción del Challenger a una reducción comprobada y suficientemente consistente de MAE/RMSE en **las mismas 269,328 observaciones**, sin deterioros críticos en segmentos relevantes.
+![Magnitud del cambio de demanda y mejora porcentual del MAE](../../reports/week9/ab_testing/ab_final_drift_vs_mejora_mae.png)
 
-**Interpretación integrada:** la ausencia de drift global con umbral 0.1 no descarta cambios locales, del mismo modo que el MAE alto de una estación no demuestra degradación relativa. El análisis indica dónde profundizar, pero no identifica por sí solo causas definitivas ni garantiza beneficios del reentrenamiento.
+La correlación **r = +0.2342** entre magnitud del cambio de demanda y mejora del Challenger es una asociación positiva débil; existe una concentración importante de estaciones con cambios menores al 20 %. Los valores extremos merecen análisis adicional y pueden influir en el coeficiente de Pearson.
 
-## 12. Comparación A/B pendiente y criterios de decisión
+**Advertencias metodológicas:** las correlaciones son **descriptivas y no causales**. El indicador de cambio de demanda considera la referencia de 2024 frente a enero–marzo de 2025, mientras que la mejora A/B se calcula únicamente sobre marzo de 2025. Tampoco representan una segunda prueba de drift estadístico global. No concluimos que el Challenger mejoró *debido al drift* ni que exista drift por el simple hecho de haber cambiado la demanda de algunas estaciones.
 
-### 12.1. Evaluación del Challenger
+### 11.4. Implicaciones para el monitoreo y Continuous Training
 
-La comparación offline pareada sigue pendiente de disponer de una versión Challenger accesible desde MLflow. Una vez disponible, utilizaremos `scripts/week9/compare_models.py --mode both` sobre el mismo `evaluation.parquet`, identificando versiones explícitas para asegurar reproducibilidad.
+A partir de los resultados proponemos mantener el monitoreo agregado de Evidently, complementarlo con MAE/RMSE y volumen de demanda por estación, vigilar las **93 estaciones con deterioro**, atender anomalías temporales como el **17 de marzo**, revisar periódicamente las medias históricas congeladas y evaluar métricas normalizadas por volumen (con tratamiento explícito de demanda cero). Esas acciones permitirían desarrollar un ciclo de *Continuous Training* con controles de aceptación y trazabilidad antes de promover un candidato.
 
-| Métrica | Champion marzo 2025 | Challenger | Mejora porcentual |
-|---|---:|---|---|
-| MAE | **0.8406793191283037** | Pendiente | Pendiente |
-| RMSE | **1.4369529768005689** | Pendiente | Pendiente |
-| Observaciones | **269,328** | Las mismas 269,328 | — |
-| Estaciones | **362** | Las mismas 362 | — |
+## 12. Decisión A/B y recomendación operativa
 
-La mejora de una métrica de error se definirá como `(error_Champion − error_Challenger) / error_Champion × 100`. También verificaremos las diferencias por día, por estación y por grupos de volumen, en especial los casos 17 de marzo, 51, 180 y 333. Los posibles intervalos de incertidumbre deberán respetar la dependencia temporal y por estación de las observaciones.
+### 12.1. Evidencia cuantitativa de la comparación
 
-### 12.2. Recomendación operativa
+La comparación dejó de estar pendiente: evaluamos **Champion v1 y Challenger v2** sobre las **mismas 269,328 observaciones** y encontramos reducciones de **1.9444 % en MAE** y **2.2485 % en RMSE**. El Challenger mejoró el MAE de **28 de 31 días** y **269 de 362 estaciones**.
 
-**Todavía no se recomienda promover ni descartar el Challenger.** La decisión definitiva requerirá métricas comparables, revisión de degradaciones locales, validación de contratos y reproducibilidad, y discusión conjunta con los hallazgos del monitoreo. No se cambiará automáticamente el alias `champion` como parte de este análisis.
+La mejora agregada y su consistencia diaria constituyen evidencia favorable al reentrenamiento. Sin embargo, el porcentaje de mejora es moderado y **93 estaciones** empeoraron. Esta evidencia por sí sola no demuestra significancia estadística inferencial, robustez en otros meses ni beneficio operativo en producción.
+
+### 12.2. Recomendación fundamentada
+
+**Recomendamos conservar el Challenger v2 como candidato preferente para una siguiente etapa de validación**, pero **no promoverlo automáticamente a producción** ni cambiar el alias `champion` a partir de esta sola evaluación. Antes de una promoción formal proponemos:
+
+1. Revisar las estaciones con deterioro relevante y los casos atípicos, contrastando errores absolutos y volumen de demanda.
+2. Evaluar periodos posteriores independientes y, cuando sea pertinente, estimar incertidumbre con un diseño que considere dependencia temporal y por estación.
+3. Definir criterios de aceptación explícitos sobre MAE, RMSE, estabilidad local, condiciones de operación y reversión.
+4. Mantener trazabilidad del modelo, datasets, Run IDs, alias y salidas reproducibles.
+5. Evaluar un despliegue gradual con monitoreo y procedimiento de reversión, si el proyecto llegara a un entorno productivo.
+
+Durante toda la actividad mantuvimos **`@champion` en la versión 1** y **`@challenger` en la versión 2**. La ejecución de la comparación no requirió promoción ni afectó el modelo vigente.
 
 ## 13. Limitaciones del análisis
 
-- La evaluación offline del Champion se efectuó sobre un solo mes (marzo de 2025); no constituye una prueba de producción en línea ni una asignación aleatoria de tráfico.
-- El monitoreo de drift comparó periodos de distinta duración; el control estacional reduce, pero no elimina, diferencias temporales y efectos del calendario.
-- La declaración de ausencia de drift es válida para las variables, las distancias y los umbrales configurados; no prueba equivalencia estadística absoluta.
-- Los cambios de demanda por estación corresponden a enero–marzo de 2025, mientras que el MAE por estación corresponde solo a marzo. Esta desalineación temporal limita la interpretación de las correlaciones.
-- Las correlaciones son descriptivas, no causales; el fuerte vínculo entre MAE y volumen advierte que los errores absolutos son sensibles a la escala de demanda.
-- Los porcentajes de cambio pueden amplificarse ante bases de demanda pequeñas. La brecha con signo y la absoluta responden a preguntas diferentes.
-- La investigación del 17 de marzo y de los posibles factores de calendario permanece abierta; no se ha atribuido el error de esa fecha a un evento específico.
-- La comparación final del Challenger aún no se ha ejecutado; por lo tanto, no existe evidencia suficiente para afirmar que el reentrenamiento mejora el desempeño.
+- El A/B ejecutado es **offline** y se restringe a **marzo de 2025**; no estima directamente el desempeño online, cambios de comportamiento de usuarios ni impacto productivo.
+- Los datos de entrenamiento del Challenger fueron de **enero–febrero de 2025** y el conjunto de evaluación fue marzo, sin solapamiento temporal; aun así, una sola ventana de evaluación limita la generalización.
+- Aunque registramos mejoras agregadas, no realizamos una prueba inferencial con intervalos de confianza que contemple autocorrelación temporal y dependencia entre estaciones.
+- **93 de 362 estaciones** presentan mayor MAE con el Challenger. La mejora agregada no garantiza mejoras en todos los segmentos.
+- Los porcentajes de mejora pueden resultar elevados cuando el MAE base es pequeño; el caso extremo de la estación 180 debe interpretarse junto con su error absoluto y nivel de demanda.
+- En la figura de distribución por estación se muestran 361 estaciones en una ventana de **−15 % a +20 %**. La estación 180 permanece incluida en los cálculos, pero está fuera de la ventana por su mejora de **+74.24 %**.
+- La evaluación de drift usó **periodos de distinta longitud**; el control estacional reduce, pero no elimina, factores de calendario. La no detección de drift depende de las variables, distancias y umbral 0.1 elegidos.
+- Las medidas de cambio de demanda por estación abarcan enero–marzo de 2025 frente a 2024, mientras el A/B y las métricas de error corresponden solamente a marzo. Por ello las correlaciones conjuntas son exploratorias.
+- `media_estacion` y `media_estacion_dia_hora` son medias congeladas, cuya estabilidad aparente puede ocultar cambios locales de operación.
+- La investigación de factores particulares del **17 de marzo** sigue abierta; no atribuimos el pico de error a un evento específico sin evidencia externa.
+- La reproducibilidad del entrenamiento se corroboró por coincidencia de métricas y parámetros, pero los artefactos reentrenados tienen un Run ID distinto del entorno original; la comparación A/B se realizó con el modelo efectivamente registrado en el MLflow local.
 
-## 14. Conclusiones preliminares integradas
+## 14. Conclusiones finales integradas
 
-Durante esta etapa construimos una línea base reproducible del Champion P1 sobre marzo de 2025, con **269,328 observaciones de 362 estaciones**, obteniendo **MAE = 0.8407** y **RMSE = 1.4370**. Confirmamos la reproducción exacta de ambas métricas con dos implementaciones y exportamos predicciones, métricas diarias y por estación, además de visualizaciones. El **17 de marzo** presentó el mayor MAE diario (**1.0363**) y la estación **51** el mayor MAE por estación (**3.0654**).
+Durante esta actividad logramos extender la evaluación del Champion P1 hasta una **comparación A/B offline completa** con el Challenger reentrenado. Trabajamos con **269,328 registros de 362 estaciones** correspondientes a marzo de 2025 y conservamos la separación temporal del conjunto de entrenamiento de enero–febrero de 2025. Además, comprobamos la reproducibilidad del Champion y del entrenamiento del Challenger, registramos las dos versiones en MLflow y verificamos sus firmas, artefactos y alias sin modificar el modelo vigente.
 
-Integramos el monitoreo con Evidently sobre los datos de entrenamiento de 2024 y el trimestre enero–marzo de 2025. **Ninguna de las nueve variables evaluadas superó el umbral de drift de 0.1**, incluso al aplicar el control estacional y el seguimiento mensual. A pesar de ello, identificamos variaciones importantes en determinadas estaciones y brechas entre la demanda reciente y las medias históricas congeladas del Champion.
+Al comparar ambos modelos sobre las mismas observaciones, **obtuvimos una reducción de 1.94 % en MAE y 2.25 % en RMSE** a favor del Challenger. La mejora no se concentró en unos cuantos registros: identificamos un MAE menor en **28 de los 31 días** y en **269 de las 362 estaciones**. Particularmente, el Challenger redujo el error del 17 de marzo, que había sido el día de mayor MAE del Champion. Al mismo tiempo, reconocimos que **93 estaciones** empeoraron, por lo que evitamos presentar el nuevo modelo como superior en todos los escenarios.
 
-Al cruzar los resultados de monitoreo y desempeño para las **362 estaciones**, observamos una correlación **muy fuerte entre MAE y volumen de demanda (r = 0.9485)**, una correlación **moderada con la brecha absoluta de las medias congeladas (r = 0.4321)** y una relación **débil con el cambio porcentual absoluto (r = −0.1963)**. Estos hallazgos evidencian que el error absoluto y los cambios relativos describen fenómenos diferentes; por ello, el monitoreo global debe complementarse con análisis segmentados y métricas ajustadas a la escala de demanda.
+Complementamos estos resultados con el monitoreo de Evidently. Aunque **ninguna de las nueve variables superó el umbral de drift de 0.1**, identificamos **44 estaciones con cambios de demanda mayores al 20 %** y **11 con cambios mayores al 50 %**. Al relacionar esos cambios con las mejoras A/B observamos una **asociación positiva débil (r = 0.2342)** entre la magnitud del cambio de demanda y la mejora del MAE. Aprendimos que la ausencia de drift global no descarta variaciones locales, y que estas asociaciones no deben interpretarse como evidencia causal.
 
-La integración técnica se verificó con **305 pruebas automatizadas satisfactorias**, incluidas las 21 pruebas del monitoreo y las 21 pruebas del módulo A/B, sin fallos. Concluimos que el análisis del Champion y del drift está integrado y documentado, mientras que la selección de un modelo definitivo deberá fundamentarse en la **comparación real con el Challenger**, aún pendiente.
+También consolidamos las exportaciones diarias y por estación, generamos cuatro gráficas comparativas reproducibles y validamos las nuevas funcionalidades con **27 pruebas A/B satisfactorias**. Finalmente, la suite general del repositorio terminó con **311 pruebas aprobadas y 24 advertencias de dependencias externas**, sin fallos.
+
+Concluimos que el reentrenamiento produjo una **mejora observable, consistente a nivel agregado y suficientemente prometedora para continuar con una validación más amplia**. Sin embargo, por el alcance offline, el periodo limitado y los deterioros locales, recomendamos **mantener el Challenger como candidato y conservar el Champion v1 vigente** hasta contar con criterios formales de promoción, monitoreo y reversión.
 
 ---
 
-**Pendiente antes de finalizar la entrega:** ejecutar la comparación Champion–Challenger sobre marzo de 2025, incorporar sus métricas y gráficas comparativas, elaborar una recomendación basada en los resultados, verificar las evidencias finales y repetir las pruebas después de integrar cualquier cambio adicional.
+**Estado de cierre del análisis:** comparación y documentación técnica completadas. Antes del PR final corresponde verificar que todos los archivos y capturas de evidencias mencionados estén presentes en la rama, revisar `git diff`, ejecutar la suite nuevamente si se modifica código y seleccionar exclusivamente los archivos de Semana 9 para el commit. No se ha cambiado el alias `champion`.

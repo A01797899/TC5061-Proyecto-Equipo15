@@ -1,4 +1,4 @@
-# MiBici — Proyecto MLOps | Equipo 15 | Semanas 5 y 6
+# MiBici — Proyecto MLOps | Equipo 15 | Semanas 5 a 9
 
 [![Cookiecutter Data Science](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)](https://cookiecutter-data-science.drivendata.org/)
 
@@ -8,7 +8,43 @@
 **Datos:** viajes de MiBici, enero–diciembre de 2024
 **Versiones utilizadas en la prueba:** Python 3.12.15 y MLflow 3.16.1.
 
->Esta guía documenta la ejecución reproducible del proyecto MiBici para la Semana 6, desde la preparación del entorno y la ingesta hasta las búsquedas anidadas, la selección de modelos y su registro en MLflow Model Registry. Incluye las pruebas automatizadas, la validación de firmas y la inferencia mediante el alias champion.
+> Esta guía documenta la evolución reproducible del proyecto MiBici desde la ingesta, experimentación y registro de modelos hasta la API de inferencia, preparación de datos recientes, monitoreo de drift y evaluación A/B offline del Champion y el Challenger. Incluye instrucciones, métricas, pruebas automatizadas y rutas de evidencias por semana.
+
+<!-- INICIO_MENU_README -->
+## Menú de navegación
+
+Selecciona una sección para ir directamente a sus instrucciones. Este menú facilita la consulta del README sin reducir la documentación histórica.
+
+**Accesos rápidos:** [Preparación del entorno](#seccion-02) · [Pruebas automatizadas](#seccion-11) · [MLflow Model Registry](#seccion-12) · [Semana 8 — API](#seccion-16) · [Semana 9 — Datos](#seccion-17) · [Semana 9 — Drift](#seccion-18) · [Semana 9 — Challenger](#seccion-19) · [Semana 9 — A/B final](#seccion-20)
+
+<details>
+<summary><strong>Ver índice completo — 20 secciones</strong></summary>
+
+- [1. Descripción, objetivos y alcance](#seccion-01)
+- [2. Requisitos previos](#seccion-02)
+- [3. Clonar el proyecto o preparar la rama de trabajo](#seccion-03)
+- [4. Preparación de Python y virtualenv local en macOS](#seccion-04)
+- [5. Instalar y configurar pyenv según el sistema operativo](#seccion-05)
+- [6. Arquitectura y archivos del MLflow Project](#seccion-06)
+- [7. Tracking Server SQLite: respaldar, iniciar y validar](#seccion-07)
+- [8. Ejecutar la ingesta con MLflow Project](#seccion-08)
+- [9. Ejecución integral desde un clon limpio](#seccion-09)
+- [10. Comparación de candidatos y selección justificada](#seccion-10)
+- [11. Pruebas automatizadas](#seccion-11)
+- [12. Registrar modelos y validar Model Registry](#seccion-12)
+- [13. Promoción con alias `champion` y validación final](#seccion-13)
+- [14. Evidencia para el reporte PDF y el repositorio](#seccion-14)
+- [15. Referencias](#seccion-15)
+- [16. Semana 8 — API de predicción P1 con FastAPI, MLflow y Podman (José Manuel)](#seccion-16)
+- [17. Semana 9 — Datos de referencia y actuales para monitoreo de drift (Jorge)](#seccion-17)
+- [18. Semana 9 — Monitoreo de drift con Evidently (Óscar)](#seccion-18)
+- [19. Semana 9 — Challenger P1 (José Luis)](#seccion-19)
+- [20. Semana 9 — Integración final: evaluación A/B offline, drift y decisión sobre P1](#seccion-20)
+
+</details>
+<!-- FIN_MENU_README -->
+
+<a id="seccion-01"></a>
 
 ## 1. Descripción, objetivos y alcance
 
@@ -22,6 +58,8 @@ El proyecto utiliza datos abiertos de MiBici para construir una base reproducibl
 
 **Limitaciones:** la etiqueta de P2 **no** indica disponibilidad real de bicicletas ni anclajes; depende de una presión proxy `abs(llegadas - salidas) / capacidad` con umbral 0.25. La nomenclatura de estaciones usada es de septiembre de 2026, posterior a los viajes de 2024. El clustering de P3 tiene carácter exploratorio.
 
+<a id="seccion-02"></a>
+
 ## 2. Requisitos previos
 
 - **Sistemas operativos:** macOS (`zsh`), Linux (`bash`/`zsh`) y Windows 10/11 (PowerShell). El procedimiento de ejecución validado se realizó en macOS; las instrucciones Linux y Windows son orientativas y deben comprobarse en sus plataformas respectivas.
@@ -31,6 +69,8 @@ El proyecto utiliza datos abiertos de MiBici para construir una base reproducibl
 - **Servidor MLflow local activo** para los comandos de Tracking y Model Registry.
 
 **Todos los comandos de proyecto se ejecutan desde la raíz** `TC5061-Proyecto-Equipo15`, salvo donde se indique lo contrario. Los comandos posteriores con `.venv/bin/...` corresponden a **macOS/Linux**; en **Windows PowerShell** se reemplazan por `.venv\Scripts\python.exe` y `.venv\Scripts\mlflow.exe`. Para evitar el alias de `python` a Python 3.13 que puede existir en `zsh`, se usan rutas explícitas al intérprete del entorno virtual.
+
+<a id="seccion-03"></a>
 
 ## 3. Clonar el proyecto o preparar la rama de trabajo
 
@@ -43,6 +83,8 @@ git status
 ```
 
 > En un clon limpio de `main` anterior a la integración del PR de Semana 6, los archivos `MLproject` y `python_env.yaml` todavía no estarán disponibles. Para reproducir la Parte A, utilizar la rama que contenga esos cambios o `main` una vez fusionado el PR.
+
+<a id="seccion-04"></a>
 
 ## 4. Preparación de Python y virtualenv local en macOS
 
@@ -136,6 +178,8 @@ $python312 = Join-Path $env:USERPROFILE '.pyenv\pyenv-win\versions\3.12.15\pytho
 Si PowerShell bloquea la activación por la política de ejecución, puede omitirse la activación y ejecutar directamente `.\.venv\Scripts\python.exe` y `.\.venv\Scripts\mlflow.exe`; no es necesario cambiar una política de seguridad global. La ruta anterior corresponde a la estructura predeterminada de `pyenv-win`; comprobarla si se instaló en otra ubicación.
 
 Para ejecutar los entry points desde Windows, abrir otra consola PowerShell para el servidor y establecer `$env:MLFLOW_TRACKING_URI = 'http://127.0.0.1:5000'` en la consola del cliente. Los comandos Unix de las secciones 7–11 deben adaptarse a PowerShell. **No se ha validado en Windows la creación automática del entorno mediante `--env-manager virtualenv`;** empezar con `--env-manager local` y comprobar posteriormente la compatibilidad del gestor de entornos de MLflow.
+
+<a id="seccion-05"></a>
 
 ## 5. Instalar y configurar pyenv según el sistema operativo
 
@@ -244,6 +288,8 @@ Si Windows redirige `python` a Microsoft Store, revisar **Settings > Apps > Adva
 
 **Compatibilidad:** la validación de MLflow `--env-manager virtualenv` con `pyenv` se realizó en macOS. `pyenv-win` no es el mismo programa y no debe darse por garantizado que MLflow lo use automáticamente de la misma forma. En Windows, la alternativa documentada es crear `.venv` con Python 3.12.15, instalar `requirements.txt` y ejecutar inicialmente con `--env-manager local`; registrar separadamente cualquier validación del entorno aislado.
 
+<a id="seccion-06"></a>
+
 ## 6. Arquitectura y archivos del MLflow Project
 
 ```text
@@ -299,6 +345,8 @@ Para P1 y P2, el proyecto permite ejecutar baselines, entrenar modelos candidato
 Los módulos `registry.py` y `validate_registry.py` proporcionan funcionalidades relacionadas con el registro y la validación de modelos en MLflow Model Registry.
 
 Los resultados se registran en el experimento `mibici-equipo15`, permitiendo consultar métricas, parámetros, artefactos, corridas padre e hijas y modelos registrados.
+
+<a id="seccion-07"></a>
 
 ## 7. Tracking Server SQLite: respaldar, iniciar y validar
 
@@ -614,6 +662,8 @@ El script consulta únicamente el servidor MLflow; no modifica corridas, modelos
 Las evidencias también pueden visualizarse desde http://127.0.0.1:5000, entrando al experimento `mibici-equipo15` y desplegando las tres corridas padre correspondientes a P3.
 
 
+<a id="seccion-08"></a>
+
 ## 8. Ejecutar la ingesta con MLflow Project
 
 Con el servidor MLflow activo en la terminal A y la variable
@@ -694,6 +744,8 @@ utilizarán los datos procesados existentes.
 Después de validar la ingesta, continuar con el punto 9:
 ejecución de baselines y búsquedas de modelos.
 
+<a id="seccion-09"></a>
+
 ## 9. Ejecución integral desde un clon limpio
 
 **Antes de comenzar:** seguir las secciones 1–8 una sola vez, en un clon reciente de `main` (con el PR #18 ya integrado). Abrir el servidor MLflow de la sección 7 en terminal A y exportar `MLFLOW_TRACKING_URI=http://127.0.0.1:5000` en terminal B. Usar `.venv` y Python 3.12.15, siempre desde la raíz del repositorio. Los comandos de este apartado son para macOS/Linux. La explicación histórica de la Parte A en las secciones 3 y 6 queda conservada, pero para ejecutar las búsquedas es imprescindible la versión integrada de `main` que contenga `p1_p2_search.py`.
@@ -759,6 +811,8 @@ PY
 
 Para P3, abrir **Experiments → mibici-equipo15 → Runs**, localizar las tres búsquedas de las familias K-Means, jerárquica y GMM, desplegar sus hijas y conservar una captura. El criterio es una corrida padre por búsqueda y una hija por configuración.
 
+<a id="seccion-10"></a>
+
 ## 10. Comparación de candidatos y selección justificada
 
 **Los modelos se seleccionan con métricas de validación; las métricas de test solo cuantifican el resultado una vez elegido el candidato.** La tabla siguiente reproduce los resultados obtenidos el 25 de octubre de 2026 y sirve de evidencia y criterio de contraste para una nueva corrida.
@@ -792,6 +846,8 @@ Se eligió **RandomForestClassifier** por lograr la mejor Average Precision de v
 | GMM + PCA | k=2, 10 componentes, full | **0.132514** | 3.646119 |
 
 **GMM alcanzó un Silhouette puntual mayor que K-Means.** No se debe afirmar lo contrario. Se seleccionó **K-Means + PCA** considerando el menor Davies–Bouldin, solo 5 componentes y la estabilidad reportada en cinco semillas: GMM promedió Silhouette **0.126419 ± 0.012190** y modificó las agrupaciones, mientras K-Means mantuvo desviación cero y reprodujo la partición de referencia (ARI=1.0, grupos de 177 y 191 estaciones). Esto permite interpretar de modo más consistente los perfiles horarios. Corrida seleccionada: `P3_candidate_kmeans_pca`. Conservar la comparación multisemilla y perfiles como evidencia en el PDF.
+
+<a id="seccion-11"></a>
 
 ## 11. Pruebas automatizadas
 
@@ -1224,6 +1280,8 @@ La evidencia corresponde a una ejecución local posterior a la integración del 
 
 **Conclusión:** la integración de las aportaciones individuales conserva el funcionamiento de las pruebas automatizadas del proyecto MiBici. La trazabilidad de los Pull Requests, los reportes de DeepChecks y los análisis de seguridad permite documentar tanto las verificaciones exitosas como los riesgos pendientes de atención.
 
+<a id="seccion-12"></a>
+
 ## 12. Registrar modelos y validar Model Registry
 
 ### 12.1. Registro automatizado
@@ -1318,6 +1376,8 @@ Firmas observadas: **P1 = 8 entradas**, **P2 = 15 entradas**, **P3 = 49 entradas
 
 Desde MLflow, entrar en **Experiments → mibici-equipo15 → Runs** y comprobar para cada candidato: modelo con firma y ejemplo de entrada, manifiesto de versión de datos, artefactos `config/`, `data/` y `plots/`, etiquetas de pregunta/familia/commit y corrida fuente. Esto constituye evidencia solicitada en la rúbrica y no requiere ejecutar nuevas predicciones reales.
 
+<a id="seccion-13"></a>
+
 ## 13. Promoción con alias `champion` y validación final
 
 ### 13.1. Asignar y verificar los alias
@@ -1377,6 +1437,8 @@ PY
 
 En la ejecución del equipo: P1 → `[1.0482985]`; P2 → `[1]`; P3 → `[0]`. Son únicamente pruebas de interfaz y funcionamiento, no pronósticos o clasificaciones de situaciones reales.
 
+<a id="seccion-14"></a>
+
 ## 14. Evidencia para el reporte PDF y el repositorio
 
 | Evidencia | Captura o salida |
@@ -1393,6 +1455,8 @@ En la ejecución del equipo: P1 → `[1.0482985]`; P2 → `[1]`; P3 → `[0]`. S
 
 El reporte debe incluir enlace al repositorio, comandos de reproducción, tablas de baselines/candidatos, justificación de selección, explicación de alias como esquema de ciclo de vida, capturas y referencias APA 7. **No** subir a Git `mlflow.db`, `mlruns/`, `mlartifacts/`, CSV o modelos serializados. La rúbrica exige además descripciones de los modelos registrados y ejemplos de entrada de las corridas candidatas.
 
+<a id="seccion-15"></a>
+
 ## 15. Referencias
 
 - [Repositorio de GitHub del Equipo 15](https://github.com/A01797899/TC5061-Proyecto-Equipo15)
@@ -1407,6 +1471,8 @@ El reporte debe incluir enlace al repositorio, comandos de reproducción, tablas
 - [pip-audit](https://pypi.org/project/pip-audit/)
 
 **Resultados verificados, 25 de octubre de 2026:** suite de 40 tests aprobada, modelos P1/P2/P3 registrados (v1, `READY`), tres alias `champion` asignados e inferencia sintética por alias sin errores.
+
+<a id="seccion-16"></a>
 
 ## 16. Semana 8 — API de predicción P1 con FastAPI, MLflow y Podman (José Manuel)
 
@@ -2149,6 +2215,8 @@ Resultado registrado: `HTTP/1.1 200 OK` y `{"ready":true}`. La captura es la mis
 
 Estas llamadas salen del anfitrión hacia el puerto publicado del contenedor. TC01, TC02 y TC09 muestran que ese cliente ya alcanza el modelo P1 servido por la imagen Podman. Los códigos **422** y **404** de TC03 a TC08 son la respuesta prevista de la validación: confirman el contrato de entrada y una ruta que la API no expone.
 
+<a id="seccion-17"></a>
+
 ## 17. Semana 9 — Datos de referencia y actuales para monitoreo de drift (Jorge)
 
 Prepara los datos que usan el monitoreo con Evidently, el Challenger y el A/B testing: la referencia es el entrenamiento del Champion P1 (enero a agosto de 2024) y el periodo actual es enero a marzo de 2025. Las 8 variables se construyen con las mismas funciones del entrenamiento y reproducen exactamente las métricas registradas del Champion. El procedimiento completo está en [`docs/week9/data_preparation.md`](docs/week9/data_preparation.md) y el contrato en [`docs/week9/data_contract.md`](docs/week9/data_contract.md).
@@ -2181,6 +2249,8 @@ ruff check mibici/monitoring/ tests/test_week9_data.py
 
 **Evidencias.** En `reports/week9/evidence/data/`, de `01_entorno_pruebas_iniciales.png` a `10_pruebas_week9.png`; la lista completa está en la sección 12 del procedimiento.
 
+<a id="seccion-18"></a>
+
 ## 18. Semana 9 — Monitoreo de drift con Evidently (Óscar)
 
 Compara con Evidently los datos de entrenamiento del Champion P1 (enero a agosto de 2024) contra el periodo actual (enero a marzo de 2025) y reporta el drift por variable y la calidad de datos. Agrega un control estacional (enero a marzo de 2024 contra 2025) para separar el cambio real de la estacionalidad, el drift mes a mes y una revisión por estación de las medias congeladas. La metodología, la configuración y la interpretación están en [`docs/week9/drift_monitoring.md`](docs/week9/drift_monitoring.md).
@@ -2209,6 +2279,8 @@ python -m mibici.monitoring.drift_report --muestra 200000 --sin-html   # corrida
 python -m pytest tests/test_week9_drift.py -v
 ruff check mibici/monitoring/ tests/test_week9_drift.py
 ```
+
+<a id="seccion-19"></a>
 
 ## 19. Semana 9 — Challenger P1 (José Luis)
 
@@ -2269,3 +2341,225 @@ python -c "import mlflow; mlflow.set_tracking_uri('http://127.0.0.1:5000'); mlfl
 python -m pytest tests/test_week9_ab_testing.py -v -k challenger
 ruff check scripts/week9/train_challenger.py tests/test_week9_ab_testing.py
 ```
+
+<!-- INICIO_SEMANA9_AB_FINAL -->
+
+<a id="seccion-20"></a>
+
+## 20. Semana 9 — Integración final: evaluación A/B offline, drift y decisión sobre P1
+
+En esta etapa integramos los datos preparados en la sección 17, el monitoreo de drift de la sección 18 y el modelo Challenger entrenado en la sección 19 para comparar dos versiones de **`mibici-equipo15-p1-demanda`**. La evaluación A/B es **offline y pareada**: ambos modelos predicen las mismas observaciones históricas de marzo de 2025. No corresponde a una asignación aleatoria de usuarios ni a una prueba en producción.
+
+Para consultar la metodología completa, las tablas, las figuras y las limitaciones, revisamos [el análisis A/B de Semana 9](docs/week9/ab_testing_analysis.md). Para el monitoreo estadístico utilizamos [el reporte de Evidently](docs/week9/drift_monitoring.md); los datos y sus contratos se documentan en [preparación](docs/week9/data_preparation.md) y [contrato](docs/week9/data_contract.md), y el reentrenamiento en [estrategia Challenger](docs/week9/challenger_strategy.md).
+
+### 20.1. Orden de ejecución y dependencias
+
+| Etapa | Implementación existente | Resultado principal |
+|---|---|---|
+| Preparación de datos | `mibici.monitoring.prepare_data` y `mibici.monitoring.data_quality` | Parquet de referencia, datos actuales, entrenamiento y evaluación |
+| Monitoreo de drift | `mibici.monitoring.drift_report` | Comparación de nueve variables y cambios locales de demanda |
+| Entrenamiento Challenger | `scripts.week9.train_challenger` | Run y logged model en MLflow |
+| Registro de modelos | `mibici.modeling.registry` y MLflow Model Registry | Champion v1 y Challenger v2, con alias diferenciados |
+| Evaluación A/B | `scripts.week9.compare_models --mode both` | Métricas globales, diarias y por estación |
+| Análisis A/B + drift | Integración por clave `station` | `station_ab_drift_analysis.csv` |
+| Visualización | `scripts.week9.plot_ab_final` | Cuatro figuras finales |
+| Pruebas | `tests/test_week9_ab_testing.py`, `tests/test_week9_ab_final.py` y suite completa | Validación automatizada de comparador y exportaciones |
+
+**Datos locales obligatorios:** los archivos `data/processed/week9/train_alternative.parquet` y `data/processed/week9/evaluation.parquet`, generados según la sección 17. Los Parquet y la base de MLflow no se versionan en Git. El conjunto de entrenamiento cubre **1 de enero–28 de febrero de 2025** (512,592 filas); el de evaluación, **1–31 de marzo de 2025** (269,328 filas de 362 estaciones). El mes reservado para evaluación no se utiliza para el ajuste del Challenger.
+
+### 20.2. Preparar y proteger el entorno MLflow
+
+Trabajamos desde la raíz del repositorio, con Python 3.12 y `.venv` activo. Utilizamos el **mismo servidor y Registry que contienen el Champion P1**; iniciar un servidor sobre una base SQLite nueva produciría un Registry distinto. Configuramos:
+
+```bash
+source .venv/bin/activate
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+curl -I "$MLFLOW_TRACKING_URI"
+```
+
+Antes de entrenar o registrar una nueva versión, creamos un respaldo fuera de Git. La copia consistente de SQLite puede obtenerse aun si el servidor está activo, utilizando la API `sqlite3.backup`:
+
+```bash
+# Sustituir esta ruta por la ubicación REAL del Registry utilizado.
+export MLFLOW_HOME="$HOME/Documents/Maestria-MNA/MLOps/week8/httpclient/mlflow-data/mlflow_equipo15"
+export MLFLOW_BACKUP="$HOME/Documents/MLflow-Backup-Semana9-$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$MLFLOW_BACKUP"
+
+python - <<'PY'
+import os
+import sqlite3
+from pathlib import Path
+source = Path(os.environ['MLFLOW_HOME']) / 'mlflow.db'
+target = Path(os.environ['MLFLOW_BACKUP']) / 'mlflow.db'
+assert source.is_file(), f'No existe la base de origen: {source}'
+with sqlite3.connect(str(source)) as src, sqlite3.connect(str(target)) as dst:
+    src.backup(dst)
+with sqlite3.connect(str(target)) as conn:
+    assert conn.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
+print('Backup SQLite íntegro:', target)
+PY
+
+ditto "$MLFLOW_HOME/mlartifacts" "$MLFLOW_BACKUP/mlartifacts"   # macOS
+ls -lh "$MLFLOW_BACKUP/mlflow.db"
+du -sh "$MLFLOW_BACKUP/mlartifacts"
+```
+
+La ruta anterior es un **ejemplo del entorno reproducido en macOS**, no una ubicación portable para todo el equipo. Verificamos primero que el servidor esté conectado a esa base y que el directorio de artefactos corresponda al mismo Registry. Para congelar exactamente el contenido de artefactos, debemos evitar nuevas escrituras durante la copia o detener temporalmente el servidor. No agregamos `mlflow.db`, `mlartifacts/` ni su respaldo a Git.
+
+### 20.3. Entrenar el Challenger y conservar el Champion
+
+Si el Challenger todavía no está disponible en **nuestro Registry local**, ejecutamos el entrenamiento ya descrito en la sección 19:
+
+```bash
+python -m scripts.week9.train_challenger \
+  --data data/processed/week9/train_alternative.parquet \
+  --tracking-uri "$MLFLOW_TRACKING_URI"
+```
+
+La ejecución reproducida localmente obtuvo **MAE de entrenamiento = 0.7943356785109916** y **RMSE de entrenamiento = 1.3130923736059918**, con `max_iter=300`, `learning_rate=0.1`, `max_depth=None`, `early_stopping=False` y `random_state=42`. Estas métricas de entrenamiento **no se comparan** con las métricas de evaluación de marzo.
+
+En MLflow 3 identificamos el `model_id` de la ejecución en el experimento correspondiente. Los `run_id` y `model_id` cambian entre bases y ejecuciones: **no debemos copiar la URI de otro equipo**. Para encontrar el logged model de una ejecución concreta:
+
+```bash
+python - <<'PY'
+import mlflow
+from mlflow import MlflowClient
+uri = 'http://127.0.0.1:5000'
+mlflow.set_tracking_uri(uri)
+client = MlflowClient(tracking_uri=uri)
+run_id = input('Run ID del Challenger: ').strip()
+run = client.get_run(run_id)
+models = mlflow.search_logged_models(
+    experiment_ids=[run.info.experiment_id], output_format='list'
+)
+for model in models:
+    if model.source_run_id == run_id:
+        print('URI del Challenger:', f'models:/{model.model_id}', 'estado:', model.status)
+PY
+```
+
+Registramos **una sola vez** el modelo validado mediante el procedimiento de la sección 19, sustituyendo `MODEL_ID_LOCAL` por el ID devuelto arriba:
+
+```bash
+python -m mibici.modeling.registry \
+  --question p1 \
+  --model-uri 'models:/MODEL_ID_LOCAL' \
+  --description 'Challenger P1 Semana 9; entrenamiento enero-febrero 2025; marzo reservado para A/B' \
+  --data-version 7e1470ac0632
+```
+
+**Atención:** cada ejecución de registro puede crear otra versión; no repetir el comando si el Challenger ya está registrado. En el entorno de evaluación validado quedaron **Champion versión 1** y **Challenger versión 2**, ambos `READY`. Conservamos `champion` en la versión 1 y asignamos el alias `challenger` a la versión 2, tras comprobar los Run IDs:
+
+```bash
+python - <<'PY'
+from mlflow import MlflowClient
+uri = 'http://127.0.0.1:5000'
+name = 'mibici-equipo15-p1-demanda'
+client = MlflowClient(tracking_uri=uri, registry_uri=uri)
+champion = client.get_model_version_by_alias(name, 'champion')
+assert str(champion.version) == '1', 'No modificar el Champion sin revisión'
+challenger = client.get_model_version(name, '2')
+assert challenger.status == 'READY'
+assert challenger.run_id != champion.run_id
+client.set_registered_model_alias(name, 'challenger', '2')
+assert str(client.get_model_version_by_alias(name, 'champion').version) == '1'
+assert str(client.get_model_version_by_alias(name, 'challenger').version) == '2'
+print('Aliases validados: champion=v1; challenger=v2')
+PY
+```
+
+Si el Registry tiene versiones diferentes de 1 y 2, verificamos el origen y los alias antes de actuar; **no ejecutamos automáticamente ese bloque sobre un Registry ajeno**. Para evidencia visual entramos en **MLflow UI → Model registry → `mibici-equipo15-p1-demanda`** y mostramos las versiones y sus alias en una misma pantalla.
+
+### 20.4. Comparación A/B definitiva (marzo de 2025)
+
+Ejecutamos los dos modelos en igualdad de condiciones, sobre el mismo archivo `evaluation.parquet`, por lotes de 10,000 observaciones. El comparador recorta las predicciones negativas a cero para representar conteos de salidas no negativos.
+
+```bash
+python -m scripts.week9.compare_models \
+  --data data/processed/week9/evaluation.parquet \
+  --output reports/week9/ab_testing \
+  --tracking-uri "$MLFLOW_TRACKING_URI" \
+  --mode both \
+  --batch-size 10000
+```
+
+| Métrica de marzo de 2025 | Champion v1 | Challenger v2 | Mejora del Challenger |
+|---|---:|---:|---:|
+| MAE | 0.840679 | **0.824333** | **1.94 %** |
+| RMSE | 1.436953 | **1.404644** | **2.25 %** |
+
+La mejora porcentual se calcula como `(error_champion - error_challenger) / error_champion * 100`. La ejecución validada utilizó **269,328 registros, 362 estaciones y 31 días**. El SHA-256 del dataset, las versiones y los Run IDs se conservan en `comparison_metrics.json`.
+
+Los archivos resultantes son:
+
+| Ruta bajo `reports/week9/ab_testing/` | Contenido |
+|---|---|
+| `comparison_metrics.json` | MAE, RMSE, mejora y metadatos de modelos y dataset |
+| `daily_metrics.csv` | Métricas y sumas diarias de ambas predicciones |
+| `predictions_sample.csv` | Primeras 1,000 observaciones, **solo muestra para evidencia** |
+| `station_comparison_metrics.csv` | MAE/RMSE de ambos modelos sobre **todas** las observaciones por estación |
+| `station_ab_drift_analysis.csv` | Unión de desempeño A/B con variaciones de demanda por estación |
+
+El CSV por estación se obtiene de los **269,328 registros completos**, no de `predictions_sample.csv`. Validamos 362 estaciones únicas y 744 horas por estación. El Challenger reduce el MAE en **269 estaciones (74.31 %)** y lo incrementa en **93 (25.69 %)**. En el análisis diario reduce el MAE en **28 de 31 días (90.32 %)**; los tres deterioros corresponden al 2, 24 y 30 de marzo.
+
+### 20.5. Relación de A/B con Evidently
+
+Comparamos `station_comparison_metrics.csv` con `station_drift_vs_mae.csv` por la clave `station` y validamos coincidencia uno-a-uno y métricas originales del Champion. El resultado queda en `station_ab_drift_analysis.csv`.
+
+El monitoreo agregado de Evidently **no detectó drift global** bajo el umbral configurado de 0.1 en las nueve variables examinadas, pero identificó **44 estaciones con cambio de demanda mayor al 20 %** y **11 con cambio mayor al 50 %**. Los resultados por estación son importantes para interpretar el desempeño:
+
+| Estación | Cambio de demanda | Mejora porcentual MAE |
+|---:|---:|---:|
+| 180 | -73.48 % | +74.24 % |
+| 333 | +98.69 % | +17.55 % |
+| 390 | +261.23 % | +11.43 % |
+| 136 | +30.25 % | -13.24 % |
+| 146 | +13.46 % | -13.80 % |
+
+La correlación de Pearson entre **magnitud absoluta del cambio porcentual de demanda** y **mejora porcentual del MAE** es **r = 0.2342**. Este coeficiente describe una asociación débil, **no causalidad** ni una nueva detección de drift global. La comparación de demanda usa periodos de 2024 frente a enero–marzo de 2025; el MAE del A/B corresponde solo a marzo de 2025.
+
+### 20.6. Generar las cuatro gráficas finales
+
+Con los JSON y CSV anteriores disponibles, ejecutamos:
+
+```bash
+python -m py_compile scripts/week9/plot_ab_final.py
+python -m scripts.week9.plot_ab_final \
+  --input-dir reports/week9/ab_testing \
+  --output-dir reports/week9/ab_testing
+ls -lh reports/week9/ab_testing/ab_final_*.png
+```
+
+![Comparación global de MAE y RMSE](reports/week9/ab_testing/ab_final_global_mae_rmse.png)
+
+![MAE diario: Champion vs. Challenger](reports/week9/ab_testing/ab_final_mae_diario.png)
+
+![Distribución de la mejora porcentual por estación](reports/week9/ab_testing/ab_final_mejora_por_estacion.png)
+
+![Magnitud del cambio de demanda y mejora porcentual del MAE](reports/week9/ab_testing/ab_final_drift_vs_mejora_mae.png)
+
+La gráfica de estaciones presenta una ventana ampliada de **-15 % a +20 %** para mejorar la lectura; el valor extremo de la estación **180 (+74.24 %)** queda indicado explícitamente y **permanece incluido en los cálculos**.
+
+### 20.7. Validaciones automatizadas y evidencia
+
+Validamos las métricas, las predicciones, los alias mediante mocks, las exportaciones anteriores y las nuevas métricas por estación. Las cuatro pruebas agregadas verifican cálculo de MAE/RMSE por estación, manejo de denominadores cero, uso del conjunto completo y preservación de los archivos previos.
+
+```bash
+python -m pytest tests/test_week9_ab_testing.py -v
+python -m pytest tests/test_week9_ab_final.py -v
+python -m pytest tests/test_week9_ab_testing.py tests/test_week9_ab_final.py -v
+python -m pytest tests/test_week9_drift.py -v
+python -m pytest -v
+```
+
+En la ejecución local del 15 de noviembre de 2026 obtuvimos **23 pruebas A/B anteriores**, **4 nuevas**, **27 pruebas A/B combinadas** y **311 pruebas aprobadas en la suite completa** con **24 advertencias** de dependencias; no hubo pruebas fallidas. Los resultados ya ejecutados son evidencia del entorno local, y sus valores pueden cambiar si se modifica el código o las dependencias.
+
+Las capturas del Champion original están en `reports/week9/evidence/ab_testing/`, las de Evidently en `reports/week9/evidence/drift/` y las de la integración final se organizarán en `reports/week9/evidence/ab_testing/final/`. Antes de registrar o subir un commit, comprobamos cuáles imágenes realmente existen. **No necesitamos incorporar a Git una copia de `mlflow.db`, los artefactos ni el archivo local `champion_predictions.parquet`**.
+
+### 20.8. Interpretación y decisión de promoción
+
+En nuestra comparación offline el Challenger redujo los errores agregados y mejoró en la mayoría de los días y estaciones, pero **93 estaciones mostraron un deterioro de MAE**. Por ello, consideramos favorable continuar con el Challenger como candidato y con una eventual promoción **condicionada** a la evaluación de estaciones críticas, estabilidad temporal y monitoreo adicional. Este ejercicio **no cambió el alias `champion`**: permaneció apuntando a la versión 1, mientras que `challenger` señaló la versión 2.
+
+No interpretamos este A/B offline como evidencia causal, de impacto de negocio ni de comportamiento online. La recomendación completa y las limitaciones figuran en [el análisis final A/B](docs/week9/ab_testing_analysis.md).
+
+<!-- FIN_SEMANA9_AB_FINAL -->
