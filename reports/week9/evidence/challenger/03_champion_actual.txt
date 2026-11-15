@@ -1,0 +1,16 @@
+Actividad 3.1. Champion vigente
+Fecha: 2026-11-15
+Rama: feature/week9-challenger-JLMM
+
+El puerto 5000 ya estaba ocupado por el servidor correcto, pid 1952142:
+mlflow server --backend-store-uri sqlite:////home/zz_jlmm/Documents/Masters/ML/MLOps/httpclient/mlflow-data/mlflow_equipo15/mlflow.db --serve-artifacts --artifacts-destination /home/zz_jlmm/Documents/Masters/ML/MLOps/httpclient/mlflow-data/mlflow_equipo15/mlartifacts --host 0.0.0.0 --port 5000
+
+No se levanto un segundo servidor.
+
+Tracking URI: http://127.0.0.1:5000
+Modelo: mibici-equipo15-p1-demanda
+Alias: champion
+Version: 1
+Estado: READY
+Run: 6e3429f222a0407aa159dd9f46699365
+Validacion: champion version 1 READY

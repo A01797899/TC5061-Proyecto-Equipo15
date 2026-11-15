@@ -1,0 +1,8 @@
+Actividad 3.3. Estrategia de entrenamiento alternativo
+Fecha: 2026-11-15
+Rama: feature/week9-challenger-JLMM
+
+Documento: docs/week9/challenger_strategy.md
+Entrenamiento: data/processed/week9/train_alternative.parquet
+Evaluacion reservada: data/processed/week9/evaluation.parquet
+Marzo no entra al fit.

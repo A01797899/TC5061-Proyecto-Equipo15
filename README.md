@@ -2209,3 +2209,63 @@ python -m mibici.monitoring.drift_report --muestra 200000 --sin-html   # corrida
 python -m pytest tests/test_week9_drift.py -v
 ruff check mibici/monitoring/ tests/test_week9_drift.py
 ```
+
+## 19. Semana 9 — Challenger P1 (José Luis)
+
+Entrena una versión alternativa del modelo `mibici-equipo15-p1-demanda` con enero–febrero de 2025 y la registra como versión nueva del mismo modelo. Marzo queda reservado en `evaluation.parquet` y no entra al ajuste. La estrategia está en [`docs/week9/challenger_strategy.md`](docs/week9/challenger_strategy.md). La rama de trabajo es `feature/week9-challenger-JLMM`.
+
+**Requisitos.** El servidor MLflow de la sección 16.5, con la base que ya tiene al Champion versión 1, y los Parquet de la sección 17. `MLFLOW_TRACKING_URI=http://127.0.0.1:5000`.
+
+**Entrenar.** Solo `train_alternative.parquet`:
+
+```bash
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+python -m scripts.week9.train_challenger \
+  --data data/processed/week9/train_alternative.parquet \
+  --tracking-uri http://127.0.0.1:5000
+```
+
+La corrida ejecutada es `987a98c61f484b66ab101a308bf3757c`. En entrenamiento: MAE 0.7943356785109916 y RMSE 1.3130923736059918, con 512,592 filas.
+
+**Registrar** esa corrida como versión nueva. En MLflow 3.16 el modelo queda como logged model, así que la URI que creó la versión 2 es `models:/m-39a601c2342543d0b89515b379ce29c9`:
+
+```bash
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+python -m mibici.modeling.registry \
+  --question p1 \
+  --model-uri "models:/m-39a601c2342543d0b89515b379ce29c9" \
+  --description "Challenger P1 semana 9. train_alternative 1 ene-28 feb 2025, 512592 filas. Marzo reservado." \
+  --data-version 7e1470ac0632
+```
+
+La versión registrada es la **2**, estado `READY`. El alias `champion` no se mueve.
+
+**Comprobar que champion sigue en la versión vigente:**
+
+```bash
+export MLFLOW_TRACKING_URI=http://127.0.0.1:5000
+python - <<'PY'
+from mlflow import MlflowClient
+from mibici.config import REGISTERED_MODELS, MODEL_PRODUCTION_ALIAS
+client = MlflowClient("http://127.0.0.1:5000")
+champion = client.get_model_version_by_alias(
+    REGISTERED_MODELS["p1"], MODEL_PRODUCTION_ALIAS
+)
+print(champion.version, champion.run_id)
+PY
+```
+
+El resultado esperado es `1` y `6e3429f222a0407aa159dd9f46699365`.
+
+**Cargar la versión 2** sin usar el alias `champion`:
+
+```bash
+python -c "import mlflow; mlflow.set_tracking_uri('http://127.0.0.1:5000'); mlflow.pyfunc.load_model('models:/mibici-equipo15-p1-demanda/2'); print('version 2 cargada')"
+```
+
+**Pruebas.**
+
+```bash
+python -m pytest tests/test_week9_ab_testing.py -v -k challenger
+ruff check scripts/week9/train_challenger.py tests/test_week9_ab_testing.py
+```
