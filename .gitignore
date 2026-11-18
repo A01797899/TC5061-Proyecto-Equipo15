@@ -245,3 +245,6 @@ cython_debug/
 # Bases SQLite temporales del EDA
 *.sqlite
 *.sqlite3
+
+# Semana 10: base y artefactos de MLflow que monta Compose
+/runtime/

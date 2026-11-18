@@ -28,3 +28,6 @@ __pycache__/
 .pytest_cache/
 *.pyc
 .DS_Store
+
+# Semana 10: datos de MLflow montados como volumen, no van en la imagen
+runtime/
