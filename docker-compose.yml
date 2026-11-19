@@ -1,0 +1,81 @@
+# TC5061 Equipo 15 - Semana 10: FastAPI (Champion P1) + MLflow con un solo comando.
+# Uso: podman-compose -f docker-compose.yml up -d --build
+name: mibici-equipo15
+
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: Containerfile.mlflow
+    image: mibici-mlflow:week10
+    command:
+      - mlflow
+      - server
+      - --backend-store-uri
+      - sqlite:////mlflow/mlflow.db
+      # Los modelos se registraron como mlflow-artifacts:/, así que el servidor debe servirlos.
+      - --serve-artifacts
+      - --artifacts-destination
+      - /mlflow/mlartifacts
+      - --host
+      - 0.0.0.0
+      - --port
+      - "5000"
+      # MLflow rechaza con 403 cualquier Host que no esté en esta lista.
+      - --allowed-hosts
+      - mlflow:5000,localhost:5000,127.0.0.1:5000
+    environment:
+      MLFLOW_DISABLE_TELEMETRY: "true"
+    ports:
+      # Publico solo en localhost para no exponer MLflow fuera de mi equipo.
+      - "127.0.0.1:${MLFLOW_PORT:-5000}:5000"
+    volumes:
+      # Base SQLite y artefactos del Champion; viven fuera de Git y sobreviven a down/up.
+      - ./runtime/mlflow:/mlflow
+    networks:
+      - mibici-net
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=5)"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Containerfile
+    image: mibici-api:week10
+    environment:
+      # Dentro de la red de Compose llego a MLflow por el nombre del servicio, no por localhost.
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MLFLOW_DISABLE_TELEMETRY: "true"
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    depends_on:
+      # La API carga el modelo una sola vez al arrancar, así que espera a que MLflow esté sano.
+      mlflow:
+        condition: service_healthy
+    networks:
+      - mibici-net
+    healthcheck:
+      # Uso /ready porque solo responde 200 cuando el Champion ya está cargado.
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 60s
+    restart: unless-stopped
+
+networks:
+  mibici-net:
+    driver: bridge
