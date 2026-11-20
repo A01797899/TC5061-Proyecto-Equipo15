@@ -1,0 +1,193 @@
+name: MiBici-pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/week10-*'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      execution_type:
+        description: 'Selecciona las validaciones que deseas ejecutar'
+        required: true
+        default: tests
+        type: choice
+        options:
+          - full
+          - tests
+          - build
+          - integration
+
+permissions:
+  contents: read
+
+concurrency:
+  group: week10-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Pruebas y validacion
+    # En push/PR se ejecuta CI basico. En manual, solo full o tests.
+    if: >-
+      ${{ github.event_name != 'workflow_dispatch' ||
+          inputs.execution_type == 'full' ||
+          inputs.execution_type == 'tests' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-api.txt
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-api.txt
+
+      - name: Verificar sintaxis de scripts de integracion
+        run: python -m py_compile scripts/week10/smoke_integration.py scripts/week10/bootstrap_ci_registry.py
+
+      - name: Ejecutar pruebas FastAPI
+        run: python -m pytest tests/test_api.py -q
+
+      - name: Ejecutar suite completa
+        run: python -m pytest tests/ -q
+
+  build:
+    name: Construccion de imagenes Podman
+    # Sin 'needs: tests': build manual se ejecuta sin depender de tests.
+    if: >-
+      ${{ github.event_name != 'workflow_dispatch' ||
+          inputs.execution_type == 'full' ||
+          inputs.execution_type == 'build' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
+          podman --version
+
+      - name: Construir imagen MLflow
+        run: podman build -f Containerfile.mlflow -t mibici-mlflow:week10 .
+
+      - name: Construir imagen FastAPI
+        run: podman build -f Containerfile -t mibici-api:week10 .
+
+      - name: Verificar imagenes
+        run: |
+          podman image exists mibici-mlflow:week10
+          podman image exists mibici-api:week10
+          podman images --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'
+
+  integration:
+    name: Integracion end-to-end con Registry temporal
+    # CI usa un modelo determinista de prueba con el contrato P1. No usa secretos.
+    # No se lanza con push/PR; se activa manualmente con integration/full.
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch' &&
+          (inputs.execution_type == 'full' ||
+           inputs.execution_type == 'integration') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar Docker Compose
+        run: |
+          docker version
+          docker compose version
+          docker compose -f docker-compose.yml config --quiet
+
+      - name: Preparar Compose de CI con un solo worker de MLflow
+        run: |
+          cat > docker-compose.ci.yml <<'EOF'
+          services:
+            mlflow:
+              command:
+                - mlflow
+                - server
+                - --backend-store-uri
+                - sqlite:////mlflow/mlflow.db
+                - --serve-artifacts
+                - --artifacts-destination
+                - /mlflow/mlartifacts
+                - --host
+                - 0.0.0.0
+                - --port
+                - "5000"
+                - --workers
+                - "1"
+                - --allowed-hosts
+                - mlflow:5000,localhost:5000,127.0.0.1:5000
+          EOF
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml config --quiet
+
+      - name: Crear Registry temporal vacio
+        run: mkdir -p runtime/mlflow
+
+      - name: Iniciar solo el servidor MLflow
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --build --wait mlflow
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml ps
+
+      - name: Registrar Champion P1 determinista de CI
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml build api
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml run --rm --no-deps \
+            -e MIBICI_CI_BOOTSTRAP=1 api \
+            python scripts/week10/bootstrap_ci_registry.py
+
+      - name: Iniciar FastAPI con Champion de prueba
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --wait api
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml ps
+
+      - name: Verificar Registry y firma del Champion de CI
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml exec -T api python scripts/week8/inspect_registry.py
+
+      - name: Ejecutar smoke test end-to-end con valor CI
+        run: python3 scripts/week10/smoke_integration.py --expected 2.785
+
+      - name: Mostrar logs ante errores
+        if: failure()
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml logs --tail=150 || true
+
+      - name: Guardar estado de contenedores y logs para evidencia
+        if: always()
+        run: |
+          mkdir -p reports/week10/ci-run
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml ps > reports/week10/ci-run/compose-ps.txt 2>&1 || true
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml logs --no-color > reports/week10/ci-run/compose-logs.txt 2>&1 || true
+
+      - name: Publicar evidencias de ejecucion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mibici-integration-logs-${{ github.run_id }}
+          path: reports/week10/ci-run/
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Detener contenedores y eliminar Registry temporal
+        if: always()
+        run: |
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml down --remove-orphans || true
+          rm -rf runtime/mlflow
