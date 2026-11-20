@@ -248,3 +248,6 @@ cython_debug/
 
 # Semana 10: base y artefactos de MLflow que monta Compose
 /runtime/
+
+# Semana 10 - entorno de Locust
+.venv-locust/
