@@ -190,4 +190,6 @@ jobs:
         if: always()
         run: |
           docker compose -f docker-compose.yml -f docker-compose.ci.yml down --remove-orphans || true
-          rm -rf runtime/mlflow
+          if [ -d runtime/mlflow ]; then
+            sudo rm -rf -- runtime/mlflow
+          fi
