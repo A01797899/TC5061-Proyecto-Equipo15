@@ -1,0 +1,15 @@
+inicio: 2026-11-19T23:27:13Z
+commit: f8670f8
+motor: docker
+reinicios: mibici-equipo15-api-1=0 mibici-equipo15-mlflow-1=0 
+S1_low inicio: 2026-11-19T23:28:14Z usuarios=5 spawn=1
+S1_low fin: 2026-11-19T23:30:40Z reinicios: mibici-equipo15-api-1=0 mibici-equipo15-mlflow-1=0 
+S2_medium inicio: 2026-11-19T23:31:10Z usuarios=20 spawn=2
+S2_medium fin: 2026-11-19T23:33:37Z reinicios: mibici-equipo15-api-1=0 mibici-equipo15-mlflow-1=0 
+S3_high inicio: 2026-11-19T23:34:07Z usuarios=50 spawn=5
+S3_high fin: 2026-11-19T23:36:32Z reinicios: mibici-equipo15-api-1=0 mibici-equipo15-mlflow-1=0 
+S4_stress inicio: 2026-11-19T23:37:02Z usuarios=100 spawn=10
+S4_stress fin: 2026-11-19T23:39:27Z reinicios: mibici-equipo15-api-1=0 mibici-equipo15-mlflow-1=0 
+fin: 2026-11-19T23:39:27Z
+S5_capacity inicio: 2026-11-20T00:59:30Z escalones=50-300 cada 60s commit=f8670f8
+S5_capacity fin: 2026-11-20T01:05:56Z reinicios: mibici-equipo15-api-1=0 mibici-equipo15-mlflow-1=0 
