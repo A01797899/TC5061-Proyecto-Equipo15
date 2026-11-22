@@ -1,4 +1,4 @@
-# MiBici — Proyecto MLOps | Equipo 15 | Semanas 5 a 9
+# MiBici — Proyecto MLOps | Equipo 15 | Semanas 5 a 10
 
 [![Cookiecutter Data Science](https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter)](https://cookiecutter-data-science.drivendata.org/)
 
@@ -8,17 +8,17 @@
 **Datos:** viajes de MiBici, enero–diciembre de 2024
 **Versiones utilizadas en la prueba:** Python 3.12.15 y MLflow 3.16.1.
 
-> Esta guía documenta la evolución reproducible del proyecto MiBici desde la ingesta, experimentación y registro de modelos hasta la API de inferencia, preparación de datos recientes, monitoreo de drift y evaluación A/B offline del Champion y el Challenger. Incluye instrucciones, métricas, pruebas automatizadas y rutas de evidencias por semana.
+> Esta guía documenta la evolución reproducible del proyecto MiBici desde la ingesta, experimentación y registro de modelos hasta la API de inferencia, preparación de datos recientes, monitoreo de drift y evaluación A/B offline del Champion y el Challenger. La semana 10 añade la operación con Compose, el pipeline de GitHub Actions, las pruebas de carga y el costo por inferencia. Incluye instrucciones, métricas, pruebas automatizadas y rutas de evidencias por semana.
 
 <!-- INICIO_MENU_README -->
 ## Menú de navegación
 
 Selecciona una sección para ir directamente a sus instrucciones. Este menú facilita la consulta del README sin reducir la documentación histórica.
 
-**Accesos rápidos:** [Preparación del entorno](#seccion-02) · [Pruebas automatizadas](#seccion-11) · [MLflow Model Registry](#seccion-12) · [Semana 8 — API](#seccion-16) · [Semana 9 — Datos](#seccion-17) · [Semana 9 — Drift](#seccion-18) · [Semana 9 — Challenger](#seccion-19) · [Semana 9 — A/B final](#seccion-20)
+**Accesos rápidos:** [Preparación del entorno](#seccion-02) · [Pruebas automatizadas](#seccion-11) · [MLflow Model Registry](#seccion-12) · [Semana 8 — API](#seccion-16) · [Semana 9 — Datos](#seccion-17) · [Semana 9 — Drift](#seccion-18) · [Semana 9 — Challenger](#seccion-19) · [Semana 9 — A/B final](#seccion-20) · [Semana 10 — Compose](#seccion-21) · [Semana 10 — FinOps](#seccion-25)
 
 <details>
-<summary><strong>Ver índice completo — 20 secciones</strong></summary>
+<summary><strong>Ver índice completo — 25 secciones</strong></summary>
 
 - [1. Descripción, objetivos y alcance](#seccion-01)
 - [2. Requisitos previos](#seccion-02)
@@ -40,6 +40,11 @@ Selecciona una sección para ir directamente a sus instrucciones. Este menú fac
 - [18. Semana 9 — Monitoreo de drift con Evidently (Óscar)](#seccion-18)
 - [19. Semana 9 — Challenger P1 (José Luis)](#seccion-19)
 - [20. Semana 9 — Integración final: evaluación A/B offline, drift y decisión sobre P1](#seccion-20)
+- [21. Semana 10 — Levantar FastAPI y MLflow con Compose (Jorge)](#seccion-21)
+- [22. Semana 10 — Validar la integración del Champion P1 (José Manuel)](#seccion-22)
+- [23. Semana 10 — CI/CD en GitHub Actions (José Manuel)](#seccion-23)
+- [24. Semana 10 — Reproducir las pruebas de carga (Óscar)](#seccion-24)
+- [25. Semana 10 — Costo por inferencia (José Luis)](#seccion-25)
 
 </details>
 <!-- FIN_MENU_README -->
@@ -2563,3 +2568,74 @@ En nuestra comparación offline el Challenger redujo los errores agregados y mej
 No interpretamos este A/B offline como evidencia causal, de impacto de negocio ni de comportamiento online. La recomendación completa y las limitaciones figuran en [el análisis final A/B](docs/week9/ab_testing_analysis.md).
 
 <!-- FIN_SEMANA9_AB_FINAL -->
+
+<a id="seccion-21"></a>
+
+## 21. Semana 10 — Levantar FastAPI y MLflow con Compose (Jorge)
+
+Un comando levanta el Champion P1 y el servidor MLflow en la red `mibici-net`. El procedimiento completo, los healthchecks y las evidencias están en [`docs/week10/compose.md`](docs/week10/compose.md).
+
+`runtime/mlflow/` no está en Git. Antes del primer arranque hay que copiar ahí `mlflow.db` y `mlartifacts/` del Registry que ya tiene `mibici-equipo15-p1-demanda` con el alias `champion` en la versión 1. La copia queda fuera del repositorio.
+
+```bash
+podman-compose -f docker-compose.yml up -d --build
+podman-compose -f docker-compose.yml ps
+```
+
+El mismo archivo funciona con `docker compose -f docker-compose.yml up -d --build`. MLflow queda en `http://127.0.0.1:5000` y FastAPI en `http://127.0.0.1:8000`. `down` borra los contenedores y la red, y conserva `runtime/mlflow/`.
+
+<a id="seccion-22"></a>
+
+## 22. Semana 10 — Validar la integración del Champion P1 (José Manuel)
+
+Con los dos servicios en estado healthy, el smoke test comprueba salud, inferencia, reproducibilidad y rechazos. El detalle está en [`docs/week10/integration.md`](docs/week10/integration.md).
+
+```bash
+python3 scripts/week10/smoke_integration.py
+echo $?
+```
+
+El resultado registrado es 11/11 y código de salida 0. `POST /predict` con `postman/examples/p1-valid.json` devuelve la predicción de referencia del Champion real: `3.694163560787005`.
+
+<a id="seccion-23"></a>
+
+## 23. Semana 10 — CI/CD en GitHub Actions (José Manuel)
+
+El workflow [`.github/workflows/MiBici-pipeline.yml`](.github/workflows/MiBici-pipeline.yml) corre en `push` y `pull_request` los jobs de pruebas y de construcción de imágenes. Desde la pestaña Actions, `workflow_dispatch` acepta `tests`, `build`, `integration` y `full`. El job `integration` se lanza solo en una ejecución manual: crea un Registry temporal, registra un Champion sintético con las ocho variables de P1 y corre el mismo smoke test.
+
+La predicción de referencia de ese modelo sintético es `2.785`. La del Champion real, en la sección 22, es `3.694163560787005`. La ejecución manual #9, modo `integration` sobre `main`, terminó en Success en 2 minutos y 22 segundos, con 11/11 y la limpieza del Registry temporal. La modalidad `full` está configurada y esta guía no le atribuye una corrida propia. El relato y las capturas están en [`docs/week10/cicd.md`](docs/week10/cicd.md).
+
+<a id="seccion-24"></a>
+
+## 24. Semana 10 — Reproducir las pruebas de carga (Óscar)
+
+Locust llama a `POST /predict` y `docker stats` registra CPU y memoria. Los escenarios, las gráficas y los límites están en [`docs/week10/load_testing_analysis.md`](docs/week10/load_testing_analysis.md). Hace falta el sistema de la sección 21, con `runtime/mlflow/` preparado.
+
+```bash
+python3.12 -m venv .venv-locust
+.venv-locust/bin/python -m pip install -r requirements-loadtest.txt
+docker compose -f docker-compose.yml up -d --build
+bash scripts/week10/run_load_tests.sh docker
+bash scripts/week10/run_capacity_test.sh docker
+.venv-locust/bin/python scripts/week10/summarize_resources.py
+.venv-locust/bin/python scripts/week10/plot_load_results.py
+```
+
+Los scripts aceptan `podman` en lugar de `docker`. Los resultados quedan en `reports/week10/locust/`, `reports/week10/metrics/` y `reports/week10/figures/`.
+
+<a id="seccion-25"></a>
+
+## 25. Semana 10 — Costo por inferencia (José Luis)
+
+El costo usa las mediciones de la sección 24 y la tarifa pública de un `c7g.xlarge` Linux en US East (N. Virginia): 0.145 USD por hora, consultada el 22 de noviembre de 2026. La fórmula, la tabla y las propuestas están en [`docs/week10/finops.md`](docs/week10/finops.md).
+
+```text
+costo_por_inferencia = precio_hora / (req_s_exitosos * 3600)
+```
+
+```bash
+python -m scripts.week10.estimate_inference_cost --hourly-usd 0.145
+python -m pytest tests/test_week10_finops.py -v
+```
+
+El punto de operación es 150 usuarios, 96.9 req/s y P95 de 76.0 ms. En una hora son 348,840 inferencias exitosas. El cociente guardado en `reports/week10/finops/cost_by_scenario.csv` es `0.145 / (96.9 * 3600) = 0.0000004156633413599357871803692237` USD por inferencia, esto es 0.415663 USD por millón. El CSV también trae el escalón de 300 usuarios (147.1 req/s, P95 740.0 ms). La corrida #9 de la sección 23 queda fuera de ese denominador: valida el Champion sintético, no el costo del Champion real.
