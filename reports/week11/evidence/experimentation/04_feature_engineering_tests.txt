@@ -1,0 +1,42 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0 -- /Users/jorgealcazar/Desktop/MAESTRIA/trimestre_septiembre_diciembre_2026/mlops/git_equipo/TC5061-Proyecto-Equipo15/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/jorgealcazar/Desktop/MAESTRIA/trimestre_septiembre_diciembre_2026/mlops/git_equipo/TC5061-Proyecto-Equipo15
+configfile: pyproject.toml
+plugins: platformdirs-4.13.0, Faker-40.63.0, anyio-4.15.1
+collecting ... collected 32 items
+
+tests/test_features.py::test_salidas_y_llegadas_por_hora PASSED          [  3%]
+tests/test_features.py::test_calendario PASSED                           [  6%]
+tests/test_features.py::test_balance_rellena_con_cero PASSED             [  9%]
+tests/test_features.py::test_etiqueta_proxy_con_claves_de_distinto_tipo PASSED [ 12%]
+tests/test_features.py::test_umbral_debe_ser_positivo PASSED             [ 15%]
+tests/test_features.py::test_perfiles_por_tipo_de_dia PASSED             [ 18%]
+tests/test_features.py::test_perfiles_rechazan_conteos_negativos PASSED  [ 21%]
+tests/test_features.py::test_panel_completo PASSED                       [ 25%]
+tests/test_features.py::test_rezagos_solo_usan_el_pasado PASSED          [ 28%]
+tests/test_features.py::test_rezago_no_positivo_falla PASSED             [ 31%]
+tests/test_features.py::test_marcas_de_calidad PASSED                    [ 34%]
+tests/test_features.py::test_sin_viajes_devuelve_tablas_vacias PASSED    [ 37%]
+tests/test_features.py::test_conteos_ignoran_nulos PASSED                [ 40%]
+tests/test_features.py::test_ids_como_texto_de_los_csv_crudos PASSED     [ 43%]
+tests/test_features.py::test_columnas_faltantes_fallan[hourly_departures-origen_id] PASSED [ 46%]
+tests/test_features.py::test_columnas_faltantes_fallan[hourly_arrivals-fin_viaje] PASSED [ 50%]
+tests/test_features.py::test_columnas_faltantes_fallan[hourly_usage_profiles-inicio_viaje] PASSED [ 53%]
+tests/test_features.py::test_columnas_faltantes_fallan[trip_quality_flags-anio_nacimiento] PASSED [ 56%]
+tests/test_features.py::test_calendario_no_modifica_la_entrada_y_acepta_texto PASSED [ 59%]
+tests/test_features.py::test_balance_negativo_cuando_solo_hay_salidas PASSED [ 62%]
+tests/test_features.py::test_etiqueta_en_el_umbral_exacto_es_riesgo PASSED [ 65%]
+tests/test_features.py::test_capacidades_invalidas_quedan_fuera PASSED   [ 68%]
+tests/test_features.py::test_capacidad_repetida_usa_la_primera PASSED    [ 71%]
+tests/test_features.py::test_perfiles_con_conteos_agregados_y_texto_invalido PASSED [ 75%]
+tests/test_features.py::test_panel_sin_salidas_y_con_intervalo_vacio PASSED [ 78%]
+tests/test_features.py::test_panel_excluye_estaciones_no_listadas PASSED [ 81%]
+tests/test_features.py::test_rezagos_no_se_mezclan_entre_estaciones PASSED [ 84%]
+tests/test_features.py::test_rezagos_diario_y_semanal_sin_fuga PASSED    [ 87%]
+tests/test_features.py::test_rezagos_de_otra_columna PASSED              [ 90%]
+tests/test_features.py::test_rezago_negativo_o_cero_falla[lags0] PASSED  [ 93%]
+tests/test_features.py::test_rezago_negativo_o_cero_falla[lags1] PASSED  [ 96%]
+tests/test_features.py::test_marcas_de_calidad_en_los_limites PASSED     [100%]
+
+============================== 32 passed in 0.38s ==============================
