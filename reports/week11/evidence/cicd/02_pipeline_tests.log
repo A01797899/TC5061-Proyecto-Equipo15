@@ -1,0 +1,893 @@
+Pruebas y validacion	Set up job	﻿2026-11-26T05:07:51.2991690Z Current runner version: '2.338.2'
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3012065Z ##[group]Runner Image Provisioner
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3012811Z Hosted Compute Agent
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3013279Z Version: 20261111.635
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3013735Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3014257Z Build Date: 2026-11-11T01:49:01Z
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3015079Z Worker ID: {047b285f-ffad-4127-934d-e404aeb3d670}
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3015608Z Region: us-west-2
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3016004Z Cloud: AWS
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3016382Z ##[endgroup]
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3017374Z ##[group]Operating System
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3017849Z Ubuntu
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3018249Z 24.04.5
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3018616Z LTS
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3018987Z ##[endgroup]
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3019373Z ##[group]Runner Image
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3019827Z Image: ubuntu-24.04
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3020222Z Version: 20261122.23.1
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3020962Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261122.23/images/ubuntu/Ubuntu2404-Readme.md
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3022326Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261122.23
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3023034Z ##[endgroup]
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3023828Z ##[group]GITHUB_TOKEN Permissions
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3025656Z Contents: read
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3026086Z Metadata: read
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3026464Z ##[endgroup]
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3028072Z Secret source: Actions
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3029027Z Cache mode: write
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3029514Z Prepare workflow directory
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3268122Z Prepare all required actions
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.3306246Z Getting action download info
+Pruebas y validacion	Set up job	2026-11-26T05:07:51.6757914Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Pruebas y validacion	Set up job	2026-11-26T05:07:53.4954424Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+Pruebas y validacion	Set up job	2026-11-26T05:07:53.8187644Z Complete job name: Pruebas y validacion
+Pruebas y validacion	Descargar repositorio	﻿2026-11-26T05:07:53.8951948Z ##[group]Run actions/checkout@v4
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8953219Z with:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8954063Z   repository: A01797899/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8961666Z   token: ***
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8962408Z   ssh-strict: true
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8963219Z   ssh-user: git
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8963992Z   persist-credentials: true
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8964962Z   clean: true
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8965788Z   sparse-checkout-cone-mode: true
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8966660Z   fetch-depth: 1
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8967496Z   fetch-tags: false
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8968302Z   show-progress: true
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8969101Z   lfs: false
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8969868Z   submodules: false
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8970657Z   set-safe-directory: true
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8971517Z   allow-unsafe-pr-checkout: false
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:53.8972698Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.6601131Z Syncing repository: A01797899/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.6602548Z ##[group]Getting Git version info
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.6602993Z Working directory is '/home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15'
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.6603866Z [command]/usr/bin/git version
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9496234Z git version 2.56.1
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9510270Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9521593Z Temporarily overriding HOME='/home/runner/work/_temp/73a45b64-63a4-4f63-8897-4ab4ed2c39f3' before making global git config changes
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9522297Z Adding repository directory to the temporary git global config as a safe directory
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9526087Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9580675Z Deleting the contents of '/home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15'
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9583029Z ##[group]Initializing the repository
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9586749Z [command]/usr/bin/git init /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9765917Z hint: Using 'master' as the name for the initial branch. This default branch name
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9767156Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9767830Z hint: to use in all of your new repositories, which will suppress this warning,
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9768246Z hint: call:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9768506Z hint:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9768864Z hint: 	git config --global init.defaultBranch <name>
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9769201Z hint:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9769553Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9770001Z hint: 'development'. The just-created branch can be renamed via this command:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9770382Z hint:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9770783Z hint: 	git branch -m <name>
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9771099Z hint:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9771471Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9780231Z Initialized empty Git repository in /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/.git/
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9787636Z [command]/usr/bin/git remote add origin https://github.com/A01797899/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9843829Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9844398Z ##[group]Disabling automatic garbage collection
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9846592Z [command]/usr/bin/git config --local gc.auto 0
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9870907Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9871339Z ##[group]Setting up auth
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9875541Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:57.9903156Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.3704520Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.3732645Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.3900903Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.3928125Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.4085653Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.4113481Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.4114112Z ##[group]Fetching the repository
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:58.4124445Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c6901c906ed6e3db9bdf99ec697fcd8700cdf9b2:refs/remotes/origin/feature/week11-deployment-integration-A01797899
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5018167Z From https://github.com/A01797899/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5019094Z  * [new ref]         c6901c906ed6e3db9bdf99ec697fcd8700cdf9b2 -> origin/feature/week11-deployment-integration-A01797899
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5022234Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5022877Z ##[group]Determining the checkout info
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5024732Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5030897Z [command]/usr/bin/git sparse-checkout disable
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5099100Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5123200Z ##[group]Checking out the ref
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.5135855Z [command]/usr/bin/git checkout --progress --force -B feature/week11-deployment-integration-A01797899 refs/remotes/origin/feature/week11-deployment-integration-A01797899
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.6827716Z Switched to a new branch 'feature/week11-deployment-integration-A01797899'
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.6835616Z branch 'feature/week11-deployment-integration-A01797899' set up to track 'origin/feature/week11-deployment-integration-A01797899'.
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.6844072Z ##[endgroup]
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.6883902Z [command]/usr/bin/git log -1 --format=%H
+Pruebas y validacion	Descargar repositorio	2026-11-26T05:07:59.6907538Z c6901c906ed6e3db9bdf99ec697fcd8700cdf9b2
+Pruebas y validacion	Configurar Python 3.12	﻿2026-11-26T05:07:59.7131218Z ##[group]Run actions/setup-python@v5
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7131531Z with:
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7131756Z   python-version: 3.12
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7132016Z   cache: pip
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7132333Z   cache-dependency-path: requirements.txt
+Pruebas y validacion	Configurar Python 3.12	requirements-api.txt
+Pruebas y validacion	Configurar Python 3.12	
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7132666Z   check-latest: false
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7134919Z   token: ***
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7135177Z   update-environment: true
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7135503Z   allow-prereleases: false
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7135735Z   freethreaded: false
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.7135987Z ##[endgroup]
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:07:59.8227275Z ##[group]Installed versions
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:00.2371581Z (node:2158) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:00.2372476Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:00.2372965Z Successfully set up CPython (3.12.16)
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:00.2373734Z ##[endgroup]
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:00.3377836Z [command]/opt/hostedtoolcache/Python/3.12.16/x64/bin/pip cache dir
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:04.2687142Z /home/runner/.cache/pip
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:04.6904075Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.16-pip-320813f6c129a91e4c89e904690ab440d048eac404063d78d69391b999eae352
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:04.6986835Z (node:2158) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:06.0292991Z Received 0 of 315620045 (0.0%), 0.0 MBs/sec
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:07.0290280Z Received 58720256 of 315620045 (18.6%), 28.0 MBs/sec
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:08.0299196Z Received 180355072 of 315620045 (57.1%), 57.3 MBs/sec
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:09.0312316Z Received 268435456 of 315620045 (85.1%), 64.0 MBs/sec
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:09.2626293Z Received 315620045 of 315620045 (100.0%), 71.1 MBs/sec
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:09.2651532Z Cache Size: ~301 MB (315620045 B)
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:09.2715198Z [command]/usr/bin/tar -xf /home/runner/work/_temp/1da35d20-394e-4652-8dd4-9d7fedcc0ed3/cache.tzst -P -C /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15 --use-compress-program unzstd
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:09.5059170Z Cache restored successfully
+Pruebas y validacion	Configurar Python 3.12	2026-11-26T05:08:09.5160035Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.12.16-pip-320813f6c129a91e4c89e904690ab440d048eac404063d78d69391b999eae352
+Pruebas y validacion	Instalar dependencias	﻿2026-11-26T05:08:09.5323428Z ##[group]Run python -m pip install --upgrade pip
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:09.5323899Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:09.5324215Z ^[[36;1mpython -m pip install -r requirements-api.txt^[[0m
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0496738Z shell: /usr/bin/bash -e {0}
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0497191Z env:
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0497478Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0497966Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0498367Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0499800Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0500146Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0500478Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:10.0500853Z ##[endgroup]
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:11.8455452Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages (26.3)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:13.2125785Z Obtaining file:///home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 20))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:13.2137036Z   Installing build dependencies: started
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.1912929Z   Installing build dependencies: finished with status 'done'
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.1918408Z   Checking if build backend supports build_editable: started
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.4593010Z   Checking if build backend supports build_editable: finished with status 'done'
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.4598047Z   Getting requirements to build editable: started
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.5228520Z   Getting requirements to build editable: finished with status 'done'
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.5234453Z   Preparing editable metadata (pyproject.toml): started
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.5870499Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.6643322Z Collecting evidently==0.7.23 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.6655324Z   Using cached evidently-0.7.23-py3-none-any.whl.metadata (12 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.7063339Z Collecting ipython==9.17.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.7073847Z   Using cached ipython-9.17.1-py3-none-any.whl.metadata (4.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.7299526Z Collecting ipykernel==7.4.0 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.7308240Z   Using cached ipykernel-7.4.0-py3-none-any.whl.metadata (3.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.8022200Z Collecting jupyterlab==4.6.4 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.8033494Z   Using cached jupyterlab-4.6.4-py3-none-any.whl.metadata (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.8196641Z Collecting loguru==0.7.3 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 5))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.8205761Z   Using cached loguru-0.7.3-py3-none-any.whl.metadata (22 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.9064484Z Collecting matplotlib==3.11.2 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.9076421Z   Using cached matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.9385213Z Collecting mlflow==3.16.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.9394867Z   Using cached mlflow-3.16.1-py3-none-any.whl.metadata (50 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.9715434Z Collecting notebook==7.6.3 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 8))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:14.9725369Z   Using cached notebook-7.6.3-py3-none-any.whl.metadata (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.0960911Z Collecting numpy==2.5.3 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 9))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.0972617Z   Using cached numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.1723703Z Collecting pandas==3.0.6 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 10))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.1736108Z   Using cached pandas-3.0.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.2289677Z Collecting psutil==7.2.2 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 11))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.2300522Z   Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.3067684Z Collecting pyarrow==25.0.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 12))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.3079498Z   Using cached pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.3292723Z Collecting pytest==9.1.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 13))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.3300167Z   Using cached pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.3465702Z Collecting python-dotenv==1.2.4 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 14))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.3475025Z   Using cached python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.5502964Z Collecting ruff==0.17.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 15))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.5512893Z   Using cached ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6059389Z Collecting scikit-learn==1.9.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 16))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6067864Z   Using cached scikit_learn-1.9.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6241628Z Collecting skops==0.16.0 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 17))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6250663Z   Using cached skops-0.16.0-py3-none-any.whl.metadata (4.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6460926Z Collecting tqdm==4.70.1 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 18))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6469693Z   Using cached tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6678328Z Collecting typer==0.27.3 (from -r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 19))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.6687314Z   Using cached typer-0.27.3-py3-none-any.whl.metadata (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.7042036Z Collecting fastapi==0.162.0 (from -r requirements-api.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.7050574Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.7281331Z Collecting uvicorn==0.54.0 (from -r requirements-api.txt (line 5))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.7292752Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.7527575Z Collecting httpx==0.28.1 (from -r requirements-api.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.7807801Z   Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.8093909Z Collecting certifi>=2024.7.4 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.8792391Z   Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.9983137Z Collecting cryptography>=43.0.1 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:15.9993928Z   Using cached cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0140915Z Collecting deprecation>=2.1.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0150419Z   Using cached deprecation-2.1.0-py2.py3-none-any.whl.metadata (4.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0355799Z Collecting dynaconf>=3.2.4 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0364878Z   Using cached dynaconf-3.3.5-py3-none-any.whl.metadata (8.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0556897Z Collecting fsspec>=2024.9.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0565950Z   Using cached fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0813722Z Collecting iterative-telemetry>=0.0.5 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.0822303Z   Using cached iterative_telemetry-0.0.10-py3-none-any.whl.metadata (4.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1096860Z Collecting litestar>=2.19.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1106337Z   Using cached litestar-2.25.0-py3-none-any.whl.metadata (26 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1320513Z Collecting nltk>=3.6.7 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1328755Z   Using cached nltk-3.10.4-py3-none-any.whl.metadata (5.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1533811Z Collecting opentelemetry-proto>=1.25.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1542528Z   Using cached opentelemetry_proto-1.45.2-py3-none-any.whl.metadata (2.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1862218Z Collecting plotly<6,>=5.10.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.1870179Z   Using cached plotly-5.24.1-py3-none-any.whl.metadata (7.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.2570611Z Collecting pydantic>=1.10.16 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.2578595Z   Using cached pydantic-2.14.4-py3-none-any.whl.metadata (143 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.2969995Z Collecting pyyaml>=6.0.1 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.3085204Z   Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.3283192Z Collecting requests>=2.32.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.3292625Z   Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.3527612Z Collecting rich>=13 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.3536634Z   Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.4357687Z Collecting scipy>=1.10.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.4366598Z   Using cached scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.5253929Z Collecting statsmodels>=0.14.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.5262119Z   Using cached statsmodels-0.15.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.5416540Z Collecting typing-inspect>=0.9.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.5426140Z   Using cached typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.5984224Z Collecting ujson>=5.4.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.5993632Z   Using cached ujson-6.1.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (10.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.6181527Z Collecting urllib3>=1.26.19 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.6190618Z   Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.6349074Z Collecting uuid6>=2024.7.10 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.6361654Z   Using cached uuid6-2025.0.1-py3-none-any.whl.metadata (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.6804002Z Collecting watchdog>=3.0.0 (from evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.6910846Z   Downloading watchdog-7.1.1-py3-none-manylinux_2_17_x86_64.whl.metadata (69 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7293538Z Collecting ipython-pygments-lexers>=1.0.0 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7302065Z   Using cached ipython_pygments_lexers-1.1.1-py3-none-any.whl.metadata (1.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7441220Z Collecting jedi>=0.18.2 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7450277Z   Using cached jedi-0.20.1-py2.py3-none-any.whl.metadata (23 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7645459Z Collecting matplotlib-inline>=0.1.6 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7654202Z   Using cached matplotlib_inline-0.2.2-py3-none-any.whl.metadata (2.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7795735Z Collecting pexpect>4.6 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.7804823Z   Using cached pexpect-4.9.0-py2.py3-none-any.whl.metadata (2.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8012638Z Collecting prompt_toolkit<3.1.0,>=3.0.41 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8022552Z   Using cached prompt_toolkit-3.0.53-py3-none-any.whl.metadata (6.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8200314Z Collecting pygments>=2.14.0 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8211916Z   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8345157Z Collecting stack_data>=0.6.0 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8354194Z   Using cached stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8551591Z Collecting traitlets>=5.13.0 (from ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8560829Z   Using cached traitlets-5.16.1-py3-none-any.whl.metadata (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8706413Z Collecting comm>=0.1.1 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.8715493Z   Using cached comm-0.2.3-py3-none-any.whl.metadata (3.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9324199Z Collecting debugpy>=1.6.5 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9333132Z   Using cached debugpy-1.8.22-cp312-cp312-manylinux_2_34_x86_64.whl.metadata (1.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9586916Z Collecting jupyter-client>=8.9.0 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9596235Z   Using cached jupyter_client-8.10.0-py3-none-any.whl.metadata (8.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9767635Z Collecting jupyter-core!=6.0.*,>=5.1 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9776215Z   Using cached jupyter_core-5.9.1-py3-none-any.whl.metadata (1.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9915103Z Collecting nest-asyncio2>=1.7.0 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:16.9922661Z   Using cached nest_asyncio2-1.7.4-py3-none-any.whl.metadata (7.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.0086092Z Collecting packaging>=22 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.0187015Z   Downloading packaging-26.4-py3-none-any.whl.metadata (3.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.1569041Z Collecting pyzmq>=25 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.1578341Z   Using cached pyzmq-27.3.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.1908998Z Collecting tornado>=6.5.7 (from ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.1917470Z   Using cached tornado-6.6.1-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (2.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2077258Z Collecting async-lru>=1.0.0 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2085455Z   Using cached async_lru-2.4.0-py3-none-any.whl.metadata (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2257492Z Collecting jinja2>=3.0.3 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2265466Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2455751Z Collecting jupyter-builder>=1.0.2 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2462482Z   Using cached jupyter_builder-1.3.0-py3-none-any.whl.metadata (8.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2625131Z Collecting jupyter-lsp>=2.0.0 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2633592Z   Using cached jupyter_lsp-2.3.1-py3-none-any.whl.metadata (1.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2856586Z Collecting jupyter-server<3,>=2.19.0 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.2865647Z   Using cached jupyter_server-2.21.1-py3-none-any.whl.metadata (8.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.3073336Z Collecting jupyterlab-server<3,>=2.28.0 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.3081769Z   Using cached jupyterlab_server-2.28.1-py3-none-any.whl.metadata (5.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.3226401Z Collecting notebook-shim>=0.2 (from jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.3234920Z   Using cached notebook_shim-0.2.4-py3-none-any.whl.metadata (4.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.3482856Z Collecting anyio (from httpx==0.28.1->-r requirements-api.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.3491944Z   Using cached anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4088512Z Collecting httpcore==1.* (from httpx==0.28.1->-r requirements-api.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4098678Z   Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4267934Z Collecting idna (from httpx==0.28.1->-r requirements-api.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4275267Z   Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4740941Z Collecting contourpy>=1.0.1 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4752142Z   Using cached contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4913242Z Collecting cycler>=0.10 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.4921295Z   Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.6135508Z Collecting fonttools>=4.28.2 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.6242781Z   Downloading fonttools-4.69.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (147 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.6919123Z Collecting kiwisolver>=1.3.1 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.6928251Z   Using cached kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8244040Z Collecting pillow>=9 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8255056Z   Using cached pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8498208Z Collecting pyparsing>=3 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8510464Z   Using cached pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8665864Z Collecting python-dateutil>=2.7 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8673807Z   Using cached python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8900067Z Collecting mlflow-skinny==3.16.1 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.8908762Z   Using cached mlflow_skinny-3.16.1-py3-none-any.whl.metadata (50 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.9259265Z Collecting mlflow-tracing==3.16.1 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.9269474Z   Using cached mlflow_tracing-3.16.1-py3-none-any.whl.metadata (19 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.9450335Z Collecting Flask-CORS<7 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.9458489Z   Using cached flask_cors-6.0.5-py3-none-any.whl.metadata (5.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.9631218Z Collecting Flask<4 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:17.9639150Z   Using cached flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3256816Z Collecting aiohttp<4,>=3.7.0 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3270514Z   Using cached aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3498094Z Collecting alembic!=1.10.0,<2 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3509275Z   Using cached alembic-1.20.1-py3-none-any.whl.metadata (7.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3720185Z Collecting docker<8,>=4.0.0 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3733057Z   Using cached docker-7.2.0-py3-none-any.whl.metadata (3.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3934934Z Collecting graphene<4 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.3944501Z   Using cached graphene-3.4.3-py2.py3-none-any.whl.metadata (6.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.4163083Z Collecting gunicorn<27 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.4173617Z   Using cached gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.4354357Z Collecting huey<4,>=2.5.4 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.4363271Z   Using cached huey-3.5.4-py3-none-any.whl.metadata (5.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.6970026Z Collecting sqlalchemy<3,>=1.4.0 (from mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.6980036Z   Using cached sqlalchemy-2.1.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7221754Z Collecting joblib>=1.4.0 (from scikit-learn==1.9.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 16))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7231674Z   Using cached joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7513420Z Collecting narwhals>=2.0.1 (from scikit-learn==1.9.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 16))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7523931Z   Using cached narwhals-2.29.0-py3-none-any.whl.metadata (15 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7694491Z Collecting threadpoolctl>=3.5.0 (from scikit-learn==1.9.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 16))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7702720Z   Using cached threadpoolctl-3.8.0-py3-none-any.whl.metadata (29 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7881547Z Collecting prettytable>=3.9 (from skops==0.16.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 17))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.7891203Z   Using cached prettytable-3.19.0-py3-none-any.whl.metadata (37 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8088298Z Collecting iniconfig>=1.0.1 (from pytest==9.1.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 13))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8097566Z   Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8239040Z Collecting pluggy<2,>=1.5 (from pytest==9.1.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 13))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8248991Z   Using cached pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8421470Z Collecting shellingham>=1.3.0 (from typer==0.27.3->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 19))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8431298Z   Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8585646Z Collecting annotated-doc>=0.0.2 (from typer==0.27.3->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 19))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8592187Z   Using cached annotated_doc-0.0.7-py3-none-any.whl.metadata (6.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8814472Z Collecting starlette>=0.46.0 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.8821981Z   Using cached starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9005555Z Collecting typing-extensions>=4.8.0 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9014944Z   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9158964Z Collecting typing-inspection>=0.4.2 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9168830Z   Using cached typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9337976Z Collecting opentelemetry-api>=1.44.0 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9344903Z   Using cached opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9524168Z Collecting click>=7.0 (from uvicorn==0.54.0->-r requirements-api.txt (line 5))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9533274Z   Using cached click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9667786Z Collecting h11>=0.8 (from uvicorn==0.54.0->-r requirements-api.txt (line 5))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9676412Z   Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:18.9921226Z Collecting cachetools<8,>=5.0.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0066006Z   Downloading cachetools-7.3.4-py3-none-any.whl.metadata (5.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0253047Z Collecting cloudpickle<4 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0260401Z   Using cached cloudpickle-3.1.3-py3-none-any.whl.metadata (7.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0554331Z Collecting databricks-sdk<1,>=0.20.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0663139Z   Downloading databricks_sdk-0.171.0-py3-none-any.whl.metadata (44 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0900403Z Collecting gitpython<4,>=3.1.9 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.0909923Z   Using cached gitpython-3.2.1-py3-none-any.whl.metadata (13 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.1134256Z Collecting importlib_metadata!=4.7.0,<10,>=3.7.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.1144463Z   Using cached importlib_metadata-9.1.0-py3-none-any.whl.metadata (4.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.1348565Z Collecting opentelemetry-sdk<3,>=1.9.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.1357124Z   Using cached opentelemetry_sdk-1.45.2-py3-none-any.whl.metadata (1.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2398408Z Collecting protobuf<8,>=3.12.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2409054Z   Using cached protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2583885Z Collecting sqlparse<1,>=0.4.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2591623Z   Using cached sqlparse-0.6.1-py3-none-any.whl.metadata (6.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2809965Z Collecting aiohappyeyeballs>=2.5.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2819406Z   Using cached aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2953409Z Collecting aiosignal>=1.4.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.2961630Z   Using cached aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.3112499Z Collecting attrs>=17.3.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.3120921Z   Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.3583791Z Collecting frozenlist>=1.1.1 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.3601484Z   Using cached frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.5981072Z Collecting multidict<8.0,>=4.5 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.5990670Z   Using cached multidict-7.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.6458443Z Collecting propcache>=0.2.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.6468046Z   Using cached propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.8002924Z Collecting yarl<2.0,>=1.25.1 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.8013764Z   Using cached yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.8279790Z Collecting Mako (from alembic!=1.10.0,<2->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.8289058Z   Using cached mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9031018Z Collecting cffi>=2.0.0 (from cryptography>=43.0.1->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9041495Z   Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9351192Z Collecting google-auth~=2.0 (from databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9460025Z   Downloading google_auth-2.63.1-py3-none-any.whl.metadata (6.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9698329Z Collecting blinker>=1.9.0 (from Flask<4->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9706716Z   Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9864364Z Collecting itsdangerous>=2.2.0 (from Flask<4->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:19.9871701Z   Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0279986Z Collecting markupsafe>=2.1.1 (from Flask<4->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0292091Z   Using cached markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0468065Z Collecting werkzeug>=3.1.0 (from Flask<4->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0478417Z   Using cached werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0660878Z Collecting gitdb<5,>=4.0.1 (from gitpython<4,>=3.1.9->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0669696Z   Using cached gitdb-4.0.12-py3-none-any.whl.metadata (1.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0817730Z Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython<4,>=3.1.9->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.0826397Z   Using cached smmap-5.0.3-py3-none-any.whl.metadata (4.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1021946Z Collecting pyasn1-modules>=0.2.1 (from google-auth~=2.0->databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1030826Z   Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1270899Z Collecting graphql-core<3.3,>=3.1 (from graphene<4->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1280411Z   Using cached graphql_core-3.2.14-py3-none-any.whl.metadata (11 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1445372Z Collecting graphql-relay<3.3,>=3.1 (from graphene<4->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1453701Z   Using cached graphql_relay-3.2.0-py3-none-any.whl.metadata (12 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1488418Z Collecting python-dateutil>=2.7 (from matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1496949Z   Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1723913Z Collecting zipp>=3.20 (from importlib_metadata!=4.7.0,<10,>=3.7.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1732807Z   Using cached zipp-4.1.2-py3-none-any.whl.metadata (3.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1943829Z Collecting argon2-cffi>=21.1 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.1952526Z   Using cached argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2106456Z Collecting jupyter-events>=0.11.0 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2114452Z   Using cached jupyter_events-0.12.1-py3-none-any.whl.metadata (5.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2259399Z Collecting jupyter-server-terminals>=0.4.4 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2266591Z   Using cached jupyter_server_terminals-0.5.4-py3-none-any.whl.metadata (5.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2467107Z Collecting nbconvert>=6.4.4 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2473523Z   Using cached nbconvert-7.17.2-py3-none-any.whl.metadata (8.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2657257Z Collecting nbformat>=5.3.0 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.2664357Z   Using cached nbformat-5.11.1-py3-none-any.whl.metadata (3.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.3586649Z Collecting prometheus-client>=0.9 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.3597101Z   Using cached prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.3756976Z Collecting send2trash>=1.8.2 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.3766739Z   Using cached send2trash-2.2.0-py3-none-any.whl.metadata (4.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.3917750Z Collecting terminado>=0.8.3 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.3926199Z   Using cached terminado-0.18.1-py3-none-any.whl.metadata (5.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4136220Z Collecting websocket-client>=1.7 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4145369Z   Using cached websocket_client-1.9.2-py3-none-any.whl.metadata (8.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4328300Z Collecting babel>=2.10 (from jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4434971Z   Downloading babel-2.19.0-py3-none-any.whl.metadata (2.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4617393Z Collecting json5>=0.9.0 (from jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4626583Z   Using cached json5-0.17.3-py3-none-any.whl.metadata (27 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4825676Z Collecting jsonschema>=4.18.0 (from jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.4835249Z   Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5193195Z Collecting opentelemetry-semantic-conventions==0.66b2 (from opentelemetry-sdk<3,>=1.9.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5202661Z   Using cached opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl.metadata (2.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5392713Z Collecting tenacity>=6.2.0 (from plotly<6,>=5.10.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5402248Z   Using cached tenacity-9.2.1-py3-none-any.whl.metadata (1.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5661487Z Collecting wcwidth>=0.1.4 (from prompt_toolkit<3.1.0,>=3.0.41->ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5762525Z   Downloading wcwidth-0.9.5-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (26 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5946559Z Collecting annotated-types>=0.6.0 (from pydantic>=1.10.16->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:20.5955983Z   Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.1083422Z Collecting pydantic-core==2.50.5 (from pydantic>=1.10.16->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.1095024Z   Using cached pydantic_core-2.50.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.1298047Z Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib==3.11.2->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 6))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.1306172Z   Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.2311246Z Collecting charset_normalizer<4,>=2 (from requests>=2.32.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.2447805Z   Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (43 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.2887015Z Collecting argon2-cffi-bindings (from argon2-cffi>=21.1->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.2896786Z   Using cached argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (7.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.3130125Z Collecting pycparser (from cffi>=2.0.0->cryptography>=43.0.1->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.3138569Z   Using cached pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.3469808Z Collecting appdirs (from iterative-telemetry>=0.0.5->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.3479372Z   Using cached appdirs-1.4.4-py2.py3-none-any.whl.metadata (9.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.3976491Z Collecting filelock (from iterative-telemetry>=0.0.5->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4107145Z   Downloading filelock-4.3.1-py3-none-any.whl.metadata (2.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4264146Z Collecting distro (from iterative-telemetry>=0.0.5->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4272474Z   Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4455032Z Collecting parso<0.9.0,>=0.8.7 (from jedi>=0.18.2->ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4464285Z   Using cached parso-0.8.7-py2.py3-none-any.whl.metadata (8.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4686608Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4693501Z   Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4883156Z Collecting referencing>=0.28.4 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.4892066Z   Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.6508717Z Collecting rpds-py>=0.25.0 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.6518023Z   Using cached rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.6816818Z Collecting platformdirs>=2.5 (from jupyter-core!=6.0.*,>=5.1->ipykernel==7.4.0->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 3))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.6826972Z   Using cached platformdirs-4.14.8-py3-none-any.whl.metadata (5.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7001573Z Collecting python-json-logger>=2.0.4 (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7011036Z   Using cached python_json_logger-4.2.0-py3-none-any.whl.metadata (2.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7178962Z Collecting rfc3339-validator (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7189321Z   Using cached rfc3339_validator-0.1.4-py2.py3-none-any.whl.metadata (1.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7377738Z Collecting rfc3986-validator>=0.1.1 (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7386572Z   Using cached rfc3986_validator-0.1.1-py2.py3-none-any.whl.metadata (1.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7612771Z Collecting fqdn (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7621410Z   Using cached fqdn-1.6.0-py3-none-any.whl.metadata (9.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7769593Z Collecting isoduration (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7777698Z   Using cached isoduration-20.11.0-py3-none-any.whl.metadata (5.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7936178Z Collecting jsonpointer>1.13 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.7945458Z   Using cached jsonpointer-3.12-py3-none-any.whl.metadata (2.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8087884Z Collecting rfc3987-syntax>=1.1.0 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8096289Z   Using cached rfc3987_syntax-1.1.0-py3-none-any.whl.metadata (7.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8329962Z Collecting uri-template (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8338662Z   Using cached uri_template-1.3.0-py3-none-any.whl.metadata (8.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8555208Z Collecting webcolors>=24.6.0 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8564018Z   Using cached webcolors-25.10.0-py3-none-any.whl.metadata (2.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8960014Z Collecting litestar-htmx>=0.4.0 (from litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.8969124Z   Using cached litestar_htmx-0.5.0-py3-none-any.whl.metadata (1.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.9391200Z Collecting msgspec>=0.18.2 (from litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.9400778Z   Using cached msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.9597493Z Collecting multipart>=1.2.0 (from litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.9606261Z   Using cached multipart-2.0.1-py3-none-any.whl.metadata (4.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.9825509Z Collecting polyfactory>=2.6.3 (from litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:21.9833399Z   Using cached polyfactory-3.5.0-py3-none-any.whl.metadata (27 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0021064Z Collecting rich-click (from litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0029735Z   Using cached rich_click-1.9.9-py3-none-any.whl.metadata (7.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0180296Z Collecting sniffio>=1.3.1 (from litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0188057Z   Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0442546Z Collecting beautifulsoup4 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0452044Z   Using cached beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0634160Z Collecting bleach!=5.0.0 (from bleach[css]!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0643320Z   Using cached bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0835827Z Collecting defusedxml (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.0844948Z   Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1065878Z Collecting jupyterlab-pygments (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1074889Z   Using cached jupyterlab_pygments-0.3.0-py3-none-any.whl.metadata (4.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1275191Z Collecting mistune<4,>=2.0.3 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1285396Z   Using cached mistune-3.4.0-py3-none-any.whl.metadata (2.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1512897Z Collecting nbclient>=0.5.0 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1521491Z   Using cached nbclient-0.11.0-py3-none-any.whl.metadata (7.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1696012Z Collecting pandocfilters>=1.4.1 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1703965Z   Using cached pandocfilters-1.5.1-py2.py3-none-any.whl.metadata (9.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1969471Z Collecting webencodings (from bleach!=5.0.0->bleach[css]!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.1978147Z   Using cached webencodings-0.6.1-py3-none-any.whl.metadata (3.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.2181506Z Collecting tinycss2>=1.1.0 (from bleach[css]!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.2189622Z   Using cached tinycss2-1.5.1-py3-none-any.whl.metadata (3.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.2395198Z Collecting fastjsonschema>=2.15 (from nbformat>=5.3.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.2403227Z   Using cached fastjsonschema-2.22.3-py3-none-any.whl.metadata (2.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.6537030Z Collecting regex>=2021.8.3 (from nltk>=3.6.7->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.6640942Z   Downloading regex-2026.11.25-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.6873182Z Collecting ptyprocess>=0.5 (from pexpect>4.6->ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.6881363Z   Using cached ptyprocess-0.7.0-py2.py3-none-any.whl.metadata (1.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.7435544Z Collecting faker>=5.0.0 (from polyfactory>=2.6.3->litestar>=2.19.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.7548785Z   Downloading faker-40.63.0-py3-none-any.whl.metadata (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.7860833Z Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth~=2.0->databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 7))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.7869717Z   Using cached pyasn1-0.6.5-py3-none-any.whl.metadata (8.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8149027Z Collecting lark>=1.2.2 (from rfc3987-syntax>=1.1.0->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8157009Z   Using cached lark-1.3.1-py3-none-any.whl.metadata (1.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8381213Z Collecting markdown-it-py>=2.2.0 (from rich>=13->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8389237Z   Using cached markdown_it_py-4.3.0-py3-none-any.whl.metadata (7.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8583325Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8591204Z   Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8818466Z Collecting executing>=1.2.0 (from stack_data>=0.6.0->ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.8827604Z   Using cached executing-2.3.0-py3-none-any.whl.metadata (9.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9001336Z Collecting asttokens>=2.1.0 (from stack_data>=0.6.0->ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9012612Z   Using cached asttokens-3.0.2-py3-none-any.whl.metadata (5.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9144173Z Collecting pure-eval (from stack_data>=0.6.0->ipython==9.17.1->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 2))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9152684Z   Using cached pure_eval-0.2.4-py3-none-any.whl.metadata (6.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9359599Z Collecting patsy>=0.5.6 (from statsmodels>=0.14.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9367853Z   Using cached patsy-1.0.3-py2.py3-none-any.whl.metadata (3.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9552235Z Collecting formulaic>=1.1.0 (from statsmodels>=0.14.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9559509Z   Using cached formulaic-1.2.2-py3-none-any.whl.metadata (7.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9744179Z Collecting interface-meta>=1.2.0 (from formulaic>=1.1.0->statsmodels>=0.14.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:22.9753181Z   Using cached interface_meta-2.0.1-py3-none-any.whl.metadata (6.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.1944317Z Collecting wrapt>=1.0 (from formulaic>=1.1.0->statsmodels>=0.14.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.1954241Z   Using cached wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.2237106Z Collecting mypy-extensions>=0.3.0 (from typing-inspect>=0.9.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.2245103Z   Using cached mypy_extensions-1.2.0-py3-none-any.whl.metadata (1.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.2600384Z Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.2610892Z   Using cached httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.2934091Z Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.2944149Z   Using cached uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.3481615Z Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.3490037Z   Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.4346206Z Collecting websockets>=13.0 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 1))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.4356442Z   Using cached websockets-17.4-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.5840384Z Collecting soupsieve>=1.6.1 (from beautifulsoup4->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.5848163Z   Using cached soupsieve-4.1.3-py3-none-any.whl.metadata (4.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6073516Z Collecting arrow>=0.15.0 (from isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6079762Z   Using cached arrow-1.4.0-py3-none-any.whl.metadata (7.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6272612Z Collecting tzdata (from arrow>=0.15.0->isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/requirements.txt (line 4))
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6280642Z   Using cached tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6446894Z Using cached evidently-0.7.23-py3-none-any.whl (11.7 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6493648Z Using cached ipython-9.17.1-py3-none-any.whl (639 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6505744Z Using cached ipykernel-7.4.0-py3-none-any.whl (123 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6514114Z Using cached jupyterlab-4.6.4-py3-none-any.whl (17.2 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6576235Z Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6583727Z Using cached loguru-0.7.3-py3-none-any.whl (61 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6591719Z Using cached matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6633391Z Using cached mlflow-3.16.1-py3-none-any.whl (11.7 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6678037Z Using cached numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6738126Z Using cached pandas-3.0.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (10.8 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6779662Z Using cached pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl (50.1 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6945309Z Using cached scikit_learn-1.9.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.2 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6981877Z Using cached skops-0.16.0-py3-none-any.whl (148 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.6990485Z Using cached notebook-7.6.3-py3-none-any.whl (5.5 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7017253Z Using cached psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7026154Z Using cached pytest-9.1.1-py3-none-any.whl (386 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7036509Z Using cached python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7044401Z Using cached ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7086318Z Using cached tqdm-4.70.1-py3-none-any.whl (80 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7094189Z Using cached typer-0.27.3-py3-none-any.whl (123 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7102515Z Using cached fastapi-0.162.0-py3-none-any.whl (148 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7111209Z Using cached uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7119571Z Using cached mlflow_skinny-3.16.1-py3-none-any.whl (3.8 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7140752Z Using cached mlflow_tracing-3.16.1-py3-none-any.whl (1.8 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7155455Z Using cached aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7172188Z Using cached alembic-1.20.1-py3-none-any.whl (270 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7180217Z Using cached anyio-4.16.0-py3-none-any.whl (134 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7285698Z Downloading cachetools-7.3.4-py3-none-any.whl (20 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7309817Z Using cached click-8.5.1-py3-none-any.whl (126 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7318142Z Using cached cloudpickle-3.1.3-py3-none-any.whl (22 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7326823Z Using cached cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7454005Z Downloading databricks_sdk-0.171.0-py3-none-any.whl (1.3 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7739571Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 68.3 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7750044Z Using cached docker-7.2.0-py3-none-any.whl (148 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7759985Z Using cached flask-3.1.3-py3-none-any.whl (103 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7768794Z Using cached flask_cors-6.0.5-py3-none-any.whl (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7776999Z Using cached gitpython-3.2.1-py3-none-any.whl (231 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7786392Z Using cached gitdb-4.0.12-py3-none-any.whl (62 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7887393Z Downloading google_auth-2.63.1-py3-none-any.whl (271 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7916506Z Using cached graphene-3.4.3-py2.py3-none-any.whl (114 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7925408Z Using cached graphql_core-3.2.14-py3-none-any.whl (279 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7935132Z Using cached graphql_relay-3.2.0-py3-none-any.whl (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7942798Z Using cached gunicorn-26.2.0-py3-none-any.whl (228 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7952117Z Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7960315Z Using cached huey-3.5.4-py3-none-any.whl (135 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7969148Z Using cached importlib_metadata-9.1.0-py3-none-any.whl (28 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7977498Z Using cached jupyter_builder-1.3.0-py3-none-any.whl (950 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7989898Z Using cached jupyter_server-2.21.1-py3-none-any.whl (394 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.7999744Z Using cached jupyterlab_server-2.28.1-py3-none-any.whl (60 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8008349Z Using cached multidict-7.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (516 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8018685Z Using cached notebook_shim-0.2.4-py3-none-any.whl (13 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8026636Z Using cached opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8035164Z Using cached opentelemetry_proto-1.45.2-py3-none-any.whl (72 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8042959Z Using cached opentelemetry_sdk-1.45.2-py3-none-any.whl (141 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8051810Z Using cached opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl (206 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8165700Z Downloading packaging-26.4-py3-none-any.whl (140 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8191748Z Using cached plotly-5.24.1-py3-none-any.whl (19.1 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8261657Z Using cached pluggy-1.7.0-py3-none-any.whl (27 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8269862Z Using cached prompt_toolkit-3.0.53-py3-none-any.whl (392 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8280268Z Using cached protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8289824Z Using cached pydantic-2.14.4-py3-none-any.whl (494 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8300572Z Using cached pydantic_core-2.50.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8316839Z Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8534805Z Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (849 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8659988Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 849.2/849.2 kB 103.6 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8669935Z Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8813857Z Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (257 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8843043Z Using cached idna-3.20-py3-none-any.whl (69 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8852012Z Using cached scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8972430Z Using cached smmap-5.0.3-py3-none-any.whl (24 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.8980099Z Using cached sqlalchemy-2.1.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9003850Z Using cached sqlparse-0.6.1-py3-none-any.whl (51 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9013140Z Using cached starlette-1.10.0-py3-none-any.whl (80 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9021144Z Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9027184Z Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9035150Z Using cached yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9042858Z Using cached aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9050644Z Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9058351Z Using cached annotated_doc-0.0.7-py3-none-any.whl (5.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9065914Z Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9073304Z Using cached argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9080339Z Using cached async_lru-2.4.0-py3-none-any.whl (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9087576Z Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9194495Z Downloading babel-2.19.0-py3-none-any.whl (11.0 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9619376Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.0/11.0 MB 269.2 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9629833Z Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9735634Z Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9762286Z Using cached cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9772133Z Using cached comm-0.2.3-py3-none-any.whl (7.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9780556Z Using cached contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9790432Z Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9798641Z Using cached debugpy-1.8.22-cp312-cp312-manylinux_2_34_x86_64.whl (4.0 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9820887Z Using cached deprecation-2.1.0-py2.py3-none-any.whl (11 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9828757Z Using cached dynaconf-3.3.5-py3-none-any.whl (271 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:23.9946181Z Downloading fonttools-4.69.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.7 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0217403Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.7/6.7 MB 266.2 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0227985Z Using cached frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0238178Z Using cached fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0247419Z Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0255334Z Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0262372Z Using cached ipython_pygments_lexers-1.1.1-py3-none-any.whl (8.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0269542Z Using cached iterative_telemetry-0.0.10-py3-none-any.whl (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0278319Z Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0285769Z Using cached jedi-0.20.1-py2.py3-none-any.whl (4.9 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0310996Z Using cached parso-0.8.7-py2.py3-none-any.whl (107 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0319411Z Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0328231Z Using cached joblib-1.6.0-py3-none-any.whl (306 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0337735Z Using cached json5-0.17.3-py3-none-any.whl (34 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0345834Z Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0354036Z Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0362339Z Using cached jupyter_client-8.10.0-py3-none-any.whl (110 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0370758Z Using cached jupyter_core-5.9.1-py3-none-any.whl (29 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0378931Z Using cached jupyter_events-0.12.1-py3-none-any.whl (19 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0386887Z Using cached jsonpointer-3.12-py3-none-any.whl (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0394425Z Using cached jupyter_lsp-2.3.1-py3-none-any.whl (77 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0402882Z Using cached jupyter_server_terminals-0.5.4-py3-none-any.whl (13 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0411165Z Using cached kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0426967Z Using cached litestar-2.25.0-py3-none-any.whl (584 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0436600Z Using cached litestar_htmx-0.5.0-py3-none-any.whl (10.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0445298Z Using cached markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0453106Z Using cached matplotlib_inline-0.2.2-py3-none-any.whl (9.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0459746Z Using cached msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (230 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0468440Z Using cached multipart-2.0.1-py3-none-any.whl (16 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0476324Z Using cached narwhals-2.29.0-py3-none-any.whl (501 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0486212Z Using cached nbconvert-7.17.2-py3-none-any.whl (262 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0495227Z Using cached mistune-3.4.0-py3-none-any.whl (70 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0503033Z Using cached bleach-6.4.0-py3-none-any.whl (165 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0511454Z Using cached nbclient-0.11.0-py3-none-any.whl (25 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0519662Z Using cached nbformat-5.11.1-py3-none-any.whl (79 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0527763Z Using cached fastjsonschema-2.22.3-py3-none-any.whl (28 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0535919Z Using cached nest_asyncio2-1.7.4-py3-none-any.whl (8.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0543936Z Using cached nltk-3.10.4-py3-none-any.whl (1.7 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0558316Z Using cached pandocfilters-1.5.1-py2.py3-none-any.whl (8.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0565759Z Using cached pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0574486Z Using cached pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0605549Z Using cached platformdirs-4.14.8-py3-none-any.whl (94 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0613851Z Using cached polyfactory-3.5.0-py3-none-any.whl (63 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0722033Z Downloading faker-40.63.0-py3-none-any.whl (2.1 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0836079Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 205.3 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0845540Z Using cached prettytable-3.19.0-py3-none-any.whl (37 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0854500Z Using cached prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0863576Z Using cached propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (250 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0872707Z Using cached ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0881777Z Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0890826Z Using cached pyasn1-0.6.5-py3-none-any.whl (84 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0899458Z Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0912383Z Using cached pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0920846Z Using cached python_json_logger-4.2.0-py3-none-any.whl (14 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0930053Z Using cached pyzmq-27.3.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (855 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.0941557Z Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1048781Z Downloading regex-2026.11.25-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (820 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1114754Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 820.5/820.5 kB 120.0 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1123089Z Using cached rfc3986_validator-0.1.1-py2.py3-none-any.whl (4.2 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1131381Z Using cached rfc3987_syntax-1.1.0-py3-none-any.whl (8.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1139708Z Using cached lark-1.3.1-py3-none-any.whl (113 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1148298Z Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1158393Z Using cached markdown_it_py-4.3.0-py3-none-any.whl (96 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1166610Z Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1174920Z Using cached rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1184284Z Using cached send2trash-2.2.0-py3-none-any.whl (17 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1192197Z Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1200341Z Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1208257Z Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1215969Z Using cached stack_data-0.6.3-py3-none-any.whl (24 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1223535Z Using cached asttokens-3.0.2-py3-none-any.whl (28 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1231432Z Using cached executing-2.3.0-py3-none-any.whl (29 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1239548Z Using cached statsmodels-0.15.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (12.0 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1285586Z Using cached formulaic-1.2.2-py3-none-any.whl (118 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1293957Z Using cached interface_meta-2.0.1-py3-none-any.whl (15 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1302098Z Using cached patsy-1.0.3-py2.py3-none-any.whl (233 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1311167Z Using cached tenacity-9.2.1-py3-none-any.whl (32 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1319064Z Using cached terminado-0.18.1-py3-none-any.whl (14 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1327317Z Using cached threadpoolctl-3.8.0-py3-none-any.whl (32 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1335218Z Using cached tinycss2-1.5.1-py3-none-any.whl (28 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1343050Z Using cached tornado-6.6.1-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (534 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1353366Z Using cached traitlets-5.16.1-py3-none-any.whl (86 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1361438Z Using cached typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1369588Z Using cached mypy_extensions-1.2.0-py3-none-any.whl (5.1 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1377435Z Using cached typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1385524Z Using cached ujson-6.1.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (56 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1393601Z Using cached uuid6-2025.0.1-py3-none-any.whl (7.0 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1401785Z Using cached httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (552 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1412557Z Using cached uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.5 MB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1553243Z Downloading watchdog-7.1.1-py3-none-manylinux_2_17_x86_64.whl (116 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1580415Z Using cached watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1687838Z Downloading wcwidth-0.9.5-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (822 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1733073Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 822.7/822.7 kB 217.8 MB/s  0:00:00
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1741606Z Using cached webcolors-25.10.0-py3-none-any.whl (14 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1750135Z Using cached webencodings-0.6.1-py3-none-any.whl (8.7 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1758119Z Using cached websocket_client-1.9.2-py3-none-any.whl (95 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1767240Z Using cached websockets-17.4-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (226 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1775755Z Using cached werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1786435Z Using cached wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (250 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1795479Z Using cached zipp-4.1.2-py3-none-any.whl (10 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1803182Z Using cached appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1811600Z Using cached argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (26 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1820002Z Using cached beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1828320Z Using cached soupsieve-4.1.3-py3-none-any.whl (59 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1836492Z Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1844039Z Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1950222Z Downloading filelock-4.3.1-py3-none-any.whl (244 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1978149Z Using cached fqdn-1.6.0-py3-none-any.whl (12 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1986045Z Using cached isoduration-20.11.0-py3-none-any.whl (11 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.1993993Z Using cached arrow-1.4.0-py3-none-any.whl (68 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2002202Z Using cached jupyterlab_pygments-0.3.0-py3-none-any.whl (15 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2010093Z Using cached mako-1.4.3-py3-none-any.whl (80 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2018831Z Using cached pure_eval-0.2.4-py3-none-any.whl (11 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2027289Z Using cached pycparser-3.12-py3-none-any.whl (62 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2035749Z Using cached rfc3339_validator-0.1.4-py2.py3-none-any.whl (3.5 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2043258Z Using cached rich_click-1.9.9-py3-none-any.whl (71 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2051971Z Using cached tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.2061379Z Using cached uri_template-1.3.0-py3-none-any.whl (11 kB)
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.9320632Z Building wheels for collected packages: mibici
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:24.9327388Z   Building editable for mibici (pyproject.toml): started
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:25.0021948Z   Building editable for mibici (pyproject.toml): finished with status 'done'
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:25.0026250Z   Created wheel for mibici: filename=mibici-0.0.1-py3-none-any.whl size=46028 sha256=3efbc5660e91fc4956aeb51f442a8b7fa274a024ad62dc3f38fe755a4cd7071a
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:25.0027148Z   Stored in directory: /tmp/pip-ephem-wheel-cache-d1rtdfoi/wheels/fe/8e/4c/db6b8d42e2ff25b9d944b81768d741567594c1253bc0d67afc
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:25.0081090Z Successfully built mibici
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:08:25.3771390Z Installing collected packages: pure-eval, ptyprocess, huey, appdirs, zipp, wrapt, websockets, websocket-client, webencodings, webcolors, wcwidth, watchdog, uvloop, uuid6, urllib3, uri-template, ujson, tzdata, typing-extensions, traitlets, tqdm, tornado, threadpoolctl, tenacity, sqlparse, soupsieve, sniffio, smmap, six, shellingham, send2trash, ruff, rpds-py, rfc3986-validator, regex, pyzmq, pyyaml, python-json-logger, python-dotenv, pyparsing, pygments, pycparser, pyasn1, pyarrow, psutil, protobuf, propcache, prometheus-client, pluggy, platformdirs, pillow, pexpect, parso, pandocfilters, packaging, numpy, nest-asyncio2, narwhals, mypy-extensions, multipart, multidict, msgspec, mistune, mibici, mdurl, markupsafe, loguru, litestar-htmx, lark, kiwisolver, jupyterlab-pygments, jsonpointer, json5, itsdangerous, interface-meta, iniconfig, idna, httptools, h11, gunicorn, graphql-core, fsspec, frozenlist, fqdn, fonttools, filelock, fastjsonschema, faker, executing, dynaconf, distro, defusedxml, debugpy, cycler, comm, cloudpickle, click, charset_normalizer, certifi, cachetools, blinker, babel, attrs, async-lru, asttokens, annotated-types, annotated-doc, aiohappyeyeballs, yarl, werkzeug, uvicorn, typing-inspection, typing-inspect, tinycss2, terminado, stack_data, sqlalchemy, scipy, rfc3987-syntax, rfc3339-validator, requests, referencing, python-dateutil, pytest, pydantic-core, pyasn1-modules, prompt_toolkit, prettytable, polyfactory, plotly, patsy, opentelemetry-proto, opentelemetry-api, matplotlib-inline, markdown-it-py, Mako, jupyter-core, joblib, jinja2, jedi, ipython-pygments-lexers, importlib_metadata, httpcore, graphql-relay, gitdb, deprecation, contourpy, cffi, bleach, beautifulsoup4, anyio, aiosignal, watchfiles, starlette, scikit-learn, rich, pydantic, pandas, opentelemetry-semantic-conventions, nltk, matplotlib, jupyter-server-terminals, jupyter-client, jupyter-builder, jsonschema-specifications, iterative-telemetry, ipython, httpx, graphene, gitpython, Flask, docker, cryptography, arrow, argon2-cffi-bindings, alembic, aiohttp, typer, skops, rich-click, opentelemetry-sdk, jsonschema, isoduration, ipykernel, google-auth, formulaic, Flask-CORS, fastapi, argon2-cffi, statsmodels, nbformat, litestar, databricks-sdk, nbclient, mlflow-tracing, mlflow-skinny, jupyter-events, evidently, nbconvert, mlflow, jupyter-server, notebook-shim, jupyterlab-server, jupyter-lsp, jupyterlab, notebook
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:09:04.8651876Z 
+Pruebas y validacion	Instalar dependencias	2026-11-26T05:09:04.8744268Z Successfully installed Flask-3.1.3 Flask-CORS-6.0.5 Mako-1.4.3 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 alembic-1.20.1 annotated-doc-0.0.7 annotated-types-0.8.0 anyio-4.16.0 appdirs-1.4.4 argon2-cffi-25.1.0 argon2-cffi-bindings-26.2.0 arrow-1.4.0 asttokens-3.0.2 async-lru-2.4.0 attrs-26.1.0 babel-2.19.0 beautifulsoup4-4.15.0 bleach-6.4.0 blinker-1.9.0 cachetools-7.3.4 certifi-2026.11.20 cffi-2.1.1 charset_normalizer-3.5.3 click-8.5.1 cloudpickle-3.1.3 comm-0.2.3 contourpy-1.4.0 cryptography-50.0.2 cycler-0.12.1 databricks-sdk-0.171.0 debugpy-1.8.22 defusedxml-0.7.1 deprecation-2.1.0 distro-1.9.0 docker-7.2.0 dynaconf-3.3.5 evidently-0.7.23 executing-2.3.0 faker-40.63.0 fastapi-0.162.0 fastjsonschema-2.22.3 filelock-4.3.1 fonttools-4.69.1 formulaic-1.2.2 fqdn-1.6.0 frozenlist-1.8.0 fsspec-2026.9.0 gitdb-4.0.12 gitpython-3.2.1 google-auth-2.63.1 graphene-3.4.3 graphql-core-3.2.14 graphql-relay-3.2.0 gunicorn-26.2.0 h11-0.16.0 httpcore-1.0.9 httptools-0.9.0 httpx-0.28.1 huey-3.5.4 idna-3.20 importlib_metadata-9.1.0 iniconfig-2.3.1 interface-meta-2.0.1 ipykernel-7.4.0 ipython-9.17.1 ipython-pygments-lexers-1.1.1 isoduration-20.11.0 iterative-telemetry-0.0.10 itsdangerous-2.2.0 jedi-0.20.1 jinja2-3.1.6 joblib-1.6.0 json5-0.17.3 jsonpointer-3.12 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 jupyter-builder-1.3.0 jupyter-client-8.10.0 jupyter-core-5.9.1 jupyter-events-0.12.1 jupyter-lsp-2.3.1 jupyter-server-2.21.1 jupyter-server-terminals-0.5.4 jupyterlab-4.6.4 jupyterlab-pygments-0.3.0 jupyterlab-server-2.28.1 kiwisolver-1.5.1 lark-1.3.1 litestar-2.25.0 litestar-htmx-0.5.0 loguru-0.7.3 markdown-it-py-4.3.0 markupsafe-3.0.4 matplotlib-3.11.2 matplotlib-inline-0.2.2 mdurl-0.1.2 mibici-0.0.1 mistune-3.4.0 mlflow-3.16.1 mlflow-skinny-3.16.1 mlflow-tracing-3.16.1 msgspec-0.22.0 multidict-7.2.1 multipart-2.0.1 mypy-extensions-1.2.0 narwhals-2.29.0 nbclient-0.11.0 nbconvert-7.17.2 nbformat-5.11.1 nest-asyncio2-1.7.4 nltk-3.10.4 notebook-7.6.3 notebook-shim-0.2.4 numpy-2.5.3 opentelemetry-api-1.45.2 opentelemetry-proto-1.45.2 opentelemetry-sdk-1.45.2 opentelemetry-semantic-conventions-0.66b2 packaging-26.4 pandas-3.0.6 pandocfilters-1.5.1 parso-0.8.7 patsy-1.0.3 pexpect-4.9.0 pillow-13.0.0 platformdirs-4.14.8 plotly-5.24.1 pluggy-1.7.0 polyfactory-3.5.0 prettytable-3.19.0 prometheus-client-0.26.0 prompt_toolkit-3.0.53 propcache-0.5.4 protobuf-7.36.2 psutil-7.2.2 ptyprocess-0.7.0 pure-eval-0.2.4 pyarrow-25.0.1 pyasn1-0.6.5 pyasn1-modules-0.4.2 pycparser-3.12 pydantic-2.14.4 pydantic-core-2.50.5 pygments-2.21.0 pyparsing-3.3.3 pytest-9.1.1 python-dateutil-2.9.0.post0 python-dotenv-1.2.4 python-json-logger-4.2.0 pyyaml-6.0.4 pyzmq-27.3.0 referencing-0.37.0 regex-2026.11.25 requests-2.34.2 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rfc3987-syntax-1.1.0 rich-15.0.0 rich-click-1.9.9 rpds-py-2026.9.1 ruff-0.17.1 scikit-learn-1.9.1 scipy-1.18.1 send2trash-2.2.0 shellingham-1.5.4 six-1.17.0 skops-0.16.0 smmap-5.0.3 sniffio-1.3.1 soupsieve-4.1.3 sqlalchemy-2.1.9 sqlparse-0.6.1 stack_data-0.6.3 starlette-1.10.0 statsmodels-0.15.0 tenacity-9.2.1 terminado-0.18.1 threadpoolctl-3.8.0 tinycss2-1.5.1 tornado-6.6.1 tqdm-4.70.1 traitlets-5.16.1 typer-0.27.3 typing-extensions-4.16.0 typing-inspect-0.9.0 typing-inspection-0.4.5 tzdata-2026.6 ujson-6.1.0 uri-template-1.3.0 urllib3-2.8.0 uuid6-2025.0.1 uvicorn-0.54.0 uvloop-0.23.0 watchdog-7.1.1 watchfiles-1.3.0 wcwidth-0.9.5 webcolors-25.10.0 webencodings-0.6.1 websocket-client-1.9.2 websockets-17.4 werkzeug-3.1.9 wrapt-2.5.2 yarl-1.25.1 zipp-4.1.2
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	﻿2026-11-26T05:09:05.2898650Z ##[group]Run python -m py_compile scripts/week10/smoke_integration.py scripts/week10/bootstrap_ci_registry.py
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2899300Z ^[[36;1mpython -m py_compile scripts/week10/smoke_integration.py scripts/week10/bootstrap_ci_registry.py^[[0m
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2923666Z shell: /usr/bin/bash -e {0}
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2923976Z env:
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2924312Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2924903Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2925298Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2925631Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2925952Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2926353Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+Pruebas y validacion	Verificar sintaxis de scripts de integracion	2026-11-26T05:09:05.2926647Z ##[endgroup]
+Pruebas y validacion	Ejecutar pruebas FastAPI	﻿2026-11-26T05:09:05.4031051Z ##[group]Run python -m pytest tests/test_api.py -q
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4031485Z ^[[36;1mpython -m pytest tests/test_api.py -q^[[0m
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4055032Z shell: /usr/bin/bash -e {0}
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4055349Z env:
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4055642Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4056082Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4056594Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4056942Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4057313Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4057633Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:05.4057970Z ##[endgroup]
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9975091Z ........................................................................ [100%]
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9976065Z =============================== warnings summary ===============================
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9976780Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/fastapi/testclient.py:1
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9977634Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9978432Z     from starlette.testclient import TestClient as TestClient  # noqa
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9978673Z 
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9978927Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Pruebas y validacion	Ejecutar pruebas FastAPI	2026-11-26T05:09:08.9979314Z 72 passed, 1 warning in 2.00s
+Pruebas y validacion	Ejecutar suite completa	﻿2026-11-26T05:09:09.2199024Z ##[group]Run python -m pytest tests/ -q
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2199471Z ^[[36;1mpython -m pytest tests/ -q^[[0m
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2225604Z shell: /usr/bin/bash -e {0}
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2225916Z env:
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2226219Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2226674Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2227060Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2227412Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2227791Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2228132Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:09.2228494Z ##[endgroup]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:17.2342976Z ........................................................................ [ 22%]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:17.5588209Z ..............sssssssssss............................................... [ 45%]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:22.1105170Z ........................................................................ [ 68%]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:22.4900328Z ........................................................................ [ 91%]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8093223Z .....s.....................                                              [100%]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8094039Z =============================== warnings summary ===============================
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8094856Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/fastapi/testclient.py:1
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8100266Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8102187Z     from starlette.testclient import TestClient as TestClient  # noqa
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8102801Z 
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8103459Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/evidently/legacy/tests/utils.py:183
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8105098Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/evidently/legacy/tests/utils.py:183
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8109472Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/evidently/legacy/tests/utils.py:183: DeprecationWarning: numpy.core is deprecated and has been renamed to numpy._core. The numpy._core namespace contains private NumPy internals and its use is discouraged, as NumPy internals can change without warning in any release. In practice, most real-world usage of numpy.core is to access functionality in the public NumPy API. If that is the case, use the public NumPy API. If not, you are using NumPy internals. If you would still like to access an internal attribute, use numpy._core.numeric.
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8114480Z     np.core.numeric.ScalarType = np.core.numeric.ScalarType + (ApproxValue, ApproxValueNoDict)  # type: ignore[attr-defined]
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8115558Z 
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8116151Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/utils/deprecation.py:99
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8117591Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/utils/deprecation.py:99
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8118949Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/utils/deprecation.py:99
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8120322Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/utils/deprecation.py:99
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8122828Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/utils/deprecation.py:99: LitestarDeprecationWarning: Call to deprecated function 'Dependency'. Deprecated in litestar 2.23.0. This function will be removed in 3.0. Use 'di.NamedDependency' instead
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8124950Z     warn_deprecation(
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8125298Z 
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8125821Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/params.py:567
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8127500Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/params.py:567
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8128799Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/params.py:567
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8130089Z ../../../../../opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/params.py:567
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8132401Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/litestar/params.py:567: LitestarDeprecationWarning: Use of deprecated class 'DependencyKwarg'. Deprecated in litestar 2.23.0. This class will be removed in 3.0. Use 'di.NamedDependency' instead
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8134345Z     warn_deprecation(
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8134769Z 
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8135159Z tests/test_model_service.py::test_registry_local_con_modelo_real
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8138641Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/mlflow/store/tracking/utils/sql_trace_metrics_utils.py:155: SADeprecationWarning: The ``noload`` loader strategy is deprecated and will be removed in a future release.  This option produces incorrect results by returning ``None`` for related items. (deprecated since: 2.1) (This warning originated from the `configure_mappers()` process, which was invoked automatically in response to a user-initiated operation.)
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8141951Z     _SESSION_TRACE_METADATA = aliased(SqlTraceMetadata)
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8142390Z 
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8142620Z tests/test_week9_drift.py: 12 warnings
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8143928Z   /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/evidently/legacy/metrics/data_integrity/dataset_summary_metric.py:155: Pandas4Warning:
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8145341Z   
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8146025Z   Starting with pandas version 4.0 all arguments of all will be keyword-only.
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8146609Z 
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8147024Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Pruebas y validacion	Ejecutar suite completa	2026-11-26T05:09:34.8147834Z 303 passed, 12 skipped, 24 warnings in 24.81s
+Pruebas y validacion	Post Configurar Python 3.12	﻿2026-11-26T05:09:36.0130836Z Post job cleanup.
+Pruebas y validacion	Post Configurar Python 3.12	2026-11-26T05:09:36.1029458Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.12.16-pip-320813f6c129a91e4c89e904690ab440d048eac404063d78d69391b999eae352, not saving cache.
+Pruebas y validacion	Post Configurar Python 3.12	2026-11-26T05:09:36.1030671Z (node:2754) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Pruebas y validacion	Post Configurar Python 3.12	2026-11-26T05:09:36.1031349Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Pruebas y validacion	Post Descargar repositorio	﻿2026-11-26T05:09:36.1149229Z Post job cleanup.
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1776904Z [command]/usr/bin/git version
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1809276Z git version 2.56.1
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1840551Z Temporarily overriding HOME='/home/runner/work/_temp/e2d0a8da-b151-42a8-b5c3-3af76737c96f' before making global git config changes
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1842036Z Adding repository directory to the temporary git global config as a safe directory
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1843644Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1872807Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.1897661Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.2059492Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.2082674Z http.https://github.com/.extraheader
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.2095548Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.2114959Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.2285684Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Pruebas y validacion	Post Descargar repositorio	2026-11-26T05:09:36.2327235Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Pruebas y validacion	Complete job	﻿2026-11-26T05:09:36.2635584Z Cleaning up orphan processes
+Pruebas y validacion	Complete job	2026-11-26T05:09:36.2907067Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

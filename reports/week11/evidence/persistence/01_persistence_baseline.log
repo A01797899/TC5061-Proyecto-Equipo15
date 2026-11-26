@@ -1,0 +1,32 @@
+
+CURRENT CONTAINERS:
+
+CONTAINER ID  IMAGE                           COMMAND               CREATED      STATUS                PORTS                     NAMES
+a3b1bd9d6ef8  localhost/mibici-mlflow:week10  mlflow server --b...  8 hours ago  Up 8 hours (healthy)  127.0.0.1:5000->5000/tcp  mibici-week11_mlflow_1
+0a1d1cf773e6  localhost/mibici-api:week10     python -m uvicorn...  8 hours ago  Up 8 hours (healthy)  127.0.0.1:8000->8000/tcp  mibici-week11_api_1
+
+SQLITE INTEGRITY: ok
+experiments: 2
+runs: 104
+registered_models: 3
+model_versions: 4
+registered_model_aliases: 4
+
+REGISTERED MODEL VERSIONS:
+mibici-equipo15-p1-demanda | 1 | READY | 6e3429f222a0407aa159dd9f46699365 | models:/m-04774b8f25ff468b933a18756c24b068
+mibici-equipo15-p1-demanda | 2 | READY | 7074129578d045418cbed0691330d1a7 | models:/m-ea1a3789403948d08f509f0a562419e5
+mibici-equipo15-p2-riesgo | 1 | READY | d794555acb0c498987d17fd61c0ae531 | models:/m-165c943b3eec4915aabc8e801feb9979
+mibici-equipo15-p3-grupos | 1 | READY | 27f5684907f64610a4d3718d1178421d | models:/m-041658517cae46178fa30b582bd44b22
+
+REGISTERED MODEL ALIASES:
+mibici-equipo15-p1-demanda | challenger | 2
+mibici-equipo15-p1-demanda | champion | 1
+mibici-equipo15-p2-riesgo | champion | 1
+mibici-equipo15-p3-grupos | champion | 1
+
+ARTIFACT INTEGRITY:
+Artifact files: 162
+MLmodel files: 2
+
+Baseline saved: /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week11/TC5061-Proyecto-Equipo15-Week11-JoseManuel/reports/week11/evidence/persistence/01_registry_before.json
+BASELINE VALIDATION: PASS

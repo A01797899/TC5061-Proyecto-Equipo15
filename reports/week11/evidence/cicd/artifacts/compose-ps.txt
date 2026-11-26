@@ -1,0 +1,3 @@
+NAME                       IMAGE                  COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+mibici-equipo15-api-1      mibici-api:week10      "python -m uvicorn m…"   api       21 seconds ago   Up 8 seconds (healthy)    127.0.0.1:8000->8000/tcp
+mibici-equipo15-mlflow-1   mibici-mlflow:week10   "mlflow server --bac…"   mlflow    22 seconds ago   Up 20 seconds (healthy)   127.0.0.1:5000->5000/tcp

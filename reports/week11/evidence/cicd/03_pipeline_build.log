@@ -1,0 +1,1179 @@
+Construccion de imagenes Podman	Set up job	﻿2026-11-26T05:07:50.5155407Z Current runner version: '2.338.2'
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5176067Z ##[group]Runner Image Provisioner
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5176771Z Hosted Compute Agent
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5177221Z Version: 20261111.635
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5177706Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5178210Z Build Date: 2026-11-11T01:49:01Z
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5178718Z Worker ID: {ee80ee51-67f3-4115-9a1b-6004ac395a86}
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5179241Z Region: us-east-1
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5179628Z Cloud: AWS
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5180051Z ##[endgroup]
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5181050Z ##[group]Operating System
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5181485Z Ubuntu
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5181865Z 24.04.5
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5182214Z LTS
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5182608Z ##[endgroup]
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5183293Z ##[group]Runner Image
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5183808Z Image: ubuntu-24.04
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5184226Z Version: 20261116.133.1
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5184991Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261116.133/images/ubuntu/Ubuntu2404-Readme.md
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5186273Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261116.133
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5186980Z ##[endgroup]
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5187766Z ##[group]GITHUB_TOKEN Permissions
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5189575Z Contents: read
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5189986Z Metadata: read
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5190431Z ##[endgroup]
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5191957Z Secret source: Actions
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5192631Z Cache mode: write
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5193559Z Prepare workflow directory
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5427738Z Prepare all required actions
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.5465994Z Getting action download info
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:50.7242190Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Construccion de imagenes Podman	Set up job	2026-11-26T05:07:52.4888295Z Complete job name: Construccion de imagenes Podman
+Construccion de imagenes Podman	Descargar repositorio	﻿2026-11-26T05:07:52.5528646Z ##[group]Run actions/checkout@v4
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5529358Z with:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5529960Z   repository: A01797899/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5533632Z   token: ***
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5534103Z   ssh-strict: true
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5534527Z   ssh-user: git
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5534947Z   persist-credentials: true
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5535449Z   clean: true
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5535871Z   sparse-checkout-cone-mode: true
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5536361Z   fetch-depth: 1
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5536809Z   fetch-tags: false
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5537213Z   show-progress: true
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5537683Z   lfs: false
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5538186Z   submodules: false
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5538636Z   set-safe-directory: true
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5539122Z   allow-unsafe-pr-checkout: false
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:52.5539815Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:54.8657028Z Syncing repository: A01797899/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:54.8658440Z ##[group]Getting Git version info
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:54.8658965Z Working directory is '/home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15'
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:54.8659839Z [command]/usr/bin/git version
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.0676649Z git version 2.56.1
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.0691206Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.0704661Z Temporarily overriding HOME='/home/runner/work/_temp/744fe813-a2d2-45a1-b1a6-eeeb07905de4' before making global git config changes
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.0705745Z Adding repository directory to the temporary git global config as a safe directory
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.0709137Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1071880Z Deleting the contents of '/home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15'
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1075454Z ##[group]Initializing the repository
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1079543Z [command]/usr/bin/git init /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1924839Z hint: Using 'master' as the name for the initial branch. This default branch name
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1925912Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1926775Z hint: to use in all of your new repositories, which will suppress this warning,
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1927237Z hint: call:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1927486Z hint:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1928306Z hint: 	git config --global init.defaultBranch <name>
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1928742Z hint:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1929115Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1929646Z hint: 'development'. The just-created branch can be renamed via this command:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1930057Z hint:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1930325Z hint: 	git branch -m <name>
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1930644Z hint:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1931020Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1934248Z Initialized empty Git repository in /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15/.git/
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1944724Z [command]/usr/bin/git remote add origin https://github.com/A01797899/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1988593Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1989439Z ##[group]Disabling automatic garbage collection
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.1991829Z [command]/usr/bin/git config --local gc.auto 0
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.2016443Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.2017118Z ##[group]Setting up auth
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.2021473Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.2048033Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4574892Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4598471Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4749784Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4774579Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4922358Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4949182Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4949733Z ##[group]Fetching the repository
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:55.4960945Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c6901c906ed6e3db9bdf99ec697fcd8700cdf9b2:refs/remotes/origin/feature/week11-deployment-integration-A01797899
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3201519Z From https://github.com/A01797899/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3202481Z  * [new ref]         c6901c906ed6e3db9bdf99ec697fcd8700cdf9b2 -> origin/feature/week11-deployment-integration-A01797899
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3205038Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3205754Z ##[group]Determining the checkout info
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3207054Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3211583Z [command]/usr/bin/git sparse-checkout disable
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3289681Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3336742Z ##[group]Checking out the ref
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.3340255Z [command]/usr/bin/git checkout --progress --force -B feature/week11-deployment-integration-A01797899 refs/remotes/origin/feature/week11-deployment-integration-A01797899
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.5063494Z Switched to a new branch 'feature/week11-deployment-integration-A01797899'
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.5066766Z branch 'feature/week11-deployment-integration-A01797899' set up to track 'origin/feature/week11-deployment-integration-A01797899'.
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.5077699Z ##[endgroup]
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.5112076Z [command]/usr/bin/git log -1 --format=%H
+Construccion de imagenes Podman	Descargar repositorio	2026-11-26T05:07:56.5131598Z c6901c906ed6e3db9bdf99ec697fcd8700cdf9b2
+Construccion de imagenes Podman	Instalar Podman	﻿2026-11-26T05:07:56.5313369Z ##[group]Run sudo apt-get update
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:56.5313907Z ^[[36;1msudo apt-get update^[[0m
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:56.5314227Z ^[[36;1msudo apt-get install -y podman^[[0m
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:56.5314509Z ^[[36;1mpodman --version^[[0m
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:56.7966582Z shell: /usr/bin/bash -e {0}
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:56.7966954Z ##[endgroup]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.0410448Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [152 B]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.0729113Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.1615866Z Hit:2 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble InRelease
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.1800668Z Get:3 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.1835238Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [804 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.2036894Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [880 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.2460755Z Get:4 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.2978010Z Get:5 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.3777958Z Get:9 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1492 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.4776062Z Get:10 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [321 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.4924978Z Get:11 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1716 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.5588296Z Get:12 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [346 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.5743498Z Get:13 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1949 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.6457419Z Get:14 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [448 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.6659049Z Get:15 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1230 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.7065723Z Get:16 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security/main Translation-en [243 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.7227635Z Get:17 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1233 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.7628728Z Get:18 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [249 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.7918074Z Get:19 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1842 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:07:57.8326589Z Get:20 http://us-east-2.ec2.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [429 kB]
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:11.1796760Z Fetched 13.6 MB in 1s (9926 kB/s)
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.2632744Z Reading package lists...
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.2972994Z Reading package lists...
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.5385409Z Building dependency tree...
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.5390745Z Reading state information...
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.7141202Z podman is already the newest version (4.9.3+ds1-1ubuntu0.2).
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.7142080Z 0 upgraded, 0 newly installed, 0 to remove and 87 not upgraded.
+Construccion de imagenes Podman	Instalar Podman	2026-11-26T05:08:12.7277601Z podman version 4.9.3
+Construccion de imagenes Podman	Construir imagen MLflow	﻿2026-11-26T05:08:12.7322012Z ##[group]Run podman build -f Containerfile.mlflow -t mibici-mlflow:week10 .
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:12.7322533Z ^[[36;1mpodman build -f Containerfile.mlflow -t mibici-mlflow:week10 .^[[0m
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:12.7349302Z shell: /usr/bin/bash -e {0}
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:12.7349626Z ##[endgroup]
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:12.9375245Z STEP 1/5: FROM python:3.12-slim
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:12.9443513Z Resolved "python" as an alias (/etc/containers/registries.conf.d/shortnames.conf)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:12.9444074Z Trying to pull docker.io/library/python:3.12-slim...
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:13.4496866Z Getting image source signatures
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:13.4498599Z Copying blob sha256:286d8c291daa64125703b22c3d009462bcae0b630eaa16ad5b934502c4917233
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:13.4499454Z Copying blob sha256:40748add9f4f6f944f334cbfc286590d6e93f60fb06f6ee7ffa1b894080ad861
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:13.4500586Z Copying blob sha256:30cf67d7101c07c55eef20970bc403fbde5f8600c2c4c38b4881a2da4fffb0b6
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:13.4501522Z Copying blob sha256:e3e428093f5e80791498526d73a46eabf0e69575dc10897cf47aa99120e41712
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.5639845Z Copying config sha256:d497f3e5689c500c07dd6c13dee73cd21ed4da604e09ecd99059843c09ab8cd6
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.5649944Z Writing manifest to image destination
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.5761424Z STEP 2/5: ENV PYTHONDONTWRITEBYTECODE=1     PYTHONUNBUFFERED=1     PIP_NO_CACHE_DIR=1
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.5826687Z --> cc11dca59090
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.5845220Z STEP 3/5: WORKDIR /mlflow
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.6045348Z --> 053e6df745d5
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:14.6065186Z STEP 4/5: RUN python -m pip install --no-cache-dir mlflow==3.16.1
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.7795522Z Collecting mlflow==3.16.1
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.8113097Z   Downloading mlflow-3.16.1-py3-none-any.whl.metadata (50 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.8575170Z Collecting mlflow-skinny==3.16.1 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.8664566Z   Downloading mlflow_skinny-3.16.1-py3-none-any.whl.metadata (50 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.8939571Z Collecting mlflow-tracing==3.16.1 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.9022209Z   Downloading mlflow_tracing-3.16.1-py3-none-any.whl.metadata (19 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.9253933Z Collecting Flask-CORS<7 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.9358379Z   Downloading flask_cors-6.0.5-py3-none-any.whl.metadata (5.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.9588148Z Collecting Flask<4 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:15.9670270Z   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.3116234Z Collecting aiohttp<4,>=3.7.0 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.3200651Z   Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.3509356Z Collecting alembic!=1.10.0,<2 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.3592297Z   Downloading alembic-1.20.1-py3-none-any.whl.metadata (7.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.4769309Z Collecting cryptography<51,>=43.0.0 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.4857146Z   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.5105557Z Collecting docker<8,>=4.0.0 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.5184294Z   Downloading docker-7.2.0-py3-none-any.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.5423381Z Collecting graphene<4 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.5501414Z   Downloading graphene-3.4.3-py2.py3-none-any.whl.metadata (6.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.5758518Z Collecting gunicorn<27 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.5840853Z   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.6074505Z Collecting huey<4,>=2.5.4 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.6229378Z   Downloading huey-3.5.4-py3-none-any.whl.metadata (5.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.7222014Z Collecting matplotlib<4 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.7334220Z   Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.8623874Z Collecting numpy<3 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.8705166Z   Downloading numpy-2.5.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.9491655Z Collecting pandas<4 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:16.9579320Z   Downloading pandas-3.1.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (16 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.0242634Z Collecting pyarrow<26,>=4.0.0 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.0323976Z   Downloading pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.0886957Z Collecting scikit-learn<2 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.0966063Z   Downloading scikit_learn-1.9.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.1959445Z Collecting scipy<2 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.2055005Z   Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.2339456Z Collecting skops<1 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.2419283Z   Downloading skops-0.16.0-py3-none-any.whl.metadata (4.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.4321525Z Collecting sqlalchemy<3,>=1.4.0 (from mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.4402024Z   Downloading sqlalchemy-2.1.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.4710321Z Collecting anyio!=4.15.0,<5,>=3.6.2 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.4793771Z   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.5057334Z Collecting cachetools<8,>=5.0.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.5141953Z   Downloading cachetools-7.3.4-py3-none-any.whl.metadata (5.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.5376334Z Collecting click<9,>=7.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.5458266Z   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.5658756Z Collecting cloudpickle<4 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.5736995Z   Downloading cloudpickle-3.1.3-py3-none-any.whl.metadata (7.1 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.6121362Z Collecting databricks-sdk<1,>=0.20.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.6286602Z   Downloading databricks_sdk-0.171.0-py3-none-any.whl.metadata (44 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.6817069Z Collecting fastapi<1 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.6903574Z   Downloading fastapi-0.165.0-py3-none-any.whl.metadata (27 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.7233669Z Collecting gitpython<4,>=3.1.9 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.7312204Z   Downloading gitpython-3.2.1-py3-none-any.whl.metadata (13 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.7675627Z Collecting importlib_metadata!=4.7.0,<10,>=3.7.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.7755932Z   Downloading importlib_metadata-9.1.0-py3-none-any.whl.metadata (4.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8021157Z Collecting opentelemetry-api<3,>=1.9.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8100744Z   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8351700Z Collecting opentelemetry-proto<3,>=1.9.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8430328Z   Downloading opentelemetry_proto-1.45.2-py3-none-any.whl.metadata (2.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8681117Z Collecting opentelemetry-sdk<3,>=1.9.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8759404Z   Downloading opentelemetry_sdk-1.45.2-py3-none-any.whl.metadata (1.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.8977750Z Collecting packaging<27 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:17.9060802Z   Downloading packaging-26.4-py3-none-any.whl.metadata (3.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.0378720Z Collecting protobuf<8,>=3.12.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.0459146Z   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.1210291Z Collecting pydantic<3,>=2.0.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.1305734Z   Downloading pydantic-2.14.4-py3-none-any.whl.metadata (143 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.1597365Z Collecting python-dotenv<2,>=0.19.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.1678231Z   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.2015568Z Collecting pyyaml<7,>=5.1 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.2093369Z   Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.2394425Z Collecting requests<3,>=2.17.3 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.2481713Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.2685739Z Collecting sqlparse<1,>=0.4.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.2768889Z   Downloading sqlparse-0.6.1-py3-none-any.whl.metadata (6.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.3073208Z Collecting starlette<2 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.3153708Z   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.3384446Z Collecting typing-extensions<5,>=4.0.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.3461996Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.3759390Z Collecting uvicorn<1 (from mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.3839146Z   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.4068177Z Collecting aiohappyeyeballs>=2.5.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.4151643Z   Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.4326103Z Collecting aiosignal>=1.4.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.4414015Z   Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.4615036Z Collecting attrs>=17.3.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.4698787Z   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.5157396Z Collecting frozenlist>=1.1.1 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.5240194Z   Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.7182709Z Collecting multidict<8.0,>=4.5 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.7289508Z   Downloading multidict-7.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.1 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.7774690Z Collecting propcache>=0.2.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.7860854Z   Downloading propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.9393378Z Collecting yarl<2.0,>=1.25.1 (from aiohttp<4,>=3.7.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.9477404Z   Downloading yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.9889575Z Collecting Mako (from alembic!=1.10.0,<2->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:18.9977104Z   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.0683326Z Collecting cffi>=2.0.0 (from cryptography<51,>=43.0.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.0778811Z   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1104671Z Collecting urllib3>=1.26.0 (from docker<8,>=4.0.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1189267Z   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1384554Z Collecting blinker>=1.9.0 (from Flask<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1468206Z   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1691500Z Collecting itsdangerous>=2.2.0 (from Flask<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1773802Z   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.1983704Z Collecting jinja2>=3.1.2 (from Flask<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.2064308Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.2483515Z Collecting markupsafe>=2.1.1 (from Flask<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.2566313Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.2811941Z Collecting werkzeug>=3.1.0 (from Flask<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.2892706Z   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.3256917Z Collecting graphql-core<3.3,>=3.1 (from graphene<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.3342732Z   Downloading graphql_core-3.2.14-py3-none-any.whl.metadata (11 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.3531193Z Collecting graphql-relay<3.3,>=3.1 (from graphene<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.3609022Z   Downloading graphql_relay-3.2.0-py3-none-any.whl.metadata (12 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.3819206Z Collecting python-dateutil<3,>=2.7.0 (from graphene<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.3901684Z   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.4420704Z Collecting contourpy>=1.0.1 (from matplotlib<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.4508329Z   Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.4711463Z Collecting cycler>=0.10 (from matplotlib<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.4790113Z   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.6189522Z Collecting fonttools>=4.28.2 (from matplotlib<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.6275927Z   Downloading fonttools-4.69.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (147 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.6849094Z Collecting kiwisolver>=1.3.1 (from matplotlib<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.6931818Z   Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.8069818Z Collecting pillow>=9 (from matplotlib<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.8151040Z   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.8438492Z Collecting pyparsing>=3 (from matplotlib<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.8517730Z   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.8952595Z Collecting joblib>=1.4.0 (from scikit-learn<2->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.9032252Z   Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.9418959Z Collecting narwhals>=2.0.1 (from scikit-learn<2->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.9498652Z   Downloading narwhals-2.29.0-py3-none-any.whl.metadata (15 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.9699664Z Collecting threadpoolctl>=3.5.0 (from scikit-learn<2->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:19.9780942Z   Downloading threadpoolctl-3.8.0-py3-none-any.whl.metadata (29 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.0144283Z Collecting prettytable>=3.9 (from skops<1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.0223325Z   Downloading prettytable-3.19.0-py3-none-any.whl.metadata (37 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.0601583Z Collecting idna>=2.8 (from anyio!=4.15.0,<5,>=3.6.2->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.0684522Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.0954242Z Collecting pycparser (from cffi>=2.0.0->cryptography<51,>=43.0.0->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.1057324Z   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.1337972Z Collecting certifi>=2026.10.19 (from databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.1419820Z   Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.1953441Z Collecting google-auth~=2.0 (from databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.2039789Z   Downloading google_auth-2.63.1-py3-none-any.whl.metadata (6.0 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.3184592Z Collecting typing-inspection>=0.4.2 (from fastapi<1->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.3267650Z   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.3441519Z Collecting annotated-doc>=0.0.2 (from fastapi<1->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.3526449Z   Downloading annotated_doc-0.0.7-py3-none-any.whl.metadata (6.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.3777407Z Collecting gitdb<5,>=4.0.1 (from gitpython<4,>=3.1.9->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.3860226Z   Downloading gitdb-4.0.12-py3-none-any.whl.metadata (1.2 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.4154053Z Collecting zipp>=3.20 (from importlib_metadata!=4.7.0,<10,>=3.7.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.4234883Z   Downloading zipp-4.1.2-py3-none-any.whl.metadata (3.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.5068199Z Collecting opentelemetry-semantic-conventions==0.66b2 (from opentelemetry-sdk<3,>=1.9.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.5155582Z   Downloading opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl.metadata (2.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.5448824Z Collecting wcwidth>=0.3.5 (from prettytable>=3.9->skops<1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.5535025Z   Downloading wcwidth-0.9.5-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (26 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.5757021Z Collecting annotated-types>=0.6.0 (from pydantic<3,>=2.0.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:20.5834969Z   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.0282089Z Collecting pydantic-core==2.50.5 (from pydantic<3,>=2.0.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.0369424Z   Downloading pydantic_core-2.50.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.0612283Z Collecting six>=1.5 (from python-dateutil<3,>=2.7.0->graphene<4->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.0692075Z   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.2083030Z Collecting charset_normalizer<4,>=2 (from requests<3,>=2.17.3->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.2168892Z   Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (43 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.2610305Z Collecting h11>=0.8 (from uvicorn<1->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.2689279Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.3094876Z Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython<4,>=3.1.9->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.3174321Z   Downloading smmap-5.0.3-py3-none-any.whl.metadata (4.6 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.3417219Z Collecting pyasn1-modules>=0.2.1 (from google-auth~=2.0->databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.3500580Z   Downloading pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.4050455Z Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth~=2.0->databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.4146457Z   Downloading pyasn1-0.6.5-py3-none-any.whl.metadata (8.4 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.4297468Z Downloading mlflow-3.16.1-py3-none-any.whl (11.7 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.4768459Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.7/11.7 MB 263.5 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.4857078Z Downloading mlflow_skinny-3.16.1-py3-none-any.whl (3.8 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5046273Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 209.0 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5130435Z Downloading mlflow_tracing-3.16.1-py3-none-any.whl (1.8 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5207997Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 288.9 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5289867Z Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5337456Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 519.7 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5433991Z Downloading alembic-1.20.1-py3-none-any.whl (270 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5519889Z Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5639321Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 454.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5723400Z Downloading docker-7.2.0-py3-none-any.whl (148 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5809430Z Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.5951325Z Downloading flask_cors-6.0.5-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.6030045Z Downloading graphene-3.4.3-py2.py3-none-any.whl (114 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.6128716Z Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.6209301Z Downloading huey-3.5.4-py3-none-any.whl (135 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.6289120Z Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.6521754Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 448.0 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.6605779Z Downloading numpy-2.5.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (15.7 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.7018560Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.7/15.7 MB 394.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.7103322Z Downloading pandas-3.1.1-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.0 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.7495479Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 316.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.7575800Z Downloading pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl (50.1 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.9247477Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 MB 304.5 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.9332924Z Downloading scikit_learn-1.9.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.2 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.9686101Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.2/9.2 MB 267.1 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:21.9766557Z Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.1365809Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 222.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.1450575Z Downloading skops-0.16.0-py3-none-any.whl (148 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.1538502Z Downloading sqlalchemy-2.1.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.1762109Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 217.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.1844034Z Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.1923546Z Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2015367Z Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2102216Z Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2189636Z Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2272185Z Downloading cachetools-7.3.4-py3-none-any.whl (20 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2361010Z Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2446114Z Downloading click-8.5.1-py3-none-any.whl (126 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2525521Z Downloading cloudpickle-3.1.3-py3-none-any.whl (22 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2606633Z Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2735477Z Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2818167Z Downloading databricks_sdk-0.171.0-py3-none-any.whl (1.3 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2877521Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 312.8 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.2955709Z Downloading fastapi-0.165.0-py3-none-any.whl (159 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3045107Z Downloading fonttools-4.69.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.7 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3336325Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.7/6.7 MB 232.1 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3419234Z Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3503745Z Downloading gitpython-3.2.1-py3-none-any.whl (231 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3590587Z Downloading graphql_core-3.2.14-py3-none-any.whl (279 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3697003Z Downloading graphql_relay-3.2.0-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3798514Z Downloading importlib_metadata-9.1.0-py3-none-any.whl (28 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3877636Z Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.3962427Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4041684Z Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4126504Z Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4180927Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 342.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4270614Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4353545Z Downloading multidict-7.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (516 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4449947Z Downloading narwhals-2.29.0-py3-none-any.whl (501 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4620111Z Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4701090Z Downloading opentelemetry_proto-1.45.2-py3-none-any.whl (72 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4790527Z Downloading opentelemetry_sdk-1.45.2-py3-none-any.whl (141 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4873265Z Downloading opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl (206 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.4956840Z Downloading packaging-26.4-py3-none-any.whl (140 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5036621Z Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5419906Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 188.1 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5508905Z Downloading prettytable-3.19.0-py3-none-any.whl (37 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5594763Z Downloading propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (250 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5678765Z Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5766104Z Downloading pydantic-2.14.4-py3-none-any.whl (494 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5900881Z Downloading pydantic_core-2.50.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.5999481Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 242.6 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6080174Z Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6175078Z Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6259802Z Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6344244Z Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (849 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6395561Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 849.2/849.2 kB 216.5 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6474431Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6563997Z Downloading sqlparse-0.6.1-py3-none-any.whl (51 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6644685Z Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6729385Z Downloading threadpoolctl-3.8.0-py3-none-any.whl (32 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6808366Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6890517Z Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.6969945Z Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7066275Z Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7148913Z Downloading yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7230010Z Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7315726Z Downloading annotated_doc-0.0.7-py3-none-any.whl (5.3 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7398197Z Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7478577Z Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7569255Z Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (257 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.7683166Z Downloading gitdb-4.0.12-py3-none-any.whl (62 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8520056Z Downloading google_auth-2.63.1-py3-none-any.whl (271 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8605712Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8685793Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8769898Z Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8851262Z Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8933415Z Downloading wcwidth-0.9.5-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (822 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.8980245Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 822.7/822.7 kB 210.0 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.9057523Z Downloading zipp-4.1.2-py3-none-any.whl (10 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.9135172Z Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.9212659Z Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.9293471Z Downloading smmap-5.0.3-py3-none-any.whl (24 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:22.9372661Z Downloading pyasn1-0.6.5-py3-none-any.whl (84 kB)
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:23.2950983Z Installing collected packages: huey, zipp, wcwidth, urllib3, typing-extensions, threadpoolctl, sqlparse, smmap, six, pyyaml, python-dotenv, pyparsing, pycparser, pyasn1, pyarrow, protobuf, propcache, pillow, packaging, numpy, narwhals, multidict, markupsafe, kiwisolver, itsdangerous, idna, h11, gunicorn, graphql-core, frozenlist, fonttools, cycler, cloudpickle, click, charset_normalizer, certifi, cachetools, blinker, attrs, annotated-types, annotated-doc, aiohappyeyeballs, yarl, werkzeug, uvicorn, typing-inspection, sqlalchemy, scipy, requests, python-dateutil, pydantic-core, pyasn1-modules, prettytable, opentelemetry-proto, opentelemetry-api, Mako, joblib, jinja2, importlib_metadata, graphql-relay, gitdb, contourpy, cffi, anyio, aiosignal, starlette, scikit-learn, pydantic, pandas, opentelemetry-semantic-conventions, matplotlib, graphene, gitpython, Flask, docker, cryptography, alembic, aiohttp, skops, opentelemetry-sdk, google-auth, Flask-CORS, fastapi, databricks-sdk, mlflow-tracing, mlflow-skinny, mlflow
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:44.3678784Z Successfully installed Flask-3.1.3 Flask-CORS-6.0.5 Mako-1.4.3 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 alembic-1.20.1 annotated-doc-0.0.7 annotated-types-0.8.0 anyio-4.16.0 attrs-26.1.0 blinker-1.9.0 cachetools-7.3.4 certifi-2026.11.20 cffi-2.1.1 charset_normalizer-3.5.3 click-8.5.1 cloudpickle-3.1.3 contourpy-1.4.0 cryptography-50.0.2 cycler-0.12.1 databricks-sdk-0.171.0 docker-7.2.0 fastapi-0.165.0 fonttools-4.69.1 frozenlist-1.8.0 gitdb-4.0.12 gitpython-3.2.1 google-auth-2.63.1 graphene-3.4.3 graphql-core-3.2.14 graphql-relay-3.2.0 gunicorn-26.2.0 h11-0.16.0 huey-3.5.4 idna-3.20 importlib_metadata-9.1.0 itsdangerous-2.2.0 jinja2-3.1.6 joblib-1.6.0 kiwisolver-1.5.1 markupsafe-3.0.4 matplotlib-3.11.2 mlflow-3.16.1 mlflow-skinny-3.16.1 mlflow-tracing-3.16.1 multidict-7.2.1 narwhals-2.29.0 numpy-2.5.5 opentelemetry-api-1.45.2 opentelemetry-proto-1.45.2 opentelemetry-sdk-1.45.2 opentelemetry-semantic-conventions-0.66b2 packaging-26.4 pandas-3.1.1 pillow-13.0.0 prettytable-3.19.0 propcache-0.5.4 protobuf-7.36.2 pyarrow-25.0.1 pyasn1-0.6.5 pyasn1-modules-0.4.2 pycparser-3.12 pydantic-2.14.4 pydantic-core-2.50.5 pyparsing-3.3.3 python-dateutil-2.9.0.post0 python-dotenv-1.2.4 pyyaml-6.0.4 requests-2.34.2 scikit-learn-1.9.1 scipy-1.18.1 six-1.17.0 skops-0.16.0 smmap-5.0.3 sqlalchemy-2.1.9 sqlparse-0.6.1 starlette-1.10.0 threadpoolctl-3.8.0 typing-extensions-4.16.0 typing-inspection-0.4.5 urllib3-2.8.0 uvicorn-0.54.0 wcwidth-0.9.5 werkzeug-3.1.9 yarl-1.25.1 zipp-4.1.2
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:44.3684504Z WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:44.4260404Z 
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:44.4262564Z [notice] A new release of pip is available: 25.0.1 -> 26.3
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:44.4263334Z [notice] To update, run: pip install --upgrade pip
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:49.7029911Z --> 75cb01230dc9
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:49.7055666Z STEP 5/5: EXPOSE 5000
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:49.7195070Z COMMIT mibici-mlflow:week10
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:49.7243054Z --> cc9cfc62f454
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:49.7243485Z Successfully tagged localhost/mibici-mlflow:week10
+Construccion de imagenes Podman	Construir imagen MLflow	2026-11-26T05:08:49.9573042Z cc9cfc62f454352583860fb423ef12aa3c397d72c286f2beff5979ff5563204d
+Construccion de imagenes Podman	Construir imagen FastAPI	﻿2026-11-26T05:08:49.9744487Z ##[group]Run podman build -f Containerfile -t mibici-api:week10 .
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:49.9744952Z ^[[36;1mpodman build -f Containerfile -t mibici-api:week10 .^[[0m
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:49.9773690Z shell: /usr/bin/bash -e {0}
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:49.9774128Z ##[endgroup]
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0086988Z STEP 1/9: FROM python:3.12-slim
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0189777Z STEP 2/9: ENV PYTHONDONTWRITEBYTECODE=1     PYTHONUNBUFFERED=1     PIP_NO_CACHE_DIR=1
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0197049Z --> Using cache cc11dca590906f0cf80271b6446e18454766686663f49492f0fa4ccc5364fde8
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0197591Z --> cc11dca59090
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0211971Z STEP 3/9: WORKDIR /app
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0411101Z --> ad3598caa46c
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.0427553Z STEP 4/9: COPY . /app
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.1658126Z --> b87dd0e1146c
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:50.1677378Z STEP 5/9: RUN python -m pip install --no-cache-dir     -r requirements-api.txt
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:51.1214636Z Obtaining file:///app (from -r /app/requirements.txt (line 20))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:51.1227330Z   Installing build dependencies: started
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.1156725Z   Installing build dependencies: finished with status 'done'
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.1161388Z   Checking if build backend supports build_editable: started
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.3747242Z   Checking if build backend supports build_editable: finished with status 'done'
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.3753186Z   Getting requirements to build editable: started
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.6353991Z   Getting requirements to build editable: finished with status 'done'
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.6361792Z   Preparing editable metadata (pyproject.toml): started
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:52.8966894Z   Preparing editable metadata (pyproject.toml): finished with status 'done'
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.0136126Z Collecting evidently==0.7.23 (from -r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.0459260Z   Downloading evidently-0.7.23-py3-none-any.whl.metadata (12 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.0996117Z Collecting ipython==9.17.1 (from -r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.1094848Z   Downloading ipython-9.17.1-py3-none-any.whl.metadata (4.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.1508495Z Collecting ipykernel==7.4.0 (from -r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.1596682Z   Downloading ipykernel-7.4.0-py3-none-any.whl.metadata (3.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.2616566Z Collecting jupyterlab==4.6.4 (from -r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.2703006Z   Downloading jupyterlab-4.6.4-py3-none-any.whl.metadata (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.2999756Z Collecting loguru==0.7.3 (from -r /app/requirements.txt (line 5))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.3082355Z   Downloading loguru-0.7.3-py3-none-any.whl.metadata (22 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.4202549Z Collecting matplotlib==3.11.2 (from -r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.4285432Z   Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.4857029Z Collecting mlflow==3.16.1 (from -r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.4958877Z   Downloading mlflow-3.16.1-py3-none-any.whl.metadata (50 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.5421303Z Collecting notebook==7.6.3 (from -r /app/requirements.txt (line 8))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.5504899Z   Downloading notebook-7.6.3-py3-none-any.whl.metadata (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.6797172Z Collecting numpy==2.5.3 (from -r /app/requirements.txt (line 9))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.6884641Z   Downloading numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.7727363Z Collecting pandas==3.0.6 (from -r /app/requirements.txt (line 10))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.7811790Z   Downloading pandas-3.0.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (79 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.8573131Z Collecting psutil==7.2.2 (from -r /app/requirements.txt (line 11))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.8655744Z   Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.9509746Z Collecting pyarrow==25.0.1 (from -r /app/requirements.txt (line 12))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.9598429Z   Downloading pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:53.9986442Z Collecting pytest==9.1.1 (from -r /app/requirements.txt (line 13))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.0071222Z   Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.0380537Z Collecting python-dotenv==1.2.4 (from -r /app/requirements.txt (line 14))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.0464839Z   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.2588833Z Collecting ruff==0.17.1 (from -r /app/requirements.txt (line 15))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.2680667Z   Downloading ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.3306167Z Collecting scikit-learn==1.9.1 (from -r /app/requirements.txt (line 16))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.3528975Z   Downloading scikit_learn-1.9.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.3999522Z Collecting skops==0.16.0 (from -r /app/requirements.txt (line 17))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.4082071Z   Downloading skops-0.16.0-py3-none-any.whl.metadata (4.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.4455045Z Collecting tqdm==4.70.1 (from -r /app/requirements.txt (line 18))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.4537609Z   Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.4874857Z Collecting typer==0.27.3 (from -r /app/requirements.txt (line 19))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.4964006Z   Downloading typer-0.27.3-py3-none-any.whl.metadata (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.5493022Z Collecting fastapi==0.162.0 (from -r requirements-api.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.5570174Z   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.6225422Z Collecting uvicorn==0.54.0 (from -r requirements-api.txt (line 5))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.6304801Z   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.6602376Z Collecting httpx==0.28.1 (from -r requirements-api.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.6680034Z   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.6999727Z Collecting certifi>=2024.7.4 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.7079723Z   Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.8293299Z Collecting cryptography>=43.0.1 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.8377378Z   Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.8627822Z Collecting deprecation>=2.1.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.8706302Z   Downloading deprecation-2.1.0-py2.py3-none-any.whl.metadata (4.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.9196536Z Collecting dynaconf>=3.2.4 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.9282335Z   Downloading dynaconf-3.3.5-py3-none-any.whl.metadata (8.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.9606542Z Collecting fsspec>=2024.9.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:54.9685169Z   Downloading fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.0296486Z Collecting iterative-telemetry>=0.0.5 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.0391595Z   Downloading iterative_telemetry-0.0.10-py3-none-any.whl.metadata (4.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.0729951Z Collecting litestar>=2.19.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.0818795Z   Downloading litestar-2.25.0-py3-none-any.whl.metadata (26 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.1216838Z Collecting nltk>=3.6.7 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.1299967Z   Downloading nltk-3.10.4-py3-none-any.whl.metadata (5.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.1678498Z Collecting opentelemetry-proto>=1.25.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.1763272Z   Downloading opentelemetry_proto-1.45.2-py3-none-any.whl.metadata (2.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.2261443Z Collecting plotly<6,>=5.10.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.2351159Z   Downloading plotly-5.24.1-py3-none-any.whl.metadata (7.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.3158924Z Collecting pydantic>=1.10.16 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.3251942Z   Downloading pydantic-2.14.4-py3-none-any.whl.metadata (143 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.3705110Z Collecting pyyaml>=6.0.1 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.3785942Z   Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.4129032Z Collecting requests>=2.32.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.4211961Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.4657738Z Collecting rich>=13 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.4753854Z   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.5975464Z Collecting scipy>=1.10.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.6058477Z   Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.6576363Z Collecting statsmodels>=0.14.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.6677235Z   Downloading statsmodels-0.15.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.6984356Z Collecting typing-inspect>=0.9.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.7084040Z   Downloading typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.7686966Z Collecting ujson>=5.4.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.7774358Z   Downloading ujson-6.1.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (10.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.8105673Z Collecting urllib3>=1.26.19 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.8194397Z   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.8455379Z Collecting uuid6>=2024.7.10 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.8542596Z   Downloading uuid6-2025.0.1-py3-none-any.whl.metadata (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.9055042Z Collecting watchdog>=3.0.0 (from evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.9136770Z   Downloading watchdog-7.1.1-py3-none-manylinux_2_17_x86_64.whl.metadata (69 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.9411987Z Collecting ipython-pygments-lexers>=1.0.0 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.9490127Z   Downloading ipython_pygments_lexers-1.1.1-py3-none-any.whl.metadata (1.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.9760608Z Collecting jedi>=0.18.2 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:55.9840850Z   Downloading jedi-0.20.1-py2.py3-none-any.whl.metadata (23 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.0129942Z Collecting matplotlib-inline>=0.1.6 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.0213370Z   Downloading matplotlib_inline-0.2.2-py3-none-any.whl.metadata (2.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.0463209Z Collecting pexpect>4.6 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.0544503Z   Downloading pexpect-4.9.0-py2.py3-none-any.whl.metadata (2.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.0914052Z Collecting prompt_toolkit<3.1.0,>=3.0.41 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.0995157Z   Downloading prompt_toolkit-3.0.53-py3-none-any.whl.metadata (6.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.1310535Z Collecting pygments>=2.14.0 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.1391270Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.1639561Z Collecting stack_data>=0.6.0 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.1725871Z   Downloading stack_data-0.6.3-py3-none-any.whl.metadata (18 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.2017732Z Collecting traitlets>=5.13.0 (from ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.2104429Z   Downloading traitlets-5.16.1-py3-none-any.whl.metadata (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.2387512Z Collecting comm>=0.1.1 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.2479334Z   Downloading comm-0.2.3-py3-none-any.whl.metadata (3.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.3142635Z Collecting debugpy>=1.6.5 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.3227490Z   Downloading debugpy-1.8.22-cp312-cp312-manylinux_2_34_x86_64.whl.metadata (1.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.3606065Z Collecting jupyter-client>=8.9.0 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.3682707Z   Downloading jupyter_client-8.10.0-py3-none-any.whl.metadata (8.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.4009786Z Collecting jupyter-core!=6.0.*,>=5.1 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.4089125Z   Downloading jupyter_core-5.9.1-py3-none-any.whl.metadata (1.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.4341299Z Collecting nest-asyncio2>=1.7.0 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.4420641Z   Downloading nest_asyncio2-1.7.4-py3-none-any.whl.metadata (7.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.4700534Z Collecting packaging>=22 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.4820727Z   Downloading packaging-26.4-py3-none-any.whl.metadata (3.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.6184140Z Collecting pyzmq>=25 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.6265385Z   Downloading pyzmq-27.3.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.6693081Z Collecting tornado>=6.5.7 (from ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.6778931Z   Downloading tornado-6.6.1-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (2.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.7067741Z Collecting async-lru>=1.0.0 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.7150362Z   Downloading async_lru-2.4.0-py3-none-any.whl.metadata (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.7518782Z Collecting jinja2>=3.0.3 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.7598101Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.7864643Z Collecting jupyter-builder>=1.0.2 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.7943282Z   Downloading jupyter_builder-1.3.0-py3-none-any.whl.metadata (8.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.8559386Z Collecting jupyter-lsp>=2.0.0 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.8637412Z   Downloading jupyter_lsp-2.3.1-py3-none-any.whl.metadata (1.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.8995840Z Collecting jupyter-server<3,>=2.19.0 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.9075475Z   Downloading jupyter_server-2.21.1-py3-none-any.whl.metadata (8.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.9435342Z Collecting jupyterlab-server<3,>=2.28.0 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.9514467Z   Downloading jupyterlab_server-2.28.1-py3-none-any.whl.metadata (5.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.9778326Z Collecting notebook-shim>=0.2 (from jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:56.9866003Z   Downloading notebook_shim-0.2.4-py3-none-any.whl.metadata (4.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.0455437Z Collecting contourpy>=1.0.1 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.0546181Z   Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.0807928Z Collecting cycler>=0.10 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.0897541Z   Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.1930812Z Collecting fonttools>=4.28.2 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.2072074Z   Downloading fonttools-4.69.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (147 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.2715950Z Collecting kiwisolver>=1.3.1 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.2800338Z   Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.3961415Z Collecting pillow>=9 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.4046305Z   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.4393865Z Collecting pyparsing>=3 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.4472523Z   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.4743397Z Collecting python-dateutil>=2.7 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.4824102Z   Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.5191836Z Collecting mlflow-skinny==3.16.1 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.5283485Z   Downloading mlflow_skinny-3.16.1-py3-none-any.whl.metadata (50 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.5798550Z Collecting mlflow-tracing==3.16.1 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.5899782Z   Downloading mlflow_tracing-3.16.1-py3-none-any.whl.metadata (19 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.6201991Z Collecting Flask-CORS<7 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.6284065Z   Downloading flask_cors-6.0.5-py3-none-any.whl.metadata (5.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.6573630Z Collecting Flask<4 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:57.6653850Z   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.0001528Z Collecting aiohttp<4,>=3.7.0 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.0083645Z   Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.0454414Z Collecting alembic!=1.10.0,<2 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.0534629Z   Downloading alembic-1.20.1-py3-none-any.whl.metadata (7.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.0979992Z Collecting docker<8,>=4.0.0 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.1063017Z   Downloading docker-7.2.0-py3-none-any.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.1360236Z Collecting graphene<4 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.1438729Z   Downloading graphene-3.4.3-py2.py3-none-any.whl.metadata (6.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.1760409Z Collecting gunicorn<27 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.1844923Z   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.2336423Z Collecting huey<4,>=2.5.4 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.2429547Z   Downloading huey-3.5.4-py3-none-any.whl.metadata (5.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.5067781Z Collecting sqlalchemy<3,>=1.4.0 (from mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.5165921Z   Downloading sqlalchemy-2.1.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.5790656Z Collecting iniconfig>=1.0.1 (from pytest==9.1.1->-r /app/requirements.txt (line 13))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.5875272Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.6130804Z Collecting pluggy<2,>=1.5 (from pytest==9.1.1->-r /app/requirements.txt (line 13))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.6213007Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.6597543Z Collecting joblib>=1.4.0 (from scikit-learn==1.9.1->-r /app/requirements.txt (line 16))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.6678070Z   Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.7125200Z Collecting narwhals>=2.0.1 (from scikit-learn==1.9.1->-r /app/requirements.txt (line 16))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.7211996Z   Downloading narwhals-2.29.0-py3-none-any.whl.metadata (15 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.7472256Z Collecting threadpoolctl>=3.5.0 (from scikit-learn==1.9.1->-r /app/requirements.txt (line 16))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.7551490Z   Downloading threadpoolctl-3.8.0-py3-none-any.whl.metadata (29 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.7878159Z Collecting prettytable>=3.9 (from skops==0.16.0->-r /app/requirements.txt (line 17))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.7958427Z   Downloading prettytable-3.19.0-py3-none-any.whl.metadata (37 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.8285422Z Collecting shellingham>=1.3.0 (from typer==0.27.3->-r /app/requirements.txt (line 19))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.8369235Z   Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.8677725Z Collecting annotated-doc>=0.0.2 (from typer==0.27.3->-r /app/requirements.txt (line 19))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.8762128Z   Downloading annotated_doc-0.0.7-py3-none-any.whl.metadata (6.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.9144296Z Collecting starlette>=0.46.0 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.9230711Z   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.9602946Z Collecting typing-extensions>=4.8.0 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.9681575Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:58.9926509Z Collecting typing-inspection>=0.4.2 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.0004257Z   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.0309752Z Collecting opentelemetry-api>=1.44.0 (from fastapi==0.162.0->-r requirements-api.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.0390521Z   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.0695960Z Collecting click>=7.0 (from uvicorn==0.54.0->-r requirements-api.txt (line 5))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.0777957Z   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.1025239Z Collecting h11>=0.8 (from uvicorn==0.54.0->-r requirements-api.txt (line 5))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.1104280Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.1420656Z Collecting anyio (from httpx==0.28.1->-r requirements-api.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.1508005Z   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.1804929Z Collecting httpcore==1.* (from httpx==0.28.1->-r requirements-api.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.1885956Z   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.2157716Z Collecting idna (from httpx==0.28.1->-r requirements-api.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.2259745Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.2678557Z Collecting cachetools<8,>=5.0.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.2790764Z   Downloading cachetools-7.3.4-py3-none-any.whl.metadata (5.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.3104977Z Collecting cloudpickle<4 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.3191631Z   Downloading cloudpickle-3.1.3-py3-none-any.whl.metadata (7.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.3652634Z Collecting databricks-sdk<1,>=0.20.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.3732187Z   Downloading databricks_sdk-0.171.0-py3-none-any.whl.metadata (44 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.4212601Z Collecting gitpython<4,>=3.1.9 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.4295952Z   Downloading gitpython-3.2.1-py3-none-any.whl.metadata (13 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.4720892Z Collecting importlib_metadata!=4.7.0,<10,>=3.7.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.4811616Z   Downloading importlib_metadata-9.1.0-py3-none-any.whl.metadata (4.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.5230901Z Collecting opentelemetry-sdk<3,>=1.9.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.5314134Z   Downloading opentelemetry_sdk-1.45.2-py3-none-any.whl.metadata (1.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.6410979Z Collecting protobuf<8,>=3.12.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.6496048Z   Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.6966918Z Collecting sqlparse<1,>=0.4.0 (from mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.7050404Z   Downloading sqlparse-0.6.1-py3-none-any.whl.metadata (6.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.7537710Z Collecting aiohappyeyeballs>=2.5.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.7629148Z   Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.7875310Z Collecting aiosignal>=1.4.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.7973942Z   Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.8245430Z Collecting attrs>=17.3.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.8326191Z   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.9411504Z Collecting frozenlist>=1.1.1 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:08:59.9490805Z   Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.1130718Z Collecting multidict<8.0,>=4.5 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.1212604Z   Downloading multidict-7.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.1770300Z Collecting propcache>=0.2.0 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.1856099Z   Downloading propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.3459651Z Collecting yarl<2.0,>=1.25.1 (from aiohttp<4,>=3.7.0->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.3548368Z   Downloading yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.4030665Z Collecting Mako (from alembic!=1.10.0,<2->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.4112654Z   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.5070237Z Collecting cffi>=2.0.0 (from cryptography>=43.0.1->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.5152196Z   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.5572957Z Collecting blinker>=1.9.0 (from Flask<4->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.5656856Z   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.5941871Z Collecting itsdangerous>=2.2.0 (from Flask<4->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.6031529Z   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.7143645Z Collecting markupsafe>=2.1.1 (from Flask<4->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.7225924Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.7543183Z Collecting werkzeug>=3.1.0 (from Flask<4->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.7623643Z   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.8084747Z Collecting graphql-core<3.3,>=3.1 (from graphene<4->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.8169697Z   Downloading graphql_core-3.2.14-py3-none-any.whl.metadata (11 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.8435216Z Collecting graphql-relay<3.3,>=3.1 (from graphene<4->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.8517880Z   Downloading graphql_relay-3.2.0-py3-none-any.whl.metadata (12 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.8551435Z Collecting python-dateutil>=2.7 (from matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.8635032Z   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.9005616Z Collecting appdirs (from iterative-telemetry>=0.0.5->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.9089933Z   Downloading appdirs-1.4.4-py2.py3-none-any.whl.metadata (9.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.9431222Z Collecting filelock (from iterative-telemetry>=0.0.5->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.9515455Z   Downloading filelock-4.3.1-py3-none-any.whl.metadata (2.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.9759897Z Collecting distro (from iterative-telemetry>=0.0.5->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:00.9838532Z   Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.0142174Z Collecting parso<0.9.0,>=0.8.7 (from jedi>=0.18.2->ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.0230602Z   Downloading parso-0.8.7-py2.py3-none-any.whl.metadata (8.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.0848642Z Collecting platformdirs>=2.5 (from jupyter-core!=6.0.*,>=5.1->ipykernel==7.4.0->-r /app/requirements.txt (line 3))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.0935061Z   Downloading platformdirs-4.14.8-py3-none-any.whl.metadata (5.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.1375449Z Collecting argon2-cffi>=21.1 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.1456744Z   Downloading argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.1809133Z Collecting jupyter-events>=0.11.0 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.1889844Z   Downloading jupyter_events-0.12.1-py3-none-any.whl.metadata (5.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.2149348Z Collecting jupyter-server-terminals>=0.4.4 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.2233158Z   Downloading jupyter_server_terminals-0.5.4-py3-none-any.whl.metadata (5.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.2581362Z Collecting nbconvert>=6.4.4 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.2659900Z   Downloading nbconvert-7.17.2-py3-none-any.whl.metadata (8.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.2959539Z Collecting nbformat>=5.3.0 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.3044280Z   Downloading nbformat-5.11.1-py3-none-any.whl.metadata (3.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.3325393Z Collecting prometheus-client>=0.9 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.3410134Z   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.3708487Z Collecting send2trash>=1.8.2 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.3788658Z   Downloading send2trash-2.2.0-py3-none-any.whl.metadata (4.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.4064015Z Collecting terminado>=0.8.3 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.4144458Z   Downloading terminado-0.18.1-py3-none-any.whl.metadata (5.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.4485230Z Collecting websocket-client>=1.7 (from jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.4582938Z   Downloading websocket_client-1.9.2-py3-none-any.whl.metadata (8.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.4884021Z Collecting babel>=2.10 (from jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.4966292Z   Downloading babel-2.19.0-py3-none-any.whl.metadata (2.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.5273253Z Collecting json5>=0.9.0 (from jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.5354118Z   Downloading json5-0.17.3-py3-none-any.whl.metadata (27 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.5681762Z Collecting jsonschema>=4.18.0 (from jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.5762402Z   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.6353792Z Collecting litestar-htmx>=0.4.0 (from litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.6437000Z   Downloading litestar_htmx-0.5.0-py3-none-any.whl.metadata (1.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.6962498Z Collecting msgspec>=0.18.2 (from litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.7045331Z   Downloading msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.7376229Z Collecting multipart>=1.2.0 (from litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.7483353Z   Downloading multipart-2.0.1-py3-none-any.whl.metadata (4.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.7776114Z Collecting polyfactory>=2.6.3 (from litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.7858021Z   Downloading polyfactory-3.5.0-py3-none-any.whl.metadata (27 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.8170956Z Collecting rich-click (from litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.8258567Z   Downloading rich_click-1.9.9-py3-none-any.whl.metadata (7.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.8509026Z Collecting sniffio>=1.3.1 (from litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.8592497Z   Downloading sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.8920416Z Collecting defusedxml (from nltk>=3.6.7->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:01.9014255Z   Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.1604919Z Collecting regex>=2021.8.3 (from nltk>=3.6.7->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.1688994Z   Downloading regex-2026.11.25-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.2358696Z Collecting ptyprocess>=0.5 (from pexpect>4.6->ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.2440902Z   Downloading ptyprocess-0.7.0-py2.py3-none-any.whl.metadata (1.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.2750254Z Collecting tenacity>=6.2.0 (from plotly<6,>=5.10.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.2829350Z   Downloading tenacity-9.2.1-py3-none-any.whl.metadata (1.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.3181199Z Collecting wcwidth>=0.3.5 (from prettytable>=3.9->skops==0.16.0->-r /app/requirements.txt (line 17))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.3261298Z   Downloading wcwidth-0.9.5-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (26 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.3607055Z Collecting annotated-types>=0.6.0 (from pydantic>=1.10.16->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.3698308Z   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.8437576Z Collecting pydantic-core==2.50.5 (from pydantic>=1.10.16->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.8516635Z   Downloading pydantic_core-2.50.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.8871995Z Collecting six>=1.5 (from python-dateutil>=2.7->matplotlib==3.11.2->-r /app/requirements.txt (line 6))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.8953875Z   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:02.9955950Z Collecting charset_normalizer<4,>=2 (from requests>=2.32.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.0039911Z   Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (43 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.0473751Z Collecting markdown-it-py>=2.2.0 (from rich>=13->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.0553111Z   Downloading markdown_it_py-4.3.0-py3-none-any.whl.metadata (7.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.1072409Z Collecting executing>=1.2.0 (from stack_data>=0.6.0->ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.1155436Z   Downloading executing-2.3.0-py3-none-any.whl.metadata (9.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.1428390Z Collecting asttokens>=2.1.0 (from stack_data>=0.6.0->ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.1512527Z   Downloading asttokens-3.0.2-py3-none-any.whl.metadata (5.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.1760041Z Collecting pure-eval (from stack_data>=0.6.0->ipython==9.17.1->-r /app/requirements.txt (line 2))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.1846346Z   Downloading pure_eval-0.2.4-py3-none-any.whl.metadata (6.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.2344228Z Collecting patsy>=0.5.6 (from statsmodels>=0.14.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.2424789Z   Downloading patsy-1.0.3-py2.py3-none-any.whl.metadata (3.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.2712089Z Collecting formulaic>=1.1.0 (from statsmodels>=0.14.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.2793818Z   Downloading formulaic-1.2.2-py3-none-any.whl.metadata (7.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.3159297Z Collecting mypy-extensions>=0.3.0 (from typing-inspect>=0.9.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.3239335Z   Downloading mypy_extensions-1.2.0-py3-none-any.whl.metadata (1.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.3806872Z Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.3889792Z   Downloading httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.4318198Z Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.4410123Z   Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.5006511Z Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.5087966Z   Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.5965893Z Collecting websockets>=13.0 (from uvicorn[standard]>=0.22.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.6049079Z   Downloading websockets-17.4-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.6480481Z Collecting argon2-cffi-bindings (from argon2-cffi>=21.1->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.6560187Z   Downloading argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (7.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.6946349Z Collecting pycparser (from cffi>=2.0.0->cryptography>=43.0.1->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.7027573Z   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.8405987Z Collecting google-auth~=2.0 (from databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.8491166Z   Downloading google_auth-2.63.1-py3-none-any.whl.metadata (6.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.9403551Z Collecting interface-meta>=1.2.0 (from formulaic>=1.1.0->statsmodels>=0.14.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:03.9489237Z   Downloading interface_meta-2.0.1-py3-none-any.whl.metadata (6.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.1739462Z Collecting wrapt>=1.0 (from formulaic>=1.1.0->statsmodels>=0.14.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.1821169Z   Downloading wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.2131240Z Collecting gitdb<5,>=4.0.1 (from gitpython<4,>=3.1.9->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.2219727Z   Downloading gitdb-4.0.12-py3-none-any.whl.metadata (1.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.2666118Z Collecting zipp>=3.20 (from importlib_metadata!=4.7.0,<10,>=3.7.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.2748538Z   Downloading zipp-4.1.2-py3-none-any.whl.metadata (3.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.3106671Z Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.3194467Z   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.3514710Z Collecting referencing>=0.28.4 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.3594109Z   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.5197735Z Collecting rpds-py>=0.25.0 (from jsonschema>=4.18.0->jupyterlab-server<3,>=2.28.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.5280131Z   Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.5579981Z Collecting python-json-logger>=2.0.4 (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.5660626Z   Downloading python_json_logger-4.2.0-py3-none-any.whl.metadata (2.9 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.5911507Z Collecting rfc3339-validator (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.5990776Z   Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl.metadata (1.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.6229574Z Collecting rfc3986-validator>=0.1.1 (from jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.6307156Z   Downloading rfc3986_validator-0.1.1-py2.py3-none-any.whl.metadata (1.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.6644206Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.6723789Z   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.7147377Z Collecting beautifulsoup4 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.7224481Z   Downloading beautifulsoup4-4.15.0-py3-none-any.whl.metadata (3.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.7506429Z Collecting bleach!=5.0.0 (from bleach[css]!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.7585057Z   Downloading bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.7926515Z Collecting jupyterlab-pygments (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.8009308Z   Downloading jupyterlab_pygments-0.3.0-py3-none-any.whl.metadata (4.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.8324006Z Collecting mistune<4,>=2.0.3 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.8412863Z   Downloading mistune-3.4.0-py3-none-any.whl.metadata (2.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.8693521Z Collecting nbclient>=0.5.0 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.8774406Z   Downloading nbclient-0.11.0-py3-none-any.whl.metadata (7.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.9056406Z Collecting pandocfilters>=1.4.1 (from nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.9136903Z   Downloading pandocfilters-1.5.1-py2.py3-none-any.whl.metadata (9.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.9525325Z Collecting fastjsonschema>=2.15 (from nbformat>=5.3.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:04.9641582Z   Downloading fastjsonschema-2.22.3-py3-none-any.whl.metadata (2.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.0062246Z Collecting opentelemetry-semantic-conventions==0.66b2 (from opentelemetry-sdk<3,>=1.9.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.0140982Z   Downloading opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl.metadata (2.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.1147239Z Collecting faker>=5.0.0 (from polyfactory>=2.6.3->litestar>=2.19.0->evidently==0.7.23->-r /app/requirements.txt (line 1))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.1235642Z   Downloading faker-40.63.0-py3-none-any.whl.metadata (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.2400816Z Collecting webencodings (from bleach!=5.0.0->bleach[css]!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.2497973Z   Downloading webencodings-0.6.1-py3-none-any.whl.metadata (3.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.2783700Z Collecting tinycss2>=1.1.0 (from bleach[css]!=5.0.0->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.2865760Z   Downloading tinycss2-1.5.1-py3-none-any.whl.metadata (3.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.3185304Z Collecting smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython<4,>=3.1.9->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.3273205Z   Downloading smmap-5.0.3-py3-none-any.whl.metadata (4.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.3612020Z Collecting pyasn1-modules>=0.2.1 (from google-auth~=2.0->databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.3695723Z   Downloading pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.4269107Z Collecting fqdn (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.4361681Z   Downloading fqdn-1.6.0-py3-none-any.whl.metadata (9.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.4606426Z Collecting isoduration (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.4691423Z   Downloading isoduration-20.11.0-py3-none-any.whl.metadata (5.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.4974094Z Collecting jsonpointer>1.13 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.5065012Z   Downloading jsonpointer-3.12-py3-none-any.whl.metadata (2.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.5309683Z Collecting rfc3987-syntax>=1.1.0 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.5389108Z   Downloading rfc3987_syntax-1.1.0-py3-none-any.whl.metadata (7.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.5638754Z Collecting uri-template (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.5719276Z   Downloading uri_template-1.3.0-py3-none-any.whl.metadata (8.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.5999307Z Collecting webcolors>=24.6.0 (from jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.6078773Z   Downloading webcolors-25.10.0-py3-none-any.whl.metadata (2.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.6954566Z Collecting soupsieve>=1.6.1 (from beautifulsoup4->nbconvert>=6.4.4->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.7036018Z   Downloading soupsieve-4.1.3-py3-none-any.whl.metadata (4.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.7527009Z Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth~=2.0->databricks-sdk<1,>=0.20.0->mlflow-skinny==3.16.1->mlflow==3.16.1->-r /app/requirements.txt (line 7))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.7613389Z   Downloading pyasn1-0.6.5-py3-none-any.whl.metadata (8.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.7917742Z Collecting lark>=1.2.2 (from rfc3987-syntax>=1.1.0->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.8005017Z   Downloading lark-1.3.1-py3-none-any.whl.metadata (1.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.8543441Z Collecting arrow>=0.15.0 (from isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.8636874Z   Downloading arrow-1.4.0-py3-none-any.whl.metadata (7.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.8998272Z Collecting tzdata (from arrow>=0.15.0->isoduration->jsonschema[format-nongpl]>=4.18.0->jupyter-events>=0.11.0->jupyter-server<3,>=2.19.0->jupyterlab==4.6.4->-r /app/requirements.txt (line 4))
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.9079000Z   Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.9366148Z Downloading evidently-0.7.23-py3-none-any.whl (11.7 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.9907127Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.7/11.7 MB 229.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:05.9993345Z Downloading ipython-9.17.1-py3-none-any.whl (639 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.0035912Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 639.0/639.0 kB 187.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.0121894Z Downloading ipykernel-7.4.0-py3-none-any.whl (123 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.0210205Z Downloading jupyterlab-4.6.4-py3-none-any.whl (17.2 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.0729206Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.2/17.2 MB 341.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.0819740Z Downloading loguru-0.7.3-py3-none-any.whl (61 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.0905378Z Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.2124491Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 326.7 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.2232512Z Downloading mlflow-3.16.1-py3-none-any.whl (11.7 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.2619605Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.7/11.7 MB 309.8 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.2705685Z Downloading notebook-7.6.3-py3-none-any.whl (5.5 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.2916051Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 279.9 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.2998028Z Downloading numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.3617198Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 275.9 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.3730467Z Downloading pandas-3.0.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (10.8 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.4110071Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.8/10.8 MB 292.9 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.4195607Z Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.4281316Z Downloading pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl (50.1 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.7987492Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.1/50.1 MB 135.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.8071421Z Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.8171350Z Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.8256318Z Downloading ruff-0.17.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.4 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.9229936Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.4/10.4 MB 106.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:06.9310994Z Downloading scikit_learn-1.9.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.2 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0142018Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.2/9.2 MB 110.6 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0229684Z Downloading skops-0.16.0-py3-none-any.whl (148 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0314217Z Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0398883Z Downloading typer-0.27.3-py3-none-any.whl (123 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0482606Z Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0575538Z Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0656543Z Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0739809Z Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.0837855Z Downloading mlflow_skinny-3.16.1-py3-none-any.whl (3.8 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1169230Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 114.0 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1274609Z Downloading mlflow_tracing-3.16.1-py3-none-any.whl (1.8 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1441229Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 109.7 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1529487Z Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1715271Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 101.6 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1796691Z Downloading alembic-1.20.1-py3-none-any.whl (270 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1898373Z Downloading annotated_doc-0.0.7-py3-none-any.whl (5.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.1979776Z Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2063299Z Downloading async_lru-2.4.0-py3-none-any.whl (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2143574Z Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2228011Z Downloading click-8.5.1-py3-none-any.whl (126 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2308837Z Downloading comm-0.2.3-py3-none-any.whl (7.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2389766Z Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2491386Z Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.2914408Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 113.1 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3001310Z Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3099790Z Downloading debugpy-1.8.22-cp312-cp312-manylinux_2_34_x86_64.whl (4.0 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3451080Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.0/4.0 MB 114.9 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3536287Z Downloading deprecation-2.1.0-py2.py3-none-any.whl (11 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3620715Z Downloading docker-7.2.0-py3-none-any.whl (148 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3715051Z Downloading dynaconf-3.3.5-py3-none-any.whl (271 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3810194Z Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3893798Z Downloading flask_cors-6.0.5-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.3983425Z Downloading fonttools-4.69.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (6.7 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.4571311Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.7/6.7 MB 115.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.4652132Z Downloading fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.4744407Z Downloading graphene-3.4.3-py2.py3-none-any.whl (114 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.4825407Z Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.4924249Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5008899Z Downloading huey-3.5.4-py3-none-any.whl (135 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5101656Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5181853Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5263706Z Downloading ipython_pygments_lexers-1.1.1-py3-none-any.whl (8.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5348842Z Downloading iterative_telemetry-0.0.10-py3-none-any.whl (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5435686Z Downloading jedi-0.20.1-py2.py3-none-any.whl (4.9 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5867951Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 111.8 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.5950823Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6034057Z Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6130251Z Downloading jupyter_builder-1.3.0-py3-none-any.whl (950 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6221247Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 950.3/950.3 kB 116.5 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6303602Z Downloading jupyter_client-8.10.0-py3-none-any.whl (110 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6385895Z Downloading jupyter_core-5.9.1-py3-none-any.whl (29 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6466393Z Downloading jupyter_lsp-2.3.1-py3-none-any.whl (77 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6549247Z Downloading jupyter_server-2.21.1-py3-none-any.whl (394 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6650653Z Downloading jupyterlab_server-2.28.1-py3-none-any.whl (60 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6735502Z Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6852333Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 127.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.6962655Z Downloading litestar-2.25.0-py3-none-any.whl (584 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7010256Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 584.7/584.7 kB 151.8 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7098415Z Downloading matplotlib_inline-0.2.2-py3-none-any.whl (9.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7178910Z Downloading narwhals-2.29.0-py3-none-any.whl (501 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7291628Z Downloading nest_asyncio2-1.7.4-py3-none-any.whl (8.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7373938Z Downloading nltk-3.10.4-py3-none-any.whl (1.7 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7526440Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 114.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7608500Z Downloading notebook_shim-0.2.4-py3-none-any.whl (13 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7689219Z Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7776182Z Downloading opentelemetry_proto-1.45.2-py3-none-any.whl (72 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7854715Z Downloading packaging-26.4-py3-none-any.whl (140 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.7941522Z Downloading pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.8021512Z Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.8633566Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 117.3 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:07.8720647Z Downloading plotly-5.24.1-py3-none-any.whl (19.1 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.0360731Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 19.1/19.1 MB 116.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.0442579Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.0530288Z Downloading prettytable-3.19.0-py3-none-any.whl (37 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.0612467Z Downloading prompt_toolkit-3.0.53-py3-none-any.whl (392 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.0715905Z Downloading pydantic-2.14.4-py3-none-any.whl (494 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.0826230Z Downloading pydantic_core-2.50.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1007258Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 125.4 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1092010Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1193887Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 121.0 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1273749Z Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1355250Z Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1450091Z Downloading pyyaml-6.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (849 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1520453Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 849.2/849.2 kB 120.6 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1601364Z Downloading pyzmq-27.3.0-cp312-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (855 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1679346Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 855.2/855.2 kB 109.7 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1761916Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1843514Z Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.1940443Z Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.4801425Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 123.6 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.4938875Z Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.5026079Z Downloading sqlalchemy-2.1.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.7 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.5395934Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 129.9 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.5486359Z Downloading stack_data-0.6.3-py3-none-any.whl (24 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.5567043Z Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.5651819Z Downloading statsmodels-0.15.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (12.0 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.6600599Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.0/12.0 MB 128.1 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.6680960Z Downloading threadpoolctl-3.8.0-py3-none-any.whl (32 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.6762647Z Downloading tornado-6.6.1-cp311-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (534 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.6804195Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 534.5/534.5 kB 171.5 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.6889861Z Downloading traitlets-5.16.1-py3-none-any.whl (86 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.6976497Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7056708Z Downloading typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7137793Z Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7217981Z Downloading ujson-6.1.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (56 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7297382Z Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7384768Z Downloading uuid6-2025.0.1-py3-none-any.whl (7.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7467349Z Downloading watchdog-7.1.1-py3-none-manylinux_2_17_x86_64.whl (116 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7547534Z Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7626279Z Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7706670Z Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7791992Z Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7878760Z Downloading asttokens-3.0.2-py3-none-any.whl (28 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.7963301Z Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.8049962Z Downloading babel-2.19.0-py3-none-any.whl (11.0 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.8918731Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.0/11.0 MB 126.5 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9005059Z Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9087361Z Downloading cachetools-7.3.4-py3-none-any.whl (20 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9169414Z Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9255609Z Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (257 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9349039Z Downloading cloudpickle-3.1.3-py3-none-any.whl (22 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9427703Z Downloading databricks_sdk-0.171.0-py3-none-any.whl (1.3 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9525095Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 142.0 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9604472Z Downloading executing-2.3.0-py3-none-any.whl (29 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9684057Z Downloading formulaic-1.2.2-py3-none-any.whl (118 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9771474Z Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9859550Z Downloading gitpython-3.2.1-py3-none-any.whl (231 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:08.9949000Z Downloading graphql_core-3.2.14-py3-none-any.whl (279 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0040107Z Downloading graphql_relay-3.2.0-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0121680Z Downloading httptools-0.9.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (552 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0157807Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 552.8/552.8 kB 186.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0245558Z Downloading importlib_metadata-9.1.0-py3-none-any.whl (28 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0327958Z Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0418739Z Downloading json5-0.17.3-py3-none-any.whl (34 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0500022Z Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0581891Z Downloading jupyter_events-0.12.1-py3-none-any.whl (19 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0659608Z Downloading jupyter_server_terminals-0.5.4-py3-none-any.whl (13 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0751637Z Downloading litestar_htmx-0.5.0-py3-none-any.whl (10.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0835408Z Downloading markdown_it_py-4.3.0-py3-none-any.whl (96 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.0919916Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1009683Z Downloading msgspec-0.22.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (230 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1096282Z Downloading multidict-7.2.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (516 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1199636Z Downloading multipart-2.0.1-py3-none-any.whl (16 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1279248Z Downloading mypy_extensions-1.2.0-py3-none-any.whl (5.1 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1358261Z Downloading nbconvert-7.17.2-py3-none-any.whl (262 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1454256Z Downloading nbformat-5.11.1-py3-none-any.whl (79 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1535510Z Downloading opentelemetry_sdk-1.45.2-py3-none-any.whl (141 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1618670Z Downloading opentelemetry_semantic_conventions-0.66b2-py3-none-any.whl (206 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1705755Z Downloading parso-0.8.7-py2.py3-none-any.whl (107 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1788132Z Downloading patsy-1.0.3-py2.py3-none-any.whl (233 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1878633Z Downloading platformdirs-4.14.8-py3-none-any.whl (94 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.1966233Z Downloading polyfactory-3.5.0-py3-none-any.whl (63 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2049448Z Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2131261Z Downloading propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (250 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2218599Z Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2318786Z Downloading ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2399960Z Downloading regex-2026.11.25-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (820 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2458032Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 820.5/820.5 kB 172.8 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2537402Z Downloading send2trash-2.2.0-py3-none-any.whl (17 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2618993Z Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.2719510Z Downloading sniffio-1.3.1-py3-none-any.whl (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3000765Z Downloading sqlparse-0.6.1-py3-none-any.whl (51 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3089753Z Downloading tenacity-9.2.1-py3-none-any.whl (32 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3168541Z Downloading terminado-0.18.1-py3-none-any.whl (14 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3253479Z Downloading uvloop-0.23.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.5 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3604834Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 131.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3688704Z Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3792662Z Downloading wcwidth-0.9.5-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (822 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3850063Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 822.7/822.7 kB 174.7 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.3928654Z Downloading websocket_client-1.9.2-py3-none-any.whl (95 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4009846Z Downloading websockets-17.4-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (226 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4096316Z Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4184688Z Downloading yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4265275Z Downloading appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4345798Z Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4430524Z Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4514379Z Downloading filelock-4.3.1-py3-none-any.whl (244 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4616309Z Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4701400Z Downloading pure_eval-0.2.4-py3-none-any.whl (11 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4789623Z Downloading rich_click-1.9.9-py3-none-any.whl (71 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4875493Z Downloading bleach-6.4.0-py3-none-any.whl (165 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.4961551Z Downloading faker-40.63.0-py3-none-any.whl (2.1 MB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5123790Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 130.2 MB/s eta 0:00:00
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5204845Z Downloading fastjsonschema-2.22.3-py3-none-any.whl (28 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5284484Z Downloading gitdb-4.0.12-py3-none-any.whl (62 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5365778Z Downloading google_auth-2.63.1-py3-none-any.whl (271 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5457912Z Downloading interface_meta-2.0.1-py3-none-any.whl (15 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5536902Z Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5618795Z Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5699055Z Downloading mistune-3.4.0-py3-none-any.whl (70 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5786864Z Downloading nbclient-0.11.0-py3-none-any.whl (25 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5868882Z Downloading pandocfilters-1.5.1-py2.py3-none-any.whl (8.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.5950814Z Downloading python_json_logger-4.2.0-py3-none-any.whl (14 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6031234Z Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6115484Z Downloading rfc3986_validator-0.1.1-py2.py3-none-any.whl (4.2 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6215561Z Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6405518Z Downloading wrapt-2.5.2-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (250 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6497642Z Downloading zipp-4.1.2-py3-none-any.whl (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6577102Z Downloading argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (26 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6658377Z Downloading beautifulsoup4-4.15.0-py3-none-any.whl (109 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6741814Z Downloading jupyterlab_pygments-0.3.0-py3-none-any.whl (15 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6835475Z Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.6920418Z Downloading rfc3339_validator-0.1.4-py2.py3-none-any.whl (3.5 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7002432Z Downloading jsonpointer-3.12-py3-none-any.whl (10 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7089292Z Downloading pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7178024Z Downloading rfc3987_syntax-1.1.0-py3-none-any.whl (8.0 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7257821Z Downloading smmap-5.0.3-py3-none-any.whl (24 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7338129Z Downloading soupsieve-4.1.3-py3-none-any.whl (59 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7420382Z Downloading tinycss2-1.5.1-py3-none-any.whl (28 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7499304Z Downloading webcolors-25.10.0-py3-none-any.whl (14 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7583031Z Downloading webencodings-0.6.1-py3-none-any.whl (8.7 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7668687Z Downloading fqdn-1.6.0-py3-none-any.whl (12 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7748507Z Downloading isoduration-20.11.0-py3-none-any.whl (11 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7828031Z Downloading uri_template-1.3.0-py3-none-any.whl (11 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7909759Z Downloading arrow-1.4.0-py3-none-any.whl (68 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.7998461Z Downloading lark-1.3.1-py3-none-any.whl (113 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.8083180Z Downloading pyasn1-0.6.5-py3-none-any.whl (84 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:09.8170111Z Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.2503774Z Building wheels for collected packages: mibici
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.2510202Z   Building editable for mibici (pyproject.toml): started
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.5275938Z   Building editable for mibici (pyproject.toml): finished with status 'done'
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.5280795Z   Created wheel for mibici: filename=mibici-0.0.1-py3-none-any.whl size=45987 sha256=81b3ca14e0db1aa51ef232210e28533f71f77797529641bc68ae8ae9b1a9acc4
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.5282192Z   Stored in directory: /tmp/pip-ephem-wheel-cache-5006f8cc/wheels/54/1b/b7/aa63e25c8f14f4f2ae7b04e6097bdecb770e455c5c1ee0a600
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.5341044Z Successfully built mibici
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:10.9017957Z Installing collected packages: pure-eval, ptyprocess, huey, appdirs, zipp, wrapt, websockets, websocket-client, webencodings, webcolors, wcwidth, watchdog, uvloop, uuid6, urllib3, uri-template, ujson, tzdata, typing-extensions, traitlets, tqdm, tornado, threadpoolctl, tenacity, sqlparse, soupsieve, sniffio, smmap, six, shellingham, send2trash, ruff, rpds-py, rfc3986-validator, regex, pyzmq, pyyaml, python-json-logger, python-dotenv, pyparsing, pygments, pycparser, pyasn1, pyarrow, psutil, protobuf, propcache, prometheus-client, pluggy, platformdirs, pillow, pexpect, parso, pandocfilters, packaging, numpy, nest-asyncio2, narwhals, mypy-extensions, multipart, multidict, msgspec, mistune, mibici, mdurl, markupsafe, loguru, litestar-htmx, lark, kiwisolver, jupyterlab-pygments, jsonpointer, json5, itsdangerous, interface-meta, iniconfig, idna, httptools, h11, gunicorn, graphql-core, fsspec, frozenlist, fqdn, fonttools, filelock, fastjsonschema, faker, executing, dynaconf, distro, defusedxml, debugpy, cycler, comm, cloudpickle, click, charset_normalizer, certifi, cachetools, blinker, babel, attrs, async-lru, asttokens, annotated-types, annotated-doc, aiohappyeyeballs, yarl, werkzeug, uvicorn, typing-inspection, typing-inspect, tinycss2, terminado, stack_data, sqlalchemy, scipy, rfc3987-syntax, rfc3339-validator, requests, referencing, python-dateutil, pytest, pydantic-core, pyasn1-modules, prompt_toolkit, prettytable, polyfactory, plotly, patsy, opentelemetry-proto, opentelemetry-api, matplotlib-inline, markdown-it-py, Mako, jupyter-core, joblib, jinja2, jedi, ipython-pygments-lexers, importlib_metadata, httpcore, graphql-relay, gitdb, deprecation, contourpy, cffi, bleach, beautifulsoup4, anyio, aiosignal, watchfiles, starlette, scikit-learn, rich, pydantic, pandas, opentelemetry-semantic-conventions, nltk, matplotlib, jupyter-server-terminals, jupyter-client, jupyter-builder, jsonschema-specifications, iterative-telemetry, ipython, httpx, graphene, gitpython, Flask, docker, cryptography, arrow, argon2-cffi-bindings, alembic, aiohttp, typer, skops, rich-click, opentelemetry-sdk, jsonschema, isoduration, ipykernel, google-auth, formulaic, Flask-CORS, fastapi, argon2-cffi, statsmodels, nbformat, litestar, databricks-sdk, nbclient, mlflow-tracing, mlflow-skinny, jupyter-events, evidently, nbconvert, mlflow, jupyter-server, notebook-shim, jupyterlab-server, jupyter-lsp, jupyterlab, notebook
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:45.8983713Z Successfully installed Flask-3.1.3 Flask-CORS-6.0.5 Mako-1.4.3 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 alembic-1.20.1 annotated-doc-0.0.7 annotated-types-0.8.0 anyio-4.16.0 appdirs-1.4.4 argon2-cffi-25.1.0 argon2-cffi-bindings-26.2.0 arrow-1.4.0 asttokens-3.0.2 async-lru-2.4.0 attrs-26.1.0 babel-2.19.0 beautifulsoup4-4.15.0 bleach-6.4.0 blinker-1.9.0 cachetools-7.3.4 certifi-2026.11.20 cffi-2.1.1 charset_normalizer-3.5.3 click-8.5.1 cloudpickle-3.1.3 comm-0.2.3 contourpy-1.4.0 cryptography-50.0.2 cycler-0.12.1 databricks-sdk-0.171.0 debugpy-1.8.22 defusedxml-0.7.1 deprecation-2.1.0 distro-1.9.0 docker-7.2.0 dynaconf-3.3.5 evidently-0.7.23 executing-2.3.0 faker-40.63.0 fastapi-0.162.0 fastjsonschema-2.22.3 filelock-4.3.1 fonttools-4.69.1 formulaic-1.2.2 fqdn-1.6.0 frozenlist-1.8.0 fsspec-2026.9.0 gitdb-4.0.12 gitpython-3.2.1 google-auth-2.63.1 graphene-3.4.3 graphql-core-3.2.14 graphql-relay-3.2.0 gunicorn-26.2.0 h11-0.16.0 httpcore-1.0.9 httptools-0.9.0 httpx-0.28.1 huey-3.5.4 idna-3.20 importlib_metadata-9.1.0 iniconfig-2.3.1 interface-meta-2.0.1 ipykernel-7.4.0 ipython-9.17.1 ipython-pygments-lexers-1.1.1 isoduration-20.11.0 iterative-telemetry-0.0.10 itsdangerous-2.2.0 jedi-0.20.1 jinja2-3.1.6 joblib-1.6.0 json5-0.17.3 jsonpointer-3.12 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 jupyter-builder-1.3.0 jupyter-client-8.10.0 jupyter-core-5.9.1 jupyter-events-0.12.1 jupyter-lsp-2.3.1 jupyter-server-2.21.1 jupyter-server-terminals-0.5.4 jupyterlab-4.6.4 jupyterlab-pygments-0.3.0 jupyterlab-server-2.28.1 kiwisolver-1.5.1 lark-1.3.1 litestar-2.25.0 litestar-htmx-0.5.0 loguru-0.7.3 markdown-it-py-4.3.0 markupsafe-3.0.4 matplotlib-3.11.2 matplotlib-inline-0.2.2 mdurl-0.1.2 mibici-0.0.1 mistune-3.4.0 mlflow-3.16.1 mlflow-skinny-3.16.1 mlflow-tracing-3.16.1 msgspec-0.22.0 multidict-7.2.1 multipart-2.0.1 mypy-extensions-1.2.0 narwhals-2.29.0 nbclient-0.11.0 nbconvert-7.17.2 nbformat-5.11.1 nest-asyncio2-1.7.4 nltk-3.10.4 notebook-7.6.3 notebook-shim-0.2.4 numpy-2.5.3 opentelemetry-api-1.45.2 opentelemetry-proto-1.45.2 opentelemetry-sdk-1.45.2 opentelemetry-semantic-conventions-0.66b2 packaging-26.4 pandas-3.0.6 pandocfilters-1.5.1 parso-0.8.7 patsy-1.0.3 pexpect-4.9.0 pillow-13.0.0 platformdirs-4.14.8 plotly-5.24.1 pluggy-1.7.0 polyfactory-3.5.0 prettytable-3.19.0 prometheus-client-0.26.0 prompt_toolkit-3.0.53 propcache-0.5.4 protobuf-7.36.2 psutil-7.2.2 ptyprocess-0.7.0 pure-eval-0.2.4 pyarrow-25.0.1 pyasn1-0.6.5 pyasn1-modules-0.4.2 pycparser-3.12 pydantic-2.14.4 pydantic-core-2.50.5 pygments-2.21.0 pyparsing-3.3.3 pytest-9.1.1 python-dateutil-2.9.0.post0 python-dotenv-1.2.4 python-json-logger-4.2.0 pyyaml-6.0.4 pyzmq-27.3.0 referencing-0.37.0 regex-2026.11.25 requests-2.34.2 rfc3339-validator-0.1.4 rfc3986-validator-0.1.1 rfc3987-syntax-1.1.0 rich-15.0.0 rich-click-1.9.9 rpds-py-2026.9.1 ruff-0.17.1 scikit-learn-1.9.1 scipy-1.18.1 send2trash-2.2.0 shellingham-1.5.4 six-1.17.0 skops-0.16.0 smmap-5.0.3 sniffio-1.3.1 soupsieve-4.1.3 sqlalchemy-2.1.9 sqlparse-0.6.1 stack_data-0.6.3 starlette-1.10.0 statsmodels-0.15.0 tenacity-9.2.1 terminado-0.18.1 threadpoolctl-3.8.0 tinycss2-1.5.1 tornado-6.6.1 tqdm-4.70.1 traitlets-5.16.1 typer-0.27.3 typing-extensions-4.16.0 typing-inspect-0.9.0 typing-inspection-0.4.5 tzdata-2026.6 ujson-6.1.0 uri-template-1.3.0 urllib3-2.8.0 uuid6-2025.0.1 uvicorn-0.54.0 uvloop-0.23.0 watchdog-7.1.1 watchfiles-1.3.0 wcwidth-0.9.5 webcolors-25.10.0 webencodings-0.6.1 websocket-client-1.9.2 websockets-17.4 werkzeug-3.1.9 wrapt-2.5.2 yarl-1.25.1 zipp-4.1.2
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:45.8998182Z WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:45.9924008Z 
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:45.9924921Z [notice] A new release of pip is available: 25.0.1 -> 26.3
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:09:45.9925654Z [notice] To update, run: pip install --upgrade pip
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:00.8467993Z --> a686686dbd40
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:00.9946564Z STEP 6/9: RUN useradd --create-home     --shell /usr/sbin/nologin appuser     && chown -R appuser:appuser /app
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:01.7291050Z --> df62060d1b79
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:01.7458279Z STEP 7/9: USER appuser
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:01.8927905Z --> eb8df4b62985
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:01.9069649Z STEP 8/9: EXPOSE 8000
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:02.0547806Z --> 80acf258bb9f
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:02.0701986Z STEP 9/9: CMD ["python", "-m", "uvicorn", "mibici.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:02.1481515Z COMMIT mibici-api:week10
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:02.2077775Z --> d0c3d6afca6e
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:02.2078446Z Successfully tagged localhost/mibici-api:week10
+Construccion de imagenes Podman	Construir imagen FastAPI	2026-11-26T05:10:03.1982882Z d0c3d6afca6e2f2912f48d09fd324796f7b9aa7c1be3c7da0f72d81ac952c474
+Construccion de imagenes Podman	Verificar imagenes	﻿2026-11-26T05:10:03.2416385Z ##[group]Run podman image exists mibici-mlflow:week10
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.2416789Z ^[[36;1mpodman image exists mibici-mlflow:week10^[[0m
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.2417122Z ^[[36;1mpodman image exists mibici-api:week10^[[0m
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.2417507Z ^[[36;1mpodman images --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'^[[0m
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.2443098Z shell: /usr/bin/bash -e {0}
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.2443397Z ##[endgroup]
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.3487676Z REPOSITORY                TAG         SIZE
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.3488544Z localhost/mibici-api      week10      1.46 GB
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.3489113Z localhost/mibici-mlflow   week10      929 MB
+Construccion de imagenes Podman	Verificar imagenes	2026-11-26T05:10:03.3489490Z docker.io/library/python  3.12-slim   124 MB
+Construccion de imagenes Podman	Post Descargar repositorio	﻿2026-11-26T05:10:03.3656729Z Post job cleanup.
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4309858Z [command]/usr/bin/git version
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4363052Z git version 2.56.1
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4398215Z Temporarily overriding HOME='/home/runner/work/_temp/b802e17c-d481-4af4-87a3-7e533416e691' before making global git config changes
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4407680Z Adding repository directory to the temporary git global config as a safe directory
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4408555Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TC5061-Proyecto-Equipo15/TC5061-Proyecto-Equipo15
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4445981Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4471325Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4642349Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4662617Z http.https://github.com/.extraheader
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4669740Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4738346Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4919606Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Construccion de imagenes Podman	Post Descargar repositorio	2026-11-26T05:10:03.4943951Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Construccion de imagenes Podman	Complete job	﻿2026-11-26T05:10:03.5237877Z Cleaning up orphan processes
+Construccion de imagenes Podman	Complete job	2026-11-26T05:10:03.5460827Z Terminate orphan process: pid (2528) (catatonit)
+Construccion de imagenes Podman	Complete job	2026-11-26T05:10:03.5517597Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

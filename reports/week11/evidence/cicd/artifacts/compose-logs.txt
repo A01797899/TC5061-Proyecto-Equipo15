@@ -1,0 +1,47 @@
+api-1  | INFO:     Started server process [1]
+api-1  | INFO:     Waiting for application startup.
+api-1  | Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 12.50it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 24.10it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 35.10it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 46.65it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 57.53it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 68.97it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 79.28it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 79.17it/s]
+api-1  | INFO:     Application startup complete.
+api-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+api-1  | INFO:     127.0.0.1:38596 - "GET /ready HTTP/1.1" 200 OK
+api-1  | INFO:     172.18.0.1:59450 - "GET /health HTTP/1.1" 200 OK
+api-1  | INFO:     172.18.0.1:59454 - "GET /ready HTTP/1.1" 200 OK
+api-1  | INFO:     172.18.0.1:59458 - "POST /predict HTTP/1.1" 200 OK
+api-1  | INFO:     172.18.0.1:59470 - "POST /predict HTTP/1.1" 200 OK
+api-1  | INFO:     172.18.0.1:59480 - "GET /endpoint-inexistente HTTP/1.1" 404 Not Found
+api-1  | INFO:     172.18.0.1:59492 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+api-1  | INFO:     172.18.0.1:59506 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+api-1  | INFO:     172.18.0.1:59522 - "POST /predict HTTP/1.1" 422 Unprocessable Entity
+mlflow-1  | Registry store URI not provided. Using backend store URI.
+mlflow-1  | [MLflow] Security middleware enabled. Allowed hosts: mlflow:5000, localhost:5000, 127.0.0.1:5000.
+mlflow-1  | /usr/local/lib/python3.12/site-packages/mlflow/server/fastapi_app.py:23: StarletteDeprecationWarning: starlette.middleware.wsgi is deprecated and will be removed in a future release. Please refer to https://github.com/abersheeran/a2wsgi as a replacement.
+mlflow-1  |   from starlette.middleware.wsgi import WSGIResponder, build_environ
+mlflow-1  | 2026/11/26 05:10:35 INFO:     Started server process [12]
+mlflow-1  | 2026/11/26 05:10:35 INFO:     Waiting for application startup.
+mlflow-1  | 2026/11/26 05:10:35 INFO:     Application startup complete.
+mlflow-1  | 2026/11/26 05:10:35 INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+mlflow-1  | 2026/11/26 05:10:40 INFO:     127.0.0.1:59388 - "GET /health HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO mlflow.server.jobs.utils: Registered online_scoring_scheduler periodic task (runs every 1 minute)
+mlflow-1  | 2026/11/26 05:10:44 INFO mlflow.server.jobs.utils: Registered trace_archival_scheduler periodic task (polls every 1 minute and no-ops when trace archival is disabled or unconfigured)
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53794 - "GET /api/2.0/mlflow/registered-models/alias?name=mibici-equipo15-p1-demanda&alias=champion HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53794 - "GET /api/2.0/mlflow/registered-models/get?name=mibici-equipo15-p1-demanda HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53794 - "GET /api/2.0/mlflow/model-versions/get-download-uri?name=mibici-equipo15-p1-demanda&version=1 HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53794 - "GET /api/2.0/mlflow-artifacts/artifacts?path=1%2Fmodels%2Fm-266a43b6d0a84b26ac2161a7e028a1b3%2Fartifacts HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53794 - "GET /api/2.0/mlflow-artifacts/artifacts?path=1%2Fmodels%2Fm-266a43b6d0a84b26ac2161a7e028a1b3%2Fartifacts HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53810 - "GET /api/3.0/mlflow/server-info HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53794 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/conda.yaml HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53812 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/MLmodel HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53818 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/input_example.json HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53826 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/serving_input_example.json HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53840 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/requirements.txt HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53856 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/python_env.yaml HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:44 INFO:     172.18.0.3:53866 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/python_model.pkl HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow/model-versions/search?filter=name+%3D+%27mibici-equipo15-p1-demanda%27&max_results=10000 HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow/registered-models/alias?name=mibici-equipo15-p1-demanda&alias=champion HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow/registered-models/alias?name=mibici-equipo15-p1-demanda&alias=champion HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow/registered-models/get?name=mibici-equipo15-p1-demanda HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow/model-versions/get-download-uri?name=mibici-equipo15-p1-demanda&version=1 HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow-artifacts/artifacts?path=1%2Fmodels%2Fm-266a43b6d0a84b26ac2161a7e028a1b3%2Fartifacts%2FMLmodel HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52500 - "GET /api/3.0/mlflow/server-info HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.3:52492 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-266a43b6d0a84b26ac2161a7e028a1b3/artifacts/MLmodel HTTP/1.1" 200 OK
+mlflow-1  | 2026/11/26 05:10:48 INFO:     172.18.0.1:36774 - "GET /health HTTP/1.1" 200 OK

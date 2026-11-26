@@ -1,0 +1,18 @@
+=== MiBici | Smoke Integration | Semana 10 ===
+API: http://127.0.0.1:8000 | MLflow: http://127.0.0.1:5000
+Payload: postman/examples/p1-valid.json
+[PASS] 01 MLflow health: HTTP 200
+[PASS] 02 FastAPI health: HTTP 200
+[PASS] 03 FastAPI ready: HTTP 200
+[PASS] 04 Inferencia P1 Champion: HTTP 200; model=mibici-equipo15-p1-demanda; prediction=3.694163560787005
+[PASS] 05 Prediccion de referencia: valor de referencia 3.694163560787005
+[PASS] 06 Segunda inferencia: HTTP 200; model=mibici-equipo15-p1-demanda; prediction=3.694163560787005
+[PASS] 07 Reproducibilidad: mismo resultado en dos ejecuciones
+[PASS] 08 Ruta inexistente: HTTP 404
+[PASS] 09 JSON vacio: HTTP 422
+[PASS] 10 Hora fuera de rango: HTTP 422
+[PASS] 11 Caracteristica faltante: HTTP 422
+====================================================
+RESULTADO: 11/11 pruebas aprobadas
+SMOKE INTEGRATION COMPLETADA - OK
+Post recovery smoke exit code: 0

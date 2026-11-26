@@ -1,0 +1,121 @@
+Registry store URI not provided. Using backend store URI.
+[MLflow] Security middleware enabled. Allowed hosts: mlflow:5000, localhost:5000, 127.0.0.1:5000.
+2026/11/25 20:20:57 INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+2026/11/25 20:20:57 INFO:     Started parent process [8]
+/usr/local/lib/python3.12/site-packages/mlflow/server/fastapi_app.py:23: StarletteDeprecationWarning: starlette.middleware.wsgi is deprecated and will be removed in a future release. Please refer to https://github.com/abersheeran/a2wsgi as a replacement.
+  from starlette.middleware.wsgi import WSGIResponder, build_environ
+/usr/local/lib/python3.12/site-packages/mlflow/server/fastapi_app.py:23: StarletteDeprecationWarning: starlette.middleware.wsgi is deprecated and will be removed in a future release. Please refer to https://github.com/abersheeran/a2wsgi as a replacement.
+  from starlette.middleware.wsgi import WSGIResponder, build_environ
+/usr/local/lib/python3.12/site-packages/mlflow/server/fastapi_app.py:23: StarletteDeprecationWarning: starlette.middleware.wsgi is deprecated and will be removed in a future release. Please refer to https://github.com/abersheeran/a2wsgi as a replacement.
+  from starlette.middleware.wsgi import WSGIResponder, build_environ
+/usr/local/lib/python3.12/site-packages/mlflow/server/fastapi_app.py:23: StarletteDeprecationWarning: starlette.middleware.wsgi is deprecated and will be removed in a future release. Please refer to https://github.com/abersheeran/a2wsgi as a replacement.
+  from starlette.middleware.wsgi import WSGIResponder, build_environ
+2026/11/25 20:21:09 INFO:     Started server process [14]
+2026/11/25 20:21:09 INFO:     Waiting for application startup.
+2026/11/25 20:21:09 INFO:     Started server process [12]
+2026/11/25 20:21:09 INFO:     Waiting for application startup.
+2026/11/25 20:21:09 INFO:     Application startup complete.
+2026/11/25 20:21:09 INFO:     Application startup complete.
+2026/11/25 20:21:09 INFO:     Started server process [13]
+2026/11/25 20:21:09 INFO:     Waiting for application startup.
+2026/11/25 20:21:09 INFO:     Application startup complete.
+2026/11/25 20:21:09 INFO:     Started server process [11]
+2026/11/25 20:21:09 INFO:     Waiting for application startup.
+2026/11/25 20:21:09 INFO:     Application startup complete.
+2026/11/25 20:21:16 INFO:     127.0.0.1:45710 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:21:17 INFO mlflow.server.jobs.utils: Registered online_scoring_scheduler periodic task (runs every 1 minute)
+2026/11/25 20:21:17 INFO mlflow.server.jobs.utils: Registered trace_archival_scheduler periodic task (polls every 1 minute and no-ops when trace archival is disabled or unconfigured)
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow/registered-models/alias?name=mibici-equipo15-p1-demanda&alias=champion HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow/registered-models/get?name=mibici-equipo15-p1-demanda HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow/model-versions/get-download-uri?name=mibici-equipo15-p1-demanda&version=1 HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow-artifacts/artifacts?path=1%2Fmodels%2Fm-04774b8f25ff468b933a18756c24b068%2Fartifacts HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow-artifacts/artifacts?path=1%2Fmodels%2Fm-04774b8f25ff468b933a18756c24b068%2Fartifacts HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35312 - "GET /api/3.0/mlflow/server-info HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/serving_input_example.json HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35308 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/requirements.txt HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35334 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/model.skops HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35350 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/MLmodel HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35348 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/conda.yaml HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35326 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/python_env.yaml HTTP/1.1" 200 OK
+2026/11/25 20:21:21 INFO:     10.89.2.3:35354 - "GET /api/2.0/mlflow-artifacts/artifacts/1/models/m-04774b8f25ff468b933a18756c24b068/artifacts/input_example.json HTTP/1.1" 200 OK
+2026/11/25 20:21:27 INFO:     127.0.0.1:54370 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:21:38 INFO:     127.0.0.1:57826 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:21:49 INFO:     127.0.0.1:54948 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:22:00 INFO:     127.0.0.1:59030 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:22:11 INFO:     127.0.0.1:52424 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:22:22 INFO:     127.0.0.1:59042 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:22:33 INFO:     127.0.0.1:43110 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:22:44 INFO:     127.0.0.1:43064 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:22:55 INFO:     127.0.0.1:51010 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:23:06 INFO:     127.0.0.1:49138 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:23:17 INFO:     127.0.0.1:38032 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:23:28 INFO:     127.0.0.1:55114 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:23:39 INFO:     127.0.0.1:45354 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:23:50 INFO:     127.0.0.1:33930 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:24:01 INFO:     127.0.0.1:35648 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:24:12 INFO:     127.0.0.1:35866 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:24:23 INFO:     127.0.0.1:37462 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:24:34 INFO:     127.0.0.1:54530 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:24:45 INFO:     127.0.0.1:59530 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:24:56 INFO:     127.0.0.1:37924 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:25:07 INFO:     127.0.0.1:50738 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:25:18 INFO:     127.0.0.1:50992 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:25:29 INFO:     127.0.0.1:40072 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:25:40 INFO:     127.0.0.1:35136 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:25:51 INFO:     127.0.0.1:40186 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:26:02 INFO:     127.0.0.1:40448 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:26:13 INFO:     127.0.0.1:38438 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:26:24 INFO:     127.0.0.1:52250 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:26:35 INFO:     127.0.0.1:59644 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:26:46 INFO:     127.0.0.1:49986 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:26:57 INFO:     127.0.0.1:52064 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:27:08 INFO:     127.0.0.1:50288 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:27:19 INFO:     127.0.0.1:35520 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:27:30 INFO:     127.0.0.1:38248 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:27:41 INFO:     127.0.0.1:59462 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:27:52 INFO:     127.0.0.1:54468 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:28:03 INFO:     127.0.0.1:60396 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:28:14 INFO:     127.0.0.1:55032 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:28:25 INFO:     127.0.0.1:58394 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:28:36 INFO:     127.0.0.1:42068 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:28:47 INFO:     127.0.0.1:33694 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:28:58 INFO:     127.0.0.1:53686 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:29:09 INFO:     127.0.0.1:47204 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:29:20 INFO:     127.0.0.1:44868 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:29:31 INFO:     127.0.0.1:35728 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:29:42 INFO:     127.0.0.1:53188 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:29:53 INFO:     127.0.0.1:49490 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:30:04 INFO:     127.0.0.1:60342 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:30:15 INFO:     127.0.0.1:40928 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:30:26 INFO:     127.0.0.1:60254 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:30:37 INFO:     127.0.0.1:39544 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:30:48 INFO:     127.0.0.1:35214 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:30:59 INFO:     127.0.0.1:58448 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:31:10 INFO:     127.0.0.1:47310 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:31:21 INFO:     127.0.0.1:37430 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:31:32 INFO:     127.0.0.1:38826 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:31:43 INFO:     127.0.0.1:43146 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:31:54 INFO:     127.0.0.1:57130 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:32:05 INFO:     127.0.0.1:50582 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:32:16 INFO:     127.0.0.1:34810 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:32:27 INFO:     127.0.0.1:43530 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:32:38 INFO:     127.0.0.1:47134 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:32:49 INFO:     127.0.0.1:45454 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:33:00 INFO:     127.0.0.1:54424 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:33:11 INFO:     127.0.0.1:48556 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:33:22 INFO:     127.0.0.1:43402 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:33:33 INFO:     127.0.0.1:34258 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:33:44 INFO:     127.0.0.1:47256 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:33:55 INFO:     127.0.0.1:59934 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:34:06 INFO:     127.0.0.1:40842 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:34:17 INFO:     127.0.0.1:48930 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:34:28 INFO:     127.0.0.1:49120 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:34:39 INFO:     127.0.0.1:56944 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:34:50 INFO:     127.0.0.1:34214 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:35:01 INFO:     127.0.0.1:53634 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:35:12 INFO:     127.0.0.1:39884 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:35:23 INFO:     127.0.0.1:56116 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:35:34 INFO:     127.0.0.1:37108 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:35:45 INFO:     127.0.0.1:57240 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:35:56 INFO:     127.0.0.1:54882 - "GET /health HTTP/1.1" 200 OK
+2026/11/25 20:36:07 INFO:     127.0.0.1:53580 - "GET /health HTTP/1.1" 200 OK

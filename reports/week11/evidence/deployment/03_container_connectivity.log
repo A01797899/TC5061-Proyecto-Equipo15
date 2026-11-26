@@ -1,0 +1,61 @@
+=================================================================
+SEMANA 11 - CONECTIVIDAD ENTRE FASTAPI Y MLFLOW
+Proyecto MiBici - Equipo 15
+=================================================================
+
+1. CONFIGURACION DE RED COMPARTIDA
+FastAPI: 10.89.2.3
+  Aliases: ['api', '0a1d1cf773e6']
+  Gateway: 10.89.2.1
+MLflow: 10.89.2.2
+  Aliases: ['mlflow', 'a3b1bd9d6ef8']
+  Gateway: 10.89.2.1
+Red: mibici-week11_mibici-net
+Subred: 10.89.2.0/24
+[PASS] Red compartida validada
+Network exit code: 0
+
+2. TRACKING URI INTERNA
+Tracking URI: http://mlflow:5000
+[PASS] Tracking URI correcta
+
+3. RESOLUCION DNS
+mlflow -> 10.89.2.2
+[PASS] Resolucion DNS correcta
+
+4. CONECTIVIDAD TCP
+Origen: ('10.89.2.3', 49318)
+Destino: ('10.89.2.2', 5000)
+[PASS] Conexion TCP establecida
+
+5. COMUNICACION HTTP
+HTTP status: 200
+Response: OK
+[PASS] Comunicacion HTTP correcta
+
+6. ACCESO AL MODEL REGISTRY
+Modelo: mibici-equipo15-p1-demanda
+[PASS] Modelo registrado disponible
+
+7. VALIDACION DE CHAMPION Y CHALLENGER
+
+Alias: champion
+Version: 1
+Status: READY
+Run ID: 6e3429f222a0407aa159dd9f46699365
+Source: models:/m-04774b8f25ff468b933a18756c24b068
+[PASS] champion version 1
+
+Alias: challenger
+Version: 2
+Status: READY
+Run ID: 7074129578d045418cbed0691330d1a7
+Source: models:/m-ea1a3789403948d08f509f0a562419e5
+[PASS] challenger version 2
+
+[PASS] TODAS LAS PRUEBAS DE CONECTIVIDAD
+
+Connectivity exit code: 0
+=================================================================
+FIN DE LA VALIDACION DE CONECTIVIDAD
+=================================================================
