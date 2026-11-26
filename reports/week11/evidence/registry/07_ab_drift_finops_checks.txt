@@ -1,0 +1,172 @@
+================================================================================
+ACTIVIDAD 11: ARCHIVOS A/B DE LA SEMANA 9
+================================================================================
+
+Archivo: daily_metrics.csv
+Filas: 31
+Columnas: ['date', 'actual', 'champion_pred', 'challenger_pred', 'champion_mae', 'challenger_mae', 'observations']
+      date  actual  champion_pred  challenger_pred  champion_mae  challenger_mae  observations
+2025-03-01    9748    9734.198219      9840.504929      0.723390        0.716817          8688
+2025-03-02    8779    8628.901398      8945.812182      0.686773        0.694294          8688
+2025-03-03   15026   13947.509438     14062.875552      0.915206        0.901252          8688
+
+Archivo: station_comparison_metrics.csv
+Filas: 362
+Columnas: ['station', 'observations', 'champion_mae', 'challenger_mae', 'champion_rmse', 'challenger_rmse', 'mae_improvement_pct', 'rmse_improvement_pct']
+ station  observations  champion_mae  challenger_mae  champion_rmse  challenger_rmse  mae_improvement_pct  rmse_improvement_pct
+       2           744      1.173693        1.093108       1.754507         1.645400             6.865907              6.218642
+       3           744      1.076878        1.051694       1.576259         1.551416             2.338567              1.576028
+       4           744      1.356259        1.346921       2.007322         1.982298             0.688486              1.246631
+
+Archivo: station_ab_drift_analysis.csv
+Filas: 362
+Columnas: ['station', 'observations', 'champion_mae', 'challenger_mae', 'champion_rmse', 'challenger_rmse', 'mae_improvement_pct', 'rmse_improvement_pct', 'media_congelada', 'demanda_ref', 'demanda_act', 'cambio_abs', 'cambio_pct', 'brecha_congelada', 'cambio_abs_pct', 'resultado_ab', 'cambio_demanda_20pct', 'cambio_demanda_50pct']
+ station  observations  champion_mae  challenger_mae  champion_rmse  challenger_rmse  mae_improvement_pct  rmse_improvement_pct  media_congelada  demanda_ref  demanda_act  cambio_abs  cambio_pct  brecha_congelada  cambio_abs_pct resultado_ab  cambio_demanda_20pct  cambio_demanda_50pct
+       2           744      1.173693        1.093108       1.754507         1.645400             6.865907              6.218642         2.715676     2.704993     2.199074   -0.505919  -18.703150         -0.516602       18.703150       Mejora                 False                 False
+       3           744      1.076878        1.051694       1.576259         1.551416             2.338567              1.576028         2.119877     2.130626     2.178704    0.048078    2.256512          0.058827        2.256512       Mejora                 False                 False
+       4           744      1.356259        1.346921       2.007322         1.982298             0.688486              1.246631         3.044228     3.058720     2.797685   -0.261035   -8.534123         -0.246543        8.534123       Mejora                 False                 False
+
+RESUMEN DERIVADO DE LOS CSV
+Columnas MAE diarias: ['champion_mae', 'challenger_mae']
+Días evaluados: 31
+Días en que el Challenger baja el MAE: 28
+Estaciones evaluadas: 362
+Estaciones en que el Challenger baja el MAE: 269
+Estaciones en que el Challenger sube el MAE: 93
+Estaciones sin cambio: 0
+
+comparison_metrics.json: {"evaluation_period": "2025-03-01/2025-03-31", "evaluation_rows": 269328, "stations": 362, "improvement_pct": {"mae": 1.9444234386609935, "rmse": 2.248460440238079}}
+
+ARCHIVOS A/B VERIFICADOS
+
+================================================================================
+ACTIVIDAD 11/13: RESUMEN DE DRIFT DE LA SEMANA 9
+================================================================================
+{
+  "fecha_ejecucion": "2026-11-13T16:11:55",
+  "commit": "d774ca0bd508af1c7a0db5b51d08db3a84d99094",
+  "evidently": "0.7.23",
+  "champion": {
+    "modelo": "mibici-equipo15-p1-demanda",
+    "alias": "champion",
+    "version": "1",
+    "run_id": "6e3429f222a0407aa159dd9f46699365",
+    "uri": "models:/mibici-equipo15-p1-demanda@champion"
+  },
+  "configuracion": {
+    "columnas": [
+      "hour_of_day",
+      "weekday",
+      "fin_semana",
+      "salidas_lag_1h",
+      "salidas_lag_24h",
+      "salidas_lag_168h",
+      "media_estacion",
+      "media_estacion_dia_hora",
+      "y"
+    ],
+    "categoricas": [
+      "hour_of_day",
+      "weekday",
+      "fin_semana"
+    ],
+    "numericas": [
+      "salidas_lag_1h",
+      "salidas_lag_24h",
+      "salidas_lag_168h",
+      "media_estacion",
+      "media_estacion_dia_hora",
+      "y"
+    ],
+    "metodo_numerico": "wasserstein",
+    "metodo_categorico": "jensenshannon",
+    "umbral": 0.1,
+    "drift_share": 0.5
+  },
+  "escenarios": {
+    "principal": {
+      "descripcion": "Entrenamiento del Champion (ene-ago 2024) contra ene-mar 2025",
+      "filas_referencia": 2059056,
+      "filas_actual": 781920,
+      "variables_con_drift": [],
+      "proporcion_drift": 0.0,
+      "drift_del_conjunto": false,
+      "pruebas_evidently": {
+        "conteo": {
+          "SUCCESS": 74,
+          "FAIL": 5
+        },
+        "no_pasaron": [
+          "FAIL: Row count in dataset: Equal 2059056.000 ± 205905.600",
+          "FAIL: Maximum value of 'salidas_lag_1h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_24h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_168h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'y': Equal 86.000 ± 8.600"
+        ]
+      }
+    },
+    "estacional": {
+      "descripcion": "Mismos meses un año antes (ene-mar 2024) contra ene-mar 2025",
+      "filas_referencia": 729792,
+      "filas_actual": 781920,
+      "variables_con_drift": [],
+      "proporcion_drift": 0.0,
+      "drift_del_conjunto": false,
+      "pruebas_evidently": {
+        "conteo": {
+          "SUCCESS": 75,
+          "FAIL": 4
+        },
+        "no_pasaron": [
+          "FAIL: Maximum value of 'salidas_lag_1h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_24h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'salidas_lag_168h': Equal 86.000 ± 8.600",
+          "FAIL: Maximum value of 'y': Equal 86.000 ± 8.600"
+        ]
+      }
+    }
+  },
+  "calidad": {
+    "referencia": {
+      "filas": 2059056,
+      "estaciones": 362,
+      "desde": "2024-01-08 00:00:00",
+      "hasta": "2024-08-31 23:00:00",
+      "nulos": 0,
+      "duplicados_estacion_hora": 0,
+      "fuera_de_rango": {
+        "hour_of_day": 0,
+        "weekday": 0,
+        "fin_semana": 0
+      },
+      "negativos": {
+        "salidas_lag_1h": 0,
+        "salidas_lag_24h": 0,
+        "salidas_lag_168h": 0,
+        "media_estacion": 0,
+        "media_estacion_dia_hora": 0,
+        "y": 
+
+================================================================================
+ACTIVIDAD 14: COCIENTE FINOPS CON Decimal
+================================================================================
+Tarifa USD/h: 0.145
+Solicitudes exitosas/s: 96.9
+Inferencias/h: 348840.0
+USD por inferencia: 4.156633413599357871803692237E-7
+USD por millon: 0.4156633413599357871803692237
+
+cost_by_scenario.csv:
+escenario,usuarios,rps,errores,p95_ms,inferencias_por_hora,costo_horario_usd,costo_por_inferencia_usd,costo_por_mil_usd,api_cpu_media_pct,api_mem_media_mib,mlflow_cpu_media_pct,mlflow_mem_media_mib,punto_recomendado
+Base,,0,0,,0,0.145,,,3.45,303.9,5.44,2166.51,no
+S1,5,3.23,0.0,50,11628.00,0.145,0.00001246990024079807361541107671,0.01246990024079807361541107671,14.68,304.51,2.9,2166.31,no
+S2,20,12.57,0.0,48,45252.00,0.145,0.000003204278263944135065853442942,0.003204278263944135065853442942,38.8,304.99,2.87,2167.86,no
+S3,50,31.54,0.0,36,113544.00,0.145,0.000001277037976467272599168604242,0.001277037976467272599168604242,71.01,305.79,1.77,2168.18,no
+S4,100,63.21,0.0,44,227556.00,0.145,0.0000006372057867074478370159433282,0.0006372057867074478370159433282,120.76,307.56,1.77,2169.0,no
+S5-50,50,32.6,0.0,36.0,117360.0,0.145,0.000001235514655760054533060668030,0.001235514655760054533060668030,77.93,306.61,4.6,2176.0,no
+S5-100,100,65.2,0.0,48.0,234720.0,0.145,0.0000006177573278800272665303340150,0.0006177573278800272665303340150,131.35,307.75,0.77,2176.0,no
+S5-150,150,96.9,0.0,76.0,348840.0,0.145,0.0000004156633413599357871803692237,0.0004156633413599357871803692237,173.78,308.75,4.51,2176.0,si
+S5-200,200,126.7,0.0,170.0,456120.0,0.145,0.0000003178987985617819871963518372,0.0003178987985617819871963518372,208.38,312.47,1.46,2176.61,no
+S5-250,250,141.8,0.0,485.0,510480.0,0.145,0.0000002840463877135245259363736092,0.0002840463877135245259363736092,228.15,315.12,2.62,2176.0,no
+S5-300,300,147.1,0.0,740.0,529560.0,0.145,0.0000002738122214668781630032479795,0.0002738122214668781630032479795,235.5,316.54,2.15,2176.58,no
+

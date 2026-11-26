@@ -1,0 +1,272 @@
+{
+  "timestamp_utc": "2026-11-26T20:56:01.270636+00:00",
+  "tracking_uri": "http://127.0.0.1:5052",
+  "model_name": "mibici-equipo15-p1-demanda",
+  "champion": {
+    "model_name": "mibici-equipo15-p1-demanda",
+    "version": "1",
+    "status": "READY",
+    "run_id": "6e3429f222a0407aa159dd9f46699365",
+    "run_name": "P1_candidate_hgb_max_iter=300_learning_rate=0.1_max_depth=None",
+    "run_status": "FINISHED",
+    "parent_run_id": "84b3d18fea4a49dbb1c212e9311da9c7",
+    "parent_run_name": "P1_search_candidates",
+    "experiment_id": "1",
+    "experiment_name": "mibici-equipo15",
+    "artifact_uri": "mlflow-artifacts:/1/6e3429f222a0407aa159dd9f46699365/artifacts",
+    "source": "models:/m-04774b8f25ff468b933a18756c24b068",
+    "logged_model_ids": [
+      "m-04774b8f25ff468b933a18756c24b068"
+    ],
+    "training_commit": "ad81f296c6aea3c97935399dd389c6a02c25d713",
+    "training_commit_in_repo": true,
+    "registration_commit": null,
+    "registration_commit_in_repo": null,
+    "data_version_tag": null,
+    "run_tags": {
+      "mlflow.user": "josemtzromero01",
+      "mlflow.source.name": "/Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week6/TC5061-MiBici-Week6-Runs/mibici/modeling/p1_p2_search.py",
+      "mlflow.source.type": "LOCAL",
+      "mlflow.source.git.commit": "ad81f296c6aea3c97935399dd389c6a02c25d713",
+      "mlflow.source.git.branch": "main",
+      "mlflow.source.git.repoURL": "https://github.com/A01797899/TC5061-Proyecto-Equipo15.git",
+      "mlflow.parentRunId": "84b3d18fea4a49dbb1c212e9311da9c7",
+      "mlflow.runName": "P1_candidate_hgb_max_iter=300_learning_rate=0.1_max_depth=None",
+      "team": "15",
+      "question": "P1",
+      "model_family": "hist_gradient_boosting",
+      "stage_of_work": "candidate",
+      "git_commit": "ad81f296c6aea3c97935399dd389c6a02c25d713",
+      "data_version": "7e1470ac0632",
+      "dataset": "MiBici 2024"
+    },
+    "model_version_tags": {},
+    "parameters": {
+      "question": "p1",
+      "model": "hgb",
+      "hp_max_iter": "300",
+      "hp_learning_rate": "0.1",
+      "hp_max_depth": "None",
+      "features": "hour_of_day,weekday,fin_semana,salidas_lag_1h,salidas_lag_24h,salidas_lag_168h,media_estacion,media_estacion_dia_hora",
+      "lags_hours": "1,24,168",
+      "train_period": "2024-01-01_to_2024-09-01",
+      "val_period": "2024-09-01_to_2024-11-01",
+      "test_period": "2024-11-01_to_2025-01-01",
+      "train_rows": "2059056",
+      "seed": "42"
+    },
+    "metrics": {
+      "train_mae": 0.7812010962605221,
+      "train_rmse": 1.3224130282146496,
+      "val_mae": 0.8395558695664934,
+      "val_rmse": 1.4280638316437348,
+      "test_mae": 0.8279171026444133,
+      "test_rmse": 1.3930097154446879,
+      "baseline_test_mae": 0.8555637278887837,
+      "test_mae_mejora_pct": 3.231392863345438,
+      "baseline_test_rmse": 1.4635037391262864,
+      "test_rmse_mejora_pct": 4.816798331084794
+    },
+    "run_artifacts": [
+      {
+        "path": "config",
+        "is_dir": true,
+        "size": null
+      },
+      {
+        "path": "config/MLproject",
+        "is_dir": false,
+        "size": 678
+      },
+      {
+        "path": "config/config.py",
+        "is_dir": false,
+        "size": 3865
+      },
+      {
+        "path": "config/python_env.yaml",
+        "is_dir": false,
+        "size": 415
+      },
+      {
+        "path": "config/run_params.json",
+        "is_dir": false,
+        "size": 450
+      },
+      {
+        "path": "data",
+        "is_dir": true,
+        "size": null
+      },
+      {
+        "path": "data/csv_manifest.json",
+        "is_dir": false,
+        "size": 2111
+      },
+      {
+        "path": "data/manifiesto.json",
+        "is_dir": false,
+        "size": 5810
+      },
+      {
+        "path": "metrics",
+        "is_dir": true,
+        "size": null
+      },
+      {
+        "path": "metrics/metrics.json",
+        "is_dir": false,
+        "size": 385
+      },
+      {
+        "path": "plots",
+        "is_dir": true,
+        "size": null
+      },
+      {
+        "path": "plots/p1_test_real_vs_predicho.png",
+        "is_dir": false,
+        "size": 113833
+      },
+      {
+        "path": "plots/p1_test_residuales.png",
+        "is_dir": false,
+        "size": 87333
+      }
+    ],
+    "model_artifacts": [
+      {
+        "path": "MLmodel",
+        "is_dir": false,
+        "size": 1627
+      },
+      {
+        "path": "conda.yaml",
+        "is_dir": false,
+        "size": 260
+      },
+      {
+        "path": "input_example.json",
+        "is_dir": false,
+        "size": 466
+      },
+      {
+        "path": "model.skops",
+        "is_dir": false,
+        "size": 2177517
+      },
+      {
+        "path": "python_env.yaml",
+        "is_dir": false,
+        "size": 107
+      },
+      {
+        "path": "requirements.txt",
+        "is_dir": false,
+        "size": 130
+      },
+      {
+        "path": "serving_input_example.json",
+        "is_dir": false,
+        "size": 953
+      }
+    ],
+    "published_training_commit": "ad81f296c6aea3c97935399dd389c6a02c25d713",
+    "published_training_commit_in_repo": true
+  },
+  "challenger": {
+    "model_name": "mibici-equipo15-p1-demanda",
+    "version": "2",
+    "status": "READY",
+    "run_id": "7074129578d045418cbed0691330d1a7",
+    "run_name": "P1_challenger_2025_01_02",
+    "run_status": "FINISHED",
+    "parent_run_id": null,
+    "parent_run_name": null,
+    "experiment_id": "1",
+    "experiment_name": "mibici-equipo15",
+    "artifact_uri": "mlflow-artifacts:/1/7074129578d045418cbed0691330d1a7/artifacts",
+    "source": "models:/m-ea1a3789403948d08f509f0a562419e5",
+    "logged_model_ids": [
+      "m-ea1a3789403948d08f509f0a562419e5"
+    ],
+    "training_commit": "ddedf4beb63e99bdd96deeb6886d33348afa2041",
+    "training_commit_in_repo": true,
+    "registration_commit": "ddedf4beb63e99bdd96deeb6886d33348afa2041",
+    "registration_commit_in_repo": true,
+    "data_version_tag": "7e1470ac0632",
+    "run_tags": {
+      "mlflow.user": "josemtzromero01",
+      "mlflow.source.name": "/Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week5/TC5061-Proyecto-Equipo15/scripts/week9/train_challenger.py",
+      "mlflow.source.type": "LOCAL",
+      "mlflow.source.git.commit": "ddedf4beb63e99bdd96deeb6886d33348afa2041",
+      "mlflow.source.git.branch": "feature/week9-ab-final-A01797899",
+      "mlflow.source.git.repoURL": "https://github.com/A01797899/TC5061-Proyecto-Equipo15.git",
+      "mlflow.runName": "P1_challenger_2025_01_02",
+      "team": "15",
+      "question": "P1",
+      "stage_of_work": "candidate",
+      "train_period": "2025-01-01/2025-02-28"
+    },
+    "model_version_tags": {
+      "team": "15",
+      "question": "P1",
+      "experiment": "mibici-equipo15",
+      "data_version": "7e1470ac0632",
+      "registration_commit": "ddedf4beb63e99bdd96deeb6886d33348afa2041",
+      "stage_of_work": "candidate"
+    },
+    "parameters": {
+      "max_iter": "300",
+      "learning_rate": "0.1",
+      "max_depth": "None",
+      "early_stopping": "False",
+      "random_state": "42",
+      "train_rows": "512592",
+      "train_period": "2025-01-01/2025-02-28",
+      "features": "hour_of_day,weekday,fin_semana,salidas_lag_1h,salidas_lag_24h,salidas_lag_168h,media_estacion,media_estacion_dia_hora"
+    },
+    "metrics": {
+      "train_mae": 0.7943356785109916,
+      "train_rmse": 1.3130923736059918
+    },
+    "run_artifacts": [],
+    "model_artifacts": [
+      {
+        "path": "MLmodel",
+        "is_dir": false,
+        "size": 1627
+      },
+      {
+        "path": "conda.yaml",
+        "is_dir": false,
+        "size": 260
+      },
+      {
+        "path": "input_example.json",
+        "is_dir": false,
+        "size": 450
+      },
+      {
+        "path": "model.skops",
+        "is_dir": false,
+        "size": 2177517
+      },
+      {
+        "path": "python_env.yaml",
+        "is_dir": false,
+        "size": 116
+      },
+      {
+        "path": "requirements.txt",
+        "is_dir": false,
+        "size": 130
+      },
+      {
+        "path": "serving_input_example.json",
+        "is_dir": false,
+        "size": 937
+      }
+    ]
+  }
+}

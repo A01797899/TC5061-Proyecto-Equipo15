@@ -1,0 +1,21 @@
+$ date -u
+Thu Nov 26 08:57:57 PM UTC 2026
+$ curl -sS -m 5 http://127.0.0.1:8000/health
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+Exit code: 7
+$ curl -sS -m 5 http://127.0.0.1:8000/ready
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+Exit code: 7
+$ podman ps / docker ps
+CONTAINER ID  IMAGE                                COMMAND               CREATED      STATUS      PORTS                     NAMES
+eda2e2c945c9  localhost/mibici-equipo15-api:week8  python -m uvicorn...  2 weeks ago  Up 2 weeks  127.0.0.1:8001->8000/tcp  mibici-week8-api
+
+# Complementario: contenedor local mibici-week8-api (127.0.0.1:8001). NO es el Compose de José Manuel (:8000).
+$ curl -sS -m 5 http://127.0.0.1:8001/health
+{"status":"ok"}
+$ curl -sS -m 5 http://127.0.0.1:8001/ready
+{"ready":true}
+$ curl -sS -X POST http://127.0.0.1:8001/predict -d '{features: registro del contrato}'
+{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}
+$ podman inspect env MLFLOW_TRACKING_URI
+MLFLOW_TRACKING_URI=http://host.containers.internal:5000

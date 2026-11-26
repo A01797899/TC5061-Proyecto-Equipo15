@@ -1,0 +1,111 @@
+NOMBRES OFICIALES (mibici/config.py)
+P1 -> mibici-equipo15-p1-demanda
+P2 -> mibici-equipo15-p2-riesgo
+P3 -> mibici-equipo15-p3-grupos
+
+==========================================================================================
+INVENTARIO DE MODELOS REGISTRADOS
+==========================================================================================
+
+Modelo: mibici-equipo15-p1-demanda
+Descripcion: Modelo MiBici Equipo 15 para P1. Experimento: mibici-equipo15.
+Aliases: {'challenger': '2', 'champion': '1'}
+   Version: 1
+   Estado: READY
+   Run ID: 6e3429f222a0407aa159dd9f46699365
+   Source: models:/m-04774b8f25ff468b933a18756c24b068
+   Tags: {}
+
+   Version: 2
+   Estado: READY
+   Run ID: 7074129578d045418cbed0691330d1a7
+   Source: models:/m-ea1a3789403948d08f509f0a562419e5
+   Tags: {'team': '15', 'question': 'P1', 'experiment': 'mibici-equipo15', 'data_version': '7e1470ac0632', 'registration_commit': 'ddedf4beb63e99bdd96deeb6886d33348afa2041', 'stage_of_work': 'candidate'}
+
+
+Modelo: mibici-equipo15-p2-riesgo
+Descripcion: Este modelo permite clasificar situaciones de riesgo operativo en las estaciones de MiBici a partir de sus patrones históricos de uso y disponibilidad. Su objetivo es identificar condiciones relacionadas con una posible escasez o saturación de bicicletas, utilizando indicadores de actividad y presión operativa.
+
+Utiliza el algoritmo **RandomForestClassifier**, basado en un conjunto de 300 árboles de decisión con una profundidad máxima de 12.
+
+**Parámetros de entrada (15 características):**
+
+- hour_of_day:
+- hora del día.
+- weekday: día de la semana.
+- fin_semana: indicador de fin de semana.
+- capacity: capacidad de la estación.
+- salidas_lag_1h, salidas_lag_24h, salidas_lag_168h: salidas registradas una hora, un día y una semana antes.
+- llegadas_lag_1h, llegadas_lag_24h, llegadas_lag_168h: llegadas registradas en esos mismos intervalos.
+- pressure_lag_1h, pressure_lag_24h, pressure_lag_168h: indicadores históricos de presión operativa.
+- prob_estacion: proporción histórica de situaciones clasificadas como riesgo en la estación.
+- prob_estacion_dia_hora: proporción histórica de riesgo según la estación, el día y la hora.
+
+**Salida: una clasificación binaria (int8):**
+
+- 0: no se identifica la condición de riesgo definida por el modelo.
+- 1: se identifica la condición de riesgo operativo definida por el modelo.
+
+La salida corresponde a una clasificación basada en una variable objetivo proxy construida con los datos históricos; no representa la confirmación de un incidente real.
+Aliases: {'champion': '1'}
+   Version: 1
+   Estado: READY
+   Run ID: d794555acb0c498987d17fd61c0ae531
+   Source: models:/m-165c943b3eec4915aabc8e801feb9979
+   Tags: {}
+
+
+Modelo: mibici-equipo15-p3-grupos
+Descripcion: Este modelo permite agrupar las estaciones de MiBici según sus patrones de utilización, con el propósito de identificar estaciones que presentan comportamientos similares a lo largo de la semana.
+
+Utiliza un Pipeline de Machine Learning que combina la estandarización de los datos, la reducción de dimensionalidad mediante **PCA y el algoritmo K-Means**. Está configurado con 5 componentes principales y 2 grupos.
+
+**Parámetros de entrada (49 características):**
+
+- laboral_00 a laboral_23: 24 características que representan el perfil de actividad de la estación durante las diferentes horas de los días laborales.
+- finde_00 a finde_23: 24 características que representan el perfil de actividad durante las diferentes horas de los fines de semana.
+- log_media_diaria: transformación logarítmica del promedio diario de viajes de la estación.
+
+*Estas características permiten describir tanto la distribución horaria de la actividad como el volumen general de uso de cada estación.*
+
+**Salida: un identificador de grupo (int32) para cada estación:**
+
+- 0: estación asignada al primer grupo.
+- 1: estación asignada al segundo grupo.
+
+*Los identificadores son etiquetas de agrupamiento y no representan una clasificación de calidad, riesgo o desempeño. Su interpretación depende del análisis posterior de las características de las estaciones que pertenecen a cada grupo.*
+Aliases: {'champion': '1'}
+   Version: 1
+   Estado: READY
+   Run ID: 27f5684907f64610a4d3718d1178421d
+   Source: models:/m-041658517cae46178fa30b582bd44b22
+   Tags: {}
+
+================================================================================
+VALIDACION DE MODELOS P1, P2 Y P3
+================================================================================
+
+Pregunta: P1
+Modelo: mibici-equipo15-p1-demanda
+Versiones registradas: 2
+Champion version: 1
+Estado: READY
+Run ID: 6e3429f222a0407aa159dd9f46699365
+
+Pregunta: P2
+Modelo: mibici-equipo15-p2-riesgo
+Versiones registradas: 1
+Champion version: 1
+Estado: READY
+Run ID: d794555acb0c498987d17fd61c0ae531
+
+Pregunta: P3
+Modelo: mibici-equipo15-p3-grupos
+Versiones registradas: 1
+Champion version: 1
+Estado: READY
+Run ID: 27f5684907f64610a4d3718d1178421d
+
+Errores encontrados: 0
+
+VALIDACION DE LOS TRES MODELOS COMPLETADA

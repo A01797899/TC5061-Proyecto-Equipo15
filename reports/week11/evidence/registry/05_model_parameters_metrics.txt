@@ -1,0 +1,136 @@
+================================================================================
+PARAMETROS Y METRICAS REGISTRADOS EN MLFLOW (corridas de entrenamiento, 2024/2025)
+================================================================================
+
+--------------------------------------------------------------------------------
+CHAMPION | Version: 1 | Run ID: 6e3429f222a0407aa159dd9f46699365
+--------------------------------------------------------------------------------
+
+PARAMETROS:
+  features                           : hour_of_day,weekday,fin_semana,salidas_lag_1h,salidas_lag_24h,salidas_lag_168h,media_estacion,media_estacion_dia_hora
+  hp_learning_rate                   : 0.1
+  hp_max_depth                       : None
+  hp_max_iter                        : 300
+  lags_hours                         : 1,24,168
+  model                              : hgb
+  question                           : p1
+  seed                               : 42
+  test_period                        : 2024-11-01_to_2025-01-01
+  train_period                       : 2024-01-01_to_2024-09-01
+  train_rows                         : 2059056
+  val_period                         : 2024-09-01_to_2024-11-01
+
+METRICAS:
+  baseline_test_mae                  : 0.8555637279
+  baseline_test_rmse                 : 1.4635037391
+  test_mae                           : 0.8279171026
+  test_mae_mejora_pct                : 3.2313928633
+  test_rmse                          : 1.3930097154
+  test_rmse_mejora_pct               : 4.8167983311
+  train_mae                          : 0.7812010963
+  train_rmse                         : 1.3224130282
+  val_mae                            : 0.8395558696
+  val_rmse                           : 1.4280638316
+
+--------------------------------------------------------------------------------
+CHALLENGER | Version: 2 | Run ID: 7074129578d045418cbed0691330d1a7
+--------------------------------------------------------------------------------
+
+PARAMETROS:
+  early_stopping                     : False
+  features                           : hour_of_day,weekday,fin_semana,salidas_lag_1h,salidas_lag_24h,salidas_lag_168h,media_estacion,media_estacion_dia_hora
+  learning_rate                      : 0.1
+  max_depth                          : None
+  max_iter                           : 300
+  random_state                       : 42
+  train_period                       : 2025-01-01/2025-02-28
+  train_rows                         : 512592
+
+METRICAS:
+  train_mae                          : 0.7943356785
+  train_rmse                         : 1.3130923736
+
+================================================================================
+METRICAS DEL ARTEFACTO metrics/metrics.json DEL CHAMPION (evaluación 2024)
+================================================================================
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 283.69it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 280.11it/s]
+{
+  "train_mae": 0.7812010962605221,
+  "train_rmse": 1.3224130282146496,
+  "val_mae": 0.8395558695664934,
+  "val_rmse": 1.4280638316437348,
+  "test_mae": 0.8279171026444133,
+  "test_rmse": 1.3930097154446879,
+  "baseline_test_mae": 0.8555637278887837,
+  "test_mae_mejora_pct": 3.231392863345438,
+  "baseline_test_rmse": 1.4635037391262864,
+  "test_rmse_mejora_pct": 4.816798331084794
+}
+
+================================================================================
+HIPERPARAMETROS DEL ESTIMADOR CARGADO (mlflow.sklearn.load_model)
+================================================================================
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 298.46it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 225.89it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 308.93it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 391.13it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 483.86it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 579.23it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 510.74it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 507.07it/s]
+
+Alias: champion | Version: 1 | URI: models:/mibici-equipo15-p1-demanda/1
+Algoritmo: HistGradientBoostingRegressor
+n_iter_ (iteraciones efectivas): 300
+n_features_in_: 8
+  max_iter       : 300      (esperado 300) OK
+  learning_rate  : 0.1      (esperado 0.1) OK
+  max_depth      : None     (esperado None) OK
+  early_stopping : False    (esperado False) OK
+  random_state   : 42       (esperado 42) OK
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 162.73it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 221.32it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 317.30it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 382.14it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 452.06it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 521.50it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 496.03it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 495.12it/s]
+
+Alias: challenger | Version: 2 | URI: models:/mibici-equipo15-p1-demanda/2
+Algoritmo: HistGradientBoostingRegressor
+n_iter_ (iteraciones efectivas): 300
+n_features_in_: 8
+  max_iter       : 300      (esperado 300) OK
+  learning_rate  : 0.1      (esperado 0.1) OK
+  max_depth      : None     (esperado None) OK
+  early_stopping : False    (esperado False) OK
+  random_state   : 42       (esperado 42) OK
+
+HIPERPARAMETROS CONFIRMADOS EN AMBAS VERSIONES: {'max_iter': 300, 'learning_rate': 0.1, 'max_depth': None, 'early_stopping': False, 'random_state': 42}
+
+================================================================================
+METRICAS DE MARZO DE 2025 (A/B offline, reports/week9/ab_testing/comparison_metrics.json)
+================================================================================
+{
+  "model_name": "mibici-equipo15-p1-demanda",
+  "evaluation_period": "2025-03-01/2025-03-31",
+  "evaluation_rows": 269328,
+  "stations": 362,
+  "dataset_sha256": "408b12069f5bbff8eb5c86f547071bf75c8400484be09a75810a8c08e77803f5",
+  "batch_size": 10000,
+  "prediction_postprocessing": "clip_negative_to_zero",
+  "champion": {
+    "alias": "champion",
+    "version": "1",
+    "run_id": "6e3429f222a0407aa159dd9f46699365",
+    "model_uri": "models:/mibici-equipo15-p1-demanda/1",
+    "mae": 0.8406793191283037,
+    "rmse": 1.4369529768005689
+  },
+  "challenger": {
+    "alias": "challenger",
+    "version": "2",
+    "run_id": "7074129578d045418cbed0691330d1a7",
+    "model_uri": "models:/mibici-equipo15-p1-demanda/2",
+    "mae": 0.8243329534031973,
+    "rmse": 1.4046436575723846
+  },
+  "improvement_pct": {
+    "mae": 1.9444234386609935,
+    "rmse": 2.248460440238079
+  }
+}
+
+SEPARACION DE PERIODOS
+  2024 (train/val/test del Champion): métricas de la corrida 6e3429f2 y de metrics/metrics.json
+  Ene-feb 2025 (train del Challenger): métricas train_* de la corrida 70741295
+  Marzo 2025 (A/B offline, 269,328 observaciones): comparison_metrics.json de la semana 9
+
+CONSULTA COMPLETADA

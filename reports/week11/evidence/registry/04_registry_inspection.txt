@@ -1,0 +1,36 @@
+MLflow Tracking URI: http://127.0.0.1:5052
+Registered Model: mibici-equipo15-p1-demanda
+
+VERSIONES REGISTRADAS
+Version: 2 | Status: READY | Run ID: 7074129578d045418cbed0691330d1a7
+Version: 1 | Status: READY | Run ID: 6e3429f222a0407aa159dd9f46699365
+
+MODELO CHAMPION
+Name: mibici-equipo15-p1-demanda
+Version: 1
+Status: READY
+Run ID: 6e3429f222a0407aa159dd9f46699365
+Source: models:/m-04774b8f25ff468b933a18756c24b068
+Model URI: models:/mibici-equipo15-p1-demanda@champion
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 174.16it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 172.75it/s]
+
+FIRMA DEL MODELO
+inputs: 
+  ['hour_of_day': double (required), 'weekday': double (required), 'fin_semana': double (required), 'salidas_lag_1h': double (required), 'salidas_lag_24h': double (required), 'salidas_lag_168h': double (required), 'media_estacion': double (required), 'media_estacion_dia_hora': double (required)]
+outputs: 
+  [Tensor('float64', (-1,))]
+params: 
+  None
+
+
+VARIABLES DE ENTRADA
+1 hour_of_day DataType.double Required: True
+2 weekday DataType.double Required: True
+3 fin_semana DataType.double Required: True
+4 salidas_lag_1h DataType.double Required: True
+5 salidas_lag_24h DataType.double Required: True
+6 salidas_lag_168h DataType.double Required: True
+7 media_estacion DataType.double Required: True
+8 media_estacion_dia_hora DataType.double Required: True
+
+VALIDACIÓN DEL REGISTRY COMPLETADA

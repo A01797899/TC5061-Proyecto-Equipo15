@@ -1,0 +1,5 @@
+Thu Nov 26 02:30:09 AM PST 2026
+feature/week11-registry-model-card-A01732182
+1230cff4f74d32f3d7ee80f597a758feeb225888
+1230cff Semana 11: Integración, despliegue, persistencia y validación CI/CD de FastAPI y MLflow (#44)
+?? reports/week11/evidence/registry/
