@@ -1,0 +1,57 @@
+
+1. MLFLOW CONNECTION
+Tracking URI: http://127.0.0.1:5000
+Experiments: 2
+Registered models: 3
+Model versions: 4
+MLflow connection: PASS
+
+2. REGISTERED MODEL ALIASES
+Model: mibici-equipo15-p1-demanda
+Alias: challenger
+Version: 2
+Status: READY
+Run ID: 7074129578d045418cbed0691330d1a7
+Validation: PASS
+
+Model: mibici-equipo15-p1-demanda
+Alias: champion
+Version: 1
+Status: READY
+Run ID: 6e3429f222a0407aa159dd9f46699365
+Validation: PASS
+
+Model: mibici-equipo15-p2-riesgo
+Alias: champion
+Version: 1
+Status: READY
+Run ID: d794555acb0c498987d17fd61c0ae531
+Validation: PASS
+
+Model: mibici-equipo15-p3-grupos
+Alias: champion
+Version: 1
+Status: READY
+Run ID: 27f5684907f64610a4d3718d1178421d
+Validation: PASS
+
+All registered aliases: PASS
+
+3. SQLITE METADATA INTEGRITY
+SQLite integrity: ok
+experiments: 2 - PASS
+runs: 104 - PASS
+registered_models: 3 - PASS
+model_versions: 4 - PASS
+registered_model_aliases: 4 - PASS
+
+4. ARTIFACT SHA-256 VALIDATION
+Artifact files before: 162
+Artifact files after: 162
+SHA-256 matching: 162
+Missing artifacts: 0
+Modified artifacts: 0
+Unexpected artifacts: 0
+
+MODEL REGISTRY RECOVERY: PASS
+Registry recovery exit code: 0

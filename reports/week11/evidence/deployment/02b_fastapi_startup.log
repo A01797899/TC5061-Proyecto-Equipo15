@@ -1,0 +1,90 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00,  6.93it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00,  6.93it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00,  6.93it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00,  6.93it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00,  6.93it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00,  6.93it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00,  6.93it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00,  6.93it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 29.78it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:40630 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51876 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49884 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41012 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47400 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52420 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48714 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46704 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43940 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58476 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48406 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48324 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38458 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57036 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60500 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39706 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32802 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34542 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45976 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59586 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40146 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34080 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49050 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60746 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36364 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45334 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47516 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43220 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45912 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45498 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35886 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50832 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47574 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38108 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57386 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54574 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40866 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51814 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46634 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48222 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34912 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57434 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32856 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50766 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46348 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33074 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36206 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32800 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58102 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47216 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46090 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36142 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58626 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34322 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59932 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45134 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56944 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35038 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59440 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40806 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36308 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52460 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45576 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33814 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35424 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34814 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51952 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40956 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54604 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50752 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34250 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56692 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35328 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42692 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37316 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36068 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38996 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56850 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54326 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56594 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46602 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55318 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55788 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39422 - "GET /ready HTTP/1.1" 200 OK

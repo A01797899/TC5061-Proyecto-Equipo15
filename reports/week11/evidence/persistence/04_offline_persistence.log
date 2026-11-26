@@ -1,0 +1,31 @@
+
+1. PERSISTENT STORAGE
+SQLite database exists: PASS
+Artifact directory exists: PASS
+
+2. SQLITE DATABASE INTEGRITY
+SQLite integrity: ok
+
+3. REGISTRY METADATA COMPARISON
+experiments: before=2, after=2 - PASS
+runs: before=104, after=104 - PASS
+registered_models: before=3, after=3 - PASS
+model_versions: before=4, after=4 - PASS
+registered_model_aliases: before=4, after=4 - PASS
+Model versions and run IDs: PASS
+Registered model aliases: PASS
+
+4. CHAMPION AND CHALLENGER
+mibici-equipo15-p1-demanda | challenger | version=2
+mibici-equipo15-p1-demanda | champion | version=1
+
+5. ARTIFACT SHA-256 COMPARISON
+Artifact files before: 162
+Artifact files after: 162
+SHA-256 matching: 162
+Missing artifacts: 0
+Modified artifacts: 0
+Unexpected artifacts: 0
+
+OFFLINE PERSISTENCE VALIDATION: PASS
+Persistence validation exit code: 0

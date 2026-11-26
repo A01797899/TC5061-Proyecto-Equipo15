@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+date: Wed, 25 Nov 2026 21:19:49 GMT
+server: uvicorn
+content-length: 69
+content-type: application/json
+
+{"prediction":3.694163560787005,"model":"mibici-equipo15-p1-demanda"}

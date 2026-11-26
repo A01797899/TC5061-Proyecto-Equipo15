@@ -1,0 +1,5 @@
+Wed Nov 25 11:44:42 CST 2026
+feature/week11-deployment-integration-A01797899
+f5d230e875c0e1de63823e8828a5ccd039923fa3
+f5d230e docs(week10): estimar el costo por inferencia y documentar la operación (#42)
+?? reports/week11/
