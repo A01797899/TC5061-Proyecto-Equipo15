@@ -1,0 +1,93 @@
+{
+  "timestamp_utc": "2026-11-26T20:55:18.609026+00:00",
+  "tracking_uri": "http://127.0.0.1:5052",
+  "model_name": "mibici-equipo15-p1-demanda",
+  "aliases": {
+    "champion": {
+      "version": "1",
+      "status": "READY",
+      "run_id": "6e3429f222a0407aa159dd9f46699365",
+      "source": "models:/m-04774b8f25ff468b933a18756c24b068"
+    },
+    "challenger": {
+      "version": "2",
+      "status": "READY",
+      "run_id": "7074129578d045418cbed0691330d1a7",
+      "source": "models:/m-ea1a3789403948d08f509f0a562419e5"
+    }
+  },
+  "registered_models": {
+    "mibici-equipo15-p1-demanda": {
+      "question": "p1",
+      "aliases": {
+        "challenger": "2",
+        "champion": "1"
+      },
+      "versions": [
+        {
+          "version": "1",
+          "aliases": [
+            "champion"
+          ],
+          "status": "READY",
+          "run_id": "6e3429f222a0407aa159dd9f46699365",
+          "source": "models:/m-04774b8f25ff468b933a18756c24b068",
+          "tags": {}
+        },
+        {
+          "version": "2",
+          "aliases": [
+            "challenger"
+          ],
+          "status": "READY",
+          "run_id": "7074129578d045418cbed0691330d1a7",
+          "source": "models:/m-ea1a3789403948d08f509f0a562419e5",
+          "tags": {
+            "team": "15",
+            "question": "P1",
+            "experiment": "mibici-equipo15",
+            "data_version": "7e1470ac0632",
+            "registration_commit": "ddedf4beb63e99bdd96deeb6886d33348afa2041",
+            "stage_of_work": "candidate"
+          }
+        }
+      ]
+    },
+    "mibici-equipo15-p2-riesgo": {
+      "question": "p2",
+      "aliases": {
+        "champion": "1"
+      },
+      "versions": [
+        {
+          "version": "1",
+          "aliases": [
+            "champion"
+          ],
+          "status": "READY",
+          "run_id": "d794555acb0c498987d17fd61c0ae531",
+          "source": "models:/m-165c943b3eec4915aabc8e801feb9979",
+          "tags": {}
+        }
+      ]
+    },
+    "mibici-equipo15-p3-grupos": {
+      "question": "p3",
+      "aliases": {
+        "champion": "1"
+      },
+      "versions": [
+        {
+          "version": "1",
+          "aliases": [
+            "champion"
+          ],
+          "status": "READY",
+          "run_id": "27f5684907f64610a4d3718d1178421d",
+          "source": "models:/m-041658517cae46178fa30b582bd44b22",
+          "tags": {}
+        }
+      ]
+    }
+  }
+}

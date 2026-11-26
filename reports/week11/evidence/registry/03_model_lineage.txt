@@ -1,0 +1,149 @@
+
+==========================================================================================
+LINAJE: CHAMPION
+==========================================================================================
+Modelo: mibici-equipo15-p1-demanda
+Version: 1
+Estado: READY
+Run ID: 6e3429f222a0407aa159dd9f46699365
+Run name: P1_candidate_hgb_max_iter=300_learning_rate=0.1_max_depth=None
+Run status: FINISHED
+Experimento: mibici-equipo15
+Experiment ID: 1
+Parent Run ID: 84b3d18fea4a49dbb1c212e9311da9c7
+Parent run name: P1_search_candidates
+Artifact URI: mlflow-artifacts:/1/6e3429f222a0407aa159dd9f46699365/artifacts
+Model source: models:/m-04774b8f25ff468b933a18756c24b068
+Logged Models: 1 ['m-04774b8f25ff468b933a18756c24b068']
+   Model ID: m-04774b8f25ff468b933a18756c24b068 | Nombre: model | Estado: READY
+Commit de entrenamiento (mlflow.source.git.commit): ad81f296c6aea3c97935399dd389c6a02c25d713
+Commit de registro (tag registration_commit): None
+Versión de datos (tag data_version): None
+
+TAGS DE LA CORRIDA:
+  data_version : 7e1470ac0632
+  dataset : MiBici 2024
+  git_commit : ad81f296c6aea3c97935399dd389c6a02c25d713
+  mlflow.parentRunId : 84b3d18fea4a49dbb1c212e9311da9c7
+  mlflow.runName : P1_candidate_hgb_max_iter=300_learning_rate=0.1_max_depth=None
+  mlflow.source.git.branch : main
+  mlflow.source.git.commit : ad81f296c6aea3c97935399dd389c6a02c25d713
+  mlflow.source.git.repoURL : https://github.com/A01797899/TC5061-Proyecto-Equipo15.git
+  mlflow.source.name : /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week6/TC5061-MiBici-Week6-Runs/mibici/modeling/p1_p2_search.py
+  mlflow.source.type : LOCAL
+  mlflow.user : josemtzromero01
+  model_family : hist_gradient_boosting
+  question : P1
+  stage_of_work : candidate
+  team : 15
+
+TAGS DEL MODEL REGISTRY:
+
+ARTEFACTOS DE LA CORRIDA:
+   [DIR]  config
+   [FILE] config/MLproject
+   [FILE] config/config.py
+   [FILE] config/python_env.yaml
+   [FILE] config/run_params.json
+   [DIR]  data
+   [FILE] data/csv_manifest.json
+   [FILE] data/manifiesto.json
+   [DIR]  metrics
+   [FILE] metrics/metrics.json
+   [DIR]  plots
+   [FILE] plots/p1_test_real_vs_predicho.png
+   [FILE] plots/p1_test_residuales.png
+
+ARTEFACTOS DEL MODELO (models:/mibici-equipo15-p1-demanda/1):
+   [FILE] MLmodel
+   [FILE] conda.yaml
+   [FILE] input_example.json
+   [FILE] model.skops
+   [FILE] python_env.yaml
+   [FILE] requirements.txt
+   [FILE] serving_input_example.json
+
+==========================================================================================
+LINAJE: CHALLENGER
+==========================================================================================
+Modelo: mibici-equipo15-p1-demanda
+Version: 2
+Estado: READY
+Run ID: 7074129578d045418cbed0691330d1a7
+Run name: P1_challenger_2025_01_02
+Run status: FINISHED
+Experimento: mibici-equipo15
+Experiment ID: 1
+Parent Run ID: None
+Parent run name: None
+Artifact URI: mlflow-artifacts:/1/7074129578d045418cbed0691330d1a7/artifacts
+Model source: models:/m-ea1a3789403948d08f509f0a562419e5
+Logged Models: 1 ['m-ea1a3789403948d08f509f0a562419e5']
+   Model ID: m-ea1a3789403948d08f509f0a562419e5 | Nombre: model | Estado: READY
+Commit de entrenamiento (mlflow.source.git.commit): ddedf4beb63e99bdd96deeb6886d33348afa2041
+Commit de registro (tag registration_commit): ddedf4beb63e99bdd96deeb6886d33348afa2041
+Versión de datos (tag data_version): 7e1470ac0632
+
+TAGS DE LA CORRIDA:
+  mlflow.runName : P1_challenger_2025_01_02
+  mlflow.source.git.branch : feature/week9-ab-final-A01797899
+  mlflow.source.git.commit : ddedf4beb63e99bdd96deeb6886d33348afa2041
+  mlflow.source.git.repoURL : https://github.com/A01797899/TC5061-Proyecto-Equipo15.git
+  mlflow.source.name : /Users/josemtzromero01/Documents/Maestria-MNA/MLOps/week5/TC5061-Proyecto-Equipo15/scripts/week9/train_challenger.py
+  mlflow.source.type : LOCAL
+  mlflow.user : josemtzromero01
+  question : P1
+  stage_of_work : candidate
+  team : 15
+  train_period : 2025-01-01/2025-02-28
+
+TAGS DEL MODEL REGISTRY:
+  data_version : 7e1470ac0632
+  experiment : mibici-equipo15
+  question : P1
+  registration_commit : ddedf4beb63e99bdd96deeb6886d33348afa2041
+  stage_of_work : candidate
+  team : 15
+
+ARTEFACTOS DE LA CORRIDA:
+
+ARTEFACTOS DEL MODELO (models:/mibici-equipo15-p1-demanda/2):
+   [FILE] MLmodel
+   [FILE] conda.yaml
+   [FILE] input_example.json
+   [FILE] model.skops
+   [FILE] python_env.yaml
+   [FILE] requirements.txt
+   [FILE] serving_input_example.json
+
+==========================================================================================
+COMMITS EN EL REPOSITORIO
+==========================================================================================
+
+Champion, commit de entrenamiento publicado (PDF): ad81f296c6aea3c97935399dd389c6a02c25d713
+ad81f296c6aea3c97935399dd389c6a02c25d713
+Jose Manuel Martinez Romero <A01797899@tec.mx>
+Sun Oct 25 14:28:22 2026 -0600
+Integrando nested nested hyperparameter searches para P1 y P2 (#18)
+
+Champion, mlflow.source.git.commit: ad81f296c6aea3c97935399dd389c6a02c25d713
+ad81f296c6aea3c97935399dd389c6a02c25d713
+Jose Manuel Martinez Romero <A01797899@tec.mx>
+Sun Oct 25 14:28:22 2026 -0600
+Integrando nested nested hyperparameter searches para P1 y P2 (#18)
+
+Challenger, mlflow.source.git.commit: ddedf4beb63e99bdd96deeb6886d33348afa2041
+ddedf4beb63e99bdd96deeb6886d33348afa2041
+zzJLMM <A01732182@tec.mx>
+Sun Nov 15 06:57:09 2026 -0800
+Merge pull request #33 from A01797899/feature/week9-challenger-JLMM
+
+Challenger, tag registration_commit: ddedf4beb63e99bdd96deeb6886d33348afa2041
+ddedf4beb63e99bdd96deeb6886d33348afa2041
+zzJLMM <A01732182@tec.mx>
+Sun Nov 15 06:57:09 2026 -0800
+Merge pull request #33 from A01797899/feature/week9-challenger-JLMM
+
+Linaje exportado: /home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/reports/week11/evidence/registry/03_model_lineage.json
+
+LINAJE VALIDADO

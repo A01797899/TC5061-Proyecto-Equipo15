@@ -1,0 +1,33 @@
+======================================================================
+COMPARACION DE ESTADO ANTES Y DESPUES
+======================================================================
+Snapshot inicial: 2026-11-26T20:55:18.609026+00:00
+Snapshot final:   2026-11-26T21:04:08.784878+00:00
+
+Alias: champion
+Version inicial: 1 | Version final: 1
+Run ID inicial:  6e3429f222a0407aa159dd9f46699365
+Run ID final:    6e3429f222a0407aa159dd9f46699365
+Resultado: SIN CAMBIOS
+
+Alias: challenger
+Version inicial: 2 | Version final: 2
+Run ID inicial:  7074129578d045418cbed0691330d1a7
+Run ID final:    7074129578d045418cbed0691330d1a7
+Resultado: SIN CAMBIOS
+
+INVENTARIO DE VERSIONES (antes -> despues)
+
+Modelo: mibici-equipo15-p1-demanda | aliases: {'challenger': '2', 'champion': '1'}
+   1 READY 6e3429f222a0407aa159dd9f46699365 ['champion']
+   2 READY 7074129578d045418cbed0691330d1a7 ['challenger']
+
+Modelo: mibici-equipo15-p2-riesgo | aliases: {'champion': '1'}
+   1 READY d794555acb0c498987d17fd61c0ae531 ['champion']
+
+Modelo: mibici-equipo15-p3-grupos | aliases: {'champion': '1'}
+   1 READY 27f5684907f64610a4d3718d1178421d ['champion']
+
+Total de versiones: 4 | Total de alias: 4
+
+REGISTRY CONSERVADO CORRECTAMENTE

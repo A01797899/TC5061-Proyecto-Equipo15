@@ -1,0 +1,84 @@
+==========================================================================================
+FIRMAS DE LOS TRES CHAMPION
+==========================================================================================
+
+Pregunta: P1
+Modelo: mibici-equipo15-p1-demanda
+Version: 1
+Run ID: 6e3429f222a0407aa159dd9f46699365
+Source: models:/m-04774b8f25ff468b933a18756c24b068
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 142.82it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 141.78it/s]
+Flavors: ['python_function', 'sklearn']
+Variables: 8
+Columnas: ['hour_of_day', 'weekday', 'fin_semana', 'salidas_lag_1h', 'salidas_lag_24h', 'salidas_lag_168h', 'media_estacion', 'media_estacion_dia_hora']
+Firma: inputs: 
+  ['hour_of_day': double (required), 'weekday': double (required), 'fin_semana': double (required), 'salidas_lag_1h': double (required), 'salidas_lag_24h': double (required), 'salidas_lag_168h': double (required), 'media_estacion': double (required), 'media_estacion_dia_hora': double (required)]
+outputs: 
+  [Tensor('float64', (-1,))]
+params: 
+  None
+
+Firma P1 confirmada: 8 entradas (esperado 8)
+
+Pregunta: P2
+Modelo: mibici-equipo15-p2-riesgo
+Version: 1
+Run ID: d794555acb0c498987d17fd61c0ae531
+Source: models:/m-165c943b3eec4915aabc8e801feb9979
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]
+Firma: NO DISPONIBLE EN LA COPIA. No se encontró MLmodel para models:/m-165c943b3eec4915aabc8e801feb9979
+Error: MlflowException - The following failures occurred while downloading one or more artifacts from http://127.0.0.1:5052/api/2.0/mlflow-artifacts/artifacts/1/models/m-165c943b3eec4915aabc8e801feb9979/artifacts:
+
+Pregunta: P3
+Modelo: mibici-equipo15-p3-grupos
+Version: 1
+Run ID: 27f5684907f64610a4d3718d1178421d
+Source: models:/m-041658517cae46178fa30b582bd44b22
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]
+Firma: NO DISPONIBLE EN LA COPIA. No se encontró MLmodel para models:/m-041658517cae46178fa30b582bd44b22
+Error: MlflowException - The following failures occurred while downloading one or more artifacts from http://127.0.0.1:5052/api/2.0/mlflow-artifacts/artifacts/1/models/m-041658517cae46178fa30b582bd44b22/artifacts:
+
+RESUMEN DE FIRMAS CHAMPION
+  P1: esperado 8 | CONFIRMADA
+  P2: esperado 15 | NO CONFIRMADA en la copia (sin artefactos del logged model)
+  P3: esperado 49 | NO CONFIRMADA en la copia (sin artefactos del logged model)
+
+==========================================================================================
+CONTRATO CHAMPION VS CHALLENGER (P1)
+==========================================================================================
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 376.61it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 366.22it/s]
+
+Alias: champion
+Version: 1
+Flavors: ['python_function', 'sklearn']
+Entradas:
+  1. hour_of_day: double (required=True)
+  2. weekday: double (required=True)
+  3. fin_semana: double (required=True)
+  4. salidas_lag_1h: double (required=True)
+  5. salidas_lag_24h: double (required=True)
+  6. salidas_lag_168h: double (required=True)
+  7. media_estacion: double (required=True)
+  8. media_estacion_dia_hora: double (required=True)
+Salida: [Tensor('float64', (-1,))]
+Params: None
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 461.37it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 446.87it/s]
+
+Alias: challenger
+Version: 2
+Flavors: ['python_function', 'sklearn']
+Entradas:
+  1. hour_of_day: double (required=True)
+  2. weekday: double (required=True)
+  3. fin_semana: double (required=True)
+  4. salidas_lag_1h: double (required=True)
+  5. salidas_lag_24h: double (required=True)
+  6. salidas_lag_168h: double (required=True)
+  7. media_estacion: double (required=True)
+  8. media_estacion_dia_hora: double (required=True)
+Salida: [Tensor('float64', (-1,))]
+Params: None
+
+P1_FEATURES: ('hour_of_day', 'weekday', 'fin_semana', 'salidas_lag_1h', 'salidas_lag_24h', 'salidas_lag_168h', 'media_estacion', 'media_estacion_dia_hora')
+
+CONTRATOS CHAMPION Y CHALLENGER COMPATIBLES

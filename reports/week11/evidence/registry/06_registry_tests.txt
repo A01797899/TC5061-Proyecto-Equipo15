@@ -1,0 +1,60 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.7.0 -- /home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis
+configfile: pyproject.toml
+plugins: anyio-4.16.0, platformdirs-4.14.8, Faker-40.63.0
+collecting ... collected 43 items
+
+tests/test_registry.py::test_registered_model_names PASSED               [  2%]
+tests/test_registry.py::test_champion_alias PASSED                       [  4%]
+tests/test_registry.py::test_register_model_invalid_question PASSED      [  6%]
+tests/test_registry.py::test_register_model_empty_uri PASSED             [  9%]
+tests/test_registry.py::test_register_model_p1 PASSED                    [ 11%]
+tests/test_registry.py::test_promote_p1_to_champion PASSED               [ 13%]
+tests/test_registry.py::test_promote_all_questions[p1] PASSED            [ 16%]
+tests/test_registry.py::test_promote_all_questions[p2] PASSED            [ 18%]
+tests/test_registry.py::test_promote_all_questions[p3] PASSED            [ 20%]
+tests/test_registry.py::test_promote_invalid_question PASSED             [ 23%]
+tests/test_registry.py::test_register_does_not_assign_champion PASSED    [ 25%]
+tests/test_registry.py::test_load_champion_p1 PASSED                     [ 27%]
+tests/test_week8_registry.py::test_week8_model_name PASSED               [ 30%]
+tests/test_week8_registry.py::test_week8_model_alias PASSED              [ 32%]
+tests/test_week8_registry.py::test_week8_load_champion PASSED            [ 34%]
+tests/test_week8_registry.py::test_week8_invalid_question PASSED         [ 37%]
+tests/test_week8_registry.py::test_week8_model_load_failure PASSED       [ 39%]
+tests/test_model_service.py::test_instancia_sin_argumentos_no_carga PASSED [ 41%]
+tests/test_model_service.py::test_carga_resuelve_alias_y_version PASSED  [ 44%]
+tests/test_model_service.py::test_registry_no_disponible PASSED          [ 46%]
+tests/test_model_service.py::test_modelo_sin_firma PASSED                [ 48%]
+tests/test_model_service.py::test_prediccion_valida PASSED               [ 51%]
+tests/test_model_service.py::test_dataframe_en_orden_y_float64 PASSED    [ 53%]
+tests/test_model_service.py::test_varios_registros PASSED                [ 55%]
+tests/test_model_service.py::test_recorta_negativos_a_cero PASSED        [ 58%]
+tests/test_model_service.py::test_salida_tipos_python PASSED             [ 60%]
+tests/test_model_service.py::test_sin_modelo_cargado PASSED              [ 62%]
+tests/test_model_service.py::test_lista_vacia PASSED                     [ 65%]
+tests/test_model_service.py::test_registro_no_es_objeto PASSED           [ 67%]
+tests/test_model_service.py::test_columna_faltante PASSED                [ 69%]
+tests/test_model_service.py::test_columna_extra PASSED                   [ 72%]
+tests/test_model_service.py::test_valor_no_numerico[8] PASSED            [ 74%]
+tests/test_model_service.py::test_valor_no_numerico[None] PASSED         [ 76%]
+tests/test_model_service.py::test_valor_no_numerico[True] PASSED         [ 79%]
+tests/test_model_service.py::test_valor_no_numerico[value3] PASSED       [ 81%]
+tests/test_model_service.py::test_valor_no_finito[nan] PASSED            [ 83%]
+tests/test_model_service.py::test_valor_no_finito[inf] PASSED            [ 86%]
+tests/test_model_service.py::test_valor_no_finito[-inf] PASSED           [ 88%]
+tests/test_model_service.py::test_falla_del_modelo_conserva_causa PASSED [ 90%]
+tests/test_model_service.py::test_cantidad_de_predicciones PASSED        [ 93%]
+tests/test_model_service.py::test_salida_no_finita PASSED                [ 95%]
+tests/test_model_service.py::test_excepciones_compatibles_con_main PASSED [ 97%]
+tests/test_model_service.py::test_registry_local_con_modelo_real PASSED  [100%]
+
+=============================== warnings summary ===============================
+tests/test_model_service.py::test_registry_local_con_modelo_real
+  /home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/store/tracking/utils/sql_trace_metrics_utils.py:155: SADeprecationWarning: The ``noload`` loader strategy is deprecated and will be removed in a future release.  This option produces incorrect results by returning ``None`` for related items. (deprecated since: 2.1) (This warning originated from the `configure_mappers()` process, which was invoked automatically in response to a user-initiated operation.)
+    _SESSION_TRACE_METADATA = aliased(SqlTraceMetadata)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/reports/week11/evidence/registry/pytest_registry.xml -
+======================== 43 passed, 1 warning in 5.83s =========================

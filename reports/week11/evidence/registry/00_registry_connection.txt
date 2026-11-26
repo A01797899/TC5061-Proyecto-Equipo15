@@ -1,0 +1,27 @@
+Tracking URI: http://127.0.0.1:5052
+Experimentos: [('1', 'mibici-equipo15'), ('0', 'Default')]
+
+MODELOS REGISTRADOS
+  mibici-equipo15-p1-demanda | aliases: {'challenger': '2', 'champion': '1'}
+  mibici-equipo15-p2-riesgo | aliases: {'champion': '1'}
+  mibici-equipo15-p3-grupos | aliases: {'champion': '1'}
+
+ALIAS -> VERSION
+  mibici-equipo15-p1-demanda@champion: v1 READY run=6e3429f222a0407aa159dd9f46699365 source=models:/m-04774b8f25ff468b933a18756c24b068
+  mibici-equipo15-p1-demanda@challenger: v2 READY run=7074129578d045418cbed0691330d1a7 source=models:/m-ea1a3789403948d08f509f0a562419e5
+  mibici-equipo15-p2-riesgo@champion: v1 READY run=d794555acb0c498987d17fd61c0ae531 source=models:/m-165c943b3eec4915aabc8e801feb9979
+  mibici-equipo15-p3-grupos@champion: v1 READY run=27f5684907f64610a4d3718d1178421d source=models:/m-041658517cae46178fa30b582bd44b22
+
+FIRMA CHAMPION P1
+Downloading artifacts:   0%|          | 0/1 [00:00<?, ?it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 101.21it/s]Downloading artifacts: 100%|██████████| 1/1 [00:00<00:00, 100.74it/s]
+  run: 6e3429f222a0407aa159dd9f46699365
+  flavors: ['python_function', 'sklearn']
+  inputs: 
+  ['hour_of_day': double (required), 'weekday': double (required), 'fin_semana': double (required), 'salidas_lag_1h': double (required), 'salidas_lag_24h': double (required), 'salidas_lag_168h': double (required), 'media_estacion': double (required), 'media_estacion_dia_hora': double (required)]
+outputs: 
+  [Tensor('float64', (-1,))]
+params: 
+  None
+
+
+ALIASES Y VERSIONES VALIDADOS

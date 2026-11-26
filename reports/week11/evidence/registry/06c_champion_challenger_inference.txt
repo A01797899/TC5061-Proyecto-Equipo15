@@ -1,0 +1,21 @@
+Registro de prueba del contrato P1: {'hour_of_day': 8, 'weekday': 2, 'fin_semana': 0, 'salidas_lag_1h': 3, 'salidas_lag_24h': 4, 'salidas_lag_168h': 5, 'media_estacion': 2.1, 'media_estacion_dia_hora': 3.4}
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 132.47it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 222.21it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 272.74it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 348.76it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 382.03it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 456.08it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 322.43it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 321.10it/s]
+
+Alias: champion
+Version: 1
+Run ID: 6e3429f222a0407aa159dd9f46699365
+URI: models:/mibici-equipo15-p1-demanda/1
+Prediccion: np.float64(3.694163560787005)
+Coincide con la referencia 3.69416356 (atol 1e-6)
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 199.64it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 311.58it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 450.00it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 391.69it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 372.31it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 436.46it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 420.80it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 417.97it/s]
+
+Alias: challenger
+Version: 2
+Run ID: 7074129578d045418cbed0691330d1a7
+URI: models:/mibici-equipo15-p1-demanda/2
+Prediccion: np.float64(3.962376668317585)
+
+Diferencia challenger - champion: 0.26821310753058025
+Esta prueba es funcional (ambos cargan e infieren); no elige un ganador.
+
+INFERENCIA DE AMBOS MODELOS COMPLETADA

@@ -1,0 +1,18 @@
+Tracking URI: http://127.0.0.1:5052
+Cargando mibici-equipo15-p1-demanda@champion...
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 165.26it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 253.14it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 298.07it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 335.11it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 406.68it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 472.12it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 538.80it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 537.15it/s]
+Modelo cargado: True
+Versión: 1
+Model URI: models:/mibici-equipo15-p1-demanda/1
+Run ID: 6e3429f222a0407aa159dd9f46699365
+Columnas de la firma: ['hour_of_day', 'weekday', 'fin_semana', 'salidas_lag_1h', 'salidas_lag_24h', 'salidas_lag_168h', 'media_estacion', 'media_estacion_dia_hora']
+
+Entrada (enteros, como llegarían en JSON): {'hour_of_day': 8, 'weekday': 2, 'fin_semana': 0, 'salidas_lag_1h': 3, 'salidas_lag_24h': 4, 'salidas_lag_168h': 5, 'media_estacion': 2.1, 'media_estacion_dia_hora': 3.4}
+Predicción: [3.694163560787005]
+Segunda ejecución: [3.694163560787005]
+Coincide con el contrato del Registry: 3.69416356
+
+Lote de 3 registros (8 h, 18 h, 3 h): [3.694163560787005, 3.5332597213752526, 3.78948414909114]
+Registro incompleto rechazado: Faltan columnas en el registro 0: ['weekday']
+
+INFERENCIA PYFUNC COMPLETADA

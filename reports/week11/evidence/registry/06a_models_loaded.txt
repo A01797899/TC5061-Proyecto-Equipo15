@@ -1,0 +1,66 @@
+$ python -m mibici.modeling.validate_registry --question p1
+Question: p1
+Registered model: mibici-equipo15-p1-demanda
+Version: 1
+Source run: 6e3429f222a0407aa159dd9f46699365
+Model URI: models:/mibici-equipo15-p1-demanda@champion
+Downloading artifacts:   0%|          | 0/7 [00:00<?, ?it/s]Downloading artifacts:  14%|█▍        | 1/7 [00:00<00:00, 186.60it/s]Downloading artifacts:  29%|██▊       | 2/7 [00:00<00:00, 245.34it/s]Downloading artifacts:  43%|████▎     | 3/7 [00:00<00:00, 297.02it/s]Downloading artifacts:  57%|█████▋    | 4/7 [00:00<00:00, 346.88it/s]Downloading artifacts:  71%|███████▏  | 5/7 [00:00<00:00, 430.79it/s]Downloading artifacts:  86%|████████▌ | 6/7 [00:00<00:00, 491.12it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 471.86it/s]Downloading artifacts: 100%|██████████| 7/7 [00:00<00:00, 468.49it/s]
+Model loaded successfully
+Exit code: 0
+
+$ python -m mibici.modeling.validate_registry --question p2
+2026/11/26 12:57:46 INFO mlflow.store.artifact.artifact_repo: No artifacts found to download at http://127.0.0.1:5052/api/2.0/mlflow-artifacts/artifacts/1/models/m-165c943b3eec4915aabc8e801feb9979/artifacts. Returning destination path.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/mibici/modeling/validate_registry.py", line 68, in <module>
+    main()
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/mibici/modeling/validate_registry.py", line 64, in main
+    validate_registered_model(args.question)
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/mibici/modeling/validate_registry.py", line 46, in validate_registered_model
+    model = model_loader(model_uri)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/tracing/provider.py", line 1059, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/pyfunc/__init__.py", line 1140, in load_model
+    model_meta = Model.load(os.path.join(local_path, MLMODEL_FILE_NAME))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/models/model.py", line 809, in load
+    raise MlflowException(
+mlflow.exceptions.MlflowException: Could not find an "MLmodel" configuration file at "/tmp/tmp9fdswdfp/MLmodel"
+Question: p2
+Registered model: mibici-equipo15-p2-riesgo
+Version: 1
+Source run: d794555acb0c498987d17fd61c0ae531
+Model URI: models:/mibici-equipo15-p2-riesgo@champion
+Exit code: 1
+
+$ python -m mibici.modeling.validate_registry --question p3
+2026/11/26 12:57:47 INFO mlflow.store.artifact.artifact_repo: No artifacts found to download at http://127.0.0.1:5052/api/2.0/mlflow-artifacts/artifacts/1/models/m-041658517cae46178fa30b582bd44b22/artifacts. Returning destination path.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/mibici/modeling/validate_registry.py", line 68, in <module>
+    main()
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/mibici/modeling/validate_registry.py", line 64, in main
+    validate_registered_model(args.question)
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/mibici/modeling/validate_registry.py", line 46, in validate_registered_model
+    model = model_loader(model_uri)
+            ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/tracing/provider.py", line 1059, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/pyfunc/__init__.py", line 1140, in load_model
+    model_meta = Model.load(os.path.join(local_path, MLMODEL_FILE_NAME))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zz_jlmm/Projects/TC5061-Proyecto-Equipo15-Week11-JoseLuis/.venv/lib/python3.12/site-packages/mlflow/models/model.py", line 809, in load
+    raise MlflowException(
+mlflow.exceptions.MlflowException: Could not find an "MLmodel" configuration file at "/tmp/tmpbgihr7v9/MLmodel"
+Question: p3
+Registered model: mibici-equipo15-p3-grupos
+Version: 1
+Source run: 27f5684907f64610a4d3718d1178421d
+Model URI: models:/mibici-equipo15-p3-grupos@champion
+Exit code: 1
+
