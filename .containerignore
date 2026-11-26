@@ -31,3 +31,9 @@ __pycache__/
 
 # Semana 10: datos de MLflow montados como volumen, no van en la imagen
 runtime/
+
+# Entorno local de pruebas de carga
+.venv-locust/
+
+# Otros entornos virtuales locales de Python
+.venv-*/
